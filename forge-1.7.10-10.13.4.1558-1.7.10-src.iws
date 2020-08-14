@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+    <option name="REVERSE_PATCH" value="false" />
+  </component>
+  <component name="DebuggerManager">
+    <breakpoint_any converted="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules converted="true" />
+    <ui_properties converted="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ModuleEditorState">
+    <option name="LAST_EDITED_MODULE_NAME" />
+    <option name="LAST_EDITED_TAB_NAME" />
+  </component>
+  <component name="ProjectId" id="1dGmHz0hMntrz54rYqzUzyd1Yec" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state />
+    </entry>
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/assets/testmod/textures/items" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="show.unlinked.gradle.project.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\lang" />
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\blocks" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.malatindez.testmod" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\testmod\textures\items" />
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\items" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Minecraft Client">
+    <configuration default="true" factoryName="Applet" type="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option enabled="false" name="BuildArtifacts" />
+        <option enabled="true" name="Make" />
+      </method>
+    </configuration>
+    <configuration default="true" name="&lt;template&gt;" selected="false" type="WebApp">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+    <configuration name="Minecraft Client" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <module name="thaumicextensions" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M -Dfml.coreMods.load=gloomyfolken.hooklib.example.ExampleHookLoader" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/eclipse" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../forge-1.7.10-10.13.4.1558-1.7.10-src\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="forge-1.7.10-10.13.4.1558-1.7.10-src" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration name="Minecraft Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <module name="thaumicextensions" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../forge-1.7.10-10.13.4.1558-1.7.10-src\eclipse" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../forge-1.7.10-10.13.4.1558-1.7.10-src\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="forge-1.7.10-10.13.4.1558-1.7.10-src" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <option name="AUTO_RESTART" value="false" />
+      <method v="2">
+        <option name="BuildArtifacts" enabled="false" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Minecraft Client" />
+      <item itemvalue="Application.Minecraft Server" />
+    </list>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="" />
+      <created>1592059726144</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1592059726144</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="114" key="#Project_Structure" timestamp="1593539682887">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="440" y="114" key="#Project_Structure/0.0.1920.1080@0.0.1920.1080" timestamp="1593539682887" />
+    <state x="414" y="194" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597147204858">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="414" y="194" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597147204858" />
+    <state x="712" y="341" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597070490771">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="712" y="341" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597070490771" />
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1597182178002">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597182178002" />
+    <state x="640" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596996060437">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="640" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1596996060437" />
+    <state x="497" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1597141604923">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="497" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597141604923" />
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1592073130664">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1592073130664" />
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1592061013814">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="0" y="0" key="FileDocumentManager.FileCacheConflict/0.0.1920.1080@0.0.1920.1080" timestamp="1592061013814" />
+    <state width="1877" height="363" key="GridCell.Tab.0.bottom" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="291" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
+    <state width="1877" height="363" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state width="1877" height="363" key="GridCell.Tab.0.center" timestamp="1597233477355">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="291" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
+    <state width="1877" height="363" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477355" />
+    <state width="1877" height="363" key="GridCell.Tab.0.left" timestamp="1597233477355">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="291" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
+    <state width="1877" height="363" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477355" />
+    <state width="1877" height="363" key="GridCell.Tab.0.right" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="291" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
+    <state width="1877" height="363" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state width="1877" height="363" key="GridCell.Tab.1.bottom" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state width="1877" height="363" key="GridCell.Tab.1.center" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state width="1877" height="363" key="GridCell.Tab.1.left" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state width="1877" height="363" key="GridCell.Tab.1.right" timestamp="1597233477356">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="363" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
+    <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597348369966">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1592067166326" />
+    <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597348369966" />
+    <state x="2873" y="0" width="974" height="1087" key="dock-window-1" timestamp="1597071055160">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2873" y="0" width="974" height="1087" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597071055160" />
+    <state x="1913" y="0" width="974" height="1087" key="dock-window-2" timestamp="1597075959064">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1913" y="0" width="974" height="1087" key="dock-window-2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597075959064" />
+    <state x="616" y="250" key="run.anything.popup" timestamp="1597375112380">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1592065048839" />
+    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597375112380" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1597093651305">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1592141396841" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597093651305" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/misc/AnimatedAspect.java</url>
+          <line>51</line>
+          <properties class="com.malatindez.thaumicextensions.common.misc.AnimatedAspect" method="getImage">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
