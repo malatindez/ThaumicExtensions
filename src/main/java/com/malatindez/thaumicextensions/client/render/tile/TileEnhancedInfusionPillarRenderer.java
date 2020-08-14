@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions.client.render.tile;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import com.malatindez.thaumicextensions.common.tiles.TileEnhancedInfusionPillar;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -41,7 +42,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
         GL11.glPopMatrix();
     }
 
-    public void RenderBall(float x, float y, float z) {
+    public void renderBall(float x, float y, float z) {
         GL11.glPushMatrix();
         GL11.glTranslatef(x, y, z);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -49,7 +50,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
         this.ball2.renderAll();
         GL11.glPopMatrix();
     }
-    public void RenderFirstTier(TileEnhancedInfusionPillar tile, float x, float y, float z, float o) {
+    public void renderFirstTier(TileEnhancedInfusionPillar tile, float x, float y, float z, float o) {
         this.renderModel(this.PILLAR1_PART1, tile.orientation,
                 "models/pillars/pillar1_1.png",
                 x + 0.5f,
@@ -71,22 +72,16 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
             xOffset = 0.375f;
             zOffset = 0.375f;
         }
-        RenderBall(x + xOffset,
+        renderBall(x + xOffset,
                    y + 2.7f + 0.15f * sin((o+0.2f)/30.0f), // 30s rendering delay
                    z + zOffset);
     }
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
         float o = (tick + tile.offset) * (float)Math.PI/10.0f;
         // tick mod 20 -> [0, 2pi]
-
-        this.renderModel(this.PILLAR1_PART2, tile.orientation,
-                "models/pillars/pillar1_2.png",
-                (float)x + 0.5f,
-                (float)y + 2.2f + 0.1f * cos((o+0.1f)/15.0f), // 15s rendering delay
-                (float)z + 0.5f);
         switch(tile.tier) {
             case 0:
-                //RenderFirstTier(tile,(float)x,(float)y,(float)z,o);
+                renderFirstTier(tile,(float)x,(float)y,(float)z,o);
         }
 
 

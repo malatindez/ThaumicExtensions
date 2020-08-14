@@ -30,14 +30,7 @@ public class BlockEnhancedInfusionPillar extends BlockContainer {
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
-        par3List.add(new ItemStack(par1, 1, 0));
-        par3List.add(new ItemStack(par1, 1, 1));
-        par3List.add(new ItemStack(par1, 1, 2));
-        par3List.add(new ItemStack(par1, 1, 3));
-        par3List.add(new ItemStack(par1, 1, 4));
-        par3List.add(new ItemStack(par1, 1, 5));
-    }
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) { }
 
 
     public int getRenderType() {

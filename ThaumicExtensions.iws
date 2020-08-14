@@ -20,11 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/forge-1.7.10-10.13.4.1558-1.7.10-changelog.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/forge-1.7.10-10.13.4.1558-1.7.10-src.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/forge-1.7.10-10.13.4.1558-1.7.10-src.iws" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
