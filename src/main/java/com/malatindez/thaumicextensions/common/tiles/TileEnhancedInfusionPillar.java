@@ -30,7 +30,7 @@ public class TileEnhancedInfusionPillar extends TileThaumcraft {
 
     public void readCustomNBT(NBTTagCompound nbttagcompound) {
         this.orientation = nbttagcompound.getByte("orientation");
-        this.orientation = nbttagcompound.getByte("tier");
+        this.tier = nbttagcompound.getByte("tier");
     }
 
     public void writeCustomNBT(NBTTagCompound nbttagcompound) {
