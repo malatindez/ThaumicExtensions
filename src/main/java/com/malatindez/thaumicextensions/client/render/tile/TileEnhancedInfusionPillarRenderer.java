@@ -19,14 +19,14 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
     private static final AdvancedModelRenderer[] models = new AdvancedModelRenderer[] {
             new AdvancedModelRenderer(
                     new ResourceLocation(ThaumicExtensions.MODID, "models/pillars/Pillar1.obj"),
-                    new AdvancedModelRenderer.BoundTexture[] {
-                            new AdvancedModelRenderer.BoundTexture(
+                    new AdvancedModelRenderer.Part[] {
+                            new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_1.png", "base"),
-                            new AdvancedModelRenderer.BoundTexture(
+                            new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_2.png", "floating_part"),
-                            new AdvancedModelRenderer.BoundTexture(
+                            new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal"),
-                            new AdvancedModelRenderer.BoundTexture(
+                            new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1"),
                     },
                     new Animation[] {
@@ -54,9 +54,8 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
     };
 
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
-        double time2pi = (((double)System.currentTimeMillis())+tile.offset) / 1000 * Math.PI * 2;
         // lambda = 2pi = 1 second
-        models[tile.tier].RenderAll((float)x,(float)y,(float)z, time2pi);
+        models[tile.tier].RenderAll((float)x,(float)y,(float)z);
     }
 
     public void renderTileEntityAt(TileEntity par1TileEntity, double par2, double par4, double par6, float par8) {
