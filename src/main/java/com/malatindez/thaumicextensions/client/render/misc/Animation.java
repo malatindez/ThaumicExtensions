@@ -55,8 +55,8 @@ public class Animation {
     }
 
     protected SimpleAnimation rotationAroundCenter = null;
-    protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<>();
-    protected ArrayList<SimpleAnimation> waves = new ArrayList<>();
+    protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
+    protected ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
     public Animation(SimpleAnimation[] animations) {
         if (animations == null) {
             return;
