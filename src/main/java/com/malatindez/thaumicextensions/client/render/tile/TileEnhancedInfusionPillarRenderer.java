@@ -28,9 +28,9 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                             new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_2.png", "floating_part"),
                             new AdvancedModelRenderer.Part(
-                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal", true),
                             new AdvancedModelRenderer.Part(
-                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1", true)
                     },
                     new Animation[] {
                             new Animation(null),
@@ -41,7 +41,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                              ),
                             new Animation(
                                     new Animation.SimpleAnimation[] {
-                                               Animation.Wave(0.05f, 10.0f, Animation.Axis.y),
+                                            Animation.Wave(0.05f, 10.0f, Animation.Axis.y),
                                             Animation.RotateAroundItself(30.0f, Animation.Axis.y)
                                     }
                             ),
