@@ -106,20 +106,22 @@ public class Animation {
     }
     
 
-    void PushMatrix(float x, float y, float z, double time2pi) {
+    void PushMatrix(float x, float y, float z) {
+        PushMatrix(x,y,z,0,0,0);
+    }
+    void PushMatrix(float x, float y, float z, float degreeX, float degreeY, float degreeZ) {
+        double time = (((double)System.currentTimeMillis())) / 1000;
         x += 0.5f; //
         z += 0.5f; // Move model to the center of a block
         GL11.glPushMatrix();
         for(SimpleAnimation wave : waves) {
-            float a = (float)sin((time2pi + wave.noise) / wave.speed) * wave.offset;
+            float a = (float)sin((time*2*Math.PI + wave.noise) / wave.speed) * wave.offset;
             if(wave.axis == Axis.x) { x += a; }
             else if(wave.axis == Axis.y) { y += a; }
             else if(wave.axis == Axis.z) { z += a; }
         }
-
-        double m = (time2pi) / Math.PI / 2;
         if(rotationAroundCenter != null) {
-            double n =  m + rotationAroundCenter.noise;
+            double n =  time + rotationAroundCenter.noise;
             float a = (float) ((n * rotationAroundCenter.speed)  % 360.0);
             float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
             float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
@@ -135,10 +137,14 @@ public class Animation {
             GL11.glTranslatef(x, y, z);
         }
         for(SimpleAnimation rotationAroundItself : rotationsAroundItself) {
-            float a = (float)((m + rotationAroundItself.noise) * rotationAroundItself.speed % 360.0);
+            float a = (float)((time + rotationAroundItself.noise) * rotationAroundItself.speed % 360.0);
             if (rotationAroundItself.axis == Axis.x)      { GL11.glRotatef(a ,1,0,0); }
             else if (rotationAroundItself.axis == Axis.y) { GL11.glRotatef(a ,0,1,0); }
             else if (rotationAroundItself.axis == Axis.z) { GL11.glRotatef(a ,0,0,1); }
         }
+        GL11.glRotatef(degreeX,1,0,0);
+        GL11.glRotatef(degreeY,0,1,0);
+        GL11.glRotatef(degreeZ,0,0,1);
     }
+
 }
