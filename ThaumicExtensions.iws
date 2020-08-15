@@ -19,11 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="Enhanced infusion pillar render update">
+    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="obj update">
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.iws" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/AdvancedModelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/AdvancedModelRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/EnhancedInfusionPillarRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +315,77 @@
       <option name="project" value="LOCAL" />
       <updated>1597477330600</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update ThaumicExtensions.iws">
+      <created>1597477373947</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477373947</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Delete EnhancedInfusionPillarRenderer.java">
+      <created>1597477401411</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477401411</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Animation update, fix access modifiers">
+      <created>1597477449682</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477449682</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Fix type typo">
+      <created>1597477471862</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477471862</updated>
+    </task>
+    <task id="LOCAL-00014" summary="delete useless files">
+      <created>1597480659635</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1597480659635</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Diamond operator isn't supported in 1.6 version">
+      <created>1597480833018</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1597480833018</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Model path fix">
+      <created>1597480877884</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1597480877884</updated>
+    </task>
+    <task id="LOCAL-00017" summary="create Pillar1.obj">
+      <created>1597480897450</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1597480897450</updated>
+    </task>
+    <task id="LOCAL-00018" summary="crash fix">
+      <created>1597480918035</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1597480918035</updated>
+    </task>
+    <task id="LOCAL-00019" summary="obj update">
+      <created>1597483434931</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1597483434931</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -337,7 +409,17 @@
     <MESSAGE value="Animation class update" />
     <MESSAGE value="IDEA files update" />
     <MESSAGE value="Enhanced infusion pillar render update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhanced infusion pillar render update" />
+    <MESSAGE value="Update ThaumicExtensions.iws" />
+    <MESSAGE value="Delete EnhancedInfusionPillarRenderer.java" />
+    <MESSAGE value="Animation update, fix access modifiers" />
+    <MESSAGE value="Fix type typo" />
+    <MESSAGE value="delete useless files" />
+    <MESSAGE value="Diamond operator isn't supported in 1.6 version" />
+    <MESSAGE value="Model path fix" />
+    <MESSAGE value="create Pillar1.obj" />
+    <MESSAGE value="crash fix" />
+    <MESSAGE value="obj update" />
+    <option name="LAST_COMMIT_MESSAGE" value="obj update" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -410,19 +492,19 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="363" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state x="440" y="114" key="SettingsEditor" timestamp="1597428433970">
+    <state x="440" y="114" key="SettingsEditor" timestamp="1597478984140">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="440" y="114" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597428433970" />
+    <state x="440" y="114" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597478984140" />
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597414776627">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1592067166326" />
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597414776627" />
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597433293223">
+    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597477521524">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597433293223" />
+    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597477521524" />
     <state x="2539" y="-8" width="1487" height="688" maximized="true" key="dock-window-1" timestamp="1597477074436">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -431,11 +513,11 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="1913" y="0" width="974" height="1087" key="dock-window-2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597075959064" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1597433630258">
+    <state x="616" y="250" key="run.anything.popup" timestamp="1597491067050">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1592065048839" />
-    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597433630258" />
+    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597491067050" />
     <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1597447892083">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
