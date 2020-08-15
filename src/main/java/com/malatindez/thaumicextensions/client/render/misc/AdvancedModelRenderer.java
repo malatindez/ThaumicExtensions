@@ -39,7 +39,7 @@ public class AdvancedModelRenderer {
         this.model = AdvancedModelLoader.loadModel(model);
         this.animations = animations;
     }
-    public void RenderAll(float x, float y, float z, float time2pi) {
+    public void RenderAll(float x, float y, float z, double time2pi) {
         for(int i = 0; i < animations.length; i++) {
             animations[i].PushMatrix(x,y,z,time2pi);
             UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
@@ -49,7 +49,7 @@ public class AdvancedModelRenderer {
     public BoundTexture[] getParts() {
         return this.parts;
     }
-    public void RenderPart(float x, float y, float z, float time2pi, String name) {
+    public void RenderPart(float x, float y, float z, double time2pi, String name) {
         for (int i = 0; i < parts.length; i++) {
             if(parts[i].objRef.equals(name)) {
                 animations[i].PushMatrix(x,y,z,time2pi);
@@ -58,7 +58,7 @@ public class AdvancedModelRenderer {
             }
         }
     }
-    public void RenderOnly(float x, float y, float z, float time2pi, ArrayList<String> names) {
+    public void RenderOnly(float x, float y, float z, double time2pi, ArrayList<String> names) {
         for (int i = 0; i < parts.length; i++) {
             for (String name : names) {
                 if(parts[i].objRef.equals(name)) {
@@ -70,7 +70,7 @@ public class AdvancedModelRenderer {
             }
         }
     }
-    public void RenderOnly(float x, float y, float z, float time2pi, String... names) {
+    public void RenderOnly(float x, float y, float z, double time2pi, String... names) {
         RenderOnly(x, y, z, time2pi, new ArrayList<>(Arrays.asList(names)));
     }
 
