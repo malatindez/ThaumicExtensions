@@ -13,6 +13,53 @@ import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 @SideOnly(Side.CLIENT)
+/*
+ Language manifest:
+ Every variable assigned as double.
+ You can't define any functions.
+
+ You can't use functions as names of variables and you can't use AXIS_X, AXIS_Y, AXIS_Z as name of your variable.
+
+ You can use these math functions:
+ sin, cos, tan, ln
+
+ You can use these language-specific functions:
+
+ getTime() - get current time in seconds as double
+
+ getNoise*() - get constant noise, there's 10 constant noises.
+ You should replace * with number from 0 to 9
+
+ Next 3 functions can't be used more than one time for one object:
+
+ XXX.rotateAroundItself(degree, AXIS_X) - Rotate around itself at this axis to degree
+
+ XXX.rotateAroundCenter(degreeX, degreeY, degreeZ, radius) - move object from center at radius
+ And move object on these degrees from origin
+
+ XXX.transform(x,y,z) - move object to these coordinates from its current position
+
+ XXX you should replace with name of object in .obj file
+
+ GetValue(string) - you should replace string with value, you want to get.
+ You can assign value of this variable outside of Animation with Animation.setValue("additional_variable", 0.12843)
+
+ And most important part of this "language" - events:
+
+ Syntax:
+ EVENT name duration reverseDuration
+
+ ENDEVENT
+
+ name - name of the event, can be used outside of Animation to activate this event
+
+ duration - duration of this event, from beginning to end
+ reverseDuration - duration of this event, from end to begin
+
+ Example of an animation file:
+
+
+ */
 public class Animation {
     public enum Axis {
         x(0),
