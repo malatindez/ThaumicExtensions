@@ -19,12 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="Animation class update">
-      <change beforePath="$PROJECT_DIR$/ThaumicExtensions.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.ipr" afterDir="false" />
+    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="Enhanced infusion pillar render update">
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.iws" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/AdvancedModelRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/AdvancedModelRenderer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/EnhancedInfusionPillarRenderer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +285,35 @@
       <option name="project" value="LOCAL" />
       <updated>1597475405725</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Animation class update">
+      <created>1597475476565</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1597475476565</updated>
+    </task>
+    <task id="LOCAL-00007" summary="IDEA files update">
+      <created>1597475496709</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1597475496709</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Enhanced infusion pillar render update">
+      <created>1597477284697</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477284697</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Enhanced infusion pillar render update">
+      <created>1597477330600</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1597477330600</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,7 +335,9 @@
     <MESSAGE value="Animation update" />
     <MESSAGE value="Create AdvancedModelRenderer" />
     <MESSAGE value="Animation class update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Animation class update" />
+    <MESSAGE value="IDEA files update" />
+    <MESSAGE value="Enhanced infusion pillar render update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhanced infusion pillar render update" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -394,10 +423,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597433293223" />
-    <state x="2010" y="-24" width="1487" height="688" maximized="true" key="dock-window-1" timestamp="1597444646809">
+    <state x="2539" y="-8" width="1487" height="688" maximized="true" key="dock-window-1" timestamp="1597477074436">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2010" y="-24" width="1487" height="688" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597444646809" />
+    <state x="2539" y="-8" width="1487" height="688" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597477074436" />
     <state x="1913" y="0" width="974" height="1087" key="dock-window-2" timestamp="1597075959064">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
