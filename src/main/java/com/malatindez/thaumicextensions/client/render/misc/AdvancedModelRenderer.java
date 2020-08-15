@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
+import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,11 +42,10 @@ public class AdvancedModelRenderer {
     }
     public void RenderAll(float x, float y, float z, double time2pi) {
         for(int i = 0; i < animations.length; i++) {
-            if(animations[i] != null) {
-                animations[i].PushMatrix(x, y, z, time2pi);
-            }
+            animations[i].PushMatrix(x, y, z, time2pi);
             UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
             model.renderPart(parts[i].objRef);
+            GL11.glPopMatrix();
         }
     }
     public BoundTexture[] getParts() {
@@ -54,11 +54,10 @@ public class AdvancedModelRenderer {
     public void RenderPart(float x, float y, float z, double time2pi, String name) {
         for (int i = 0; i < parts.length; i++) {
             if(parts[i].objRef.equals(name)) {
-                if(animations[i] != null) {
-                    animations[i].PushMatrix(x, y, z, time2pi);
-                }
+                animations[i].PushMatrix(x, y, z, time2pi);
                 UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
                 model.renderPart(name);
+                GL11.glPopMatrix();
             }
         }
     }
@@ -66,11 +65,10 @@ public class AdvancedModelRenderer {
         for (int i = 0; i < parts.length; i++) {
             for (String name : names) {
                 if(parts[i].objRef.equals(name)) {
-                    if(animations[i] != null) {
-                        animations[i].PushMatrix(x, y, z, time2pi);
-                    }
+                    animations[i].PushMatrix(x, y, z, time2pi);
                     UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
                     model.renderPart(name);
+                    GL11.glPopMatrix();
                     names.remove(name);
                 }
             }
