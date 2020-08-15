@@ -12,7 +12,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 @SideOnly(Side.CLIENT)
 public class Animation {
-    enum Axis {
+    public enum Axis {
         x(0),
         y(1),
         z(2);
@@ -57,7 +57,10 @@ public class Animation {
     protected SimpleAnimation rotationAroundCenter = null;
     protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<>();
     protected ArrayList<SimpleAnimation> waves = new ArrayList<>();
-    Animation(ArrayList<SimpleAnimation> animations) {
+    public Animation(SimpleAnimation[] animations) {
+        if (animations == null) {
+            return;
+        }
         for (SimpleAnimation animation : animations) {
             switch(animation.type) {
                 case RotationAroundCenter:
@@ -86,17 +89,17 @@ public class Animation {
         }
     }
     // speed determined in degrees per second
-    public static SimpleAnimation RotateAroundCenterAtRadius(float speedX, float speedY, float speedZ, float radius) {
-        return new SimpleAnimation(speedX,speedY,speedZ,radius);
+    public static SimpleAnimation RotateAroundCenterAtRadius(float degreesPerSecondX, float degreesPerSecondY, float degreesPerSecondZ, float radius) {
+        return new SimpleAnimation(degreesPerSecondX,degreesPerSecondY,degreesPerSecondZ,radius);
     }
     // speed determined in degrees per second
-    public static SimpleAnimation RotateAroundItself(float speed, Axis axis) {
-        return new SimpleAnimation(speed,0,Type.RotationAroundItself,axis);
+    public static SimpleAnimation RotateAroundItself(float degreesPerSecond, Axis axis) {
+        return new SimpleAnimation(degreesPerSecond,0,Type.RotationAroundItself,axis);
     }
     // amplitude determined in meters, object will be going upside down on [-amplitude, +amplitude]
-    // speed determined in seconds, lambda time from -offset to +offset and backwards
-    public static SimpleAnimation Wave(float amplitude, float speed, Axis axis) {
-        return new SimpleAnimation(speed,amplitude,Type.Wave,axis);
+    // time determined in seconds, lambda time from -offset to +offset and backwards
+    public static SimpleAnimation Wave(float amplitude, float time, Axis axis) {
+        return new SimpleAnimation(time,amplitude,Type.Wave,axis);
     }
     
 
@@ -125,8 +128,13 @@ public class Animation {
             GL11.glRotatef(sx * 180.0f ,1,0,0);
             GL11.glRotatef(sy * 180.0f ,0,1,0);
             GL11.glRotatef(sz * 180.0f ,0,0,1);
+            GL11.glTranslatef(
+                    rotationAroundCenter.speed  == 0 ? -x : (-rotationAroundCenter.offset - x),
+                    rotationAroundCenter.speedY == 0 ? -y : (-rotationAroundCenter.offset - y),
+                    rotationAroundCenter.speedZ == 0 ? -z : (-rotationAroundCenter.offset - z));
         } else {
             GL11.glTranslatef(x, y, z);
         }
+        GL11.glPopMatrix();
     }
 }
