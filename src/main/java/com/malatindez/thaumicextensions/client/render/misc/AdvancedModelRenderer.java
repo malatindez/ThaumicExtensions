@@ -20,9 +20,9 @@ public class AdvancedModelRenderer {
     // Example of usage:
     // BoundTexture("thaumicextensions", "models/pillars/pillar1_1.png", "pillar_base")
     public static class BoundTexture {
-        String modID;
-        String pathToTexture;
-        String objRef;
+        public String modID;
+        public String pathToTexture;
+        public String objRef;
         public BoundTexture(String modID, String pathToTexture, String objRef) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
