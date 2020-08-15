@@ -18,7 +18,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
 
     private static final AdvancedModelRenderer[] models = new AdvancedModelRenderer[] {
             new AdvancedModelRenderer(
-                    new ResourceLocation(ThaumicExtensions.MODID, "Pillar1.obj"),
+                    new ResourceLocation(ThaumicExtensions.MODID, "models/pillars/Pillar1.obj"),
                     new AdvancedModelRenderer.BoundTexture[] {
                             new AdvancedModelRenderer.BoundTexture(
                                     ThaumicExtensions.MODID, "textures/model/pillar1_1.png", "base"),
@@ -27,7 +27,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                             new AdvancedModelRenderer.BoundTexture(
                                     ThaumicExtensions.MODID, "textures/model/pillar1_3.png", "crystal"),
                             new AdvancedModelRenderer.BoundTexture(
-                                    ThaumicExtensions.MODID, "textures/model/pillar1_4.png", "floating_crystals1"),
+                                    ThaumicExtensions.MODID, "textures/model/pillar1_4.png", "floating_crystal1"),
                     },
                     new Animation[] {
                             new Animation(null),
