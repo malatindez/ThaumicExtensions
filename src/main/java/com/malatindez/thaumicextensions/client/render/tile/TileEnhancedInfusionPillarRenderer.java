@@ -5,6 +5,8 @@ import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import com.malatindez.thaumicextensions.client.render.misc.AdvancedModelRenderer;
 import com.malatindez.thaumicextensions.client.render.misc.Animation;
 import com.malatindez.thaumicextensions.common.tiles.TileEnhancedInfusionPillar;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 
+@SideOnly(Side.CLIENT)
 public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRenderer {
 
     private static final AdvancedModelRenderer[] models = new AdvancedModelRenderer[] {
