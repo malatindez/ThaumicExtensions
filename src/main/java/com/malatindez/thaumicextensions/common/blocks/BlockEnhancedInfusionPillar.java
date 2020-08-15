@@ -30,7 +30,9 @@ public class BlockEnhancedInfusionPillar extends BlockContainer {
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) { }
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        par3List.add(new ItemStack(par1, 1, 0));
+    }
 
 
     public int getRenderType() {
@@ -46,7 +48,7 @@ public class BlockEnhancedInfusionPillar extends BlockContainer {
     }
 
     public TileEntity createTileEntity(World world, int metadata) {
-        return (TileEntity)new TileEnhancedInfusionPillar();
+        return new TileEnhancedInfusionPillar();
     }
     public TileEntity createNewTileEntity(World var1, int md) {
         return null;
