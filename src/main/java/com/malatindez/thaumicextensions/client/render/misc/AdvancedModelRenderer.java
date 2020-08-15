@@ -38,6 +38,7 @@ public class AdvancedModelRenderer {
             throw new IllegalArgumentException("Lengths isn't equal!");
         }
         this.model = AdvancedModelLoader.loadModel(model);
+        this.parts = parts;
         this.animations = animations;
     }
     public void RenderAll(float x, float y, float z, double time2pi) {
