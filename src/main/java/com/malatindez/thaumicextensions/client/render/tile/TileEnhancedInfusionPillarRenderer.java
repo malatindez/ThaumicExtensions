@@ -55,7 +55,8 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
 
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
         // lambda = 2pi = 1 second
-        models[tile.tier].RenderAll((float)x,(float)y,(float)z);
+
+        models[tile.tier].RenderAll((float)x,(float)y,(float)z,0,90 * tile.orientation,0);
     }
 
     public void renderTileEntityAt(TileEntity par1TileEntity, double par2, double par4, double par6, float par8) {

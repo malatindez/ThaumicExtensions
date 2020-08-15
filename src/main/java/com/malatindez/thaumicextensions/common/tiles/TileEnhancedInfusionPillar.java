@@ -16,7 +16,7 @@ public class TileEnhancedInfusionPillar extends TileThaumcraft {
 
     public TileEnhancedInfusionPillar() {
         offset = ThreadLocalRandom.current().nextFloat() * ThreadLocalRandom.current().nextInt(1000000);
-        this.orientation = (byte)ThreadLocalRandom.current().nextInt(2,6);
+        this.orientation = (byte)ThreadLocalRandom.current().nextInt(0,4);
     }
 
     public boolean canUpdate()  {

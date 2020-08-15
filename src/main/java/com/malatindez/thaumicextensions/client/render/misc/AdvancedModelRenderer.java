@@ -23,15 +23,18 @@ public class AdvancedModelRenderer {
         public String modID;
         public String pathToTexture;
         public String objRef;
-        public float x, y, z,
-                degreeX, degreeY, degreeZ;
+        public boolean hasAlphaChannel = false;
         public Part(String modID, String pathToTexture, String objRef) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
             this.objRef = objRef;
-            x = y = z = degreeX = degreeY = degreeZ = 0;
         }
-
+        public Part(String modID, String pathToTexture, String objRef, boolean hasAlphaChannel) {
+            this.modID = modID;
+            this.pathToTexture = pathToTexture;
+            this.objRef = objRef;
+            this.hasAlphaChannel = hasAlphaChannel;
+        }
     }
     protected IModelCustom   model;
     protected Animation[]    animations;
@@ -44,15 +47,9 @@ public class AdvancedModelRenderer {
         this.parts = parts;
         this.animations = animations;
     }
-    public void RenderAll(float x, float y, float z) {
+    public void RenderAll(float x, float y, float z, float degreeX, float degreeY, float degreeZ) {
         for(int i = 0; i < animations.length; i++) {
-            animations[i].PushMatrix(
-                    x + parts[i].x, y + parts[i].y, z + parts[i].z,
-                    parts[i].degreeX, parts[i].degreeY, parts[i].degreeZ
-            );
-            UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
-            model.renderPart(parts[i].objRef);
-            GL11.glPopMatrix();
+            RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
         }
     }
     public Part[] getParts() {
@@ -77,37 +74,41 @@ public class AdvancedModelRenderer {
         }
         return null;
     }
-    public void RenderPart(float x, float y, float z, String name) {
+    protected void RenderPart(float x, float y, float z, float degreeX, float degreeY, float degreeZ, int i) {
+        if (parts[i].hasAlphaChannel) {
+            GL11.glEnable(GL11.GL_ALPHA_TEST);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+            GL11.glAlphaFunc(GL11.GL_LESS, 1.0f);
+        }
+        animations[i].PushMatrix(x, y, z, degreeX, degreeY, degreeZ);
+        UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
+        model.renderPart(parts[i].objRef);
+        GL11.glPopMatrix();
+        if (parts[i].hasAlphaChannel) {
+            GL11.glDisable(GL11.GL_ALPHA_TEST);
+            GL11.glDisable(GL11.GL_BLEND);
+        }
+    }
+    public void RenderPart(float x, float y, float z, float degreeX, float degreeY, float degreeZ, String name) {
         for (int i = 0; i < parts.length; i++) {
             if(parts[i].objRef.equals(name)) {
-                animations[i].PushMatrix(
-                        x + parts[i].x, y + parts[i].y, z + parts[i].z,
-                        parts[i].degreeX, parts[i].degreeY, parts[i].degreeZ
-                );
-                UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
-                model.renderPart(name);
-                GL11.glPopMatrix();
+                RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
             }
         }
     }
-    public void RenderOnly(float x, float y, float z, ArrayList<String> names) {
+    public void RenderOnly(float x, float y, float z, float degreeX, float degreeY, float degreeZ, ArrayList<String> names) {
         for (int i = 0; i < parts.length; i++) {
             for (String name : names) {
                 if(parts[i].objRef.equals(name)) {
-                    animations[i].PushMatrix(
-                            x + parts[i].x, y + parts[i].y, z + parts[i].z,
-                            parts[i].degreeX, parts[i].degreeY, parts[i].degreeZ
-                    );
-                    UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
-                    model.renderPart(name);
-                    GL11.glPopMatrix();
+                    RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
                     names.remove(name);
                 }
             }
         }
     }
-    public void RenderOnly(float x, float y, float z, String... names) {
-        RenderOnly(x, y, z, new ArrayList<String>(Arrays.asList(names)));
+    public void RenderOnly(float x, float y, float z, float degreeX, float degreeY, float degreeZ, String... names) {
+        RenderOnly(x, y, z, degreeX, degreeY, degreeZ, new ArrayList<String>(Arrays.asList(names)));
     }
 
 }
