@@ -21,31 +21,32 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                     new ResourceLocation(ThaumicExtensions.MODID, "models/pillars/Pillar1.obj"),
                     new AdvancedModelRenderer.BoundTexture[] {
                             new AdvancedModelRenderer.BoundTexture(
-                                    ThaumicExtensions.MODID, "textures/model/pillar1_1.png", "base"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_1.png", "base"),
                             new AdvancedModelRenderer.BoundTexture(
-                                    ThaumicExtensions.MODID, "textures/model/pillar1_2.png", "floating_part"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_2.png", "floating_part"),
                             new AdvancedModelRenderer.BoundTexture(
-                                    ThaumicExtensions.MODID, "textures/model/pillar1_3.png", "crystal"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal"),
                             new AdvancedModelRenderer.BoundTexture(
-                                    ThaumicExtensions.MODID, "textures/model/pillar1_4.png", "floating_crystal1"),
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1"),
                     },
                     new Animation[] {
                             new Animation(null),
                             new Animation(
                                     new Animation.SimpleAnimation[] {
-                                            Animation.Wave(0.1f, 10.0f, Animation.Axis.y)
+                                            Animation.Wave(0.05f, 10.0f, Animation.Axis.y)
+                                    }
+                             ),
+                            new Animation(
+                                    new Animation.SimpleAnimation[] {
+                                               Animation.Wave(0.05f, 10.0f, Animation.Axis.y),
+                                            Animation.RotateAroundItself(30.0f, Animation.Axis.y)
                                     }
                             ),
                             new Animation(
                                     new Animation.SimpleAnimation[] {
                                             Animation.Wave(0.1f, 10.0f, Animation.Axis.y),
-                                            Animation.RotateAroundItself(6.0f, Animation.Axis.y)
-                                    }
-                            ),
-                            new Animation(
-                                    new Animation.SimpleAnimation[] {
-                                            Animation.Wave(0.25f, 30.0f, Animation.Axis.y),
-                                            Animation.RotateAroundCenterAtRadius(0,6,0,0.5f)
+                                            Animation.RotateAroundCenterAtRadius(0,30,0,0.5f),
+                                            Animation.RotateAroundItself(1.0f, Animation.Axis.y)
                                     }
                             )
                     }
@@ -53,7 +54,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
     };
 
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
-        double time2pi = (double)(System.currentTimeMillis()+tile.offset) / 1000 * Math.PI * 2;
+        double time2pi = (((double)System.currentTimeMillis())+tile.offset) / 1000 * Math.PI * 2;
         // lambda = 2pi = 1 second
         models[tile.tier].RenderAll((float)x,(float)y,(float)z, time2pi);
     }
