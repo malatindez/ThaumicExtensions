@@ -52,61 +52,6 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
             ),
     };
 
-
-
-    private static final ResourceLocation BALL = new ResourceLocation(ThaumicExtensions.MODID, "models/pillars/ball.obj");
-    private IModelCustom ball = AdvancedModelLoader.loadModel(BALL);
-
-    public void renderModel(IModelCustom model, int orientation, String texture, float x, float y, float z) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(x, y, z);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        if (orientation == 3) {
-            GL11.glRotatef(90.0F, 0.0F, 0.0F, 1.0F);
-        } else if (orientation == 4) {
-            GL11.glRotatef(270.0F, 0.0F, 0.0F, 1.0F);
-        } else if (orientation == 5) {
-            GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
-        }
-        UtilsFX.bindTexture(ThaumicExtensions.MODID, texture);
-        model.renderAll();
-        GL11.glPopMatrix();
-    }
-
-    public void renderBall(float x, float y, float z) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(x, y, z);
-        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        UtilsFX.bindTexture(ThaumicExtensions.MODID, "models/pillars/ball.png");
-        this.ball.renderAll();
-        GL11.glPopMatrix();
-    }
-    public void renderFirstTier(TileEnhancedInfusionPillar tile, float x, float y, float z, double o) {
-        this.renderModel(this.PILLAR1_PART1, tile.orientation,
-                "models/pillars/pillar1_1.png",
-                x + 0.5f,
-                y,
-                 z + 0.5f);
-
-        float xOffset = 0.75f,  zOffset = 0.75f;
-        if (tile.orientation == 3) {
-            zOffset = 0.25f;
-        } else if (tile.orientation == 4) {
-            xOffset = 0.25f;
-        } else if (tile.orientation == 5) {
-            xOffset = 0.25f;
-            zOffset = 0.25f;
-        }
-        this.renderModel(this.PILLAR1_PART2, tile.orientation,
-                "models/pillars/pillar1_2.png",
-                x + xOffset,
-                y + 2.0f + 0.05f * (float)java.lang.Math.cos((o+0.1)/15.0), // 15s lambda
-                z + zOffset);
-        renderBall(x + xOffset,
-                   y + 2.65f + 0.1f * (float)java.lang.Math.sin((o+0.2)/30.0), // 30s lambda
-                   z + zOffset);
-    }
-    private long lastTime = 0;
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
         double time2pi = (double)(System.currentTimeMillis()+tile.offset) / 1000 * Math.PI * 2;
         // lambda = 2pi = 1 second
