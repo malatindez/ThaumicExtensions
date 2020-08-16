@@ -78,10 +78,17 @@ public class AdvancedModelRenderer {
         model.renderPart(parts[i].objRef);
         GL11.glPopMatrix();
     }
-    private class PairComparator implements Comparator<Pair<Double, Integer>> {
+    private class DoubleIntPair implements Comparable<DoubleIntPair> {
+        public Double x;
+        public Integer y;
+        public DoubleIntPair(Double x, Integer y) {
+            this.x = x;
+            this.y = y;
+        }
+
         @Override
-        public int compare(Pair<Double, Integer> o1, Pair<Double, Integer> o2) {
-            return o1.getKey().compareTo(o2.getKey());
+        public int compareTo(DoubleIntPair o) {
+            return o.x.compareTo(x);
         }
     }
     private void RenderParts(float x, float y, float z,
@@ -89,21 +96,20 @@ public class AdvancedModelRenderer {
                              double noise, ArrayList<Integer> parts, ArrayList<Integer> alphaParts) {
         ChunkCoordinates coordinates = Minecraft.getMinecraft().thePlayer.getPlayerCoordinates();
         coordinates.posY -= 1.6;
-        ArrayList<Pair<Double, Integer>> distances = new ArrayList<>();
+        ArrayList<DoubleIntPair> distances = new ArrayList<DoubleIntPair>();
         for(Integer i : alphaParts) {
             Animation.Coordinates partCoordinates = animations[i].getModifiedCoordinates(x,y,z,noise);
             distances.add(
-                    new Pair<Double, Integer>(
-                            (double)Math.sqrt(
-                                    (coordinates.posX - partCoordinates.x) * (coordinates.posX - partCoordinates.x) +
-                                            (coordinates.posY - partCoordinates.y) * (coordinates.posY - partCoordinates.y) +
-                                            (coordinates.posZ - partCoordinates.z) * (coordinates.posZ - partCoordinates.z)
+                    new DoubleIntPair(
+                            Math.sqrt(
+                                    (partCoordinates.x) * (partCoordinates.x) +
+                                            (partCoordinates.y) * (partCoordinates.y) +
+                                            (partCoordinates.z) * (partCoordinates.z)
                             ),
                             i
                     ));
         }
-        Collections.sort(distances, new PairComparator());
-
+        Collections.sort(distances);
         for(int i : parts) {
             RenderPart(x,y,z,degreeX,degreeY,degreeZ, noise, i);
         }
@@ -112,8 +118,8 @@ public class AdvancedModelRenderer {
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glAlphaFunc(GL11.GL_LESS, 1.0f);
-            for(Pair<Double, Integer> pair : distances) {
-                RenderPart(x,y,z,degreeX,degreeY,degreeZ, noise, pair.getValue());
+            for(DoubleIntPair pair : distances) {
+                RenderPart(x,y,z,degreeX,degreeY,degreeZ, noise, pair.y);
             }
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_BLEND);
@@ -122,23 +128,22 @@ public class AdvancedModelRenderer {
     public void RenderAll(float x, float y, float z,
                           float degreeX, float degreeY, float degreeZ,
                           double noise) {
-        ArrayList<Integer> parts = new ArrayList<>();
-        ArrayList<Integer> alphaParts = new ArrayList<>();
+        ArrayList<Integer> parts = new ArrayList<Integer>();
+        ArrayList<Integer> alphaParts = new ArrayList<Integer>();
         for (int i = 0; i < this.parts.length; i++) {
             if (this.parts[i] instanceof AlphaPart) {
                 alphaParts.add(i);
             } else {
                 parts.add(i);
             }
-            RenderPart(x,y,z,degreeX,degreeY,degreeZ,noise,i);
         }
         RenderParts(x,y,z,degreeX,degreeY,degreeZ,noise,parts,alphaParts);
     }
     private void RenderOnly(float x, float y, float z,
                             float degreeX, float degreeY, float degreeZ,
                             double noise, ArrayList<String> names) {
-        ArrayList<Integer> parts = new ArrayList<>();
-        ArrayList<Integer> alphaParts = new ArrayList<>();
+        ArrayList<Integer> parts = new ArrayList<Integer>();
+        ArrayList<Integer> alphaParts = new ArrayList<Integer>();
         for (int i = 0; i < this.parts.length; i++) {
             for (String name : names) {
                 if(this.parts[i].objRef.equals(name)) {
