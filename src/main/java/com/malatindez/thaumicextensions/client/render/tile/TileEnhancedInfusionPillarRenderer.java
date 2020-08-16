@@ -27,10 +27,10 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_1.png", "base"),
                             new AdvancedModelRenderer.Part(
                                     ThaumicExtensions.MODID, "textures/models/pillars/pillar1_2.png", "floating_part"),
-                            new AdvancedModelRenderer.Part(
-                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal", true),
-                            new AdvancedModelRenderer.Part(
-                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1", true)
+                            new AdvancedModelRenderer.AlphaPart(
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal"),
+                            new AdvancedModelRenderer.AlphaPart(
+                                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1")
                     },
                     new Animation[] {
                             new Animation(null),
@@ -59,7 +59,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
         // lambda = 2pi = 1 second
 
-        models[tile.tier].RenderAll((float)x,(float)y,(float)z,0,90 * tile.orientation,0);
+        models[tile.tier].RenderAll((float)x,(float)y,(float)z,0,90 * tile.orientation,0, tile.noise);
     }
 
     public void renderTileEntityAt(TileEntity par1TileEntity, double par2, double par4, double par6, float par8) {
