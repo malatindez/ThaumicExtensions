@@ -10,12 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TileEnhancedInfusionPillar extends TileThaumcraft {
     public byte orientation;
 
-    public float offset;
+    public double noise;
 
     public byte tier = 0;
 
     public TileEnhancedInfusionPillar() {
-        offset = ThreadLocalRandom.current().nextFloat() * ThreadLocalRandom.current().nextInt(1000000);
+        noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(1000000);
         this.orientation = (byte)ThreadLocalRandom.current().nextInt(0,4);
     }
 
