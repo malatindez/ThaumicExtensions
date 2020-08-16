@@ -3,6 +3,9 @@ package com.malatindez.thaumicextensions.client.render.misc;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import javafx.util.Pair;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 import net.minecraftforge.client.model.IModelCustom;
@@ -10,6 +13,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 @SideOnly(Side.CLIENT)
 public class AdvancedModelRenderer {
@@ -23,17 +28,15 @@ public class AdvancedModelRenderer {
         public String modID;
         public String pathToTexture;
         public String objRef;
-        public boolean hasAlphaChannel = false;
         public Part(String modID, String pathToTexture, String objRef) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
             this.objRef = objRef;
         }
-        public Part(String modID, String pathToTexture, String objRef, boolean hasAlphaChannel) {
-            this.modID = modID;
-            this.pathToTexture = pathToTexture;
-            this.objRef = objRef;
-            this.hasAlphaChannel = hasAlphaChannel;
+    }
+    public static class AlphaPart extends Part {
+        public AlphaPart(String modID, String pathToTexture, String objRef) {
+            super(modID, pathToTexture, objRef);
         }
     }
     protected IModelCustom   model;
@@ -46,11 +49,6 @@ public class AdvancedModelRenderer {
         this.model = AdvancedModelLoader.loadModel(model);
         this.parts = parts;
         this.animations = animations;
-    }
-    public void RenderAll(float x, float y, float z, float degreeX, float degreeY, float degreeZ) {
-        for(int i = 0; i < animations.length; i++) {
-            RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
-        }
     }
     public Part[] getParts() {
         return this.parts;
@@ -74,41 +72,89 @@ public class AdvancedModelRenderer {
         }
         return null;
     }
-    protected void RenderPart(float x, float y, float z, float degreeX, float degreeY, float degreeZ, int i) {
-        if (parts[i].hasAlphaChannel) {
+    private void RenderPart(float x, float y, float z, float degreeX, float degreeY, float degreeZ, double noise, int i) {
+        animations[i].PushMatrix(x, y, z, degreeX, degreeY, degreeZ, noise);
+        UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
+        model.renderPart(parts[i].objRef);
+        GL11.glPopMatrix();
+    }
+    private class PairComparator implements Comparator<Pair<Double, Integer>> {
+        @Override
+        public int compare(Pair<Double, Integer> o1, Pair<Double, Integer> o2) {
+            return o1.getKey().compareTo(o2.getKey());
+        }
+    }
+    private void RenderParts(float x, float y, float z,
+                             float degreeX, float degreeY, float degreeZ,
+                             double noise, ArrayList<Integer> parts, ArrayList<Integer> alphaParts) {
+        ChunkCoordinates coordinates = Minecraft.getMinecraft().thePlayer.getPlayerCoordinates();
+        coordinates.posY -= 1.6;
+        ArrayList<Pair<Double, Integer>> distances = new ArrayList<>();
+        for(Integer i : alphaParts) {
+            Animation.Coordinates partCoordinates = animations[i].getModifiedCoordinates(x,y,z,noise);
+            distances.add(
+                    new Pair<Double, Integer>(
+                            (double)Math.sqrt(
+                                    (coordinates.posX - partCoordinates.x) * (coordinates.posX - partCoordinates.x) +
+                                            (coordinates.posY - partCoordinates.y) * (coordinates.posY - partCoordinates.y) +
+                                            (coordinates.posZ - partCoordinates.z) * (coordinates.posZ - partCoordinates.z)
+                            ),
+                            i
+                    ));
+        }
+        Collections.sort(distances, new PairComparator());
+
+        for(int i : parts) {
+            RenderPart(x,y,z,degreeX,degreeY,degreeZ, noise, i);
+        }
+        if (distances.size() != 0) {
             GL11.glEnable(GL11.GL_ALPHA_TEST);
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glAlphaFunc(GL11.GL_LESS, 1.0f);
-        }
-        animations[i].PushMatrix(x, y, z, degreeX, degreeY, degreeZ);
-        UtilsFX.bindTexture(parts[i].modID, parts[i].pathToTexture);
-        model.renderPart(parts[i].objRef);
-        GL11.glPopMatrix();
-        if (parts[i].hasAlphaChannel) {
+            for(Pair<Double, Integer> pair : distances) {
+                RenderPart(x,y,z,degreeX,degreeY,degreeZ, noise, pair.getValue());
+            }
             GL11.glDisable(GL11.GL_ALPHA_TEST);
             GL11.glDisable(GL11.GL_BLEND);
         }
     }
-    public void RenderPart(float x, float y, float z, float degreeX, float degreeY, float degreeZ, String name) {
-        for (int i = 0; i < parts.length; i++) {
-            if(parts[i].objRef.equals(name)) {
-                RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
+    public void RenderAll(float x, float y, float z,
+                          float degreeX, float degreeY, float degreeZ,
+                          double noise) {
+        ArrayList<Integer> parts = new ArrayList<>();
+        ArrayList<Integer> alphaParts = new ArrayList<>();
+        for (int i = 0; i < this.parts.length; i++) {
+            if (this.parts[i] instanceof AlphaPart) {
+                alphaParts.add(i);
+            } else {
+                parts.add(i);
             }
+            RenderPart(x,y,z,degreeX,degreeY,degreeZ,noise,i);
         }
+        RenderParts(x,y,z,degreeX,degreeY,degreeZ,noise,parts,alphaParts);
     }
-    public void RenderOnly(float x, float y, float z, float degreeX, float degreeY, float degreeZ, ArrayList<String> names) {
-        for (int i = 0; i < parts.length; i++) {
+    private void RenderOnly(float x, float y, float z,
+                            float degreeX, float degreeY, float degreeZ,
+                            double noise, ArrayList<String> names) {
+        ArrayList<Integer> parts = new ArrayList<>();
+        ArrayList<Integer> alphaParts = new ArrayList<>();
+        for (int i = 0; i < this.parts.length; i++) {
             for (String name : names) {
-                if(parts[i].objRef.equals(name)) {
-                    RenderPart(x,y,z,degreeX,degreeY,degreeZ,i);
+                if(this.parts[i].objRef.equals(name)) {
+                    if (this.parts[i] instanceof AlphaPart) {
+                        alphaParts.add(i);
+                    } else {
+                        parts.add(i);
+                    }
                     names.remove(name);
                 }
             }
         }
+        RenderParts(x,y,z,degreeX,degreeY,degreeZ,noise,parts,alphaParts);
     }
-    public void RenderOnly(float x, float y, float z, float degreeX, float degreeY, float degreeZ, String... names) {
-        RenderOnly(x, y, z, degreeX, degreeY, degreeZ, new ArrayList<String>(Arrays.asList(names)));
+    public void RenderOnly(float x, float y, float z, float degreeX, float degreeY, float degreeZ, double noise, String... names) {
+        RenderOnly(x, y, z, degreeX, degreeY, degreeZ, noise, new ArrayList<String>(Arrays.asList(names)));
     }
 
 }
