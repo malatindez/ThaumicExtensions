@@ -1,9 +1,9 @@
 package com.malatindez.thaumicextensions.client.render.misc;
 
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.misc.Animation.Animation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import javafx.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
@@ -14,7 +14,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 
 @SideOnly(Side.CLIENT)
 public class AdvancedModelRenderer {
@@ -95,7 +94,7 @@ public class AdvancedModelRenderer {
                              float degreeX, float degreeY, float degreeZ,
                              double noise, ArrayList<Integer> parts, ArrayList<Integer> alphaParts) {
         ChunkCoordinates coordinates = Minecraft.getMinecraft().thePlayer.getPlayerCoordinates();
-        coordinates.posY -= 1.6;
+        coordinates.posY += 1.6;
         ArrayList<DoubleIntPair> distances = new ArrayList<DoubleIntPair>();
         for(Integer i : alphaParts) {
             Animation.Coordinates partCoordinates = animations[i].getModifiedCoordinates(x,y,z,noise);
