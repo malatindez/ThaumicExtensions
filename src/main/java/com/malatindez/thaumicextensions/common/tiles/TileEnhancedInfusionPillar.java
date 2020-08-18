@@ -14,6 +14,8 @@ public class TileEnhancedInfusionPillar extends TileThaumcraft {
 
     public byte tier = 0;
 
+    public TileEnhancedInfusionMatrix matrixRef;
+
     public TileEnhancedInfusionPillar() {
         noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(1000000);
         this.orientation = (byte)ThreadLocalRandom.current().nextInt(0,4);
