@@ -31,7 +31,7 @@ public class Animation {
     }
     public static class SimpleAnimation {
         float speed;
-        float offset;
+        float amplitude;
         float speedY;
         float speedZ;
         Type type;
@@ -42,18 +42,38 @@ public class Animation {
             this.speed = speedX;
             this.speedY = speedY;
             this.speedZ = speedZ;
-            this.offset = radius;
+            this.amplitude = radius;
             this.noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(10000000);
         }
-        protected SimpleAnimation(float speed, float offset, Type type, Axis axis) {
+        protected SimpleAnimation(float speed, float amplitude, Type type, Axis axis) {
             this.speed = speed;
-            this.offset = offset;
+            this.amplitude = amplitude;
             this.type = type;
             this.axis = axis;
             this.noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(10000000);
         }
     }
 
+    public static class Transformation {
+        public float x, y, z;
+        public float degreeX = 0, degreeY = 1, degreeZ = 1;
+        public float scaleX = 1, scaleY = 1, scaleZ = 1;
+        public Transformation(float x, float y, float z) {
+            this.x = x; this.y = y; this.z = z;
+        }
+        public Transformation(float x, float y, float z,
+                              float degreeX, float degreeY, float degreeZ) {
+            this.x = x; this.y = y; this.z = z;
+            this.degreeX = degreeX; this.degreeY = degreeY; this.degreeZ = degreeZ;
+        }
+        public Transformation(float x, float y, float z,
+                              float degreeX, float degreeY, float degreeZ,
+                              float scaleX, float scaleY, float scaleZ) {
+            this.x = x; this.y = y; this.z = z;
+            this.degreeX = degreeX; this.degreeY = degreeY; this.degreeZ = degreeZ;
+            this.scaleX = scaleX; this.scaleY = scaleY; this.scaleZ = scaleZ;
+        }
+    };
     protected SimpleAnimation rotationAroundCenter = null;
     protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
     protected ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
@@ -97,37 +117,27 @@ public class Animation {
         return new SimpleAnimation(degreesPerSecond,0,Type.RotationAroundItself,axis);
     }
     // amplitude determined in meters, object will be going upside down on [-amplitude, +amplitude]
-    // time determined in seconds, lambda time from -offset to +offset and backwards
+    // time determined in seconds, lambda time from -amplitude to +amplitude and backwards
     public static SimpleAnimation Wave(float amplitude, float time, Axis axis) {
         return new SimpleAnimation(time,amplitude,Type.Wave,axis);
     }
     
 
-    void PushMatrix(float x, float y, float z, double noise) {
-        PushMatrix(x, y, z,0,0,0, noise);
-    }
-    public static class Coordinates {
-        float x,y,z;
-        public Coordinates(float x, float y, float z) {
-            this.x = x; this.y = y; this.z = z;
-        }
-    };
-    Coordinates getModifiedCoordinates(float x, float y, float z, double noise) {
+
+    Transformation getModifiedCoordinates(Transformation transform, double noise) {
         double time = (((double)System.currentTimeMillis())) / 1000;
-        x += 0.5f; //
-        z += 0.5f; // Move model to the center of a block
         for(SimpleAnimation wave : waves) {
-            float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.offset;
-            if(wave.axis == Axis.x) { x += a; }
-            else if(wave.axis == Axis.y) { y += a; }
-            else if(wave.axis == Axis.z) { z += a; }
+            float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
+            if(wave.axis == Axis.x) { transform.x += a; }
+            else if(wave.axis == Axis.y) { transform.y += a; }
+            else if(wave.axis == Axis.z) { transform.z += a; }
         }
         if(rotationAroundCenter != null) {
             double j = time + rotationAroundCenter.noise + noise;
             float l = (float) ((j * rotationAroundCenter.speed) % 360.0);
             float b = (float) ((j * rotationAroundCenter.speedY) % 360.0);
             float t = (float) ((j * rotationAroundCenter.speedZ) % 360.0);
-            float radius = rotationAroundCenter.offset / (float) Math.sqrt(
+            float radius = rotationAroundCenter.amplitude / (float) Math.sqrt(
                     rotationAroundCenter.speed == 0 ? 1 : 0 +
                             rotationAroundCenter.speedY == 0 ? 1 : 0 +
                             rotationAroundCenter.speedZ == 0 ? 1 : 0
@@ -135,38 +145,35 @@ public class Animation {
             float n = rotationAroundCenter.speed == 0 ? radius : 0;
             float m = rotationAroundCenter.speedY == 0 ? radius : 0;
             float v = rotationAroundCenter.speedZ == 0 ? radius : 0;
-            // Holy fuck.
-            x += n * cos(b) * cos(t) - m * cos(b) * sin(t) + v * sin(b);
-            y += n * (sin(l) * sin(b) * cos(t) + cos(l) * sin(t)) +
+            transform.x += n * cos(b) * cos(t) - m * cos(b) * sin(t) + v * sin(b);
+            transform.y += n * (sin(l) * sin(b) * cos(t) + cos(l) * sin(t)) +
                  m * (cos(l) * cos(t) - sin(l) * sin(b) * sin(t)) -
                  v * sin(l) * cos(b);
-            z += n * (sin(l) * sin(t) -cos(l) * sin(b) * cos(t)) +
+            transform.z += n * (sin(l) * sin(t) -cos(l) * sin(b) * cos(t)) +
                     m * (cos(l) * sin(b) * sin(t) + sin(l) * cos(t)) +
                     v * cos(l) * cos(b);
         }
-        return new Coordinates(x,y,z);
+        return new Transformation(transform.x,transform.y,transform.z);
     }
-    void PushMatrix(float x, float y, float z, float degreeX, float degreeY, float degreeZ, double noise) {
+    void PushMatrix(Transformation transform, double noise) {
         double time = (((double)System.currentTimeMillis())) / 1000;
-        x += 0.5f; //
-        z += 0.5f; // Move model to the center of a block
         GL11.glPushMatrix();
         for(SimpleAnimation wave : waves) {
-            float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.offset;
-            if(wave.axis == Axis.x) { x += a; }
-            else if(wave.axis == Axis.y) { y += a; }
-            else if(wave.axis == Axis.z) { z += a; }
+            float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
+            if(wave.axis == Axis.x) { transform.x += a; }
+            else if(wave.axis == Axis.y) { transform.y += a; }
+            else if(wave.axis == Axis.z) { transform.z += a; }
         }
         if(rotationAroundCenter != null) {
             double n =  time + rotationAroundCenter.noise  + noise;
             float a = (float) ((n * rotationAroundCenter.speed)  % 360.0);
             float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
             float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
-            GL11.glTranslatef(x,y,z);
+            GL11.glTranslatef(transform.x,transform.y,transform.z);
             GL11.glRotatef(a, 1, 0, 0);
             GL11.glRotatef(b, 0, 1, 0);
             GL11.glRotatef(c, 0, 0, 1);
-            float radius = rotationAroundCenter.offset / (float)Math.sqrt(
+            float radius = rotationAroundCenter.amplitude / (float)Math.sqrt(
                     rotationAroundCenter.speed  == 0 ? 1 : 0 +
                     rotationAroundCenter.speedY == 0 ? 1 : 0 +
                     rotationAroundCenter.speedZ == 0 ? 1 : 0
@@ -176,7 +183,7 @@ public class Animation {
                     rotationAroundCenter.speed  == 0 ? 0 : (radius),
                     rotationAroundCenter.speedY == 0 ? 0 : (radius));
         } else {
-            GL11.glTranslatef(x, y, z);
+            GL11.glTranslatef(transform.x, transform.y, transform.z);
         }
         for(SimpleAnimation rotationAroundItself : rotationsAroundItself) {
             float a = (float)((time + rotationAroundItself.noise  + noise) * rotationAroundItself.speed % 360.0);
@@ -184,9 +191,13 @@ public class Animation {
             else if (rotationAroundItself.axis == Axis.y) { GL11.glRotatef(a ,0,1,0); }
             else if (rotationAroundItself.axis == Axis.z) { GL11.glRotatef(a ,0,0,1); }
         }
-        GL11.glRotatef(degreeX,1,0,0);
-        GL11.glRotatef(degreeY,0,1,0);
-        GL11.glRotatef(degreeZ,0,0,1);
+        GL11.glRotatef(transform.degreeX,1,0,0);
+        GL11.glRotatef(transform.degreeY,0,1,0);
+        GL11.glRotatef(transform.degreeZ,0,0,1);
+        GL11.glScalef(
+                transform.scaleX,
+                transform.scaleY,
+                transform.scaleZ);
     }
 
 }
