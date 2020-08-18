@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class TileEntitySpecialRenderer extends net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer {
-    // Here's some rules of formatting texture:
+    // Here's some rules of texture formatting:
     // texture XXX.png will be bound to YYY in .obj if it exists.
     // objects in model w/o bound texture will not be rendered
     // If there's no YYY in .obj file - there will be unpredictable behaviour in Rendering
