@@ -49,7 +49,7 @@ This part should be static final too, because we still don't need to load it mor
 
 
     private void RenderPart(Animation.Transformation transform, double noise, int i) {
-        this.getAnimation(i).PushMatrix(transform, noise);
+        this.getAnimation(i).PushMatrix(new Animation.Transformation(transform), noise);
         UtilsFX.bindTexture(this.getPart(i).modID, this.getPart(i).pathToTexture);
         this.getModel().renderPart(this.getPart(i).objRef);
         GL11.glPopMatrix();
@@ -78,7 +78,7 @@ This part should be static final too, because we still don't need to load it mor
             coordinates.posY = tile.yCoord - coordinates.posY;
             coordinates.posZ = tile.zCoord - coordinates.posZ;
             for (Integer i : alphaParts) {
-                Animation.Transformation partCoordinates = this.getAnimation(i).getModifiedCoordinates(transform, noise);
+                Animation.Transformation partCoordinates = this.getAnimation(i).getModifiedCoordinates(new Animation.Transformation(transform), noise);
                 partCoordinates.x += coordinates.posX;
                 partCoordinates.y += -1.6f + coordinates.posY;
                 partCoordinates.z += coordinates.posZ;

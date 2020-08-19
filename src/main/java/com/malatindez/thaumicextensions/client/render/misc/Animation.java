@@ -73,7 +73,13 @@ public class Animation {
             this.degreeX = degreeX; this.degreeY = degreeY; this.degreeZ = degreeZ;
             this.scaleX = scaleX; this.scaleY = scaleY; this.scaleZ = scaleZ;
         }
-    };
+
+        public Transformation(Transformation transform) {
+            x =  transform.x; y = transform.y; z = transform.z;
+            degreeX = transform.degreeX; degreeY = transform.degreeY; degreeZ = transform.degreeZ;
+            scaleX = transform.scaleX; scaleY = transform.scaleY; scaleZ = transform.scaleZ;
+        }
+    }
     protected SimpleAnimation rotationAroundCenter = null;
     protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
     protected ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
