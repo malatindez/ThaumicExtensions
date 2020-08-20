@@ -3,6 +3,8 @@ package com.malatindez.thaumicextensions.client.render.misc;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -56,8 +58,9 @@ public class Animation {
 
     public static class Transformation {
         public float x, y, z;
-        public float degreeX = 0, degreeY = 1, degreeZ = 1;
+        public float degreeX = 0, degreeY = 0, degreeZ = 0;
         public float scaleX = 1, scaleY = 1, scaleZ = 1;
+        public Transformation() {}
         public Transformation(float x, float y, float z) {
             this.x = x; this.y = y; this.z = z;
         }
@@ -131,6 +134,8 @@ public class Animation {
 
 
     Transformation getModifiedCoordinates(Transformation transform, double noise) {
+        Matrix4f matrix = new Matrix4f();
+        matrix.m00 = matrix.m11 = matrix.m22 = matrix.m33 = 1;
         double time = (((double)System.currentTimeMillis())) / 1000;
         for(SimpleAnimation wave : waves) {
             float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
@@ -139,27 +144,29 @@ public class Animation {
             else if(wave.axis == Axis.z) { transform.z += a; }
         }
         if(rotationAroundCenter != null) {
-            double j = time + rotationAroundCenter.noise + noise;
-            float l = (float) ((j * rotationAroundCenter.speed) % 360.0);
-            float b = (float) ((j * rotationAroundCenter.speedY) % 360.0);
-            float t = (float) ((j * rotationAroundCenter.speedZ) % 360.0);
-            float radius = rotationAroundCenter.amplitude / (float) Math.sqrt(
-                    rotationAroundCenter.speed == 0 ? 1 : 0 +
+            double n =  time + rotationAroundCenter.noise  + noise;
+            float a = (float) ((n * rotationAroundCenter.speed)  % 360.0);
+            float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
+            float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
+            Vector3f vec = new Vector3f(transform.x,transform.y,transform.z);
+            matrix.translate(vec);
+            matrix.rotate(a / 180.0f * (float)Math.PI, new Vector3f(1,0,0));
+            matrix.rotate(b / 180.0f * (float)Math.PI, new Vector3f(0,1,0));
+            matrix.rotate(c / 180.0f * (float)Math.PI, new Vector3f(0,0,1));
+            float radius = rotationAroundCenter.amplitude / (float)Math.sqrt(
+                    rotationAroundCenter.speed  == 0 ? 1 : 0 +
                             rotationAroundCenter.speedY == 0 ? 1 : 0 +
                             rotationAroundCenter.speedZ == 0 ? 1 : 0
             );
-            float n = rotationAroundCenter.speed == 0 ? radius : 0;
-            float m = rotationAroundCenter.speedY == 0 ? radius : 0;
-            float v = rotationAroundCenter.speedZ == 0 ? radius : 0;
-            transform.x += n * cos(b) * cos(t) - m * cos(b) * sin(t) + v * sin(b);
-            transform.y += n * (sin(l) * sin(b) * cos(t) + cos(l) * sin(t)) +
-                 m * (cos(l) * cos(t) - sin(l) * sin(b) * sin(t)) -
-                 v * sin(l) * cos(b);
-            transform.z += n * (sin(l) * sin(t) -cos(l) * sin(b) * cos(t)) +
-                    m * (cos(l) * sin(b) * sin(t) + sin(l) * cos(t)) +
-                    v * cos(l) * cos(b);
+            matrix.translate( new Vector3f(
+                    rotationAroundCenter.speedZ == 0 ? 0 : (radius),
+                    rotationAroundCenter.speed  == 0 ? 0 : (radius),
+                    rotationAroundCenter.speedY == 0 ? 0 : (radius)));
         }
-        return new Transformation(transform.x,transform.y,transform.z);
+        else {
+            matrix.translate(new Vector3f(transform.x, transform.y, transform.z));
+        }
+        return new Transformation(matrix.m30,matrix.m31,matrix.m32);
     }
     void PushMatrix(Transformation transform, double noise) {
         double time = (((double)System.currentTimeMillis())) / 1000;

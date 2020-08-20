@@ -6,7 +6,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,41 +16,41 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
     // If there's no YYY in .obj file - there will be unpredictable behaviour in Rendering
     // Example of usage:
     // Part("thaumicextensions", "models/pillars/pillar1_1.png", "pillar_base")
-    public static class Part {
+    public static class Model {
+        public IModelCustom model;
         public String modID;
         public String pathToTexture;
-        public String objRef;
-        public Part(String modID, String pathToTexture, String objRef) {
+        public Animation.Transformation transform;
+        public Model(IModelCustom model, String modID, String pathToTexture, Animation.Transformation transform) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
-            this.objRef = objRef;
+            this.model = model;
+            this.transform = transform;
         }
     }
-    // AlphaPart defines, that this part should be rendered with alpha channel
-
-    public static class AlphaPart extends Part {
-        public AlphaPart(String modID, String pathToTexture, String objRef) {
-            super(modID, pathToTexture, objRef);
+    // AlphaModel defines, that this part should be rendered including alpha channel
+    public static class AlphaModel extends Model {
+        public AlphaModel(IModelCustom model, String modID, String pathToTexture,Animation.Transformation transform) {
+            super(model, modID, pathToTexture, transform);
         }
     }
-/*  Those variables you can store as you want in your class but there's some recommendations:
-IModelCustom better to store as static final, because we don't need to load it more than once
-    protected IModelCustom model;
-Tile entity can be updated so do animations, so its your choice
-    protected Animation[] animations;
-This part should be static final too, because we still don't need to load it more than once.
-    protected Part[] parts;
-*/
-    protected abstract IModelCustom getModel();
-    protected abstract Animation getAnimation(int i);
-    protected abstract Part getPart(int i);
-    protected abstract Part[] getParts();
 
 
-    private void RenderPart(Animation.Transformation transform, double noise, int i) {
-        this.getAnimation(i).PushMatrix(new Animation.Transformation(transform), noise);
-        UtilsFX.bindTexture(this.getPart(i).modID, this.getPart(i).pathToTexture);
-        this.getModel().renderPart(this.getPart(i).objRef);
+    private void RenderPart(Model model,
+                            Animation animation,
+                            Animation.Transformation transform,
+                            double noise,
+                            Animation.Transformation cameraOffset) {
+        Animation.Transformation t = new Animation.Transformation(transform);
+        t.x += model.transform.x; t.degreeX += model.transform.degreeX; t.scaleX *= model.transform.scaleX;
+        t.y += model.transform.y; t.degreeY += model.transform.degreeY; t.scaleY *= model.transform.scaleY;
+        t.z += model.transform.z; t.degreeZ += model.transform.degreeZ; t.scaleZ *= model.transform.scaleZ;
+        t.x += cameraOffset.x;
+        t.y += cameraOffset.y;
+        t.z += cameraOffset.z;
+        animation.PushMatrix(t, noise);
+        UtilsFX.bindTexture(model.modID, model.pathToTexture);
+        model.model.renderAll();
         GL11.glPopMatrix();
     }
     private class DoubleIntPair implements Comparable<DoubleIntPair> {
@@ -67,37 +66,41 @@ This part should be static final too, because we still don't need to load it mor
             return o.x.compareTo(x);
         }
     }
-    protected void renderParts(TileEntity tile, Animation.Transformation transform,
-                             double noise, ArrayList<Integer> parts, ArrayList<Integer> alphaParts) {
 
+    protected void renderModels(double noise,
+                                Model[] models,
+                                Animation[] animations,
+                                Animation.Transformation[] transformations,
+                                Animation.Transformation cameraOffset) {
+
+        ArrayList<Integer> parts = new ArrayList<Integer>();
+        ArrayList<Integer> alphaParts = new ArrayList<Integer>();
+        for (int i = 0; i < models.length; i++) {
+            if (models[i] instanceof AlphaModel) {
+                alphaParts.add(i);
+            } else {
+                parts.add(i);
+            }
+        }
         ArrayList<TileEntitySpecialRenderer.DoubleIntPair> distances =
                 new ArrayList<TileEntitySpecialRenderer.DoubleIntPair>();
         if (alphaParts.size() != 0) {
-            ChunkCoordinates coordinates = Minecraft.getMinecraft().thePlayer.getPlayerCoordinates();
-            coordinates.posX = tile.xCoord - coordinates.posX;
-            coordinates.posY = tile.yCoord - coordinates.posY;
-            coordinates.posZ = tile.zCoord - coordinates.posZ;
             for (Integer i : alphaParts) {
-                Animation.Transformation partCoordinates = this.getAnimation(i).getModifiedCoordinates(new Animation.Transformation(transform), noise);
-                partCoordinates.x += coordinates.posX;
-                partCoordinates.y += -1.6f + coordinates.posY;
-                partCoordinates.z += coordinates.posZ;
-                distances.add(
-                        new TileEntitySpecialRenderer.DoubleIntPair(
-                                Math.sqrt(
-                                        (partCoordinates.x) * (partCoordinates.x) +
-                                        (partCoordinates.y) * (partCoordinates.y) +
-                                        (partCoordinates.z) * (partCoordinates.z)
-                                ),
-                                i
-                        )
-
-                );
+                Animation.Transformation t = new Animation.Transformation(transformations[i]);
+                t.x += models[i].transform.x;
+                t.y += models[i].transform.y;
+                t.z += models[i].transform.z;
+                t.x += cameraOffset.x;
+                t.y += cameraOffset.y;
+                t.z += cameraOffset.z;
+                t = animations[i].getModifiedCoordinates(t,noise);
+                double distance = Math.sqrt(t.x * t.x + t.y * t.y + t.z * t.z);
+                distances.add(new TileEntitySpecialRenderer.DoubleIntPair(distance, i));
             }
             Collections.sort(distances);
         }
         for(int i : parts) {
-            RenderPart(transform,noise, i);
+            RenderPart(models[i],animations[i],transformations[i],noise, cameraOffset);
         }
         if (alphaParts.size() != 0) {
             if (distances.size() != 0) {
@@ -106,36 +109,12 @@ This part should be static final too, because we still don't need to load it mor
                     GL11.glEnable(GL11.GL_BLEND);
                     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     GL11.glAlphaFunc(GL11.GL_LESS, 1.0f);
-                    RenderPart(transform, noise, pair.y);
+                    RenderPart(models[pair.y],animations[pair.y],transformations[pair.y],noise, cameraOffset);
                     GL11.glDisable(GL11.GL_ALPHA_TEST);
                     GL11.glDisable(GL11.GL_BLEND);
                 }
             }
         }
-    }
-    public void renderAll(TileEntity tile, Animation.Transformation transform, double noise) {
-        ArrayList<Integer> parts = new ArrayList<Integer>();
-        ArrayList<Integer> alphaParts = new ArrayList<Integer>();
-        for (int i = 0; i < this.getParts().length; i++) {
-            if (this.getPart(i) instanceof AlphaPart) {
-                alphaParts.add(i);
-            } else {
-                parts.add(i);
-            }
-        }
-        renderParts(tile, transform, noise,parts,alphaParts);
-    }
-    public void renderOnly(TileEntity tile, Animation.Transformation transform, double noise, ArrayList<Integer> input) {
-        ArrayList<Integer> parts = new ArrayList<Integer>();
-        ArrayList<Integer> alphaParts = new ArrayList<Integer>();
-        for (Integer i : input) {
-            if (this.getPart(i) instanceof AlphaPart) {
-                alphaParts.add(i);
-            } else {
-                parts.add(i);
-            }
-        }
-        renderParts(tile,transform,noise,parts,alphaParts);
     }
     @Override
     public void renderTileEntityAt(TileEntity tile, double x, double y, double z, float tick) {
