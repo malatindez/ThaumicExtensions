@@ -16,11 +16,8 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
     private static final Animation floatingPartAnimation = new Animation(new Animation.SimpleAnimation[] {
         Animation.Wave(0.05f, 10.0f, Animation.Axis.y)
     });
-    private static final IModelCustom model =
-            AdvancedModelLoader.loadModel(
-                    new ResourceLocation(ThaumicExtensions.MODID,
-                            "models/pillars/Pillar1.obj"));
-    private static final Animation[] animations =
+
+    private static final Animation[] Pillar1_animations =
             new Animation[] {
                     new Animation(null),
                     floatingPartAnimation,
@@ -33,54 +30,59 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                     new Animation(
                             new Animation.SimpleAnimation[] {
                                     Animation.Wave(0.1f, 10.0f, Animation.Axis.y),
-                                    Animation.RotateAroundItself(1.0f, Animation.Axis.y)
+                                    Animation.RotateAroundItself(1.0f, Animation.Axis.y),
+                                    Animation.RotateAroundCenterAtRadius(0.0f,1.0f,0.0f,0.5f)
                             }
                     )
             };
-    private static final Part[] parts = new Part[] {
-            new Part(
-                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_1.png", "base"),
-            new Part(
-                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_2.png", "floating_part"),
-            new AlphaPart(
-                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_3.png", "crystal"),
-            new AlphaPart(
-                    ThaumicExtensions.MODID, "textures/models/pillars/pillar1_4.png", "floating_crystal1")
+    private static final Model[] Pillar1_models = new Model[] {
+            new Model(
+                    AdvancedModelLoader.loadModel(
+                            new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/base.obj")),
+                    ThaumicExtensions.MODID,
+                    "textures/models/Pillar_T1/base.png",
+                    new Animation.Transformation(0.5f,0.76f,0.5f)
+            ),
+            new Model(
+                    AdvancedModelLoader.loadModel(
+                            new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/floating_part.obj")),
+                    ThaumicExtensions.MODID,
+                    "textures/models/Pillar_T1/floating_part.png",
+                    new Animation.Transformation(0.5f,2.1f,0.5f)
+            ),
+            new AlphaModel(
+                    AdvancedModelLoader.loadModel(
+                            new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/crystal.obj")),
+                    ThaumicExtensions.MODID,
+                    "textures/models/Pillar_T1/crystal_blue.png",
+                    new Animation.Transformation(0.5f,2.9f,0.5f)
+            ),
+            new AlphaModel(
+                    AdvancedModelLoader.loadModel(
+                            new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/crystal.obj")),
+                    ThaumicExtensions.MODID,
+                    "textures/models/Pillar_T1/crystal_pink.png",
+                    new Animation.Transformation(0.5f,2.9f,0.5f,0,0,0,0.4f,0.4f,0.4f)
+            ),
+
     };
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
-        // lambda = 2pi = 1 second
-        this.renderAll(
-                (TileEntity)tile,
-                new Animation.Transformation(
-                        (float)x + 0.5f, (float)y,(float)z + 0.5f,
-                        0, 90 * tile.orientation, 0,
-                        1, 1, 1
-                ),
-                tile.noise
+        // lambda = 2pi = 1 seconds
+        this.renderModels(
+                tile.noise,
+                Pillar1_models,
+                Pillar1_animations,
+                new Animation.Transformation[] {
+                    new Animation.Transformation(),
+                    new Animation.Transformation(),
+                    new Animation.Transformation(),
+                    new Animation.Transformation()
+                },
+                new Animation.Transformation((float)x,(float)y,(float)z)
         );
         if (tile.matrixRef != null && tile.matrixRef.crafting) {
             // TODO crafting matrix
         }
-    }
-
-    @Override
-    protected IModelCustom getModel() {
-        return model;
-    }
-
-    @Override
-    protected Animation getAnimation(int i) {
-        return animations[i];
-    }
-
-    @Override
-    protected Part getPart(int i) {
-        return parts[i];
-    }
-
-    @Override
-    protected Part[] getParts() {
-        return parts;
     }
 
     @Override
