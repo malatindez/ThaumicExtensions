@@ -19,10 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="parts init fix">
+    <list default="true" id="0f68ddd8-1084-431f-bc2a-cdec25dddf55" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.iws" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionMatrixRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionMatrixRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +77,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -89,6 +95,9 @@
     <entry key="Project Default">
       <profile-state />
     </entry>
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -111,20 +120,21 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="show.unlinked.gradle.project.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\lang" />
-      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\blocks" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\testmod\textures\items" />
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\items" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.malatindez.testmod" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\testmod\textures\items" />
-      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\items" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\lang" />
+      <recent name="C:\Users\Axenance\Downloads\forge-1.7.10-10.13.4.1558-1.7.10-src\src\main\resources\assets\examplemod\textures\blocks" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Minecraft Client">
@@ -176,6 +186,40 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration name="Minecraft Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
       <module name="thaumicextensions" />
@@ -199,6 +243,40 @@
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="forge-1.7.10-10.13.4.1558-1.7.10-src" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
       <envs />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -249,118 +327,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1592059726144</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Create Animation.java">
-      <created>1597428111365</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1597428111365</updated>
-    </task>
-    <task id="LOCAL-00002">
-      <created>1597428120344</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1597428120344</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Pillar1_1 update">
-      <created>1597428141585</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1597428141585</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Animation update">
-      <created>1597431232148</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1597431232148</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Create AdvancedModelRenderer">
-      <created>1597475405725</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1597475405725</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Animation class update">
-      <created>1597475476565</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1597475476565</updated>
-    </task>
-    <task id="LOCAL-00007" summary="IDEA files update">
-      <created>1597475496709</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1597475496709</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Enhanced infusion pillar render update">
-      <created>1597477284697</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477284697</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Enhanced infusion pillar render update">
-      <created>1597477330600</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477330600</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Update ThaumicExtensions.iws">
-      <created>1597477373947</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477373947</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Delete EnhancedInfusionPillarRenderer.java">
-      <created>1597477401411</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477401411</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Animation update, fix access modifiers">
-      <created>1597477449682</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477449682</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Fix type typo">
-      <created>1597477471862</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1597477471862</updated>
-    </task>
-    <task id="LOCAL-00014" summary="delete useless files">
-      <created>1597480659635</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1597480659635</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Diamond operator isn't supported in 1.6 version">
-      <created>1597480833018</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1597480833018</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Model path fix">
-      <created>1597480877884</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1597480877884</updated>
     </task>
     <task id="LOCAL-00017" summary="create Pillar1.obj">
       <created>1597480897450</created>
@@ -439,8 +405,284 @@
       <option name="project" value="LOCAL" />
       <updated>1597499980827</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Animation.java update">
+      <created>1597505217980</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1597505217980</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Animation.java update">
+      <created>1597505238237</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1597505238237</updated>
+    </task>
+    <task id="LOCAL-00030" summary="idea files update">
+      <created>1597505429359</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1597505429359</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Animation.java update">
+      <created>1597507610585</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1597507610585</updated>
+    </task>
+    <task id="LOCAL-00032" summary="AdvancedModelRenderer update">
+      <created>1597507656744</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1597507656745</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Pillar1 update">
+      <created>1597507720641</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1597507720641</updated>
+    </task>
+    <task id="LOCAL-00034" summary="refactor">
+      <created>1597507730584</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1597507730584</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Client side fix">
+      <created>1597523639305</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523639305</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Client side fix">
+      <created>1597523650685</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523650685</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Semi-Transparent objects rendering">
+      <created>1597523688403</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523688404</updated>
+    </task>
+    <task id="LOCAL-00038" summary="orientation fix">
+      <created>1597523755023</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523755023</updated>
+    </task>
+    <task id="LOCAL-00039" summary="client side fix">
+      <created>1597523787576</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523787576</updated>
+    </task>
+    <task id="LOCAL-00040" summary="client side fix">
+      <created>1597523804054</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523804054</updated>
+    </task>
+    <task id="LOCAL-00041" summary="added crystal transparency">
+      <created>1597523846462</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523846462</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Pillar model update">
+      <created>1597523869843</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523869843</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Pillar textures update">
+      <created>1597523883860</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1597523883860</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Animations update">
+      <created>1597538004761</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1597538004761</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Transparent object rendering update">
+      <created>1597539187214</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1597539187214</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Textures update">
+      <created>1597539234102</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1597539234102</updated>
+    </task>
+    <task id="LOCAL-00047" summary="create TileEnhancedInfusionMatrixRenderer.java">
+      <created>1597539258737</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1597539258737</updated>
+    </task>
+    <task id="LOCAL-00048" summary="refactor">
+      <created>1597539269153</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1597539269153</updated>
+    </task>
+    <task id="LOCAL-00049" summary="refactor">
+      <created>1597539276094</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1597539276094</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Pair&lt;Double, Integer&gt; to my own class change">
+      <created>1597571040143</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1597571040146</updated>
+    </task>
+    <task id="LOCAL-00051" summary="small blending fix">
+      <created>1597669333933</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1597669333934</updated>
+    </task>
+    <task id="LOCAL-00052" summary="AdvancedModelRenderer.java deletion">
+      <created>1597791109660</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791109662</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Animation.java refactor">
+      <created>1597791129440</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791129441</updated>
+    </task>
+    <task id="LOCAL-00054" summary="TileEnhancedInfusionPillarRenderer.java update">
+      <created>1597791192674</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791192674</updated>
+    </task>
+    <task id="LOCAL-00055" summary="create TileEntitySpecialRenderer">
+      <created>1597791221868</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1597791221868</updated>
+    </task>
+    <task id="LOCAL-00056" summary="grammar fix">
+      <created>1597792057960</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1597792057960</updated>
+    </task>
+    <task id="LOCAL-00057" summary="grammar fix">
+      <created>1597792079656</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1597792079656</updated>
+    </task>
+    <task id="LOCAL-00058" summary="client render fix">
+      <created>1597855096970</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1597855096971</updated>
+    </task>
+    <task id="LOCAL-00059" summary="refactor and blend renderer fix">
+      <created>1597929908531</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1597929908532</updated>
+    </task>
+    <task id="LOCAL-00060" summary="TileEnhancedInfusionPillar update">
+      <created>1597929979294</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1597929979294</updated>
+    </task>
+    <task id="LOCAL-00061" summary="unnecessary texture delete">
+      <created>1597930032631</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1597930032631</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Pillar_T1.obj">
+      <created>1597930119702</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1597930119702</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Base object update">
+      <created>1598000852025</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1598000852026</updated>
+    </task>
+    <task id="LOCAL-00064" summary="crystal textures update">
+      <created>1598000867726</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1598000867727</updated>
+    </task>
+    <task id="LOCAL-00065" summary="floating_part object update">
+      <created>1598000878981</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1598000878981</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -456,32 +698,32 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <MESSAGE value="Create AdvancedModelRenderer" />
-    <MESSAGE value="Animation class update" />
-    <MESSAGE value="IDEA files update" />
-    <MESSAGE value="Enhanced infusion pillar render update" />
-    <MESSAGE value="Update ThaumicExtensions.iws" />
-    <MESSAGE value="Delete EnhancedInfusionPillarRenderer.java" />
-    <MESSAGE value="Animation update, fix access modifiers" />
-    <MESSAGE value="Fix type typo" />
-    <MESSAGE value="delete useless files" />
-    <MESSAGE value="Diamond operator isn't supported in 1.6 version" />
-    <MESSAGE value="Model path fix" />
-    <MESSAGE value="create Pillar1.obj" />
-    <MESSAGE value="crash fix" />
-    <MESSAGE value="obj update" />
-    <MESSAGE value="ThaumicExtensions.iws update" />
-    <MESSAGE value="Offset type change for better noise" />
-    <MESSAGE value="Offset type change for better noise and redundant initializer remove" />
-    <MESSAGE value="Small change to see Pillar tile entity in creative tab" />
-    <MESSAGE value="redundant casting remove" />
-    <MESSAGE value="Animation changes" />
-    <MESSAGE value="Animation rendering fixes" />
-    <MESSAGE value="Animation rendering fixes and redundant initializer remove" />
-    <MESSAGE value="BoundTexture variables access modifiers change" />
-    <MESSAGE value="redundant null check remove and matrix fix" />
-    <MESSAGE value="parts init fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="parts init fix" />
+    <MESSAGE value="added crystal transparency" />
+    <MESSAGE value="Pillar model update" />
+    <MESSAGE value="Pillar textures update" />
+    <MESSAGE value="Animations update" />
+    <MESSAGE value="Transparent object rendering update" />
+    <MESSAGE value="Textures update" />
+    <MESSAGE value="create TileEnhancedInfusionMatrixRenderer.java" />
+    <MESSAGE value="refactor" />
+    <MESSAGE value="Pair&lt;Double, Integer&gt; to my own class change" />
+    <MESSAGE value="small blending fix" />
+    <MESSAGE value="AdvancedModelRenderer.java deletion" />
+    <MESSAGE value="Animation.java refactor" />
+    <MESSAGE value="TileEnhancedInfusionPillarRenderer.java update" />
+    <MESSAGE value="create TileEntitySpecialRenderer" />
+    <MESSAGE value="grammar fix" />
+    <MESSAGE value="client render fix" />
+    <MESSAGE value="refactor and blending renderer fix" />
+    <MESSAGE value="refactor and blend renderer fix" />
+    <MESSAGE value="TileEnhancedInfusionPillar update" />
+    <MESSAGE value="unnecessary texture delete" />
+    <MESSAGE value="Pillar_T1.obj" />
+    <MESSAGE value="Base object update" />
+    <MESSAGE value="crystal textures update" />
+    <MESSAGE value="floating_part object update" />
+    <MESSAGE value="small fixes &amp; refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="small fixes &amp; refactor" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -497,10 +739,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="712" y="341" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597070490771" />
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1597182178002">
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1597913962612">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597182178002" />
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597913962612" />
     <state x="640" y="275" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1596996060437">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -509,86 +751,98 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="497" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597141604923" />
-    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597475339323">
+    <state x="314" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1597787216984">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="314" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597787216984" />
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597788332363">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1592073130664" />
-    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597475339323" />
+    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597788332363" />
+    <state x="92" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1597853244346">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="92" y="92" width="1736" height="896" key="DiffContextDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597853244346" />
     <state x="0" y="0" key="FileDocumentManager.FileCacheConflict" timestamp="1592061013814">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="0" key="FileDocumentManager.FileCacheConflict/0.0.1920.1080@0.0.1920.1080" timestamp="1592061013814" />
-    <state width="1877" height="363" key="GridCell.Tab.0.bottom" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom" timestamp="1598000913690">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="291" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
-    <state width="1877" height="363" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state width="1877" height="363" key="GridCell.Tab.0.center" timestamp="1597233477355">
+    <state width="1877" height="266" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913690" />
+    <state width="1877" height="266" key="GridCell.Tab.0.center" timestamp="1598000913690">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="291" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
-    <state width="1877" height="363" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477355" />
-    <state width="1877" height="363" key="GridCell.Tab.0.left" timestamp="1597233477355">
+    <state width="1877" height="266" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913690" />
+    <state width="1877" height="266" key="GridCell.Tab.0.left" timestamp="1598000913690">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="291" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
-    <state width="1877" height="363" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477355" />
-    <state width="1877" height="363" key="GridCell.Tab.0.right" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913690" />
+    <state width="1877" height="266" key="GridCell.Tab.0.right" timestamp="1598000913690">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="291" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1592143255376" />
-    <state width="1877" height="363" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state width="1877" height="363" key="GridCell.Tab.1.bottom" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913690" />
+    <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1598000913691">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="363" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state width="1877" height="363" key="GridCell.Tab.1.center" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913691" />
+    <state width="1877" height="266" key="GridCell.Tab.1.center" timestamp="1598000913691">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="363" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state width="1877" height="363" key="GridCell.Tab.1.left" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913691" />
+    <state width="1877" height="266" key="GridCell.Tab.1.left" timestamp="1598000913691">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="363" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state width="1877" height="363" key="GridCell.Tab.1.right" timestamp="1597233477356">
+    <state width="1877" height="266" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913691" />
+    <state width="1877" height="266" key="GridCell.Tab.1.right" timestamp="1598000913691">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1877" height="363" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597233477356" />
-    <state x="681" y="242" key="RollbackChangesDialog" timestamp="1597505135346">
+    <state width="1877" height="266" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598000913691" />
+    <state x="681" y="242" key="RollbackChangesDialog" timestamp="1597853246387">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="681" y="242" key="RollbackChangesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597505135346" />
-    <state x="440" y="114" key="SettingsEditor" timestamp="1597478984140">
+    <state x="681" y="242" key="RollbackChangesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597853246387" />
+    <state x="440" y="114" key="SettingsEditor" timestamp="1597780834755">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="440" y="114" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597478984140" />
+    <state x="440" y="114" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597780834755" />
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597414776627">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1592067166326" />
     <state x="565" y="150" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597414776627" />
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597505119619">
+    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597997282604">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597505119619" />
-    <state x="2539" y="-8" width="1487" height="688" maximized="true" key="dock-window-1" timestamp="1597477074436">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597997282604" />
+    <state x="269" y="-21" width="1487" height="688" maximized="true" key="dock-window-1" timestamp="1597514411054">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="2539" y="-8" width="1487" height="688" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597477074436" />
+    <state x="269" y="-21" width="1487" height="688" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597514411054" />
     <state x="1913" y="0" width="974" height="1087" key="dock-window-2" timestamp="1597075959064">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="1913" y="0" width="974" height="1087" key="dock-window-2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597075959064" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1597491067050">
+    <state x="666" y="297" key="refactoring.ChangeSignatureDialog" timestamp="1597670379057">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="666" y="297" key="refactoring.ChangeSignatureDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597670379057" />
+    <state x="616" y="250" key="run.anything.popup" timestamp="1597787118061">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="616" y="250" key="run.anything.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1592065048839" />
-    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597491067050" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1597447892083">
+    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597787118061" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1597921706644">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1592141396841" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597447892083" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1597921706644" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -603,5 +857,11 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="com.malatindez.thaumicextensions.client.render.misc.AdvancedModelRenderer" fieldName="animations" />
+        <PinnedItemInfo typeName="com.malatindez.thaumicextensions.client.render.misc.AdvancedModelRenderer" fieldName="model" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>
