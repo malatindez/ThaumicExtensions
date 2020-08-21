@@ -141,22 +141,22 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
                     NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                     nbttagcompound1.setByte("item", (byte)count);
                     stack.writeToNBT(nbttagcompound1);
-                    nbttaglist.appendTag((NBTBase)nbttagcompound1);
+                    nbttaglist.appendTag(nbttagcompound1);
                     count++;
                 }
             }
-            nbtCompound.setTag("recipein", (NBTBase)nbttaglist);
+            nbtCompound.setTag("recipein", nbttaglist);
         }
         if (this.recipeOutput != null && this.recipeOutput instanceof ItemStack)
             nbtCompound.setString("rotype", "@");
         if (this.recipeOutput != null && this.recipeOutput instanceof NBTBase)
             nbtCompound.setString("rotype", this.recipeOutputLabel);
         if (this.recipeOutput != null && this.recipeOutput instanceof ItemStack)
-            nbtCompound.setTag("recipeout", (NBTBase)((ItemStack)this.recipeOutput).writeToNBT(new NBTTagCompound()));
+            nbtCompound.setTag("recipeout", ((ItemStack)this.recipeOutput).writeToNBT(new NBTTagCompound()));
         if (this.recipeOutput != null && this.recipeOutput instanceof NBTBase)
             nbtCompound.setTag("recipeout", (NBTBase)this.recipeOutput);
         if (this.recipeInput != null)
-            nbtCompound.setTag("recipeinput", (NBTBase)this.recipeInput.writeToNBT(new NBTTagCompound()));
+            nbtCompound.setTag("recipeinput", this.recipeInput.writeToNBT(new NBTTagCompound()));
         nbtCompound.setInteger("recipeinst", this.recipeInstability);
         nbtCompound.setInteger("recipetype", this.recipeType);
         nbtCompound.setInteger("recipexp", this.recipeXP);
@@ -181,6 +181,8 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
     public float startUp;
 
     private int countDelay = 10;
+
+    public int tier = 0;
 
     public void updateEntity() {
         super.updateEntity();
@@ -209,21 +211,21 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
     ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 
     public boolean validLocation() {
-        TileEntity te = null;
+        TileEntity te;
         te = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 2, this.zCoord);
-        if (te == null || !(te.getClass().getSimpleName() == "TilePedestal"))
+        if (!(te.getClass().getSimpleName().equals("TilePedestal")))
             return false;
         te = this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord - 2, this.zCoord + 1);
-        if (te == null || !(te instanceof TileEnhancedInfusionPillar))
+        if (!(te instanceof TileEnhancedInfusionPillar))
             return false;
         te = this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord - 2, this.zCoord - 1);
-        if (te == null || !(te instanceof TileEnhancedInfusionPillar))
+        if (!(te instanceof TileEnhancedInfusionPillar))
             return false;
         te = this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord - 2, this.zCoord - 1);
-        if (te == null || !(te instanceof TileEnhancedInfusionPillar))
+        if ((te instanceof TileEnhancedInfusionPillar))
             return false;
         te = this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord - 2, this.zCoord + 1);
-        if (te == null || !(te instanceof TileEnhancedInfusionPillar))
+        if (!(te instanceof TileEnhancedInfusionPillar))
             return false;
         return true;
     }
@@ -257,10 +259,10 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
             return;
         }
         //getSurroundings();
-        TileEntity te = null;
+        TileEntity te;
         this.recipeInput = null;
         te = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 2, this.zCoord);
-        if (te != null && (te.getClass().getSimpleName() == "TilePedestal")) {
+        if (te != null && (te.getClass().getSimpleName().equals("TilePedestal"))) {
             ISidedInventory ped = (ISidedInventory)te;
             if (ped.getStackInSlot(0) != null)
                 this.recipeInput = ped.getStackInSlot(0).copy();
@@ -270,7 +272,7 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
         ArrayList<ItemStack> components = new ArrayList<ItemStack>();
         for (ChunkCoordinates cc : this.pedestals) {
             te = this.worldObj.getTileEntity(cc.posX, cc.posY, cc.posZ);
-            if (te != null && (te.getClass().getSimpleName() == "TilePedestal")) {
+            if (te != null && (te.getClass().getSimpleName().equals("TilePedestal"))) {
                 ISidedInventory ped = (ISidedInventory)te;
                 if (ped.getStackInSlot(0) != null)
                     components.add(ped.getStackInSlot(0).copy());
@@ -321,7 +323,6 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
             this.worldObj.playSoundEffect(this.xCoord, this.yCoord, this.zCoord, "thaumcraft:craftstart", 0.5F, 1.0F);
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             markDirty();
-            return;
         }
     }
 

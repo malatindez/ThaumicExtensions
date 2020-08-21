@@ -14,7 +14,7 @@ public class TileEnhancedInfusionPillar extends TileThaumcraft {
 
     public byte tier = 0;
 
-    public TileEnhancedInfusionMatrix matrixRef;
+    public TileEnhancedInfusionMatrix matrixRef = null;
 
     public TileEnhancedInfusionPillar() {
         noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(1000000);

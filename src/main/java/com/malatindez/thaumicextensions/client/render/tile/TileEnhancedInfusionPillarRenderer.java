@@ -30,7 +30,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                     new Animation(
                             new Animation.SimpleAnimation[] {
                                     Animation.Wave(0.1f, 10.0f, Animation.Axis.y),
-                                    Animation.RotateAroundItself(1.0f, Animation.Axis.y),
+                                    Animation.RotateAroundItself(12.0f, Animation.Axis.y),
                                     Animation.RotateAroundCenterAtRadius(0.0f,1.0f,0.0f,0.5f)
                             }
                     )
@@ -41,7 +41,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                             new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/base.obj")),
                     ThaumicExtensions.MODID,
                     "textures/models/Pillar_T1/base.png",
-                    new Animation.Transformation(0.5f,0.76f,0.5f)
+                    new Animation.Transformation(0.5f,0.759259f,0.5f)
             ),
             new Model(
                     AdvancedModelLoader.loadModel(
