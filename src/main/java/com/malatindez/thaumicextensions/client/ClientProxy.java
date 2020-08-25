@@ -2,10 +2,12 @@ package com.malatindez.thaumicextensions.client;
 
 import com.malatindez.thaumicextensions.IProxy;
 import com.malatindez.thaumicextensions.client.render.block.BlockEnhancedInfusionPillarRenderer;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEnhancedResearchBrowser;
 import com.malatindez.thaumicextensions.client.render.tile.TileEnhancedInfusionPillarRenderer;
 import com.malatindez.thaumicextensions.common.ConfigBlocks;
 import com.malatindez.thaumicextensions.common.blocks.BlockEnhancedInfusionPillar;
 import com.malatindez.thaumicextensions.common.tiles.TileEnhancedInfusionPillar;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -13,6 +15,10 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class ClientProxy extends IProxy {
 
@@ -41,5 +47,19 @@ public class ClientProxy extends IProxy {
     }
     void setupTileRenderers() {
         registerTileEntitySpecialRenderer(TileEnhancedInfusionPillar.class, (TileEntitySpecialRenderer)new TileEnhancedInfusionPillarRenderer());
+    }
+    public World getClientWorld() {
+        return (World)(FMLClientHandler.instance().getClient()).theWorld;
+    }
+
+    public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+        if (world instanceof net.minecraft.client.multiplayer.WorldClient) {
+            if (id == 0)
+                return new GuiEnhancedResearchBrowser();
+            TileEntity tile = world.getTileEntity(x, y, z);
+            if (tile == null)
+                return null;
+        }
+        return null;
     }
 }
