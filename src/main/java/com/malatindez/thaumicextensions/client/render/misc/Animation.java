@@ -2,6 +2,7 @@ package com.malatindez.thaumicextensions.client.render.misc;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -136,7 +137,7 @@ public class Animation {
     Transformation getModifiedCoordinates(Transformation transform, double noise) {
         Matrix4f matrix = new Matrix4f();
         matrix.m00 = matrix.m11 = matrix.m22 = matrix.m33 = 1;
-        double time = (((double)System.currentTimeMillis())) / 1000;
+        double time = ((double)Minecraft.getSystemTime()) / 1000;
         for(SimpleAnimation wave : waves) {
             float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
             if(wave.axis == Axis.x) { transform.x += a; }
@@ -169,7 +170,7 @@ public class Animation {
         return new Transformation(matrix.m30,matrix.m31,matrix.m32);
     }
     void PushMatrix(Transformation transform, double noise) {
-        double time = (((double)System.currentTimeMillis())) / 1000;
+        double time = ((double)Minecraft.getSystemTime()) / 1000;
         GL11.glPushMatrix();
         for(SimpleAnimation wave : waves) {
             float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
