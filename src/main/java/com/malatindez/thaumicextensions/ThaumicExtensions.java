@@ -29,14 +29,21 @@ public class ThaumicExtensions
     @Instance("ThaumicExtensions")
     public static ThaumicExtensions instance;
 
+    public EventHandlerNetwork networkEventHandler;
+
     public static CreativeTabs ThaumicExtensionsTab = new CreativeTabs("tabName") {
         public Item getTabIconItem() {
             return Items.apple;
         }
     };
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+        this.instance = this;
         proxy.preInit(e);
+        this.networkEventHandler = new EventHandlerNetwork();
+
+        FMLCommonHandler.instance().bus().register(this.networkEventHandler);
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent e) {
@@ -45,5 +52,6 @@ public class ThaumicExtensions
     @EventHandler
     public void init(FMLInitializationEvent e) {
         proxy.init(e);
+        NetworkRegistry.INSTANCE.registerGuiHandler(this.instance, proxy);
     }
 }
