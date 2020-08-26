@@ -104,13 +104,19 @@ public class Animation {
     public static SimpleAnimation Wave(float amplitude, float time, Axis axis) {
         return new SimpleAnimation(time,amplitude,Type.Wave,axis);
     }
-    
 
-
-    Vector3f getModifiedCoordinates(Transformation transform, double noise) {
+    public static final Vector3f rotationAxisX = new Vector3f(1,0,0);
+    public static final Vector3f rotationAxisY = new Vector3f(0,1,0);
+    public static final Vector3f rotationAxisZ = new Vector3f(0,0,1);
+    /**
+     * @param time - current time
+     * @param transform - current object position, rotation, scale and color
+     * @param noise - TileEntity noise, which will be used as unique offset for this object
+     * @return the matrix according to the current time & noise
+     */
+    Matrix4f getMatrix(Transformation transform, double time, double noise) {
         Matrix4f matrix = new Matrix4f();
         matrix.m00 = matrix.m11 = matrix.m22 = matrix.m33 = 1;
-        double time = ((double)Minecraft.getSystemTime()) / 1000;
         for(SimpleAnimation wave : waves) {
             float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
             if(wave.axis == Axis.x) { transform.position.x += a; }
@@ -123,70 +129,34 @@ public class Animation {
             float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
             float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
             matrix.translate(transform.position);
-            matrix.rotate(a / 180.0f * (float)Math.PI, new Vector3f(1,0,0));
-            matrix.rotate(b / 180.0f * (float)Math.PI, new Vector3f(0,1,0));
-            matrix.rotate(c / 180.0f * (float)Math.PI, new Vector3f(0,0,1));
-            float radius = rotationAroundCenter.amplitude / (float)Math.sqrt(
-                    rotationAroundCenter.speed  == 0 ? 1 : 0 +
-                            rotationAroundCenter.speedY == 0 ? 1 : 0 +
-                            rotationAroundCenter.speedZ == 0 ? 1 : 0
-            );
-            matrix.translate( new Vector3f(
-                    rotationAroundCenter.speedZ == 0 ? 0 : (radius),
-                    rotationAroundCenter.speed  == 0 ? 0 : (radius),
-                    rotationAroundCenter.speedY == 0 ? 0 : (radius)));
-        }
-        else {
-            matrix.translate(new Vector3f(transform.position.x, transform.position.y, transform.position.z));
-        }
-        return new Vector3f(matrix.m30,matrix.m31,matrix.m32);
-    }
-    /**
-     * Pushes matrix onto stack according to the current time & noise
-     * @param transform - current object position, rotation, scale and color
-     * @param noise - TileEntity noise, which will be used as unique offset for this object
-     */
-    void getMatrix(Transformation transform, double noise) {
-        double time = ((double)Minecraft.getSystemTime()) / 1000;
-        GL11.glPushMatrix();
-        for(SimpleAnimation wave : waves) {
-            float a = (float)sin((time*2*Math.PI + wave.noise + noise) / wave.speed) * wave.amplitude;
-            if(wave.axis == Axis.x) { transform.position.x += a; }
-            else if(wave.axis == Axis.y) { transform.position.y += a; }
-            else if(wave.axis == Axis.z) { transform.position.z += a; }
-        }
-        if(rotationAroundCenter != null) {
-            double n =  time + rotationAroundCenter.noise  + noise;
-            float a = (float) ((n * rotationAroundCenter.speed)  % 360.0);
-            float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
-            float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
-            GL11.glTranslatef(transform.position.x, transform.position.y, transform.position.z);
-            GL11.glRotatef(a, 1, 0, 0);
-            GL11.glRotatef(b, 0, 1, 0);
-            GL11.glRotatef(c, 0, 0, 1);
+            matrix.rotate(a, rotationAxisX);
+            matrix.rotate(b, rotationAxisY);
+            matrix.rotate(c, rotationAxisZ);
+
             float radius = rotationAroundCenter.amplitude / (float)Math.sqrt(
                     rotationAroundCenter.speed  == 0 ? 1 : 0 +
                     rotationAroundCenter.speedY == 0 ? 1 : 0 +
                     rotationAroundCenter.speedZ == 0 ? 1 : 0
             );
-            GL11.glTranslatef(
+
+            matrix.translate(new Vector3f(
                     rotationAroundCenter.speedZ == 0 ? 0 : (radius),
                     rotationAroundCenter.speed  == 0 ? 0 : (radius),
-                    rotationAroundCenter.speedY == 0 ? 0 : (radius));
+                    rotationAroundCenter.speedY == 0 ? 0 : (radius)));
         } else {
-            GL11.glTranslatef(transform.position.x, transform.position.y, transform.position.z);
+            matrix.translate(transform.position);
         }
         for(SimpleAnimation rotationAroundItself : rotationsAroundItself) {
             float a = (float)((time + rotationAroundItself.noise  + noise) * rotationAroundItself.speed % 360.0);
-            if (rotationAroundItself.axis == Axis.x)      { GL11.glRotatef(a ,1,0,0); }
-            else if (rotationAroundItself.axis == Axis.y) { GL11.glRotatef(a ,0,1,0); }
-            else if (rotationAroundItself.axis == Axis.z) { GL11.glRotatef(a ,0,0,1); }
+            if (rotationAroundItself.axis == Axis.x)      { matrix.rotate(a, rotationAxisX); }
+            else if (rotationAroundItself.axis == Axis.y) { matrix.rotate(a, rotationAxisY); }
+            else if (rotationAroundItself.axis == Axis.z) { matrix.rotate(a, rotationAxisZ); }
         }
-        GL11.glRotatef(transform.degree.x,1,0,0);
-        GL11.glRotatef(transform.degree.y,0,1,0);
-        GL11.glRotatef(transform.degree.z,0,0,1);
-        GL11.glScalef(transform.scale.x, transform.scale.y, transform.scale.z);
-        GL11.glColor4f(transform.color.x, transform.color.y, transform.color.z, transform.color.w);
+        matrix.rotate(transform.degree.x, rotationAxisX);
+        matrix.rotate(transform.degree.y, rotationAxisY);
+        matrix.rotate(transform.degree.z, rotationAxisZ);
+        matrix.scale(transform.scale);
+        return matrix;
     }
 
 }
