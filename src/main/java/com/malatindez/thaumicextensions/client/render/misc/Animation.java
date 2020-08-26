@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc;
 
+import com.malatindez.thaumicextensions.client.lib.Transformation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -10,7 +11,6 @@ import org.lwjgl.util.vector.Vector3f;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 @SideOnly(Side.CLIENT)
 public class Animation {
@@ -57,33 +57,6 @@ public class Animation {
         }
     }
 
-    public static class Transformation {
-        public float x, y, z;
-        public float degreeX = 0, degreeY = 0, degreeZ = 0;
-        public float scaleX = 1, scaleY = 1, scaleZ = 1;
-        public Transformation() {}
-        public Transformation(float x, float y, float z) {
-            this.x = x; this.y = y; this.z = z;
-        }
-        public Transformation(float x, float y, float z,
-                              float degreeX, float degreeY, float degreeZ) {
-            this.x = x; this.y = y; this.z = z;
-            this.degreeX = degreeX; this.degreeY = degreeY; this.degreeZ = degreeZ;
-        }
-        public Transformation(float x, float y, float z,
-                              float degreeX, float degreeY, float degreeZ,
-                              float scaleX, float scaleY, float scaleZ) {
-            this.x = x; this.y = y; this.z = z;
-            this.degreeX = degreeX; this.degreeY = degreeY; this.degreeZ = degreeZ;
-            this.scaleX = scaleX; this.scaleY = scaleY; this.scaleZ = scaleZ;
-        }
-
-        public Transformation(Transformation transform) {
-            x =  transform.x; y = transform.y; z = transform.z;
-            degreeX = transform.degreeX; degreeY = transform.degreeY; degreeZ = transform.degreeZ;
-            scaleX = transform.scaleX; scaleY = transform.scaleY; scaleZ = transform.scaleZ;
-        }
-    }
     protected SimpleAnimation rotationAroundCenter = null;
     protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
     protected ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
@@ -212,6 +185,7 @@ public class Animation {
                 transform.scaleX,
                 transform.scaleY,
                 transform.scaleZ);
+        GL11.glColor4f(transform.colorR,transform.colorG,transform.colorB,transform.colorA);
     }
 
 }
