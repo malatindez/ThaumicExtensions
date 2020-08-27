@@ -1,6 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.tile;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
+import com.malatindez.thaumicextensions.client.lib.Transformation;
 import com.malatindez.thaumicextensions.client.render.misc.Animation;
 import com.malatindez.thaumicextensions.client.render.misc.TileEntitySpecialRenderer;
 import com.malatindez.thaumicextensions.common.tiles.TileEnhancedInfusionPillar;
@@ -9,7 +10,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
-import net.minecraftforge.client.model.IModelCustom;
 
 @SideOnly(Side.CLIENT)
 public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRenderer {
@@ -41,28 +41,28 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                             new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/base.obj")),
                     ThaumicExtensions.MODID,
                     "textures/models/Pillar_T1/base.png",
-                    new Animation.Transformation(0.5f,0.759259f,0.5f)
+                    new Transformation(0.5f,0.759259f,0.5f)
             ),
             new Model(
                     AdvancedModelLoader.loadModel(
                             new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/floating_part.obj")),
                     ThaumicExtensions.MODID,
                     "textures/models/Pillar_T1/floating_part.png",
-                    new Animation.Transformation(0.5f,2.1f,0.5f)
+                    new Transformation(0.5f,2.1f,0.5f)
             ),
             new AlphaModel(
                     AdvancedModelLoader.loadModel(
                             new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/crystal.obj")),
                     ThaumicExtensions.MODID,
                     "textures/models/Pillar_T1/crystal_blue.png",
-                    new Animation.Transformation(0.5f,2.9f,0.5f)
+                    new Transformation(0.5f,2.9f,0.5f)
             ),
             new AlphaModel(
                     AdvancedModelLoader.loadModel(
                             new ResourceLocation(ThaumicExtensions.MODID, "models/Pillar_T1/crystal.obj")),
                     ThaumicExtensions.MODID,
                     "textures/models/Pillar_T1/crystal_pink.png",
-                    new Animation.Transformation(0.5f,2.9f,0.5f,0,0,0,0.4f,0.4f,0.4f)
+                    new Transformation(0.5f,2.9f,0.5f,0,0,0,0.4f,0.4f,0.4f)
             ),
 
     };
@@ -72,13 +72,13 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
                 tile.noise,
                 Pillar1_models,
                 Pillar1_animations,
-                new Animation.Transformation[] {
-                    new Animation.Transformation(),
-                    new Animation.Transformation(),
-                    new Animation.Transformation(),
-                    new Animation.Transformation()
+                new Transformation[] {
+                    new Transformation(),
+                    new Transformation(),
+                    new Transformation(),
+                    new Transformation()
                 },
-                new Animation.Transformation((float)x,(float)y,(float)z)
+                new Transformation((float)x,(float)y,(float)z)
         );
         if (tile.matrixRef != null && tile.matrixRef.crafting) {
             // TODO crafting matrix
