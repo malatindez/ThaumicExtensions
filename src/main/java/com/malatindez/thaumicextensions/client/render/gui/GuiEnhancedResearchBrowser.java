@@ -251,10 +251,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             count++;
         }
     }
-
-    protected void genResearchBackground(int mx, int my, float partialTicks) {
-        long t = System.nanoTime() / 50000000L;
-        this.zLevel = 0.0F;
+    protected void drawBackground() {
         GL11.glDepthFunc(GL11.GL_GEQUAL);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, 0.0F, -200.0F);
@@ -280,8 +277,68 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 26, 0,
                 0,0, 256, 256, this.width-52,this.height,
                 256,256);
-        GL11.glScalef(0.5F, 0.5F, 1.0F);
         GL11.glPopMatrix();
+    }
+
+    private void drawLine(Vector2f from, Vector2f to, float r, float g, float b, float te, boolean wiggle) {
+        float count = (FMLClientHandler.instance().getClient()).thePlayer.ticksExisted + te;
+        Tessellator var12 = Tessellator.instance;
+        GL11.glPushMatrix();
+        GL11.glAlphaFunc(516, 0.003921569F);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        double d3 = (from.x - to.x);
+        double d4 = (from.y - to.y);
+        float dist = MathHelper.sqrt_double(d3 * d3 + d4 * d4);
+        int inc = (int) (dist / 2.0F);
+        float dx = (float) (d3 / inc);
+        float dy = (float) (d4 / inc);
+        boolean idk = Math.abs(d3) > Math.abs(d4);
+        if (idk) {
+            dx *= 2.0F;
+        } else {
+            dy *= 2.0F;
+        }
+        GL11.glLineWidth(3.0F);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        var12.startDrawing(3);
+        for (int a = 0; a <= inc; a++) {
+            float r2 = r;
+            float g2 = g;
+            float b2 = b;
+            float mx = 0.0F;
+            float my = 0.0F;
+            float op = 0.6F;
+            if (wiggle) {
+                float phase = ((float) a) / inc;
+                mx = MathHelper.sin((count + a) / 7.0F) * 5.0F * (1.0F - phase);
+                my = MathHelper.sin((count + a) / 5.0F) * 5.0F * (1.0F - phase);
+                r2 *= 1.0F - phase;
+                g2 *= 1.0F - phase;
+                b2 *= 1.0F - phase;
+                op *= phase;
+            }
+            var12.setColorRGBA_F(r2, g2, b2, op);
+            var12.addVertex((from.x - dx * a + mx), (from.y - dy * a + my), 0.0D);
+            if (idk) {
+                dx *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
+            } else {
+                dy *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
+            }
+        }
+        var12.draw();
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glDisable(2848);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glAlphaFunc(516, 0.1F);
+        GL11.glPopMatrix();
+    }
+
+    protected void drawLines(float partialTicks) {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         if (GuiResearchBrowser.completedResearch.get(this.player) != null)
@@ -339,10 +396,12 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         }
                     }
             }
-        this.currentHighlight = null;
-        RenderItem itemRenderer = new RenderItem();
+    }
+    protected void drawResearches(int mx, int my, double t) {
         GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+        this.currentHighlight = null;
+        RenderItem itemRenderer = new RenderItem();
         if (GuiResearchBrowser.completedResearch.get(this.player) != null)
             for (ResearchItem researchItem : this.research) {
                 int var26 = (int)(researchItem.displayColumn * 24 - guiOffset.x);
@@ -439,6 +498,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }
             }
+    }
+    protected void drawCategories(double t) {
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -494,14 +555,16 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             GL11.glPopMatrix();
             count++;
         }
+    }
+    protected void drawFrame() {
         UtilsFX.bindTexture("textures/gui/gui_research.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Gui.func_152125_a(
                 26, 0,
                 0,0, 1024, 640, this.width-52,this.height,
                 1024,1024);
-        GL11.glPopMatrix();
-        this.zLevel = 0.0F;
+    }
+    protected void drawHighlights(int mx, int my, float partialTicks) {
         GL11.glDepthFunc(GL11.GL_LEQUAL);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
@@ -619,6 +682,22 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glEnable(GL11.GL_LIGHTING);
         RenderHelper.disableStandardItemLighting();
     }
+    protected void genResearchBackground(int mx, int my, float partialTicks) {
+        long t = System.nanoTime() / 50000000L;
+        drawBackground(); // Leaves one more matrix on stack for drawFrame
+
+        drawLines(partialTicks);
+
+        drawResearches(mx, my, t);
+
+        drawCategories(t);
+
+        drawFrame();
+        GL11.glPopMatrix();
+
+        this.zLevel = 0.0F;
+        drawHighlights(mx,my,partialTicks);
+    }
 
     protected void mouseClicked(int par1, int par2, int par3) {
         this.popupTime = System.currentTimeMillis() - 1L;
@@ -699,64 +778,6 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
 
     public boolean doesGuiPauseGame() {
         return false;
-    }
-
-    private void drawLine(Vector2f from, Vector2f to, float r, float g, float b, float te, boolean wiggle) {
-        float count = (FMLClientHandler.instance().getClient()).thePlayer.ticksExisted + te;
-        Tessellator var12 = Tessellator.instance;
-        GL11.glPushMatrix();
-        GL11.glAlphaFunc(516, 0.003921569F);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        double d3 = (from.x - to.x);
-        double d4 = (from.y - to.y);
-        float dist = MathHelper.sqrt_double(d3 * d3 + d4 * d4);
-        int inc = (int) (dist / 2.0F);
-        float dx = (float) (d3 / inc);
-        float dy = (float) (d4 / inc);
-        boolean idk = Math.abs(d3) > Math.abs(d4);
-        if (idk) {
-            dx *= 2.0F;
-        } else {
-            dy *= 2.0F;
-        }
-        GL11.glLineWidth(3.0F);
-        GL11.glEnable(2848);
-        GL11.glHint(3154, 4354);
-        var12.startDrawing(3);
-        for (int a = 0; a <= inc; a++) {
-            float r2 = r;
-            float g2 = g;
-            float b2 = b;
-            float mx = 0.0F;
-            float my = 0.0F;
-            float op = 0.6F;
-            if (wiggle) {
-                float phase = ((float) a) / inc;
-                mx = MathHelper.sin((count + a) / 7.0F) * 5.0F * (1.0F - phase);
-                my = MathHelper.sin((count + a) / 5.0F) * 5.0F * (1.0F - phase);
-                r2 *= 1.0F - phase;
-                g2 *= 1.0F - phase;
-                b2 *= 1.0F - phase;
-                op *= phase;
-            }
-            var12.setColorRGBA_F(r2, g2, b2, op);
-            var12.addVertex((from.x - dx * a + mx), (from.y - dy * a + my), 0.0D);
-            if (idk) {
-                dx *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
-            } else {
-                dy *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
-            }
-        }
-        var12.draw();
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glDisable(2848);
-        GL11.glDisable(GL11.GL_BLEND);
-        GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glAlphaFunc(516, 0.1F);
-        GL11.glPopMatrix();
     }
 
     private void drawForbidden(double x, double y) {
