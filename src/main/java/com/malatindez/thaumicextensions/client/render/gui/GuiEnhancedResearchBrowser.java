@@ -3,7 +3,6 @@ package com.malatindez.thaumicextensions.client.render.gui;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -18,7 +17,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
@@ -111,7 +109,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             cArg[8] = boolean.class;
             this.drawline = guiResearchBrowserInstance.getClass().getDeclaredMethod("drawLine",cArg);
             drawline.setAccessible(true);
-        } catch (Exception a) { drawline = null; }
+        } catch (Exception ignored) { }
     }
     public GuiEnhancedResearchBrowser() {
         if(drawline == null) {
@@ -145,7 +143,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             Collection<String> cats = ResearchCategories.researchCategories.keySet();
             selectedCategory = cats.iterator().next();
         }
-        Collection col = (ResearchCategories.getResearchList(selectedCategory)).research.values();
+        Collection<ResearchItem> col = (ResearchCategories.getResearchList(selectedCategory)).research.values();
         for (Object res : col)
             this.research.add((ResearchItem)res);
         if (ResearchManager.consumeInkFromPlayer(this.mc.thePlayer, false)
@@ -217,7 +215,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             drawGradientRect(xq - 78, yq - var41 - 3, xq + 78, yq + var41 + 3, -1073741824, -1073741824);
             this.fontRendererObj.drawSplitString(this.popupMessage, xq - 75, yq - var41, 150, -7302913);
         }
-        Collection cats = ResearchCategories.researchCategories.keySet();
+        Collection<String> cats = ResearchCategories.researchCategories.keySet();
         int count = 0;
         boolean swop = false;
         for (Object obj : cats) {
@@ -303,13 +301,13 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glDepthFunc(515);
         if (GuiResearchBrowser.completedResearch.get(this.player) != null)
             for (ResearchItem researchItem : this.research) {
+                int fromX = researchItem.displayColumn * 24 - var4 + 11 + var10;
+                int fromY = researchItem.displayRow * 24 - var5 + 11 + var11;
                 if (researchItem.parents != null && researchItem.parents.length > 0)
                     for (int j = 0; j < researchItem.parents.length; j++) {
                         if (researchItem.parents[j] != null && (ResearchCategories.getResearch(researchItem.parents[j])).category.equals(selectedCategory)) {
                             ResearchItem parent = ResearchCategories.getResearch(researchItem.parents[j]);
                             if (!parent.isVirtual()) {
-                                int fromX = researchItem.displayColumn * 24 - var4 + 11 + var10;
-                                int fromY = researchItem.displayRow * 24 - var5 + 11 + var11;
                                 int toX = parent.displayColumn * 24 - var4 + 11 + var10;
                                 int toY = parent.displayRow * 24 - var5 + 11 + var11;
                                 boolean researched = GuiResearchBrowser.completedResearch.get(this.player).contains(researchItem.key);
@@ -333,9 +331,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         if (researchItem.siblings[a] != null && (ResearchCategories.getResearch(researchItem.siblings[a])).category.equals(selectedCategory)) {
                             ResearchItem sibling = ResearchCategories.getResearch(researchItem.siblings[a]);
                             if (!sibling.isVirtual() && (
-                                    sibling.parents == null || !Arrays.<String>asList(sibling.parents).contains(researchItem.key))) {
-                                int fromX = researchItem.displayColumn * 24 - var4 + 11 + var10;
-                                int fromY = researchItem.displayRow * 24 - var5 + 11 + var11;
+                                    sibling.parents == null || !Arrays.asList(sibling.parents).contains(researchItem.key))) {
                                 int toX = sibling.displayColumn * 24 - var4 + 11 + var10;
                                 int toY = sibling.displayRow * 24 - var5 + 11 + var11;
                                 boolean var28 = GuiResearchBrowser.completedResearch.get(this.player).contains(researchItem.key);
@@ -459,7 +455,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glEnable(3042);
         GL11.glBlendFunc(770, 771);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        Collection cats = ResearchCategories.researchCategories.keySet();
+        Collection<String> cats = ResearchCategories.researchCategories.keySet();
         int count = 0;
         boolean swop = false;
         for (Object obj : cats) {
@@ -659,7 +655,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         } else if (this.currentHighlight != null && GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key)) {
             this.mc.displayGuiScreen(new GuiEnhancedResearchRecipe(this.currentHighlight, 0, this.guiMapX, this.guiMapY));
         } else {
-            Collection cats = ResearchCategories.researchCategories.keySet();
+            Collection<String> cats = ResearchCategories.researchCategories.keySet();
             int count = 0;
             boolean swop = false;
             for (Object obj : cats) {
@@ -721,7 +717,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         if(this.drawline != null) {
             try {
                 this.drawline.invoke(guiResearchBrowserInstance, x,y,x2,y2,r,g,b,te,wiggle);
-            } catch (Exception e) {}
+            } catch (Exception ignored) {}
         } else {
             float count = (FMLClientHandler.instance().getClient()).thePlayer.ticksExisted + te;
             Tessellator var12 = Tessellator.instance;
@@ -736,7 +732,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             int inc = (int) (dist / 2.0F);
             float dx = (float) (d3 / inc);
             float dy = (float) (d4 / inc);
-            if (Math.abs(d3) > Math.abs(d4)) {
+            boolean idk = Math.abs(d3) > Math.abs(d4);
+            if (idk) {
                 dx *= 2.0F;
             } else {
                 dy *= 2.0F;
@@ -763,7 +760,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 }
                 var12.setColorRGBA_F(r2, g2, b2, op);
                 var12.addVertex((x - dx * a + mx), (y - dy * a + my), 0.0D);
-                if (Math.abs(d3) > Math.abs(d4)) {
+                if (idk) {
                     dx *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
                 } else {
                     dy *= 1.0F - 1.0F / inc * 3.0F / 2.0F;
