@@ -1,45 +1,34 @@
 package com.malatindez.thaumicextensions.client.render.gui;
 
 
-import com.google.common.base.Charsets;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
-import com.mojang.authlib.GameProfile;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import java.io.File;
 import java.lang.reflect.Method;
 import java.util.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.ItemInWorldManager;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.IPlayerFileData;
-import net.minecraft.world.storage.SaveHandler;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import org.lwjgl.util.vector.Vector2f;
-import thaumcraft.api.IScribeTools;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.research.ResearchCategories;
@@ -50,7 +39,6 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import thaumcraft.client.renderers.tile.TileNodeRenderer;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
-import thaumcraft.common.items.relics.ItemThaumonomicon;
 import thaumcraft.common.lib.network.PacketHandler;
 import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
@@ -88,9 +76,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
 
     public static int lastY = -6;
 
-    private GuiButton button;
-
-    private LinkedList<ResearchItem> research = new LinkedList<ResearchItem>();
+    private final LinkedList<ResearchItem> research = new LinkedList<ResearchItem>();
 
     public static final ResourceLocation researchBack =
             new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_researchBack.jpg");
@@ -98,17 +84,15 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     public static final ResourceLocation researchBackEldritch =
             new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_researchBackEldritch.jpg");
 
-    public static HashMap<String, ArrayList<String>> completedResearch = new HashMap<String, ArrayList<String>>();
-
-    public static ArrayList<String> highlightedItem = new ArrayList<String>();
+    public static final ArrayList<String> highlightedItem = new ArrayList<String>();
 
     private static String selectedCategory = null;
 
-    private FontRenderer galFontRenderer;
+    private final FontRenderer galFontRenderer;
 
     private ResearchItem currentHighlight = null;
 
-    private String player = "";
+    private final String player;
 
     private static final GuiResearchBrowser guiResearchBrowserInstance = new GuiResearchBrowser();
 
@@ -121,27 +105,26 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     public boolean hasScribeStuff;
     private void initDrawLine() {
         try {
-            Class[] cArg = new Class[9];
+            Class<?>[] cArg = new Class[9];
             cArg[0] = cArg[1] = cArg[2] = cArg[3] = int.class;
             cArg[4] = cArg[5] = cArg[6] = cArg[7] = float.class;
             cArg[8] = boolean.class;
             this.drawline = guiResearchBrowserInstance.getClass().getDeclaredMethod("drawLine",cArg);
             drawline.setAccessible(true);
-        } catch (Exception a) { }
+        } catch (Exception a) { drawline = null; }
     }
     public GuiEnhancedResearchBrowser() {
         if(drawline == null) {
             initDrawLine();
         }
         this.hasScribeStuff = false;
-        short var2 = 141;
-        short var3 = 141;
-        this.field_74117_m = this.guiMapX = this.guiMapTopBuf = (lastX * 24 - var2 / 2 - 12);
-        this.field_74115_n = this.guiMapY = this.guiMapLeftBuf = (lastY * 24 - var3 / 2);
+        this.field_74117_m = this.guiMapX = this.guiMapTopBuf = (lastX * 24 - 70 - 12);
+        this.field_74115_n = this.guiMapY = this.guiMapLeftBuf = (lastY * 24 - 70);
         updateResearch();
         this.galFontRenderer = (FMLClientHandler.instance().getClient()).standardGalacticFontRenderer;
         this.player = (Minecraft.getMinecraft()).thePlayer.getCommandSenderName();
     }
+    @SuppressWarnings("SuspiciousNameCombination")
     public GuiEnhancedResearchBrowser(double x, double y) {
         if(drawline == null) {
             initDrawLine();
@@ -149,14 +132,11 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         this.hasScribeStuff = false;
         this.field_74117_m = this.guiMapX = this.guiMapTopBuf = x;
         this.field_74115_n = this.guiMapY = this.guiMapLeftBuf = y;
-        this.guiMapX = x;
-        this.guiMapY = y;
         updateResearch();
         this.galFontRenderer = (FMLClientHandler.instance().getClient()).standardGalacticFontRenderer;
         this.player = (Minecraft.getMinecraft()).thePlayer.getCommandSenderName();
     }
     public void updateResearch() {
-        this.completedResearch = GuiResearchBrowser.completedResearch;
         if (this.mc == null)
             this.mc = Minecraft.getMinecraft();
         this.research.clear();
@@ -168,8 +148,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         Collection col = (ResearchCategories.getResearchList(selectedCategory)).research.values();
         for (Object res : col)
             this.research.add((ResearchItem)res);
-        if (ResearchManager.consumeInkFromPlayer((EntityPlayer)this.mc.thePlayer, false)
-                && InventoryUtils.isPlayerCarrying((EntityPlayer)this.mc.thePlayer, new ItemStack(Items.paper)) >= 0)
+        if (ResearchManager.consumeInkFromPlayer(this.mc.thePlayer, false)
+                && InventoryUtils.isPlayerCarrying(this.mc.thePlayer, new ItemStack(Items.paper)) >= 0)
             this.hasScribeStuff = true;
         guiMapTop = (ResearchCategories.getResearchList(selectedCategory)).minDisplayColumn * 24 - 480;
         guiMapLeft = (ResearchCategories.getResearchList(selectedCategory)).minDisplayRow * 24 - 240;
@@ -194,7 +174,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     protected void keyTyped(char par1, int par2) {
         if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
             highlightedItem.clear();
-            this.mc.displayGuiScreen((GuiScreen)null);
+            this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
         } else {
             if (par2 == 1)
@@ -245,8 +225,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 count = 0;
                 swop = true;
             }
-            ResearchCategoryList rcl = ResearchCategories.getResearchList((String)obj);
-            if (((String)obj).equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
+            if (obj.equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR")) {
                 continue;
             }
             int mposx = mx - (swop ? this.width-26 : 0);
@@ -304,17 +283,17 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         ResourceLocation tempResLocation = (ResearchCategories.getResearchList(selectedCategory)).background;
-        if(tempResLocation.getResourceDomain() == "thaumcraft") {
-            if(tempResLocation.getResourcePath() == "textures/gui/gui_researchback.png") {
+        if(tempResLocation.getResourceDomain().equals("thaumcraft")) {
+            if(tempResLocation.getResourcePath().equals("textures/gui/gui_researchback.png")) {
                 tempResLocation = researchBack;
-            } else if(tempResLocation.getResourcePath() == "textures/gui/gui_researchbackeldritch.png") {
+            } else if(tempResLocation.getResourcePath().equals("textures/gui/gui_researchbackeldritch.png")) {
                 tempResLocation = researchBackEldritch;
             }
         } else {
             tempResLocation = researchBack;
         }
         (Minecraft.getMinecraft()).renderEngine.bindTexture(tempResLocation);
-        net.minecraft.client.gui.Gui.func_152125_a(
+        Gui.func_152125_a(
                 var8, 0,
                 0,0, 256, 256, this.width-52,this.height,
                 256,256);
@@ -322,9 +301,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glPopMatrix();
         GL11.glEnable(2929);
         GL11.glDepthFunc(515);
-        if (completedResearch.get(this.player) != null)
-            for (int i = 0; i < this.research.size(); i++) {
-                ResearchItem researchItem = this.research.get(i);
+        if (GuiResearchBrowser.completedResearch.get(this.player) != null)
+            for (ResearchItem researchItem : this.research) {
                 if (researchItem.parents != null && researchItem.parents.length > 0)
                     for (int j = 0; j < researchItem.parents.length; j++) {
                         if (researchItem.parents[j] != null && (ResearchCategories.getResearch(researchItem.parents[j])).category.equals(selectedCategory)) {
@@ -334,16 +312,16 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                                 int fromY = researchItem.displayRow * 24 - var5 + 11 + var11;
                                 int toX = parent.displayColumn * 24 - var4 + 11 + var10;
                                 int toY = parent.displayRow * 24 - var5 + 11 + var11;
-                                boolean researched = ((ArrayList)completedResearch.get(this.player)).contains(researchItem.key);
-                                boolean var29 = ((ArrayList)completedResearch.get(this.player)).contains(parent.key);
+                                boolean researched = GuiResearchBrowser.completedResearch.get(this.player).contains(researchItem.key);
+                                boolean var29 = GuiResearchBrowser.completedResearch.get(this.player).contains(parent.key);
                                 if (researched) {
                                     drawLine(fromX, fromY, toX, toY, 0.1F, 0.1F, 0.1F, partialTicks, false);
                                 } else if (!researchItem.isLost() && ((
-                                        !researchItem.isHidden() && !researchItem.isLost()) || ((ArrayList)completedResearch.get(this.player)).contains("@" + researchItem.key)) && (
+                                        !researchItem.isHidden() && !researchItem.isLost()) || GuiResearchBrowser.completedResearch.get(this.player).contains("@" + researchItem.key)) && (
                                         !researchItem.isConcealed() || canUnlockResearch(researchItem))) {
                                     if (var29) {
                                         drawLine(fromX, fromY, toX, toY, 0.0F, 1.0F, 0.0F, partialTicks, true);
-                                    } else if (((!parent.isHidden() && !researchItem.isLost()) || ((ArrayList)completedResearch.get(this.player)).contains("@" + parent.key)) && (!parent.isConcealed() || canUnlockResearch(parent))) {
+                                    } else if (((!parent.isHidden() && !researchItem.isLost()) || GuiResearchBrowser.completedResearch.get(this.player).contains("@" + parent.key)) && (!parent.isConcealed() || canUnlockResearch(parent))) {
                                         drawLine(fromX, fromY, toX, toY, 0.0F, 0.0F, 1.0F, partialTicks, true);
                                     }
                                 }
@@ -355,21 +333,21 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         if (researchItem.siblings[a] != null && (ResearchCategories.getResearch(researchItem.siblings[a])).category.equals(selectedCategory)) {
                             ResearchItem sibling = ResearchCategories.getResearch(researchItem.siblings[a]);
                             if (!sibling.isVirtual() && (
-                                    sibling.parents == null || (sibling.parents != null && !Arrays.<String>asList(sibling.parents).contains(researchItem.key)))) {
+                                    sibling.parents == null || !Arrays.<String>asList(sibling.parents).contains(researchItem.key))) {
                                 int fromX = researchItem.displayColumn * 24 - var4 + 11 + var10;
                                 int fromY = researchItem.displayRow * 24 - var5 + 11 + var11;
                                 int toX = sibling.displayColumn * 24 - var4 + 11 + var10;
                                 int toY = sibling.displayRow * 24 - var5 + 11 + var11;
-                                boolean var28 = ((ArrayList)completedResearch.get(this.player)).contains(researchItem.key);
-                                boolean var29 = ((ArrayList)completedResearch.get(this.player)).contains(sibling.key);
+                                boolean var28 = GuiResearchBrowser.completedResearch.get(this.player).contains(researchItem.key);
+                                boolean var29 = GuiResearchBrowser.completedResearch.get(this.player).contains(sibling.key);
                                 if (var28) {
                                     drawLine(fromX, fromY, toX, toY, 0.1F, 0.1F, 0.2F, partialTicks, false);
                                 } else if (!researchItem.isLost() && (
-                                        !researchItem.isHidden() || ((ArrayList)completedResearch.get(this.player)).contains("@" + researchItem.key)) && (
+                                        !researchItem.isHidden() || GuiResearchBrowser.completedResearch.get(this.player).contains("@" + researchItem.key)) && (
                                         !researchItem.isConcealed() || canUnlockResearch(researchItem))) {
                                     if (var29) {
                                         drawLine(fromX, fromY, toX, toY, 0.0F, 1.0F, 0.0F, partialTicks, true);
-                                    } else if ((!sibling.isHidden() || ((ArrayList)completedResearch.get(this.player)).contains("@" + sibling.key)) && (!sibling.isConcealed() || canUnlockResearch(sibling))) {
+                                    } else if ((!sibling.isHidden() || GuiResearchBrowser.completedResearch.get(this.player).contains("@" + sibling.key)) && (!sibling.isConcealed() || canUnlockResearch(sibling))) {
                                         drawLine(fromX, fromY, toX, toY, 0.0F, 0.0F, 1.0F, partialTicks, true);
                                     }
                                 }
@@ -381,28 +359,27 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         RenderItem itemRenderer = new RenderItem();
         GL11.glEnable(32826);
         GL11.glEnable(2903);
-        if (completedResearch.get(this.player) != null)
-            for (int i = 0; i < this.research.size(); i++) {
-                ResearchItem researchItem = this.research.get(i);
+        if (GuiResearchBrowser.completedResearch.get(this.player) != null)
+            for (ResearchItem researchItem : this.research) {
                 int var26 = researchItem.displayColumn * 24 - var4;
                 int var27 = researchItem.displayRow * 24 - var5;
                 if (!researchItem.isVirtual() && var26 >= -24 && var27 >= -24 && var26 <= this.width - 26 && var27 <= this.height) {
                     int var42 = var10 + var26;
                     int var41 = var11 + var27;
-                    if (((ArrayList)completedResearch.get(this.player)).contains(researchItem.key)) {
+                    if (GuiResearchBrowser.completedResearch.get(this.player).contains(researchItem.key)) {
                         if (ThaumcraftApi.getWarp(researchItem.key) > 0)
                             drawForbidden((var42 + 11), (var41 + 11));
                         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0F);
                     } else {
-                        if (!((ArrayList)completedResearch.get(this.player)).contains("@" + researchItem.key))
+                        if (!GuiResearchBrowser.completedResearch.get(this.player).contains("@" + researchItem.key))
                             if (researchItem.isLost() || (
-                                    researchItem.isHidden() && !((ArrayList)completedResearch.get(this.player)).contains("@" + researchItem.key)) || (
+                                    researchItem.isHidden() && !GuiResearchBrowser.completedResearch.get(this.player).contains("@" + researchItem.key)) || (
                                     researchItem.isConcealed() && !canUnlockResearch(researchItem)))
                                 continue;
                         if (ThaumcraftApi.getWarp(researchItem.key) > 0)
                             drawForbidden((var42 + 11), (var41 + 11));
                         if (canUnlockResearch(researchItem)) {
-                            float var38 = (float)Math.sin((Minecraft.getSystemTime() % 600L) / 600.0D * Math.PI * 2.0D) * 0.25F + 0.75F;
+                            float var38 = (float) Math.sin((Minecraft.getSystemTime() % 600L) / 600.0D * Math.PI * 2.0D) * 0.25F + 0.75F;
                             GL11.glColor4f(var38, var38, var38, 1.0F);
                         } else {
                             float var38 = 0.3F;
@@ -440,7 +417,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         GL11.glBlendFunc(770, 771);
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                         this.mc.renderEngine.bindTexture(ParticleEngine.particleTexture);
-                        int px = (int)(t % 16L) * 16;
+                        int px = (int) (t % 16L) * 16;
                         GL11.glTranslatef((var42 - 5), (var41 - 5), 0.0F);
                         UtilsFX.drawTexturedQuad(0, 0, px, 80, 16, 16, 0.0D);
                         GL11.glDisable(3042);
@@ -477,7 +454,6 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         this.currentHighlight = researchItem;
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }
-                continue;
             }
         GL11.glDisable(2929);
         GL11.glEnable(3042);
@@ -488,7 +464,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         boolean swop = false;
         for (Object obj : cats) {
             ResearchCategoryList rcl = ResearchCategories.getResearchList((String)obj);
-            if (((String)obj).equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR"))
+            if (obj.equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR"))
                 continue;
             GL11.glPushMatrix();
             if (count == 11) {
@@ -536,7 +512,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         }
         UtilsFX.bindTexture("textures/gui/gui_research.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        net.minecraft.client.gui.Gui.func_152125_a(
+        Gui.func_152125_a(
                 var8, var9,
                 0,0, 1024, 640, this.width-52,this.height,
                 1024,1024);
@@ -546,18 +522,18 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         GL11.glDisable(2929);
         GL11.glEnable(3553);
         super.drawScreen(mx, my, partialTicks);
-        if (completedResearch.get(this.player) != null &&
+        if (GuiResearchBrowser.completedResearch.get(this.player) != null &&
                 this.currentHighlight != null) {
             String var34 = this.currentHighlight.getName();
             int var26 = mx + 6;
             int var27 = my - 4;
             int var99 = 0;
             FontRenderer fr = this.fontRendererObj;
-            if (!((ArrayList)completedResearch.get(this.player)).contains(this.currentHighlight.key) && !canUnlockResearch(this.currentHighlight))
+            if (!GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key) && !canUnlockResearch(this.currentHighlight))
                 fr = this.galFontRenderer;
             if (canUnlockResearch(this.currentHighlight)) {
-                boolean secondary = (!((ArrayList)completedResearch.get(this.player)).contains(this.currentHighlight.key) && this.currentHighlight.tags != null && this.currentHighlight.tags.size() > 0 && (Config.researchDifficulty == -1 || (Config.researchDifficulty == 0 && this.currentHighlight.isSecondary())));
-                boolean primary = (!secondary && !((ArrayList)completedResearch.get(this.player)).contains(this.currentHighlight.key));
+                boolean secondary = (!GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key) && this.currentHighlight.tags != null && this.currentHighlight.tags.size() > 0 && (Config.researchDifficulty == -1 || (Config.researchDifficulty == 0 && this.currentHighlight.isSecondary())));
+                boolean primary = (!secondary && !GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key));
                 int var42 = (int)Math.max(fr.getStringWidth(var34), fr.getStringWidth(this.currentHighlight.getText()) / 1.9F * 1.5F);
                 int var41 = fr.splitStringWidth(var34, var42) + 5;
                 if (primary) {
@@ -597,7 +573,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                     GL11.glPushMatrix();
                     GL11.glTranslatef(var26, (var27 + var41 + 8), 0.0F);
                     GL11.glScalef(0.75F, 0.75F, 0.75F);
-                    if (ResearchManager.getResearchSlot((EntityPlayer)this.mc.thePlayer, this.currentHighlight.key) >= 0) {
+                    if (ResearchManager.getResearchSlot(this.mc.thePlayer, this.currentHighlight.key) >= 0) {
                         this.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("tc.research.hasnote"), 0, 0, 16753920);
                     } else if (this.hasScribeStuff) {
                         this.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("tc.research.getprim"), 0, 0, 8900331);
@@ -662,7 +638,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
 
     protected void mouseClicked(int par1, int par2, int par3) {
         this.popupTime = System.currentTimeMillis() - 1L;
-        if (this.currentHighlight != null && !((ArrayList)completedResearch.get(this.player)).contains(this.currentHighlight.key) && canUnlockResearch(this.currentHighlight)) {
+        if (this.currentHighlight != null && !GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key) && canUnlockResearch(this.currentHighlight)) {
             updateResearch();
             boolean secondary = (this.currentHighlight.tags != null && this.currentHighlight.tags.size() > 0 && (Config.researchDifficulty == -1 || (Config.researchDifficulty == 0 && this.currentHighlight.isSecondary())));
             if (secondary) {
@@ -674,21 +650,20 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                     }
                 }
                 if (enough)
-                    PacketHandler.INSTANCE.sendToServer((IMessage)new PacketPlayerCompleteToServer(this.currentHighlight.key, this.mc.thePlayer.getCommandSenderName(), this.mc.thePlayer.worldObj.provider.dimensionId, (byte)0));
-            } else if (this.hasScribeStuff && ResearchManager.getResearchSlot((EntityPlayer)this.mc.thePlayer, this.currentHighlight.key) == -1) {
-                PacketHandler.INSTANCE.sendToServer((IMessage)new PacketPlayerCompleteToServer(this.currentHighlight.key, this.mc.thePlayer.getCommandSenderName(), this.mc.thePlayer.worldObj.provider.dimensionId, (byte)1));
+                    PacketHandler.INSTANCE.sendToServer(new PacketPlayerCompleteToServer(this.currentHighlight.key, this.mc.thePlayer.getCommandSenderName(), this.mc.thePlayer.worldObj.provider.dimensionId, (byte)0));
+            } else if (this.hasScribeStuff && ResearchManager.getResearchSlot(this.mc.thePlayer, this.currentHighlight.key) == -1) {
+                PacketHandler.INSTANCE.sendToServer(new PacketPlayerCompleteToServer(this.currentHighlight.key, this.mc.thePlayer.getCommandSenderName(), this.mc.thePlayer.worldObj.provider.dimensionId, (byte)1));
                 this.popupTime = System.currentTimeMillis() + 3000L;
-                this.popupMessage = (new ChatComponentTranslation(StatCollector.translateToLocal("tc.research.popup"), new Object[] { "" + this.currentHighlight.getName() })).getUnformattedText();
+                this.popupMessage = (new ChatComponentTranslation(StatCollector.translateToLocal("tc.research.popup"), "" + this.currentHighlight.getName())).getUnformattedText();
             }
-        } else if (this.currentHighlight != null && ((ArrayList)completedResearch.get(this.player)).contains(this.currentHighlight.key)) {
+        } else if (this.currentHighlight != null && GuiResearchBrowser.completedResearch.get(this.player).contains(this.currentHighlight.key)) {
             this.mc.displayGuiScreen(new GuiEnhancedResearchRecipe(this.currentHighlight, 0, this.guiMapX, this.guiMapY));
         } else {
             Collection cats = ResearchCategories.researchCategories.keySet();
             int count = 0;
             boolean swop = false;
             for (Object obj : cats) {
-                ResearchCategoryList rcl = ResearchCategories.getResearchList((String)obj);
-                if (((String)obj).equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR"))
+                if (obj.equals("ELDRITCH") && !ResearchManager.isResearchComplete(this.player, "ELDRITCHMINOR"))
                     continue;
                 if (count == 11) {
                     count = 0;
@@ -712,10 +687,10 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         float f1 = 0.00390625F;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((par1 + 0), (par2 + par6), this.zLevel, ((par3 + 0) * f), ((par4 + par6) * f1));
+        tessellator.addVertexWithUV((par1), (par2 + par6), this.zLevel, ((par3) * f), ((par4 + par6) * f1));
         tessellator.addVertexWithUV((par1 + par5), (par2 + par6), this.zLevel, ((par3 - par5) * f), ((par4 + par6) * f1));
-        tessellator.addVertexWithUV((par1 + par5), (par2 + 0), this.zLevel, ((par3 - par5) * f), ((par4 + 0) * f1));
-        tessellator.addVertexWithUV((par1 + 0), (par2 + 0), this.zLevel, ((par3 + 0) * f), ((par4 + 0) * f1));
+        tessellator.addVertexWithUV((par1 + par5), (par2), this.zLevel, ((par3 - par5) * f), ((par4) * f1));
+        tessellator.addVertexWithUV((par1), (par2), this.zLevel, ((par3) * f), ((par4) * f1));
         tessellator.draw();
     }
     private void playButtonClick() {
@@ -726,13 +701,13 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         if (res.parents != null && res.parents.length > 0)
             for (String pt : res.parents) {
                 ResearchItem parent = ResearchCategories.getResearch(pt);
-                if (parent != null && !((ArrayList)completedResearch.get(this.player)).contains(parent.key))
+                if (parent != null && !GuiResearchBrowser.completedResearch.get(this.player).contains(parent.key))
                     return false;
             }
         if (res.parentsHidden != null && res.parentsHidden.length > 0)
             for (String pt : res.parentsHidden) {
                 ResearchItem parent = ResearchCategories.getResearch(pt);
-                if (parent != null && !((ArrayList)completedResearch.get(this.player)).contains(parent.key))
+                if (parent != null && !GuiResearchBrowser.completedResearch.get(this.player).contains(parent.key))
                     return false;
             }
         return true;
@@ -745,7 +720,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     private void drawLine(int x, int y, int x2, int y2, float r, float g, float b, float te, boolean wiggle) {
         if(this.drawline != null) {
             try {
-                this.drawline.invoke(this.guiResearchBrowserInstance, x,y,x2,y2,r,g,b,te,wiggle);
+                this.drawline.invoke(guiResearchBrowserInstance, x,y,x2,y2,r,g,b,te,wiggle);
             } catch (Exception e) {}
         } else {
             float count = (FMLClientHandler.instance().getClient()).thePlayer.ticksExisted + te;
@@ -778,7 +753,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 float my = 0.0F;
                 float op = 0.6F;
                 if (wiggle) {
-                    float phase = a / inc;
+                    float phase = ((float)a) / inc;
                     mx = MathHelper.sin((count + a) / 7.0F) * 5.0F * (1.0F - phase);
                     my = MathHelper.sin((count + a) / 5.0F) * 5.0F * (1.0F - phase);
                     r2 *= 1.0F - phase;
