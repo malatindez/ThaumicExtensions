@@ -109,7 +109,7 @@ public class Animation {
     public static final Vector3f rotationAxisY = new Vector3f(0,1,0);
     public static final Vector3f rotationAxisZ = new Vector3f(0,0,1);
     /**
-     * @param time - current time
+     * @param time - current time in seconds
      * @param transform - current object position, rotation, scale and color
      * @param noise - TileEntity noise, which will be used as unique offset for this object
      * @return the matrix according to the current time & noise
@@ -125,9 +125,9 @@ public class Animation {
         }
         if(rotationAroundCenter != null) {
             double n =  time + rotationAroundCenter.noise  + noise;
-            float a = (float) ((n * rotationAroundCenter.speed)  % 360.0);
-            float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0);
-            float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0);
+            float a = (float) ((n * rotationAroundCenter.speed)  % 360.0) * (float) Math.PI / 180.0f;
+            float b = (float) ((n * rotationAroundCenter.speedY)  % 360.0) * (float) Math.PI / 180.0f;
+            float c = (float) ((n * rotationAroundCenter.speedZ)  % 360.0) * (float) Math.PI / 180.0f;
             matrix.translate(transform.position);
             matrix.rotate(a, rotationAxisX);
             matrix.rotate(b, rotationAxisY);
@@ -147,7 +147,7 @@ public class Animation {
             matrix.translate(transform.position);
         }
         for(SimpleAnimation rotationAroundItself : rotationsAroundItself) {
-            float a = (float)((time + rotationAroundItself.noise  + noise) * rotationAroundItself.speed % 360.0);
+            float a = (float)((time + rotationAroundItself.noise  + noise) * rotationAroundItself.speed % 360.0) * (float) Math.PI / 180.0f;
             if (rotationAroundItself.axis == Axis.x)      { matrix.rotate(a, rotationAxisX); }
             else if (rotationAroundItself.axis == Axis.y) { matrix.rotate(a, rotationAxisY); }
             else if (rotationAroundItself.axis == Axis.z) { matrix.rotate(a, rotationAxisZ); }
