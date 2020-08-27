@@ -1,11 +1,15 @@
 package com.malatindez.thaumicextensions.client.render.misc;
 
+import com.malatindez.thaumicextensions.client.lib.Transformation;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraftforge.client.model.IModelCustom;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
+import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,8 +24,8 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
         public IModelCustom model;
         public String modID;
         public String pathToTexture;
-        public Animation.Transformation transform;
-        public Model(IModelCustom model, String modID, String pathToTexture, Animation.Transformation transform) {
+        public Transformation transform;
+        public Model(IModelCustom model, String modID, String pathToTexture, Transformation transform) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
             this.model = model;
@@ -30,7 +34,7 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
     }
     // AlphaModel defines, that this part should be rendered including alpha channel
     public static class AlphaModel extends Model {
-        public AlphaModel(IModelCustom model, String modID, String pathToTexture,Animation.Transformation transform) {
+        public AlphaModel(IModelCustom model, String modID, String pathToTexture, Transformation transform) {
             super(model, modID, pathToTexture, transform);
         }
     }
@@ -38,17 +42,19 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
 
     private void RenderPart(Model model,
                             Animation animation,
-                            Animation.Transformation transform,
-                            double noise,
-                            Animation.Transformation cameraOffset) {
-        Animation.Transformation t = new Animation.Transformation(transform);
-        t.x += model.transform.x; t.degreeX += model.transform.degreeX; t.scaleX *= model.transform.scaleX;
-        t.y += model.transform.y; t.degreeY += model.transform.degreeY; t.scaleY *= model.transform.scaleY;
-        t.z += model.transform.z; t.degreeZ += model.transform.degreeZ; t.scaleZ *= model.transform.scaleZ;
-        t.x += cameraOffset.x;
-        t.y += cameraOffset.y;
-        t.z += cameraOffset.z;
-        animation.PushMatrix(t, noise);
+                            Transformation transform,
+                            Transformation cameraOffset,
+                            double time,  double noise) {
+        Transformation t = new Transformation(transform);
+        Vector3f.add(t.position, model.transform.position, t.position);
+        Vector3f.add(t.position, cameraOffset.position, t.position);
+        Vector3f.add(t.degree, model.transform.degree, t.degree);
+        t.scale.x *= model.transform.scale.x;
+        t.scale.y *= model.transform.scale.y;
+        t.scale.z *= model.transform.scale.z;
+        FloatBuffer buf = UtilsFX.matrixToBuffer(animation.getMatrix(t, time, noise));
+        GL11.glPushMatrix();
+        GL11.glMultMatrix(buf);
         UtilsFX.bindTexture(model.modID, model.pathToTexture);
         model.model.renderAll();
         GL11.glPopMatrix();
@@ -70,9 +76,9 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
     protected void renderModels(double noise,
                                 Model[] models,
                                 Animation[] animations,
-                                Animation.Transformation[] transformations,
-                                Animation.Transformation cameraOffset) {
-
+                                Transformation[] transformations,
+                                Transformation cameraOffset) {
+        double time = ((double)Minecraft.getSystemTime()) / 1000.0f;
         ArrayList<Integer> parts = new ArrayList<Integer>();
         ArrayList<Integer> alphaParts = new ArrayList<Integer>();
         for (int i = 0; i < models.length; i++) {
@@ -86,21 +92,21 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
                 new ArrayList<TileEntitySpecialRenderer.DoubleIntPair>();
         if (alphaParts.size() != 0) {
             for (Integer i : alphaParts) {
-                Animation.Transformation t = new Animation.Transformation(transformations[i]);
-                t.x += models[i].transform.x;
-                t.y += models[i].transform.y;
-                t.z += models[i].transform.z;
-                t.x += cameraOffset.x;
-                t.y += cameraOffset.y;
-                t.z += cameraOffset.z;
-                t = animations[i].getModifiedCoordinates(t,noise);
-                double distance = Math.sqrt(t.x * t.x + t.y * t.y + t.z * t.z);
+                Transformation t = new Transformation(transformations[i]);
+                Vector3f.add(t.position, models[i].transform.position, t.position);
+                Vector3f.add(t.position, cameraOffset.position, t.position);
+                Vector3f.add(t.degree, models[i].transform.degree, t.degree);
+                t.scale.x *= models[i].transform.scale.x;
+                t.scale.y *= models[i].transform.scale.y;
+                t.scale.z *= models[i].transform.scale.z;
+                Matrix4f m = animations[i].getMatrix(t, time, noise);
+                double distance = (float)Math.sqrt(m.m30 * m.m30 + m.m31 * m.m31 + m.m32 * m.m32);
                 distances.add(new TileEntitySpecialRenderer.DoubleIntPair(distance, i));
             }
             Collections.sort(distances);
         }
         for(int i : parts) {
-            RenderPart(models[i],animations[i],transformations[i],noise, cameraOffset);
+            RenderPart(models[i],animations[i],transformations[i], cameraOffset, time, noise);
         }
         if (alphaParts.size() != 0) {
             if (distances.size() != 0) {
@@ -109,7 +115,7 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
                     GL11.glEnable(GL11.GL_BLEND);
                     GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     GL11.glAlphaFunc(GL11.GL_LESS, 1.0f);
-                    RenderPart(models[pair.y],animations[pair.y],transformations[pair.y],noise, cameraOffset);
+                    RenderPart(models[pair.y],animations[pair.y],transformations[pair.y], cameraOffset, time, noise);
                     GL11.glDisable(GL11.GL_ALPHA_TEST);
                     GL11.glDisable(GL11.GL_BLEND);
                 }
