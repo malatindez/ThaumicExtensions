@@ -24,6 +24,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.EXTRescaleNormal;
 import org.lwjgl.opengl.GL11;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 import org.lwjgl.util.vector.Vector2f;
@@ -101,6 +102,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     String popupMessage = "";
 
     public boolean hasScribeStuff;
+
+    protected static GuiTextureMapping map = null;
+
     private void initDrawLine() {
         try {
             Class<?>[] cArg = new Class[9];
@@ -111,9 +115,55 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             drawline.setAccessible(true);
         } catch (Exception ignored) { }
     }
+    private static void initMap() {
+        map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
+        Vector2f iconSize       = new Vector2f(26, 26);
+        Vector2f nullVector     = new Vector2f(0, 0);
+        Vector2f textureSize    = new Vector2f(256, 256);
+        map.addElement("defaultResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(0, 230), new Vector2f(26, 256),
+                        textureSize, iconSize)
+        );
+        map.addElement("specialResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(26, 230), new Vector2f(52, 256),
+                        textureSize, iconSize)
+        );
+        map.addElement("roundResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(54, 230), new Vector2f(80, 256),
+                        textureSize, iconSize)
+        );
+        map.addElement("hiddenDefaultResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(86, 230), new Vector2f(112, 256),
+                        textureSize, iconSize)
+        );
+        map.addElement("secondaryResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(110, 230), new Vector2f(136, 256),
+                        textureSize, iconSize)
+        );
+        map.addElement("selectedCategory",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(152, 232), new Vector2f(176, 256),
+                        textureSize, new Vector2f(24, 24))
+        );
+        map.addElement("unselectedCategory",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(176, 232), new Vector2f(200, 256),
+                        textureSize, new Vector2f(24, 24))
+        );
+        map.addElement("unselectedCategoryShadow",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(200, 232), new Vector2f(224, 256),
+                        textureSize, new Vector2f(24, 24))
+        );
+        map.addElement("hiddenResearch",
+                new GuiTextureMapping.Part(nullVector, new Vector2f(230, 230), new Vector2f(256, 256),
+                        textureSize, iconSize)
+        );
+    }
+    @SuppressWarnings("ConstantConditions")
     public GuiEnhancedResearchBrowser() {
         if(drawline == null) {
             initDrawLine();
+        }
+        if(map == null) {
+            initMap();
         }
         this.hasScribeStuff = false;
         this.field_74117_m = this.guiMapX = this.guiMapTopBuf = (lastX * 24 - 70 - 12);
@@ -126,6 +176,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     public GuiEnhancedResearchBrowser(double x, double y) {
         if(drawline == null) {
             initDrawLine();
+        }
+        if(map == null) {
+            initMap();
         }
         this.hasScribeStuff = false;
         this.field_74117_m = this.guiMapX = this.guiMapTopBuf = x;
@@ -270,14 +323,14 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         int var10 = var8 + 16;
         int var11 = var9 + 17;
         this.zLevel = 0.0F;
-        GL11.glDepthFunc(518);
+        GL11.glDepthFunc(GL11.GL_GEQUAL);
         GL11.glPushMatrix();
         GL11.glTranslatef(0.0F, 0.0F, -200.0F);
-        GL11.glEnable(3553);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
         RenderHelper.enableGUIStandardItemLighting();
-        GL11.glDisable(2896);
-        GL11.glEnable(32826);
-        GL11.glEnable(2903);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         ResourceLocation tempResLocation = (ResearchCategories.getResearchList(selectedCategory)).background;
@@ -297,8 +350,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 256,256);
         GL11.glScalef(0.5F, 0.5F, 1.0F);
         GL11.glPopMatrix();
-        GL11.glEnable(2929);
-        GL11.glDepthFunc(515);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
         if (GuiResearchBrowser.completedResearch.get(this.player) != null)
             for (ResearchItem researchItem : this.research) {
                 int fromX = researchItem.displayColumn * 24 - var4 + 11 + var10;
@@ -353,8 +406,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             }
         this.currentHighlight = null;
         RenderItem itemRenderer = new RenderItem();
-        GL11.glEnable(32826);
-        GL11.glEnable(2903);
+        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         if (GuiResearchBrowser.completedResearch.get(this.player) != null)
             for (ResearchItem researchItem : this.research) {
                 int var26 = researchItem.displayColumn * 24 - var4;
@@ -383,9 +436,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         }
                     }
                     UtilsFX.bindTexture("textures/gui/gui_research.png");
-                    GL11.glEnable(2884);
-                    GL11.glEnable(3042);
-                    GL11.glBlendFunc(770, 771);
+                    GL11.glEnable(GL11.GL_CULL_FACE);
+                    GL11.glEnable(GL11.GL_BLEND);
+                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     if (researchItem.isRound()) {
                         drawTexturedModalRect(var42 - 2, var41 - 2, 54, 230, 26, 26);
                     } else if (researchItem.isHidden()) {
@@ -406,38 +459,38 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                         GL11.glColor4f(var40, var40, var40, 1.0F);
                         itemRenderer.renderWithColor = false;
                     }
-                    GL11.glDisable(3042);
+                    GL11.glDisable(GL11.GL_BLEND);
                     if (highlightedItem.contains(researchItem.key)) {
                         GL11.glPushMatrix();
-                        GL11.glEnable(3042);
-                        GL11.glBlendFunc(770, 771);
+                        GL11.glEnable(GL11.GL_BLEND);
+                        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                         this.mc.renderEngine.bindTexture(ParticleEngine.particleTexture);
                         int px = (int) (t % 16L) * 16;
                         GL11.glTranslatef((var42 - 5), (var41 - 5), 0.0F);
                         UtilsFX.drawTexturedQuad(0, 0, px, 80, 16, 16, 0.0D);
-                        GL11.glDisable(3042);
+                        GL11.glDisable(GL11.GL_BLEND);
                         GL11.glPopMatrix();
                     }
                     if (researchItem.icon_item != null) {
                         GL11.glPushMatrix();
-                        GL11.glEnable(3042);
-                        GL11.glBlendFunc(770, 771);
+                        GL11.glEnable(GL11.GL_BLEND);
+                        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                         RenderHelper.enableGUIStandardItemLighting();
-                        GL11.glDisable(2896);
-                        GL11.glEnable(32826);
-                        GL11.glEnable(2903);
-                        GL11.glEnable(2896);
+                        GL11.glDisable(GL11.GL_LIGHTING);
+                        GL11.glEnable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+                        GL11.glEnable(GL11.GL_COLOR_MATERIAL);
+                        GL11.glEnable(GL11.GL_LIGHTING);
                         itemRenderer.renderItemAndEffectIntoGUI(this.fontRendererObj, this.mc.renderEngine, InventoryUtils.cycleItemStack(researchItem.icon_item), var42 + 3, var41 + 3);
-                        GL11.glDisable(2896);
+                        GL11.glDisable(GL11.GL_LIGHTING);
                         GL11.glDepthMask(true);
-                        GL11.glEnable(2929);
-                        GL11.glDisable(3042);
+                        GL11.glEnable(GL11.GL_DEPTH_TEST);
+                        GL11.glDisable(GL11.GL_BLEND);
                         GL11.glPopMatrix();
                     } else if (researchItem.icon_resource != null) {
                         GL11.glPushMatrix();
-                        GL11.glEnable(3042);
-                        GL11.glBlendFunc(770, 771);
+                        GL11.glEnable(GL11.GL_BLEND);
+                        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                         this.mc.renderEngine.bindTexture(researchItem.icon_resource);
                         if (!itemRenderer.renderWithColor)
                             GL11.glColor4f(0.2F, 0.2F, 0.2F, 1.0F);
@@ -451,9 +504,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                     GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 }
             }
-        GL11.glDisable(2929);
-        GL11.glEnable(3042);
-        GL11.glBlendFunc(770, 771);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         Collection<String> cats = ResearchCategories.researchCategories.keySet();
         int count = 0;
@@ -514,9 +567,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 1024,1024);
         GL11.glPopMatrix();
         this.zLevel = 0.0F;
-        GL11.glDepthFunc(515);
-        GL11.glDisable(2929);
-        GL11.glEnable(3553);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
         super.drawScreen(mx, my, partialTicks);
         if (GuiResearchBrowser.completedResearch.get(this.player) != null &&
                 this.currentHighlight != null) {
@@ -627,8 +680,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             }
             fr.drawStringWithShadow(var34, var26, var27, canUnlockResearch(this.currentHighlight) ? (this.currentHighlight.isSpecial() ? -128 : -1) : (this.currentHighlight.isSpecial() ? -8355776 : -8355712));
         }
-        GL11.glEnable(2929);
-        GL11.glEnable(2896);
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11.glEnable(GL11.GL_LIGHTING);
         RenderHelper.disableStandardItemLighting();
     }
 
@@ -723,9 +776,9 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
             Tessellator var12 = Tessellator.instance;
             GL11.glPushMatrix();
             GL11.glAlphaFunc(516, 0.003921569F);
-            GL11.glDisable(3553);
-            GL11.glEnable(3042);
-            GL11.glBlendFunc(770, 771);
+            GL11.glDisable(GL11.GL_TEXTURE_2D);
+            GL11.glEnable(GL11.GL_BLEND);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             double d3 = (x - x2);
             double d4 = (y - y2);
             float dist = MathHelper.sqrt_double(d3 * d3 + d4 * d4);
@@ -767,11 +820,11 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 }
             }
             var12.draw();
-            GL11.glBlendFunc(770, 771);
+            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glDisable(2848);
-            GL11.glDisable(3042);
-            GL11.glDisable(32826);
-            GL11.glEnable(3553);
+            GL11.glDisable(GL11.GL_BLEND);
+            GL11.glDisable(EXTRescaleNormal.GL_RESCALE_NORMAL_EXT);
+            GL11.glEnable(GL11.GL_TEXTURE_2D);
             GL11.glAlphaFunc(516, 0.1F);
             GL11.glPopMatrix();
         }
@@ -780,15 +833,15 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
     private void drawForbidden(double x, double y) {
         int count = (FMLClientHandler.instance().getClient()).thePlayer.ticksExisted;
         GL11.glPushMatrix();
-        GL11.glEnable(3042);
-        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         UtilsFX.bindTexture(TileNodeRenderer.nodetex);
         int frames = 32;
         int part = count % frames;
         GL11.glTranslated(x, y, 0.0D);
         UtilsFX.renderAnimatedQuadStrip(80.0F, 0.66F, frames, 5, frames - 1 - part, 0.0F, 4456533);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GL11.glDisable(3042);
+        GL11.glDisable(GL11.GL_BLEND);
         GL11.glPopMatrix();
     }
 }
