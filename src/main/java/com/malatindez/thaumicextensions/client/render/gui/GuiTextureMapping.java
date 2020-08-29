@@ -1,6 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.gui;
 
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.sun.istack.internal.NotNull;
 import net.minecraft.client.gui.Gui;
 
 import net.minecraft.util.ResourceLocation;
@@ -8,56 +9,166 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.util.HashMap;
 
-/*
-    This class can be used to map a gui texture
-    such as you can render something from texture at needed coordinates just by invoking
-    TextureMapping.get("arrow").render(x,y)
-    You should bind gui id before calling render functions
-*/
+
+/**
+ * This class can be used to map a GUI texture
+ * such as you can render something from texture at needed coordinates just by invoking
+ * TextureMapping.get("arrow").render(x,y)
+ * You should bind GUI texture before calling render functions
+ */
 public class GuiTextureMapping {
-    public static class Part {
-        public final Vector2f coordinates, texFrom, texTo, scaledTo, textureSize;
-        public Part(Vector2f coordinates, Vector2f texFrom, Vector2f texTo, Vector2f textureSize, Vector2f scaledTo) {
+    public interface Renderable {
+        /**
+         * Default render function, coordinates depends on object implementation.
+         */
+        void render();
+        /**
+         * Draws this object
+         * @param coordinates top left corner coordinates
+         */
+        void render(Vector2f coordinates);
+
+        /**
+         * @return if object can be scaled
+         */
+        boolean scalable();
+
+        /**
+         * If scalable() is false - scale parameter will be ignored.
+         * @param coordinates top left corner coordinates
+         * @param scale scale
+         */
+        void render(Vector2f coordinates, Vector2f scale);
+    }
+    public static class Icon implements Renderable {
+        protected final Vector2f coordinates, texFrom, texTo, iconSize, scale, textureSize;
+        /**
+         * GuiTextureMapping.Part constructor
+         * @param coordinates Default coordinates to render at
+         * @param texFrom Coordinates of top left icons corner on the texture
+         * @param iconSize The size of an icon (bottom right corner is texFrom + iconSize)
+         * @param textureSize The size of the texture
+         * @param scale The scale of an icon (1.0f, 1.0f is a default scale)
+         */
+        public Icon(@NotNull Vector2f coordinates, @NotNull Vector2f texFrom,
+                    @NotNull Vector2f iconSize,    @NotNull Vector2f textureSize,
+                    @NotNull Vector2f scale) {
             this.coordinates = new Vector2f(coordinates);
             this.texFrom     = new Vector2f(texFrom);
-            this.texTo       = new Vector2f(texTo);
-            this.scaledTo    = new Vector2f(scaledTo);
+            this.iconSize    = new Vector2f(iconSize);
+            this.scale       = new Vector2f(scale);
             this.textureSize = new Vector2f(textureSize);
+            this.texTo       = Vector2f.add(texFrom, iconSize, null);
         }
-        public Part(Vector2f coordinates, Vector2f texFrom, Vector2f texTo, Vector2f textureSize) {
-            this(coordinates, texFrom, texTo, textureSize, Vector2f.sub(texTo, texFrom, null));
+
+        /**
+         * GuiTextureMapping.Part constructor
+         * @param coordinates Default coordinates to render at
+         * @param texFrom Coordinates of top left icons corner on the texture
+         * @param iconSize The size of an icon (bottom right corner is texFrom + iconSize)
+         * @param textureSize The size of the texture
+         */
+        public Icon(@NotNull Vector2f coordinates, @NotNull Vector2f texFrom,
+                    @NotNull Vector2f iconSize,    @NotNull Vector2f textureSize) {
+            this(coordinates, texFrom, iconSize, textureSize, new Vector2f(1.0f, 1.0f));
         }
-        public Part(int x,      int y,       float u,         float v,
-                    int uWidth, int vHeight, int scaledWidth, int scaledHeight,
+
+        /**
+         * GuiTextureMapping.Part constructor
+         * @param x The default x coordinate to render on
+         * @param y The default y coordinate to render on
+         * @param u The x coordinate of top left icon corner on the texture
+         * @param v The y coordinate of top left icon corner on the texture
+         * @param iconSizeU The x size of an icon
+         * @param iconSizeV The y size of an icon
+         * @param scaleX The x scale of an icon(1.0f is default)
+         * @param scaleY The y scale of an icon(1.0f is default)
+         * @param textureWidth The x texture width
+         * @param textureHeight The y texture width
+         */
+        public Icon(int x,      int y,       float u,         float v,
+                    int iconSizeU, int iconSizeV, float scaleX, float scaleY,
                     float textureWidth,      float textureHeight) {
             this(new Vector2f(x, y), new Vector2f(u, v),
-                    new Vector2f(uWidth, vHeight), new Vector2f(scaledWidth, scaledHeight),
+                    new Vector2f(iconSizeU, iconSizeV), new Vector2f(scaleX, scaleY),
                     new Vector2f(textureWidth, textureHeight));
         }
-        public Part(int x, int y, float u, float v,
-                    int uWidth, int vHeight, float textureWidth, float textureHeight) {
+
+        /**
+         * GuiTextureMapping.Part constructor
+         * @param x The default x coordinate to render on
+         * @param y The default y coordinate to render on
+         * @param u The x coordinate of top left icon corner on the texture
+         * @param v The y coordinate of top left icon corner on the texture
+         * @param iconSizeU The x size of an icon
+         * @param iconSizeV The y size of an icon
+         * @param textureWidth The x texture width
+         * @param textureHeight The y texture width
+         */
+        public Icon(int x, int y, float u, float v,
+                    int iconSizeU, int iconSizeV, float textureWidth, float textureHeight) {
             this(new Vector2f(x, y), new Vector2f(u, v),
-                    new Vector2f(uWidth, vHeight), new Vector2f(textureWidth, textureHeight));
+                    new Vector2f(iconSizeU, iconSizeV), new Vector2f(textureWidth, textureHeight));
         }
-        public void render() {
-            this.render(null);
-        }
-        public void render(Vector2f coordinates) {
-            if (coordinates == null) {
-                coordinates = this.coordinates;
+
+        /**
+         * Multiply a vector to another vector and place the result in a destination vector.
+         * Multiplication defines as x = left.x * right.x; y = left.y * right.y;
+         * @param left The LHS vector
+         * @param right The RHS vector
+         * @param dest The destination vector, or null if a new vector is to be created
+         * @return the mul of left and right in dest
+         */
+        private Vector2f mul(@NotNull Vector2f left, @NotNull Vector2f right, Vector2f dest) {
+            if(dest == null) {
+                return new Vector2f(left.x * right.x, left.y * right.y);
+            } else {
+                dest.set(left.x * right.x, left.y * right.y);
+                return dest;
             }
-            UtilsFX.drawScaledCustomSizeModalRect(coordinates,texFrom,texTo,scaledTo,textureSize);
         }
-        public void render(Vector2f coordinates, Vector2f scale) {
-            UtilsFX.drawScaledCustomSizeModalRect(coordinates,texFrom,texTo,scale,textureSize);
+
+        /**
+         * Render an icon on default coordinates
+         */
+        @Override
+        public void render() {
+            this.render(this.coordinates);
+        }
+
+        /**
+         * Render an icon on coordinates
+         * @param coordinates The coordinates to render at
+         */
+        @Override
+        public void render(@NotNull Vector2f coordinates) {
+            UtilsFX.drawScaledCustomSizeModalRect(coordinates, texFrom, texTo, this.mul(scale, iconSize, null), textureSize);
+        }
+
+        /**
+         * @return If icon is scalable
+         */
+        @Override
+        public boolean scalable() {
+            return true;
+        }
+
+        /**
+         * Render an icon on coordinates with a scale
+         * @param coordinates The coordinates to render at
+         * @param scale The scale of an Icon (default scale is 1.0f)
+         */
+        @Override
+        public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
+            UtilsFX.drawScaledCustomSizeModalRect(coordinates, texFrom, texTo, this.mul(scale, iconSize, null), textureSize);
         }
     }
-    protected HashMap<String, Part> parts = new HashMap<String, Part>();
+    protected HashMap<String, Icon> parts = new HashMap<String, Icon>();
     ResourceLocation texture;
 
     /**
      * Constructor of GuiTextureMapping
-     * @param texture texture to bind
+     * @param texture Texture to bind
      */
     public GuiTextureMapping(ResourceLocation texture) {
         this.texture = texture;
@@ -78,19 +189,19 @@ public class GuiTextureMapping {
     }
 
     /**
-     * @param name elements name
+     * @param name Elements name
      * @return element
      */
-    public Part getGuiElement(final String name) {
+    public Icon getGuiElement(final String name) {
         return parts.get(name);
     }
 
     /**
-     * @param name name of an element
-     * @param part element
+     * @param name Elements name
+     * @param icon Element to add
      */
-    public void addElement(final String name, Part part) {
-        this.parts.put(name, part);
+    public void addElement(final String name, Icon icon) {
+        this.parts.put(name, icon);
     }
 
     /**
@@ -104,7 +215,7 @@ public class GuiTextureMapping {
 
     /**
      * Render only one element with this name
-     * @param name elements name
+     * @param name Elements name
      */
     public void renderElement(final String name) {
         parts.get(name).render();
@@ -112,8 +223,8 @@ public class GuiTextureMapping {
 
     /**
      * Render only one element with this name on this coordinates
-     * @param name elements name
-     * @param coordinates elements coordinates
+     * @param name Elements name
+     * @param coordinates Elements coordinates
      */
     public void renderElement(final String name, Vector2f coordinates) {
         parts.get(name).render(coordinates);
@@ -121,9 +232,9 @@ public class GuiTextureMapping {
 
     /**
      * Render only one element with this name on this coordinates and scale
-     * @param name elements name
-     * @param coordinates elements coordinates
-     * @param scale elements scale
+     * @param name Elements name
+     * @param coordinates Coordinates to render at
+     * @param scale Elements scale
      */
     public void renderElement(final String name, Vector2f coordinates, Vector2f scale) {
         parts.get(name).render(coordinates, scale);
