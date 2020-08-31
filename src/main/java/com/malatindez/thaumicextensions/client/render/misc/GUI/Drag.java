@@ -1,0 +1,126 @@
+package com.malatindez.thaumicextensions.client.render.misc.GUI;
+
+import com.sun.istack.internal.NotNull;
+import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector4f;
+
+import java.lang.reflect.Method;
+
+public class Drag implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.Clickable {
+    protected GuiTextureMapping.Icon icon;
+    protected final Object obj;
+    protected final Method currentlyDragged;
+    protected final Method dragEnd;
+
+    protected Vector4f borders;
+    protected Vector4f dragBorders;
+    protected Vector2f coordinates = new Vector2f(0, 0);
+    protected Vector2f previousMousePos = null;
+
+    protected void updateBorders() {
+        borders.set(
+                coordinates.x,
+                coordinates.y,
+                icon.getIconSize().x + coordinates.x,
+                icon.getIconSize().y + coordinates.y
+        );
+    }
+    public void setCoordinates(Vector2f newCoordinates) {
+        this.coordinates.set(newCoordinates);
+        updateBorders();
+    }
+    public Vector2f getCoordinates() {
+        return new Vector2f(coordinates);
+    }
+    public void setDragBorders(Vector4f vector) {
+        this.dragBorders.set(vector);
+    }
+    public Vector4f getDragBorders() {
+        return dragBorders;
+    }
+    /**
+     * Drag constructor
+     * @param icon object texture
+     * @param obj object which has currentlyDragged and dragEnd methods.
+     *            This parameter can be null.
+     * @param currentlyDragged object method which has to have a Vector2f parameter which means current position.
+     *                         This parameter can be null.
+     * @param dragEnd object method which has to have a Vector2f parameter which means current position.
+     *                This parameter can be null.
+     */
+    public Drag(@NotNull GuiTextureMapping.Icon icon, Vector4f dragBorders, Object obj, Method currentlyDragged, Method dragEnd) {
+        this.icon = icon;
+        this.dragBorders = dragBorders;
+        this.obj = obj;
+        this.currentlyDragged = currentlyDragged;
+        this.dragEnd = dragEnd;
+    }
+
+    public void drag(@NotNull Vector2f currentMousePos) {
+        if(previousMousePos == null) {
+            previousMousePos = new Vector2f(currentMousePos);
+        } else {
+            coordinates.set(
+                    coordinates.x + previousMousePos.x - currentMousePos.x,
+                    coordinates.y + previousMousePos.y - currentMousePos.y
+            );
+            previousMousePos.set(currentMousePos);
+        }
+        if(obj != null && dragEnd != null) {
+            try {
+                currentlyDragged.invoke(obj, coordinates);
+            } catch (Exception ignored) {}
+        }
+    }
+    public void dragEnd() {
+        previousMousePos = null;
+        if(obj != null && dragEnd != null) {
+            try {
+                dragEnd.invoke(obj, coordinates);
+            } catch (Exception ignored) {}
+        }
+    }
+    @Override
+    public void render() {
+        this.render(null);
+    }
+
+    @Override
+    public void render(Vector2f coordinates) {
+        icon.render(coordinates);
+    }
+
+    @Override
+    public boolean scalable() {
+        return false;
+    }
+
+    @Override
+    public void render(Vector2f coordinates, Vector2f scale) {
+        icon.render(coordinates);
+    }
+
+    @Override
+    public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
+        this.coordinates.set(
+                this.coordinates.x * previousResolution.x * currentResolution.x,
+                this.coordinates.y * previousResolution.y * currentResolution.y
+        );
+    }
+
+    @Override
+    public Vector4f getBorders() {
+        return borders;
+    }
+
+    @Override
+    public boolean mouseHandler(Vector2f currentMousePosition) {
+        return false;
+    }
+
+    @Override
+    public int getZLevel() {
+        return 0;
+    }
+}
+

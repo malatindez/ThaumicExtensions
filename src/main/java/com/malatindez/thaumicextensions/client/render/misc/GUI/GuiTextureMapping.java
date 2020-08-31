@@ -1,8 +1,8 @@
-package com.malatindez.thaumicextensions.client.render.gui;
+package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.misc.GUI.EhnancedGuiScreen;
 import com.sun.istack.internal.NotNull;
-import net.minecraft.client.gui.Gui;
 
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector2f;
@@ -17,30 +17,7 @@ import java.util.HashMap;
  * You should bind GUI texture before calling render functions
  */
 public class GuiTextureMapping {
-    public interface Renderable {
-        /**
-         * Default render function, coordinates depends on object implementation.
-         */
-        void render();
-        /**
-         * Draws this object
-         * @param coordinates top left corner coordinates
-         */
-        void render(Vector2f coordinates);
-
-        /**
-         * @return if object can be scaled
-         */
-        boolean scalable();
-
-        /**
-         * If scalable() is false - scale parameter will be ignored.
-         * @param coordinates top left corner coordinates
-         * @param scale scale
-         */
-        void render(Vector2f coordinates, Vector2f scale);
-    }
-    public static class Icon implements Renderable {
+    public static class Icon implements EhnancedGuiScreen.Renderable {
         protected final Vector2f coordinates, texFrom, texTo, iconSize, scale, textureSize;
         /**
          * GuiTextureMapping.Part constructor
@@ -127,7 +104,15 @@ public class GuiTextureMapping {
                 return dest;
             }
         }
-
+        public Vector2f getTexFrom() {
+            return new Vector2f(texFrom);
+        }
+        public Vector2f getTexTo() {
+            return new Vector2f(texTo);
+        }
+        public Vector2f getIconSize() {
+            return new Vector2f(iconSize);
+        }
         /**
          * Render an icon on default coordinates
          */
@@ -161,6 +146,11 @@ public class GuiTextureMapping {
         @Override
         public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
             UtilsFX.drawScaledCustomSizeModalRect(coordinates, texFrom, texTo, this.mul(scale, iconSize, null), textureSize);
+        }
+
+        @Override
+        public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
+
         }
     }
     protected HashMap<String, Icon> parts = new HashMap<String, Icon>();
