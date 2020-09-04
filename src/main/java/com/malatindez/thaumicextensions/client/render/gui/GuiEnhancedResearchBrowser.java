@@ -2,6 +2,7 @@ package com.malatindez.thaumicextensions.client.render.gui;
 
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
+import com.malatindez.thaumicextensions.client.render.misc.GUI.GuiTextureMapping;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -75,8 +76,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
 
     public boolean hasScribeStuff;
 
-    protected static GuiTextureMapping map = null;
-
+    /*
     private static void initMap() {
         map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
         Vector2f iconSize       = new Vector2f(26, 26);
@@ -118,11 +118,8 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
                 new GuiTextureMapping.Part(nullVector, new Vector2f(230, 230), new Vector2f(256, 256),
                         textureSize, iconSize)
         );
-    }
+    }*/
     public GuiEnhancedResearchBrowser() {
-        if(map == null) {
-            initMap();
-        }
         this.hasScribeStuff = false;
         guiOffset.set(lastPos.x * 24 - 82, lastPos.y * 24 - 70);
         updateResearch();
@@ -130,9 +127,6 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
         this.player = (Minecraft.getMinecraft()).thePlayer.getCommandSenderName();
     }
     public GuiEnhancedResearchBrowser(double x, double y) {
-        if(map == null) {
-            initMap();
-        }
         guiOffset.set(lastPos.x * 24 - 82, lastPos.y * 24 - 70);
         this.hasScribeStuff = false;
         updateResearch();

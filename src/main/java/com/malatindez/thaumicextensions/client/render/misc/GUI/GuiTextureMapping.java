@@ -152,6 +152,11 @@ public class GuiTextureMapping {
         public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
 
         }
+
+        @Override
+        public int getZLevel() {
+            return 0;
+        }
     }
     protected HashMap<String, Icon> parts = new HashMap<String, Icon>();
     ResourceLocation texture;
@@ -221,7 +226,7 @@ public class GuiTextureMapping {
     }
 
     /**
-     * Render only one element with this name on this coordinates and scale
+     * Render only one element with this name at this coordinates and scale
      * @param name Elements name
      * @param coordinates Coordinates to render at
      * @param scale Elements scale
