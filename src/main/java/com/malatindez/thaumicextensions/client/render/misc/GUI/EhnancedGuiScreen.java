@@ -103,22 +103,14 @@ public class EhnancedGuiScreen extends GuiScreen {
          */
         void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution);
 
+        /**
+         * Returns Z level of an object which used to handle the mouse
+         * @return Z level
+         */
+        int getZLevel();
     }
 
     protected Vector2f currentResolution;
-
-    protected ArrayList<Object> objects = new ArrayList<Object>();
-
-    public void sortObjects() {
-
-    }
-
-    public void addObject(Object object) {
-        objects.add(object);
-    }
-    public void addObjects(ArrayList<Object> objects) {
-        this.objects.addAll(objects);
-    }
 
     public void onGuiClosed() {
         super.onGuiClosed();
@@ -126,11 +118,11 @@ public class EhnancedGuiScreen extends GuiScreen {
     public void drawScreen(int mx, int my, float tick) {
         if (currentResolution.x != this.width || currentResolution.y != this.height) {
             Vector2f newResolution = new Vector2f(this.width, this.height);
-            for(Object object : objects) {
-                if (object instanceof Renderable) {
-                    ((Renderable) object).resolutionUpdated(currentResolution,newResolution);
-                }
-            }
+           // for(Object object : objects) {
+            //    if (object instanceof Renderable) {
+             //       ((Renderable) object).resolutionUpdated(currentResolution,newResolution);
+              //  }
+            //}
             currentResolution = newResolution;
         }
 
