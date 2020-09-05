@@ -59,6 +59,15 @@ public class EhnancedGuiScreen extends GuiScreen {
         boolean mouseHandler(Vector2f currentMousePosition);
 
         /**
+         * Default resolution is 1024 x 768
+         * This function is called when resolution was updated.
+         * This can be used to update the coordinates and/or scale of the object
+         * @param previousResolution previous resolution(1024.0f, 768.0f for example)
+         * @param currentResolution new resolution(1920.0f, 1080.0f for example)
+         */
+        void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution);
+
+        /**
          * Returns Z level of an object which used to handle the mouse
          * @return Z level
          */
@@ -78,8 +87,8 @@ public class EhnancedGuiScreen extends GuiScreen {
         void render();
 
         /**
-         * Draws this object
-         * @param coordinates top left corner coordinates
+         * Render object
+         * @param coordinates top left corner offset
          */
         void render(Vector2f coordinates);
 
@@ -90,12 +99,13 @@ public class EhnancedGuiScreen extends GuiScreen {
 
         /**
          * If scalable() is false - scale parameter will be ignored.
-         * @param coordinates top left corner coordinates
-         * @param scale scale
+         * @param coordinates top left corner offset
+         * @param scale scale object
          */
         void render(Vector2f coordinates, Vector2f scale);
 
         /**
+         * Default resolution is 1024 x 768
          * This function is called when resolution was updated.
          * This can be used to update the coordinates and/or scale of the object
          * @param previousResolution previous resolution(1024.0f, 768.0f for example)
