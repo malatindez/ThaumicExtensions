@@ -8,8 +8,9 @@ import java.util.ArrayList;
 public class Collection implements EhnancedGuiScreen.Renderable,
         EhnancedGuiScreen.Clickable, EhnancedGuiScreen.Bindable, EhnancedGuiScreen.Updatable {
 
-    protected Vector2f coordinates;
-    protected Vector4f borders;
+    protected final Vector2f coordinates;
+    protected final Vector2f size;
+    protected final Vector4f borders;
 
     protected ArrayList<Object> objects = new ArrayList<Object>();
 
@@ -67,37 +68,94 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     public void sortObjects() {
         quickSort(0,objects.size());
     }
-
     public void addObject(Object object) {
         objects.add(object); sortObjects();
     }
     public void addObjects(ArrayList<Object> objects) {
         this.objects.addAll(objects); sortObjects();
     }
+    protected void updateBorders() {
+        this.borders.set(
+                coordinates.x, coordinates.y,
+                coordinates.x + size.x, coordinates.y + size.y
+        );
+    }
+
+    public Vector2f getCoordinates() {
+        return new Vector2f(coordinates);
+    }
+    public void setCoordinates(Vector2f newCoordinates) {
+        this.coordinates.set(newCoordinates);
+        updateBorders();
+    }
+
+    public Vector2f getSize() {
+        return new Vector2f(size);
+    }
+
+    public Collection(Vector2f coordinates, Vector2f size)  {
+        this.coordinates = new Vector2f(coordinates);
+        this.size = new Vector2f(size);
+        this.borders = new Vector4f();
+        updateBorders();
+    }
 
     @Override
     public Vector4f getBorders() {
-        return null;
+        return borders;
     }
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
+        for(Object object : objects) {
+            if (object instanceof EhnancedGuiScreen.Clickable) {
+                Vector4f temp = ((EhnancedGuiScreen.Clickable) object).getBorders();
+                if(
+                        temp.x < currentMousePosition.x &&
+                                temp.z > currentMousePosition.x &&
+                        temp.y < currentMousePosition.y &&
+                                temp.w > currentMousePosition.y &&
+                        ((EhnancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)
+                ) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public ArrayList<EhnancedGuiScreen.Bind> getBinds() {
-        return null;
+        ArrayList<EhnancedGuiScreen.Bind> binds = new ArrayList<EhnancedGuiScreen.Bind>();
+        for(Object object : objects) {
+            if (object instanceof EhnancedGuiScreen.Bindable) {
+                binds.addAll(((EhnancedGuiScreen.Bindable) object).getBinds());
+            }
+        }
+        return binds;
     }
 
     @Override
     public void render() {
-
+        for(Object object :  objects) {
+            if (object instanceof EhnancedGuiScreen.Renderable) {
+                ((EhnancedGuiScreen.Renderable) object).render(new Vector2f(this.coordinates));
+            }
+        }
     }
 
     @Override
     public void render(Vector2f coordinates) {
-
+        for(Object object :  objects) {
+            if (object instanceof EhnancedGuiScreen.Renderable) {
+                ((EhnancedGuiScreen.Renderable) object).render(
+                        new Vector2f(
+                                this.coordinates.x + coordinates.x,
+                                this.coordinates.y + coordinates.y
+                        )
+                );
+            }
+        }
     }
 
     @Override
@@ -107,12 +165,29 @@ public class Collection implements EhnancedGuiScreen.Renderable,
 
     @Override
     public void render(Vector2f coordinates, Vector2f scale) {
-
+        for(Object object :  objects) {
+            if (object instanceof EhnancedGuiScreen.Renderable) {
+                ((EhnancedGuiScreen.Renderable) object).render(
+                        new Vector2f(
+                                this.coordinates.x + coordinates.x,
+                                this.coordinates.y + coordinates.y
+                        ),
+                        new Vector2f(scale)
+                );
+            }
+        }
     }
 
     @Override
     public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
-
+        for(Object object :  objects) {
+            if (object instanceof EhnancedGuiScreen.Renderable) {
+                ((EhnancedGuiScreen.Renderable) object).resolutionUpdated(previousResolution,currentResolution);
+            }
+            else if (object instanceof EhnancedGuiScreen.Clickable) {
+                ((EhnancedGuiScreen.Clickable) object).resolutionUpdated(previousResolution,currentResolution);
+            }
+        }
     }
 
     @Override
