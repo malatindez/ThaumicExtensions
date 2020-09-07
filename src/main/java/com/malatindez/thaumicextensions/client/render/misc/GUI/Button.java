@@ -7,13 +7,13 @@ import org.lwjgl.util.vector.Vector4f;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public class Button implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.Clickable, EhnancedGuiScreen.Bindable {
+public class Button extends defaultGuiObject
+        implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.needParent {
     protected final GuiTextureMapping.Icon icon;
     protected final Object obj;
     protected final Method method;
-    protected final ArrayList<EhnancedGuiScreen.Bind> binds;
-    protected final Vector4f borders;
-    protected final Vector2f coordinates;
+    protected final ArrayList<EnhancedGuiScreen.Bind> binds;
+    protected Collection parent = null;
     protected int zLevel;
     protected void updateBorders() {
         borders.set(
@@ -27,6 +27,7 @@ public class Button implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.C
         this.coordinates.set(newCoordinates);
         updateBorders();
     }
+
     /**
      * Button constructor
      * @param icon buttons icon which should be rendered
@@ -35,13 +36,12 @@ public class Button implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.C
      *               Shouldn't be returning any value and shouldn't have any parameters either
      */
     public Button(@NotNull GuiTextureMapping.Icon icon, @NotNull Vector2f coordinates,
-                  @NotNull Object obj, @NotNull Method method, ArrayList<EhnancedGuiScreen.Bind> binds, int zLevel) {
+                  @NotNull Object obj, @NotNull Method method, ArrayList<EnhancedGuiScreen.Bind> binds, int zLevel) {
+        super(coordinates,new Vector2f(1.0f, 1.0f),icon.iconSize);
         this.icon = icon;
         this.obj = obj;
         this.method = method;
         this.binds = binds;
-        this.coordinates = coordinates;
-        this.borders = new Vector4f();
         this.zLevel = zLevel;
         updateBorders();
     }
@@ -96,7 +96,12 @@ public class Button implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.C
     }
 
     @Override
-    public ArrayList<EhnancedGuiScreen.Bind> getBinds() {
+    public ArrayList<EnhancedGuiScreen.Bind> getBinds() {
         return binds;
+    }
+
+    @Override
+    public void setParent(Collection parent) {
+        this.parent = parent;
     }
 }
