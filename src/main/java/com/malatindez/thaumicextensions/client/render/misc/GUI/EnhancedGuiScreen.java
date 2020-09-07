@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector4f;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public class EhnancedGuiScreen extends GuiScreen {
+public class EnhancedGuiScreen extends GuiScreen {
     class Bind {
         protected int key;
         protected final Method method;
@@ -37,6 +37,9 @@ public class EhnancedGuiScreen extends GuiScreen {
             }
             return true;
         }
+    }
+    public interface needParent {
+        void setParent(Collection parent);
     }
     public interface Updatable  {
         void Update();
@@ -119,23 +122,27 @@ public class EhnancedGuiScreen extends GuiScreen {
          */
         int getZLevel();
     }
-
+    protected final Vector2f mousePosition = new Vector2f(0,0);
+    public Vector2f getCurrentMousePosition() {
+        return new Vector2f(mousePosition);
+    }
+    public Vector2f getCurrentResolution() {
+        return new Vector2f(currentResolution);
+    }
     protected Vector2f currentResolution;
-
+    protected Collection gui;
     public void onGuiClosed() {
         super.onGuiClosed();
     }
     public void drawScreen(int mx, int my, float tick) {
+        mousePosition.set(mx,my);
         if (currentResolution.x != this.width || currentResolution.y != this.height) {
             Vector2f newResolution = new Vector2f(this.width, this.height);
-           // for(Object object : objects) {
-            //    if (object instanceof Renderable) {
-             //       ((Renderable) object).resolutionUpdated(currentResolution,newResolution);
-              //  }
-            //}
+            gui.resolutionUpdated(currentResolution,newResolution);
             currentResolution = newResolution;
         }
-
+        gui.mouseHandler(new Vector2f(mousePosition));
+        gui.render();
     }
 
 
