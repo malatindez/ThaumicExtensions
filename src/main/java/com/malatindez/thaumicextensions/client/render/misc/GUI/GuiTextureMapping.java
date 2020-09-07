@@ -1,7 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
-import com.malatindez.thaumicextensions.client.render.misc.GUI.EhnancedGuiScreen;
 import com.sun.istack.internal.NotNull;
 
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +16,7 @@ import java.util.HashMap;
  * You should bind GUI texture before calling render functions
  */
 public class GuiTextureMapping {
-    public static class Icon implements EhnancedGuiScreen.Renderable {
+    public static class Icon implements EnhancedGuiScreen.Renderable {
         protected final Vector2f coordinates, texFrom, texTo, iconSize, scale, textureSize;
         /**
          * GuiTextureMapping.Part constructor
