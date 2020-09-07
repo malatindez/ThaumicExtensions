@@ -5,20 +5,18 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 
-public class Collection implements EhnancedGuiScreen.Renderable,
-        EhnancedGuiScreen.Clickable, EhnancedGuiScreen.Bindable, EhnancedGuiScreen.Updatable {
+public class Collection extends defaultGuiObject implements
+        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.needParent {
 
-    protected final Vector2f coordinates;
-    protected final Vector2f size;
-    protected final Vector4f borders;
-
+    protected Object selected = null;
     protected ArrayList<Object> objects = new ArrayList<Object>();
+    protected Collection parent = null;
 
     private int getObjectZLevel(int i) {
-        if (objects.get(i) instanceof EhnancedGuiScreen.Renderable) {
-            return ((EhnancedGuiScreen.Renderable) objects.get(i)).getZLevel();
-        } else if (objects.get(i) instanceof EhnancedGuiScreen.Clickable) {
-            return ((EhnancedGuiScreen.Clickable) objects.get(i)).getZLevel();
+        if (objects.get(i) instanceof EnhancedGuiScreen.Renderable) {
+            return ((EnhancedGuiScreen.Renderable) objects.get(i)).getZLevel();
+        } else if (objects.get(i) instanceof EnhancedGuiScreen.Clickable) {
+            return ((EnhancedGuiScreen.Clickable) objects.get(i)).getZLevel();
         }
         return 0;
     }
@@ -65,8 +63,16 @@ public class Collection implements EhnancedGuiScreen.Renderable,
             quickSort(loc + 1, end);
         }
     }
-    public void sortObjects() {
+    protected void sortObjects() {
         quickSort(0,objects.size());
+    }
+
+
+    public void removeObjects(ArrayList<Object> objects) {
+        objects.remove(objects);
+    }
+    public void removeObject(Object object) {
+        objects.remove(object);
     }
     public void addObject(Object object) {
         objects.add(object); sortObjects();
@@ -74,30 +80,11 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     public void addObjects(ArrayList<Object> objects) {
         this.objects.addAll(objects); sortObjects();
     }
-    protected void updateBorders() {
-        this.borders.set(
-                coordinates.x, coordinates.y,
-                coordinates.x + size.x, coordinates.y + size.y
-        );
+    public boolean isSelected(Object object) {
+        return object == selected;
     }
-
-    public Vector2f getCoordinates() {
-        return new Vector2f(coordinates);
-    }
-    public void setCoordinates(Vector2f newCoordinates) {
-        this.coordinates.set(newCoordinates);
-        updateBorders();
-    }
-
-    public Vector2f getSize() {
-        return new Vector2f(size);
-    }
-
     public Collection(Vector2f coordinates, Vector2f size)  {
-        this.coordinates = new Vector2f(coordinates);
-        this.size = new Vector2f(size);
-        this.borders = new Vector4f();
-        updateBorders();
+        super(coordinates,new Vector2f(1.0f,1.0f),size);
     }
 
     @Override
@@ -108,14 +95,14 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         for(Object object : objects) {
-            if (object instanceof EhnancedGuiScreen.Clickable) {
-                Vector4f temp = ((EhnancedGuiScreen.Clickable) object).getBorders();
+            if (object instanceof EnhancedGuiScreen.Clickable) {
+                Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
                 if(
                         temp.x < currentMousePosition.x &&
                                 temp.z > currentMousePosition.x &&
                         temp.y < currentMousePosition.y &&
                                 temp.w > currentMousePosition.y &&
-                        ((EhnancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)
+                        ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)
                 ) {
                     return true;
                 }
@@ -125,11 +112,11 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     }
 
     @Override
-    public ArrayList<EhnancedGuiScreen.Bind> getBinds() {
-        ArrayList<EhnancedGuiScreen.Bind> binds = new ArrayList<EhnancedGuiScreen.Bind>();
+    public ArrayList<EnhancedGuiScreen.Bind> getBinds() {
+        ArrayList<EnhancedGuiScreen.Bind> binds = new ArrayList<EnhancedGuiScreen.Bind>();
         for(Object object : objects) {
-            if (object instanceof EhnancedGuiScreen.Bindable) {
-                binds.addAll(((EhnancedGuiScreen.Bindable) object).getBinds());
+            if (object instanceof EnhancedGuiScreen.Bindable) {
+                binds.addAll(((EnhancedGuiScreen.Bindable) object).getBinds());
             }
         }
         return binds;
@@ -138,8 +125,8 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     @Override
     public void render() {
         for(Object object :  objects) {
-            if (object instanceof EhnancedGuiScreen.Renderable) {
-                ((EhnancedGuiScreen.Renderable) object).render(new Vector2f(this.coordinates));
+            if (object instanceof EnhancedGuiScreen.Renderable) {
+                ((EnhancedGuiScreen.Renderable) object).render(new Vector2f(this.coordinates));
             }
         }
     }
@@ -147,8 +134,8 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     @Override
     public void render(Vector2f coordinates) {
         for(Object object :  objects) {
-            if (object instanceof EhnancedGuiScreen.Renderable) {
-                ((EhnancedGuiScreen.Renderable) object).render(
+            if (object instanceof EnhancedGuiScreen.Renderable) {
+                ((EnhancedGuiScreen.Renderable) object).render(
                         new Vector2f(
                                 this.coordinates.x + coordinates.x,
                                 this.coordinates.y + coordinates.y
@@ -166,8 +153,8 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     @Override
     public void render(Vector2f coordinates, Vector2f scale) {
         for(Object object :  objects) {
-            if (object instanceof EhnancedGuiScreen.Renderable) {
-                ((EhnancedGuiScreen.Renderable) object).render(
+            if (object instanceof EnhancedGuiScreen.Renderable) {
+                ((EnhancedGuiScreen.Renderable) object).render(
                         new Vector2f(
                                 this.coordinates.x + coordinates.x,
                                 this.coordinates.y + coordinates.y
@@ -181,11 +168,11 @@ public class Collection implements EhnancedGuiScreen.Renderable,
     @Override
     public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
         for(Object object :  objects) {
-            if (object instanceof EhnancedGuiScreen.Renderable) {
-                ((EhnancedGuiScreen.Renderable) object).resolutionUpdated(previousResolution,currentResolution);
+            if (object instanceof EnhancedGuiScreen.Renderable) {
+                ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(previousResolution,currentResolution);
             }
-            else if (object instanceof EhnancedGuiScreen.Clickable) {
-                ((EhnancedGuiScreen.Clickable) object).resolutionUpdated(previousResolution,currentResolution);
+            else if (object instanceof EnhancedGuiScreen.Clickable) {
+                ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(previousResolution,currentResolution);
             }
         }
     }
@@ -197,6 +184,15 @@ public class Collection implements EhnancedGuiScreen.Renderable,
 
     @Override
     public void Update() {
+        for(Object object : objects) {
+            if (object instanceof EnhancedGuiScreen.Updatable) {
+                ((EnhancedGuiScreen.Updatable) object).Update();
+            }
+        }
+    }
 
+    @Override
+    public void setParent(Collection parent) {
+        this.parent = parent;
     }
 }
