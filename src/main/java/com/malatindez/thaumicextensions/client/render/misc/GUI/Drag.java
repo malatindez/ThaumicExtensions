@@ -6,15 +6,14 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
-public class Drag implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.Clickable {
+public class Drag extends defaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.needParent {
     protected GuiTextureMapping.Icon icon;
     protected final Object obj;
     protected final Method currentlyDragged;
     protected final Method dragEnd;
+    protected Collection parent;
 
-    protected Vector4f borders;
     protected Vector4f dragBorders;
-    protected Vector2f coordinates = new Vector2f(0, 0);
     protected Vector2f previousMousePos = null;
 
     protected void updateBorders() {
@@ -48,9 +47,11 @@ public class Drag implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.Cli
      * @param dragEnd object method which has to have a Vector2f parameter which means current position.
      *                This parameter can be null.
      */
-    public Drag(@NotNull GuiTextureMapping.Icon icon, Vector4f dragBorders, Object obj, Method currentlyDragged, Method dragEnd) {
+    public Drag(@NotNull GuiTextureMapping.Icon icon, Vector2f coordinates,
+                Vector4f dragBorders, Object obj, Method currentlyDragged, Method dragEnd) {
+        super(coordinates,new Vector2f(1.0f, 1.0f),icon.iconSize);
         this.icon = icon;
-        this.dragBorders = dragBorders;
+        this.dragBorders = new Vector4f(dragBorders);
         this.obj = obj;
         this.currentlyDragged = currentlyDragged;
         this.dragEnd = dragEnd;
@@ -121,6 +122,11 @@ public class Drag implements EhnancedGuiScreen.Renderable, EhnancedGuiScreen.Cli
     @Override
     public int getZLevel() {
         return 0;
+    }
+
+    @Override
+    public void setParent(Collection parent) {
+        this.parent = parent;
     }
 }
 
