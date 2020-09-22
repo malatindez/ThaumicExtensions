@@ -7,20 +7,20 @@ import org.lwjgl.util.vector.Vector4f;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public class Button extends defaultGuiObject
+public class Button extends DefaultGuiObject
         implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.needParent {
-    protected final GuiTextureMapping.Icon icon;
+    protected final Object icon;
     protected final Object obj;
     protected final Method method;
     protected final ArrayList<EnhancedGuiScreen.Bind> binds;
     protected Collection parent = null;
-    protected int zLevel;
+    protected int zLevel, id;
     protected void updateBorders() {
         borders.set(
                 coordinates.x,
                 coordinates.y,
-                icon.getIconSize().x + coordinates.x,
-                icon.getIconSize().y + coordinates.y
+                ((DefaultGuiObject)icon).getSize().x + coordinates.x,
+                ((DefaultGuiObject)icon).getSize().y + coordinates.y
         );
     }
     public void updateCoordinates(Vector2f newCoordinates) {
@@ -30,30 +30,36 @@ public class Button extends defaultGuiObject
 
     /**
      * Button constructor
-     * @param icon buttons icon which should be rendered
+     * @param icon buttons icon which should be rendered, icon type should be DefaultGuiObject
      * @param obj object where a method is located
      * @param method Method, which will be called when the button is clicked.
-     *               Shouldn't be returning any value and shouldn't have any parameters either
+     *               Shouldn't be returning any value. Should have 2 parameters:
+     *                   * Param Object which will be set with this class
+     *                   * Param int id, special number which you can add in constructor to identify caller
      */
-    public Button(@NotNull GuiTextureMapping.Icon icon, @NotNull Vector2f coordinates,
-                  @NotNull Object obj, @NotNull Method method, ArrayList<EnhancedGuiScreen.Bind> binds, int zLevel) {
-        super(coordinates,new Vector2f(1.0f, 1.0f),icon.iconSize);
+    public Button(@NotNull Object icon, @NotNull Vector2f coordinates,
+                  @NotNull Object obj, @NotNull Method method, int id, int zLevel, ArrayList<EnhancedGuiScreen.Bind> binds) {
+        super(coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), false);
         this.icon = icon;
         this.obj = obj;
         this.method = method;
         this.binds = binds;
         this.zLevel = zLevel;
+        this.id = id;
         updateBorders();
     }
 
     @Override
     public void render() {
-        icon.render(this.coordinates);
+        ((DefaultGuiObject)icon).render(this.coordinates);
     }
 
     @Override
     public void render(@NotNull Vector2f coordinates) {
-        icon.render(coordinates);
+        ((DefaultGuiObject)icon).render(new Vector2f(
+                coordinates.x + this.coordinates.x,
+                coordinates.y + this.coordinates.y
+        ));
     }
 
     @Override
@@ -63,17 +69,10 @@ public class Button extends defaultGuiObject
 
     @Override
     public void render(@NotNull Vector2f coordinates, Vector2f scale) {
-        icon.render(coordinates);
+        ((DefaultGuiObject)icon).render(coordinates);
     }
 
-    @Override
-    public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
-        this.coordinates.set(
-                this.coordinates.x * currentResolution.x / previousResolution.x,
-                this.coordinates.y * currentResolution.y / previousResolution.y
-        );
-        updateBorders();
-    }
+
 
     @Override
     public int getZLevel() {
@@ -88,7 +87,7 @@ public class Button extends defaultGuiObject
     @Override
     public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
         try {
-            method.invoke(obj);
+            method.invoke(obj, this, id);
         } catch (Exception ignored) {
             return false;
         }
