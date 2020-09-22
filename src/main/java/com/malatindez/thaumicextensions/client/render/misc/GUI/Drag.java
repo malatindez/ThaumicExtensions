@@ -6,8 +6,8 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
-public class Drag extends defaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.needParent {
-    protected GuiTextureMapping.Icon icon;
+public class Drag extends DefaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.needParent {
+    protected DefaultGuiObject icon;
     protected final Object obj;
     protected final Method currentlyDragged;
     protected final Method dragEnd;
@@ -20,8 +20,8 @@ public class Drag extends defaultGuiObject implements EnhancedGuiScreen.Clickabl
         borders.set(
                 coordinates.x,
                 coordinates.y,
-                icon.getIconSize().x + coordinates.x,
-                icon.getIconSize().y + coordinates.y
+                icon.getSize().x + coordinates.x,
+                icon.getSize().y + coordinates.y
         );
     }
     public void setCoordinates(Vector2f newCoordinates) {
@@ -48,8 +48,8 @@ public class Drag extends defaultGuiObject implements EnhancedGuiScreen.Clickabl
      *                This parameter can be null.
      */
     public Drag(@NotNull GuiTextureMapping.Icon icon, Vector2f coordinates,
-                Vector4f dragBorders, Object obj, Method currentlyDragged, Method dragEnd) {
-        super(coordinates,new Vector2f(1.0f, 1.0f),icon.iconSize);
+                Vector4f dragBorders, int zLevel, Object obj, Method currentlyDragged, Method dragEnd) {
+        super(coordinates,new Vector2f(1.0f, 1.0f),icon.getSize(), zLevel);
         this.icon = icon;
         this.dragBorders = new Vector4f(dragBorders);
         this.obj = obj;
@@ -101,13 +101,6 @@ public class Drag extends defaultGuiObject implements EnhancedGuiScreen.Clickabl
         icon.render(coordinates);
     }
 
-    @Override
-    public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
-        this.coordinates.set(
-                this.coordinates.x * previousResolution.x * currentResolution.x,
-                this.coordinates.y * previousResolution.y * currentResolution.y
-        );
-    }
 
     @Override
     public Vector4f getBorders() {
