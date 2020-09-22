@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions.client;
 import com.malatindez.thaumicextensions.IProxy;
 import com.malatindez.thaumicextensions.client.render.block.BlockEnhancedInfusionPillarRenderer;
 import com.malatindez.thaumicextensions.client.render.gui.GuiEnhancedResearchBrowser;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEnhancedResearchRecipe;
 import com.malatindez.thaumicextensions.client.render.tile.TileEnhancedInfusionPillarRenderer;
 import com.malatindez.thaumicextensions.common.ConfigBlocks;
 import com.malatindez.thaumicextensions.common.blocks.BlockEnhancedInfusionPillar;
@@ -55,7 +56,7 @@ public class ClientProxy extends IProxy {
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
         if (world instanceof net.minecraft.client.multiplayer.WorldClient) {
             if (id == 0)
-                return new GuiEnhancedResearchBrowser();
+                return new GuiEnhancedResearchRecipe(null, 0,0,0);
             TileEntity tile = world.getTileEntity(x, y, z);
             if (tile == null)
                 return null;
