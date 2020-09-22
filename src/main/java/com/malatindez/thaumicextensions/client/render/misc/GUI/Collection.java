@@ -2,10 +2,9 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-
 import java.util.ArrayList;
 
-public class Collection extends defaultGuiObject implements
+public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.needParent {
 
     protected Object selected = null;
@@ -56,6 +55,9 @@ public class Collection extends defaultGuiObject implements
         return loc;
     }
     private void quickSort(int beginning, int end) {
+        if(objects.size() == 1) {
+            return;
+        }
         int loc;
         if (beginning < end) {
             loc = sortPartition(beginning, end);
@@ -69,13 +71,19 @@ public class Collection extends defaultGuiObject implements
 
 
     public void removeObjects(ArrayList<Object> objects) {
-        objects.remove(objects);
+        this.objects.remove(objects);
     }
     public void removeObject(Object object) {
         objects.remove(object);
     }
-    public void addObject(Object object) {
+    public Object addObject(Object object) {
+        if (object instanceof EnhancedGuiScreen.Renderable) {
+            ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(this.currentResolution);
+        } else if (object instanceof EnhancedGuiScreen.Clickable) {
+            ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(this.currentResolution);
+        }
         objects.add(object); sortObjects();
+        return object;
     }
     public void addObjects(ArrayList<Object> objects) {
         this.objects.addAll(objects); sortObjects();
@@ -83,8 +91,8 @@ public class Collection extends defaultGuiObject implements
     public boolean isSelected(Object object) {
         return object == selected;
     }
-    public Collection(Vector2f coordinates, Vector2f size)  {
-        super(coordinates,new Vector2f(1.0f,1.0f),size);
+    public Collection(Vector2f coordinates, Vector2f size, int zLevel)  {
+        super(coordinates,new Vector2f(1.0f,1.0f),size,zLevel);
     }
 
     @Override
@@ -165,14 +173,16 @@ public class Collection extends defaultGuiObject implements
         }
     }
 
+
     @Override
-    public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
+    public void resolutionUpdated(Vector2f newResolution) {
+        super.resolutionUpdated(newResolution);
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(previousResolution,currentResolution);
+                ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(newResolution);
             }
             else if (object instanceof EnhancedGuiScreen.Clickable) {
-                ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(previousResolution,currentResolution);
+                ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(newResolution);
             }
         }
     }
