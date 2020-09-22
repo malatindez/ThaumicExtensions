@@ -16,8 +16,9 @@ import java.util.HashMap;
  * You should bind GUI texture before calling render functions
  */
 public class GuiTextureMapping {
-    public static class Icon implements EnhancedGuiScreen.Renderable {
-        protected final Vector2f coordinates, texFrom, texTo, iconSize, scale, textureSize;
+    public static class Icon extends DefaultGuiObject {
+        public ResourceLocation texture = null;
+        protected final Vector2f texFrom, texTo, textureSize;
         /**
          * GuiTextureMapping.Part constructor
          * @param coordinates Default coordinates to render at
@@ -28,11 +29,9 @@ public class GuiTextureMapping {
          */
         public Icon(@NotNull Vector2f coordinates, @NotNull Vector2f texFrom,
                     @NotNull Vector2f iconSize,    @NotNull Vector2f textureSize,
-                    @NotNull Vector2f scale) {
-            this.coordinates = new Vector2f(coordinates);
+                    @NotNull Vector2f scale, int zLevel) {
+            super(coordinates,scale,iconSize, zLevel);
             this.texFrom     = new Vector2f(texFrom);
-            this.iconSize    = new Vector2f(iconSize);
-            this.scale       = new Vector2f(scale);
             this.textureSize = new Vector2f(textureSize);
             this.texTo       = Vector2f.add(texFrom, iconSize, null);
         }
@@ -45,8 +44,8 @@ public class GuiTextureMapping {
          * @param textureSize The size of the texture
          */
         public Icon(@NotNull Vector2f coordinates, @NotNull Vector2f texFrom,
-                    @NotNull Vector2f iconSize,    @NotNull Vector2f textureSize) {
-            this(coordinates, texFrom, iconSize, textureSize, new Vector2f(1.0f, 1.0f));
+                    @NotNull Vector2f iconSize,    @NotNull Vector2f textureSize, int zLevel) {
+            this(coordinates, texFrom, iconSize, textureSize, new Vector2f(1.0f, 1.0f), zLevel);
         }
 
         /**
@@ -64,10 +63,10 @@ public class GuiTextureMapping {
          */
         public Icon(int x,      int y,       float u,         float v,
                     int iconSizeU, int iconSizeV, float scaleX, float scaleY,
-                    float textureWidth,      float textureHeight) {
+                    float textureWidth,      float textureHeight, int zLevel) {
             this(new Vector2f(x, y), new Vector2f(u, v),
                     new Vector2f(iconSizeU, iconSizeV), new Vector2f(scaleX, scaleY),
-                    new Vector2f(textureWidth, textureHeight));
+                    new Vector2f(textureWidth, textureHeight), zLevel);
         }
 
         /**
@@ -82,13 +81,13 @@ public class GuiTextureMapping {
          * @param textureHeight The y texture width
          */
         public Icon(int x, int y, float u, float v,
-                    int iconSizeU, int iconSizeV, float textureWidth, float textureHeight) {
+                    int iconSizeU, int iconSizeV, float textureWidth, float textureHeight, int zLevel) {
             this(new Vector2f(x, y), new Vector2f(u, v),
-                    new Vector2f(iconSizeU, iconSizeV), new Vector2f(textureWidth, textureHeight));
+                    new Vector2f(iconSizeU, iconSizeV), new Vector2f(textureWidth, textureHeight), zLevel);
         }
 
         /**
-         * Multiply a vector to another vector and place the result in a destination vector.
+         * Multiply a vector to another vector and place the result in the destination vector.
          * Multiplication defines as x = left.x * right.x; y = left.y * right.y;
          * @param left The LHS vector
          * @param right The RHS vector
@@ -109,14 +108,12 @@ public class GuiTextureMapping {
         public Vector2f getTexTo() {
             return new Vector2f(texTo);
         }
-        public Vector2f getIconSize() {
-            return new Vector2f(iconSize);
-        }
         /**
          * Render an icon on default coordinates
          */
         @Override
         public void render() {
+            UtilsFX.bindTexture(texture);
             this.render(this.coordinates);
         }
 
@@ -126,7 +123,11 @@ public class GuiTextureMapping {
          */
         @Override
         public void render(@NotNull Vector2f coordinates) {
-            UtilsFX.drawScaledCustomSizeModalRect(coordinates, texFrom, texTo, this.mul(scale, iconSize, null), textureSize);
+            UtilsFX.bindTexture(texture);
+            UtilsFX.drawCustomSizeModalRect(new Vector2f(
+                    coordinates.x + this.coordinates.x,
+                    coordinates.y + this.coordinates.y),
+                    texFrom, texTo, textureSize, getZLevel());
         }
 
         /**
@@ -134,7 +135,7 @@ public class GuiTextureMapping {
          */
         @Override
         public boolean scalable() {
-            return true;
+            return false;
         }
 
         /**
@@ -144,11 +145,15 @@ public class GuiTextureMapping {
          */
         @Override
         public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
-            UtilsFX.drawScaledCustomSizeModalRect(coordinates, texFrom, texTo, this.mul(scale, iconSize, null), textureSize);
+            UtilsFX.bindTexture(texture);
+            UtilsFX.drawCustomSizeModalRect(new Vector2f(
+                    coordinates.x + this.coordinates.x,
+                    coordinates.y + this.coordinates.y),
+                    texFrom, texTo, textureSize, getZLevel());
         }
 
         @Override
-        public void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution) {
+        public void resolutionUpdated(Vector2f newResolution) {
 
         }
 
@@ -157,8 +162,8 @@ public class GuiTextureMapping {
             return 0;
         }
     }
-    protected HashMap<String, Icon> parts = new HashMap<String, Icon>();
-    ResourceLocation texture;
+    protected final HashMap<String, Icon> parts = new HashMap<String, Icon>();
+    final ResourceLocation texture;
 
     /**
      * Constructor of GuiTextureMapping
@@ -195,6 +200,7 @@ public class GuiTextureMapping {
      * @param icon Element to add
      */
     public void addElement(final String name, Icon icon) {
+        icon.texture = texture;
         this.parts.put(name, icon);
     }
 
