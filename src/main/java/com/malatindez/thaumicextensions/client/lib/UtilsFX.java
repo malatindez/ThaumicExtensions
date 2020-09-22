@@ -2,6 +2,7 @@ package com.malatindez.thaumicextensions.client.lib;
 
 import com.sun.istack.internal.NotNull;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
@@ -29,45 +31,50 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
         bindTexture("thaumicextensions", texture);
     }
 
-    public static void drawScaledCustomSizeModalRect(
-            float x, float y, float texFromX, float textFromY,
-            float texToX, float texToY, float scaledToX, float scaledToY,
-            float textureSizeX, float textureSizeY)  {
-        float f4 = 1.0F / textureSizeX;
-        float f5 = 1.0F / textureSizeY;
+    public static void drawCustomSizeModalRect(
+            float x, float y, float texFromX, float texFromY,
+            float texToX, float texToY,
+            float textureSizeX, float textureSizeY, float zLevel)  {
+        GL11.glPushMatrix();
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        float f = 1.0F / textureSizeX;
+        float f1 = 1.0F / textureSizeY;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(x, y + scaledToY,
-                0.0D, texFromX * f4, (textFromY + texToY) * f5);
-        tessellator.addVertexWithUV(x + scaledToX, y + scaledToY,
-                0.0D, (texFromX + texToX) * f4,(textFromY + texToY) * f5);
-        tessellator.addVertexWithUV(x + scaledToX, y,
-                0.0D, ((texFromX + texToX) * f4), textFromY * f5);
-        tessellator.addVertexWithUV(x, y, 0.0D,
-                texFromX * f4, textFromY * f5);
+        tessellator.addVertexWithUV(x, (y + texToY-texFromY), zLevel,
+                texFromX * f, (texFromY + texToY-texFromY) * f1);
+
+        tessellator.addVertexWithUV(x + texToX-texFromX, y + texToY-texFromY, zLevel,
+                (texFromX + texToX-texFromX) * f, (texFromY + texToY-texFromY) * f1);
+
+        tessellator.addVertexWithUV(x + texToX-texFromX, y, zLevel,
+                (texFromX + texToX-texFromX) * f, texFromY * f1);
+
+        tessellator.addVertexWithUV(x, y, zLevel,
+                texFromX * f, texFromY * f1);
         tessellator.draw();
+        GL11.glPopMatrix();
     }
-    public static void drawScaledCustomSizeModalRect(
+    public static void drawCustomSizeModalRect(
             int x, int y, float texFromX, float texFromY,
-            int texToX, int texToY, int scaledToX, int scaledToY,
-            float textureSizeX, float textureSizeY)
+            int texToX, int texToY,
+            float textureSizeX, float textureSizeY, float zLevel)
     {
-        drawScaledCustomSizeModalRect(
+        drawCustomSizeModalRect(
                 (float)x, (float)y, texFromX, texFromY,
-                (float)texToX,  (float)texToY, (float)scaledToX, (float)scaledToY,
-                textureSizeX, textureSizeY
+                (float)texToX,  (float)texToY,
+                textureSizeX, textureSizeY, zLevel
         );
     }
-    public static void drawScaledCustomSizeModalRect(
+    public static void drawCustomSizeModalRect(
             Vector2f coordinates, Vector2f texFrom,
-            Vector2f texTo, Vector2f scaledTo,
-            Vector2f textureSize) {
-        drawScaledCustomSizeModalRect(
+            Vector2f texTo,
+            Vector2f textureSize, float zLevel) {
+        drawCustomSizeModalRect(
                 coordinates.x, coordinates.y,
                 texFrom.x, texFrom.y,
                 texTo.x, texTo.y,
-                scaledTo.x, scaledTo.y,
-                textureSize.x, textureSize.y
+                textureSize.x, textureSize.y, zLevel
         );
     }
 
