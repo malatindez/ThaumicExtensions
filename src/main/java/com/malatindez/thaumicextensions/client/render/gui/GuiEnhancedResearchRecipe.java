@@ -1,82 +1,18 @@
 package com.malatindez.thaumicextensions.client.render.gui;
 
+import com.malatindez.thaumicextensions.ThaumicExtensions;
+import com.malatindez.thaumicextensions.client.render.misc.GUI.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
-import thaumcraft.api.ThaumcraftApiHelper;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
+import net.minecraft.util.ResourceLocation;
+import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.api.research.ResearchItem;
-import thaumcraft.api.research.ResearchPage;
 import thaumcraft.client.gui.GuiResearchBrowser;
-import thaumcraft.client.gui.GuiResearchRecipe;
-import thaumcraft.client.lib.TCFontRenderer;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.lib.crafting.ThaumcraftCraftingManager;
-
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 @SideOnly(Side.CLIENT)
-public class GuiEnhancedResearchRecipe extends GuiScreen {
-    protected static RenderItem itemRenderer = new RenderItem();
-
-    public static LinkedList<Object[]> history = new LinkedList();
-
-    protected int paneWidth = 256;
-
-    protected int paneHeight = 181;
-
-    protected double guiMapX;
-
-    protected double guiMapY;
-
-    protected int mouseX = 0;
-
-    protected int mouseY = 0;
-
-    private GuiButton button;
-
-    private ResearchItem research;
-
-    private ResearchPage[] pages = null;
-
-    private int page = 0;
-
-    private int maxPages = 0;
-
-    TCFontRenderer fr = null;
-
-    HashMap<Aspect, ArrayList<ItemStack>> aspectItems = new HashMap<Aspect, ArrayList<ItemStack>>();
-
-    public static ConcurrentHashMap<Integer, ItemStack> cache = new ConcurrentHashMap<Integer, ItemStack>();
-
-    String tex1;
-
-    String tex2;
-
-    private Object[] tooltip;
-
-    private long lastCycle;
-
-    ArrayList<List> reference;
-
-    private int cycle;
-
-
-    public static synchronized void putToCache(int key, ItemStack stack) {
-        cache.put(Integer.valueOf(key), stack);
-    }
-
-    public static synchronized ItemStack getFromCache(int key) {
-        return cache.get(Integer.valueOf(key));
-    }
-
+public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     public void initGui() {}
 
     protected void actionPerformed(GuiButton par1GuiButton) {
@@ -84,10 +20,13 @@ public class GuiEnhancedResearchRecipe extends GuiScreen {
     }
 
     protected void keyTyped(char par1, int par2) {
-        if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode() || par2 == 1) {
-            history.clear();
-            this.mc.displayGuiScreen(new GuiEnhancedResearchBrowser(this.guiMapX, this.guiMapY));
+        if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+            GuiResearchBrowser.highlightedItem.clear();
+            this.mc.displayGuiScreen(null);
+            this.mc.setIngameFocus();
         } else {
+            if (par2 == 1)
+                GuiResearchBrowser.highlightedItem.clear();
             super.keyTyped(par1, par2);
         }
     }
@@ -97,20 +36,83 @@ public class GuiEnhancedResearchRecipe extends GuiScreen {
     }
 
     public void drawScreen(int mx, int my, float tick) {
-        drawDefaultBackground();
-        super.drawScreen(mx, my, tick);
-        //genResearchBackground(par1, par2, par3);
-        int sw = (this.width - this.paneWidth) / 2;
-        int sh = (this.height - this.paneHeight) / 2;
-        if (!history.isEmpty()) {
-            int mx1 = mx - sw + 118;
-            int my1 = my - sh + 189;
-            if (mx1 >= 0 && my1 >= 0 && mx1 < 20 && my1 < 12)
-                this.fontRendererObj.drawStringWithShadow(StatCollector.translateToLocal("recipe.return"), mx, my, 16777215);
+        super.drawScreen(mx,my,tick);
+    }
+    protected final GuiTextureMapping map;
+    final TextBox textBoxReference;
+    public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
+        this.gui = new Collection(new Vector2f(0, 0), new Vector2f(DefaultGuiObject.defaultResolution
+                ));
+        textBoxReference = (TextBox) this.gui.addObject(
+                new TextBox(Minecraft.getMinecraft().fontRenderer,
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec." +
+                "Nulla dapibus cursus porttitor. Mauris vel bibendum massa. Suspendisse in accumsan ligula, tempor commodo elit. Mauris dapibus varius arcu ac finibus. Maecenas feugiat augue eu malesuada tristique. Maecenas sed neque rhoncus, ullamcorper risus ornare, dictum eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean sit amet ligula laoreet, rutrum magna a, pulvinar nulla. Donec sodales ac ligula non condimentum. Aenean dictum aliquet viverra. Donec sodales nunc in mauris iaculis bibendum. Sed lacinia mi ornare convallis bibendum. Nunc faucibus neque a elit sagittis, ac pretium nisl viverra. Quisque rutrum ipsum a neque posuere, at tincidunt enim faucibus. Sed id bibendum eros.",
+                0xffffff,
+                true, false, false,
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(1,1),
+                new Vector2f(200, 200), 0
+                ));
+
+        map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
+        Vector2f iconSize       = new Vector2f(26, 26);
+        Vector2f nullVector     = new Vector2f(0, 0);
+        Vector2f textureSize    = new Vector2f(256, 256);
+        map.addElement("defaultResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(0, 230), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("specialResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(26, 230), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("roundResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(54, 230), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("hiddenDefaultResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(86, 230), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("secondaryResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(110, 230), iconSize,
+                        textureSize, 10)
+        );
+        iconSize.set(24,24);
+        map.addElement("selectedCategory",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(152, 232), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("unselectedCategory",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(176, 232), iconSize,
+                        textureSize, 10)
+        );
+        map.addElement("unselectedCategoryShadow",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(200, 232), iconSize,
+                        textureSize, 10)
+        );
+        iconSize.set(26,26);
+        map.addElement("hiddenResearch",
+                new GuiTextureMapping.Icon(nullVector, new Vector2f(230, 230), iconSize,
+                        textureSize, 10)
+        );
+        try {
+            Class[] a = {Object.class, int.class};
+            this.gui.addObject(
+                    new Button(
+                            map.getGuiElement("specialResearch"),
+                            new Vector2f(100, 100),
+                            this, this.getClass().getDeclaredMethod("defaultResearchClicked", a),
+                            0, 1, null
+                    )
+            );
+        } catch (Exception ignored) {
+            System.out.println(ignored.toString());
+            ignored.printStackTrace();
         }
     }
-
-    public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
-
+    public void defaultResearchClicked(Object obj, int id) {
+        this.textBoxReference.color ^= 0xff0000;
     }
 }
