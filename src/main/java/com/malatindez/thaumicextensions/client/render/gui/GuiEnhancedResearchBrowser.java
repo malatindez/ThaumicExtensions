@@ -76,49 +76,7 @@ public class GuiEnhancedResearchBrowser extends GuiScreen {
 
     public boolean hasScribeStuff;
 
-    /*
-    private static void initMap() {
-        map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
-        Vector2f iconSize       = new Vector2f(26, 26);
-        Vector2f nullVector     = new Vector2f(0, 0);
-        Vector2f textureSize    = new Vector2f(256, 256);
-        map.addElement("defaultResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(0, 230), new Vector2f(26, 256),
-                        textureSize, iconSize)
-        );
-        map.addElement("specialResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(26, 230), new Vector2f(52, 256),
-                        textureSize, iconSize)
-        );
-        map.addElement("roundResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(54, 230), new Vector2f(80, 256),
-                        textureSize, iconSize)
-        );
-        map.addElement("hiddenDefaultResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(86, 230), new Vector2f(112, 256),
-                        textureSize, iconSize)
-        );
-        map.addElement("secondaryResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(110, 230), new Vector2f(136, 256),
-                        textureSize, iconSize)
-        );
-        map.addElement("selectedCategory",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(152, 232), new Vector2f(176, 256),
-                        textureSize, new Vector2f(24, 24))
-        );
-        map.addElement("unselectedCategory",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(176, 232), new Vector2f(200, 256),
-                        textureSize, new Vector2f(24, 24))
-        );
-        map.addElement("unselectedCategoryShadow",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(200, 232), new Vector2f(224, 256),
-                        textureSize, new Vector2f(24, 24))
-        );
-        map.addElement("hiddenResearch",
-                new GuiTextureMapping.Part(nullVector, new Vector2f(230, 230), new Vector2f(256, 256),
-                        textureSize, iconSize)
-        );
-    }*/
+
     public GuiEnhancedResearchBrowser() {
         this.hasScribeStuff = false;
         guiOffset.set(lastPos.x * 24 - 82, lastPos.y * 24 - 70);
