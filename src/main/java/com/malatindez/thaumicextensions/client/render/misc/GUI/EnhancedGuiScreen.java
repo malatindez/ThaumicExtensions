@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class EnhancedGuiScreen extends GuiScreen {
-    class Bind {
+    static class Bind {
         protected int key;
         protected final Method method;
         protected final Object obj;
@@ -65,10 +65,9 @@ public class EnhancedGuiScreen extends GuiScreen {
          * Default resolution is 1024 x 768
          * This function is called when resolution was updated.
          * This can be used to update the coordinates and/or scale of the object
-         * @param previousResolution previous resolution(1024.0f, 768.0f for example)
-         * @param currentResolution new resolution(1920.0f, 1080.0f for example)
+         * @param newResolution new resolution(1920.0f, 1080.0f for example)
          */
-        void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution);
+        void resolutionUpdated(Vector2f newResolution);
 
         /**
          * Returns Z level of an object which used to handle the mouse
@@ -109,12 +108,11 @@ public class EnhancedGuiScreen extends GuiScreen {
 
         /**
          * Default resolution is 1024 x 768
-         * This function is called when resolution was updated.
+         * This function is called when screen resolution was updated.
          * This can be used to update the coordinates and/or scale of the object
-         * @param previousResolution previous resolution(1024.0f, 768.0f for example)
-         * @param currentResolution new resolution(1920.0f, 1080.0f for example)
+         * @param newResolution new resolution(1920.0f, 1080.0f for example)
          */
-        void resolutionUpdated(Vector2f previousResolution, Vector2f currentResolution);
+        void resolutionUpdated(Vector2f newResolution);
 
         /**
          * Returns Z level of an object which used to handle the mouse
@@ -129,7 +127,7 @@ public class EnhancedGuiScreen extends GuiScreen {
     public Vector2f getCurrentResolution() {
         return new Vector2f(currentResolution);
     }
-    protected Vector2f currentResolution;
+    protected Vector2f currentResolution = new Vector2f(DefaultGuiObject.defaultResolution);
     protected Collection gui;
     public void onGuiClosed() {
         super.onGuiClosed();
@@ -138,14 +136,12 @@ public class EnhancedGuiScreen extends GuiScreen {
         mousePosition.set(mx,my);
         if (currentResolution.x != this.width || currentResolution.y != this.height) {
             Vector2f newResolution = new Vector2f(this.width, this.height);
-            gui.resolutionUpdated(currentResolution,newResolution);
+            gui.resolutionUpdated(newResolution);
             currentResolution = newResolution;
         }
         gui.mouseHandler(new Vector2f(mousePosition));
         gui.render();
     }
-
-
 /*
     public static class TextLine implements Renderable {
         protected final Vector2f coordinates, scale;
