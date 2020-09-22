@@ -42,7 +42,7 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     final TextBox textBoxReference;
     public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
         this.gui = new Collection(new Vector2f(0, 0), new Vector2f(DefaultGuiObject.defaultResolution
-                ));
+                ), 1);
         textBoxReference = (TextBox) this.gui.addObject(
                 new TextBox(Minecraft.getMinecraft().fontRenderer,
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec." +
