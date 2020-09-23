@@ -2,8 +2,11 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import com.sun.istack.internal.NotNull;
 import net.minecraft.client.gui.GuiScreen;
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
+import scala.collection.script.Update;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -42,7 +45,37 @@ public class EnhancedGuiScreen extends GuiScreen {
         void setParent(Collection parent);
     }
     public interface Updatable  {
-        void Update();
+        // if bit is on than that button is currently pressed
+        // a - LMB              (0b0000000001)
+        // 9 - RMB              (0b0000000010)
+        // 8 - MMB              (0b0000000100)
+        // 7 - Return           (0b0000001000)
+        // 6 - Space            (0b0000010000)
+        // 5 - Backspace        (0b0000100000)
+        // 4 - Left arrow key   (0b0001000000)
+        // 3 - Right arrow key  (0b0010000000)
+        // 2 - Up arrow key     (0b0100000000)
+        // 1 - Down arrow key   (0b1000000000)
+        void Update(int flags);
+        enum Flags {
+            LMB         (0b1),
+            RMB         (0b10),
+            MMB         (0b100),
+            Return      (0b1000),
+            Space       (0b10000),
+            Backspace   (0b100000),
+            LeftArrow   (0b1000000),
+            RightArrow  (0b10000000),
+            UpArrow     (0b100000000),
+            DownArrow   (0b1000000000);
+            private final int type;
+            public int getType() {
+                return type;
+            }
+            Flags(int i) {
+                this.type = i;
+            }
+        }
     }
     public interface Clickable {
         /**
@@ -60,6 +93,14 @@ public class EnhancedGuiScreen extends GuiScreen {
          * Otherwise, we should work with Clickable object below this.
          */
         boolean mouseHandler(Vector2f currentMousePosition);
+
+        /**
+         * mouse click handler function.
+         * @param currentMousePosition current mouse position
+         * @return boolean, if true that means that mouse was handled
+         * Otherwise, we should work with Clickable object below this.
+         */
+        boolean mouseClicked(Vector2f currentMousePosition, int button);
 
         /**
          * Default resolution is 1024 x 768
@@ -140,7 +181,22 @@ public class EnhancedGuiScreen extends GuiScreen {
             currentResolution = newResolution;
         }
         gui.mouseHandler(new Vector2f(mousePosition));
+        int flags = 0;
+        if(Mouse.isButtonDown(0))                   flags |= Updatable.Flags.LMB.getType();
+        if(Mouse.isButtonDown(1))                   flags |= Updatable.Flags.RMB.getType();
+        if(Mouse.isButtonDown(2))                   flags |= Updatable.Flags.MMB.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)) flags |= Updatable.Flags.Return.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))  flags |= Updatable.Flags.Space.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_BACK))   flags |= Updatable.Flags.Backspace.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))   flags |= Updatable.Flags.LeftArrow.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))  flags |= Updatable.Flags.RightArrow.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_UP))     flags |= Updatable.Flags.UpArrow.getType();
+        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))   flags |= Updatable.Flags.DownArrow.getType();
+        gui.Update(flags);
         gui.render();
+    }
+    protected void mouseClicked(int mx, int my, int button) {
+        gui.mouseClicked(new Vector2f(mx,my), button);
     }
 /*
     public static class TextLine implements Renderable {
