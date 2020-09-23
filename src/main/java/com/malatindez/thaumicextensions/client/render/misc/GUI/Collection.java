@@ -50,7 +50,7 @@ public class Collection extends DefaultGuiObject implements
         } else if (object instanceof EnhancedGuiScreen.Clickable) {
             ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(this.currentResolution);
         }
-        ((DefaultGuiObject)object).updateParentCoordinates(getCurrentPosition());
+        ((DefaultGuiObject) object).updateParentBorders(getBorders());
         objects.add(object); sortObjects();
         return object;
     }
@@ -82,7 +82,7 @@ public class Collection extends DefaultGuiObject implements
         }
         for(Object object : objects) {
             if(object instanceof DefaultGuiObject) {
-                ((DefaultGuiObject) object).updateParentCoordinates(getCurrentPosition());
+                ((DefaultGuiObject) object).updateParentBorders(getBorders());
             }
         }
     }
