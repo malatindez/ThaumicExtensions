@@ -26,9 +26,14 @@ public class TextLine extends DefaultGuiObject {
     }
 
     @Override
-    public void setScale(Vector2f scale) {
-        this.scale.set(scale);
-        this.size.set(
+    protected void VectorsWereUpdated() {
+
+    }
+
+    @Override
+    public void reScale(Vector2f scale) {
+        this.reScale(scale);
+        this.setSize(
                 new Vector2f(fontRendererObj.getStringWidth(textLine) * scale.x,
                         fontRendererObj.FONT_HEIGHT * scale.y
                 ));
@@ -37,17 +42,8 @@ public class TextLine extends DefaultGuiObject {
     @Override
     public void render() {
         GL11.glPushMatrix();
-        GL11.glTranslatef(this.coordinates.x, this.coordinates.y, 0);
-        GL11.glScalef(this.scale.x, this.scale.y, 1);
-        this.fontRendererObj.drawString(textLine, 0, 0, color, dropShadow);
-        GL11.glPopMatrix();
-    }
-
-    @Override
-    public void render(Vector2f coordinates) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(this.coordinates.x + coordinates.x, this.coordinates.y + coordinates.y, 0);
-        GL11.glScalef(this.scale.x, this.scale.y, 1);
+        GL11.glTranslatef(getCurrentPosition().x, getCurrentPosition().y, 0);
+        GL11.glScalef(getScale().x, getScale().y, 1);
         this.fontRendererObj.drawString(textLine, 0, 0, color, dropShadow);
         GL11.glPopMatrix();
     }
@@ -55,14 +51,5 @@ public class TextLine extends DefaultGuiObject {
     @Override
     public boolean scalable() {
         return scalable;
-    }
-
-    @Override
-    public void render(Vector2f coordinates, Vector2f scale) {
-        GL11.glPushMatrix();
-        GL11.glTranslatef(coordinates.x, coordinates.y, 0);
-        GL11.glScalef(scale.x, scale.y, 1);
-        this.fontRendererObj.drawString(textLine, 0, 0, color, dropShadow);
-        GL11.glPopMatrix();
     }
 }
