@@ -27,8 +27,9 @@ public class Rect extends DefaultGuiObject {
         }
     }
     public final VertexColors colors;
-    public Rect(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors) {
-        super(coordinates, scale, size, zLevel);
+    public Rect(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
+                ResolutionRescaleType type) {
+        super(coordinates, scale, size, zLevel, type);
         this.colors = colors;
     }
     @Override
@@ -60,12 +61,5 @@ public class Rect extends DefaultGuiObject {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
-
-
-    @Override
-    public boolean scalable() {
-        return true;
-    }
-
 
 }
