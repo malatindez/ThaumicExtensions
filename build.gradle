@@ -37,6 +37,7 @@ dependencies {
     //compile "some.group:artifact:version"
     compile files("/libs/Baubles-deobf-1.7.10-1.0.1.10.jar")
     compile files('/libs/Thaumcraft-deobf.jar')
+    compile files('/libs/json-lib.jar')
     compile files('/libs/Botania-deobf.jar')
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
