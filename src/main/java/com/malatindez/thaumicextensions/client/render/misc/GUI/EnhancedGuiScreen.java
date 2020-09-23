@@ -2,6 +2,7 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import com.sun.istack.internal.NotNull;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
@@ -11,7 +12,7 @@ import scala.collection.script.Update;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-public class EnhancedGuiScreen extends GuiScreen {
+public abstract class EnhancedGuiScreen extends GuiScreen {
     static class Bind {
         protected int key;
         protected final Method method;
@@ -138,11 +139,6 @@ public class EnhancedGuiScreen extends GuiScreen {
         void updateParentBorders(Vector4f parentCoordinates);
 
         /**
-         * @return if object can be scaled
-         */
-        boolean scalable();
-
-        /**
          * Default resolution is 1024 x 768
          * This function is called when screen resolution was updated.
          * This can be used to update the coordinates and/or scale of the object
@@ -165,6 +161,7 @@ public class EnhancedGuiScreen extends GuiScreen {
     }
     protected Vector2f currentResolution = new Vector2f(DefaultGuiObject.defaultResolution);
     protected Collection gui;
+    public abstract Method getMethod(String method, Class<?> parameterTypes);
     public void onGuiClosed() {
         super.onGuiClosed();
     }
@@ -193,57 +190,8 @@ public class EnhancedGuiScreen extends GuiScreen {
     protected void mouseClicked(int mx, int my, int button) {
         gui.mouseClicked(new Vector2f(mx,my), button);
     }
-/*
-    public static class TextLine implements Renderable {
-        protected final Vector2f coordinates, scale;
-        protected final String text;
-        public TextLine(Vector2f coordinates, Vector2f scale, String text) {
-            this.coordinates = new Vector2f(coordinates);
-            this.scale = new Vector2f(scale);
-            this.text = new String(text);
-        }
-        @Override
-        public void render() {
 
-        }
-
-        @Override
-        public void render(Vector2f coordinates) {
-
-        }
-
-        @Override
-        public boolean scalable() {
-            return true;
-        }
-
-        @Override
-        public void render(Vector2f coordinates, Vector2f scale) {
- 
-        }
+    protected EnhancedGuiScreen(ResourceLocation file) {
+        // TODO json loading
     }
-
-    public static class GradientRect implements Renderable {
-
-        @Override
-        public void render() {
-
-        }
-
-        @Override
-        public void render(Vector2f coordinates) {
-
-        }
-
-        @Override
-        public boolean scalable() {
-            return false;
-        }
-
-        @Override
-        public void render(Vector2f coordinates, Vector2f scale) {
-
-        }
-    }
-*/
 }
