@@ -130,22 +130,17 @@ public class EnhancedGuiScreen extends GuiScreen {
         void render();
 
         /**
-         * Render object
-         * @param coordinates top left corner offset
+         * This function should receive parent coordinates if they were updated.
+         * You should use this to reposition rendering
+         * This function is defined in DefaultGuiObject but
+         *                          every object which has descendants should update their coordinates either
          */
-        void render(Vector2f coordinates);
+        void updateParentCoordinates(Vector2f parentCoordinates);
 
         /**
          * @return if object can be scaled
          */
         boolean scalable();
-
-        /**
-         * If scalable() is false - scale parameter will be ignored.
-         * @param coordinates top left corner offset
-         * @param scale scale object
-         */
-        void render(Vector2f coordinates, Vector2f scale);
 
         /**
          * Default resolution is 1024 x 768
