@@ -114,19 +114,7 @@ public class GuiTextureMapping {
         @Override
         public void render() {
             UtilsFX.bindTexture(texture);
-            this.render(this.coordinates);
-        }
-
-        /**
-         * Render an icon on coordinates
-         * @param coordinates The coordinates to render at
-         */
-        @Override
-        public void render(@NotNull Vector2f coordinates) {
-            UtilsFX.bindTexture(texture);
-            UtilsFX.drawCustomSizeModalRect(new Vector2f(
-                    coordinates.x + this.coordinates.x,
-                    coordinates.y + this.coordinates.y),
+            UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
                     texFrom, texTo, textureSize, getZLevel());
         }
 
@@ -138,22 +126,13 @@ public class GuiTextureMapping {
             return false;
         }
 
-        /**
-         * Render an icon on coordinates with a scale
-         * @param coordinates The coordinates to render at
-         * @param scale The scale of an Icon (default scale is 1.0f)
-         */
         @Override
-        public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
-            UtilsFX.bindTexture(texture);
-            UtilsFX.drawCustomSizeModalRect(new Vector2f(
-                    coordinates.x + this.coordinates.x,
-                    coordinates.y + this.coordinates.y),
-                    texFrom, texTo, textureSize, getZLevel());
+        public void resolutionUpdated(Vector2f newResolution) {
+
         }
 
         @Override
-        public void resolutionUpdated(Vector2f newResolution) {
+        protected void VectorsWereUpdated() {
 
         }
 
@@ -221,22 +200,4 @@ public class GuiTextureMapping {
         parts.get(name).render();
     }
 
-    /**
-     * Render only one element with this name on this coordinates
-     * @param name Elements name
-     * @param coordinates Elements coordinates
-     */
-    public void renderElement(final String name, Vector2f coordinates) {
-        parts.get(name).render(coordinates);
-    }
-
-    /**
-     * Render only one element with this name at this coordinates and scale
-     * @param name Elements name
-     * @param coordinates Coordinates to render at
-     * @param scale Elements scale
-     */
-    public void renderElement(final String name, Vector2f coordinates, Vector2f scale) {
-        parts.get(name).render(coordinates, scale);
-    }
 }
