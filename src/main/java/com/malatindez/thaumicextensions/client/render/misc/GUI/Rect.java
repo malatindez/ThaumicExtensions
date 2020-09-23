@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import org.lwjgl.opengl.GL11;
@@ -7,6 +8,12 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Rect extends DefaultGuiObject {
+
+    @Override
+    protected void VectorsWereUpdated() {
+
+    }
+
     public static class VertexColors {
         Vector4f topLeft;
         Vector4f topRight;
@@ -24,7 +31,11 @@ public class Rect extends DefaultGuiObject {
         super(coordinates, scale, size, zLevel);
         this.colors = colors;
     }
-    private void render_rect(Vector2f coordinates, Vector2f size) {
+    @Override
+    public void render() {
+        Vector2f coordinates = this.getCurrentPosition();
+        Vector2f size = this.getSize();
+
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -49,28 +60,12 @@ public class Rect extends DefaultGuiObject {
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
     }
-    @Override
-    public void render() {
-        render_rect(this.coordinates, this.size);
-    }
 
-    @Override
-    public void render(Vector2f coordinates) {
-        render_rect(Vector2f.add(coordinates,this.coordinates,null), this.size);
-    }
 
     @Override
     public boolean scalable() {
         return true;
     }
 
-    @Override
-    public void render(Vector2f coordinates, Vector2f scale) {
-        render_rect(
-                Vector2f.add(coordinates, this.coordinates,null),
-                new Vector2f(
-                size.x * scale.x,
-                size.y * scale.y
-        ));
-    }
+
 }
