@@ -74,20 +74,46 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public Vector2f getCurrentPosition() {
         return new Vector2f(currentObjectPosition);
     }
-    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel) {
+
+    enum ResolutionRescaleType {
+        NONE,
+        SCALE_X,
+        SCALE_Y,
+        SCALE_XY,
+        SCALE_SMOOTH_XY;
+    }
+    private ResolutionRescaleType type;
+    public ResolutionRescaleType getType() {
+        return type;
+    }
+    public void setType(ResolutionRescaleType type) {
+        type = type;
+    }
+    /**
+     *
+     * @param coordinates
+     * @param scale
+     * @param size
+     * @param zLevel
+     */
+    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, ResolutionRescaleType type) {
         this.coordinates = new Vector2f(coordinates);
         this.currentObjectPosition.set(coordinates);
         this.scale =  new Vector2f(scale);
         this.size =  new Vector2f(size);
         this.borders = new Vector4f();
         this.zLevel = zLevel;
+        this.type = type;
         updateVectors();
     }
-    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size, boolean updateVectors) {
+    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size,
+                            int zLevel, ResolutionRescaleType type, boolean updateVectors) {
         this.coordinates = new Vector2f(coordinates);
         this.scale =  new Vector2f(scale);
         this.size =  new Vector2f(size);
         this.borders = new Vector4f();
+        this.zLevel = zLevel;
+        this.type = type;
         if(updateVectors) {
             updateVectors();
         }
@@ -102,10 +128,24 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 this.coordinates.x * newResolution.x / currentResolution.x,
                 this.coordinates.y * newResolution.y / currentResolution.y
         );
-        if(this.scalable()) {
-            float delta = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-            reScale(delta, delta);
+        float deltaX = 1, deltaY = 1;
+        switch (type) {
+            case SCALE_X:
+                deltaX = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_Y:
+                deltaY = newResolution.y / currentResolution.y;
+                break;
+            case SCALE_XY:
+                deltaY = newResolution.y / currentResolution.y;
+                deltaX = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_SMOOTH_XY:
+                deltaX = deltaY =
+                        (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
         }
+        reScale(deltaX, deltaY);
         currentResolution.set(newResolution);
     }
     @Override
