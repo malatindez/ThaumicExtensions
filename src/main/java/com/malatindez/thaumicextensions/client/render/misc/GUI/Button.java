@@ -56,7 +56,7 @@ public class Button extends DefaultGuiObject
 
     @Override
     protected void VectorsWereUpdated() {
-        ((DefaultGuiObject)icon).updateParentCoordinates(this.getCurrentPosition());
+        ((DefaultGuiObject) icon).updateParentBorders(getBorders());
     }
 
     @Override
