@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
-public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable {
+public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable {
     protected final Vector2f coordinates;
     protected final Vector2f scale;
     protected final Vector2f size;
@@ -76,5 +76,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable {
         }
         currentResolution.set(newResolution);
         updateBorders();
+    }
+
+    public int compareTo(Object o) {
+        if (o instanceof DefaultGuiObject) {
+            return this.getZLevel() - ((DefaultGuiObject) o).getZLevel();
+        }
+        return this.getZLevel();
     }
 }
