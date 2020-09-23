@@ -1,0 +1,79 @@
+{
+  "Main": {
+	"type": "Collection",
+	"size": [427, 245],
+	"scale": [1, 1],
+	"coordinates": [0, 0],
+	"scale_type": "scale_xy",
+	"main_background": {
+		"type": "Rect",
+		"zLevel": -1,
+		"coordinates": [0,0],
+		"scale": [1, 1],
+		"size": [427, 245],
+		"scale_type": "scale_xy",
+		"colors": {
+			"topLeft": [1,1,1,0.6],
+			"topRight": [1,1,1,0.6],
+			"bottomLeft": [1,1,1,0.6],
+			"bottomRight": [1,1,1,0.6]
+		}
+	},
+	"draggable_thing": {
+		"type": "Drag",
+		"coordinates": [0,0],
+		"scale": [1,1],
+		"size": [200, 200],
+		"scale_type": "smooth_scale_xy",
+		"drag_focus": "top_bar",
+		"zLevel": 0,
+		"draggable_thing_background": {
+			"type": "Rect",
+			"zLevel": -1,
+			"coordinates": [0,0],
+			"scale": [1, 1],
+			"size": [200, 200],
+			"scale_type": "smooth_scale_xy",
+			"colors": {
+				"topLeft":     [0,1,1,0.3],
+				"topRight":    [0,1,1,0.3],
+				"bottomLeft":  [0,1,1,0.3],
+				"bottomRight": [0,1,1,0.3]
+			}
+		},
+		"top_bar": {
+			"type": "Rect",
+			"zLevel": -1,
+			"coordinates": [0,0],
+			"scale": [1, 1],
+			"size": [200, 20],
+			"scale_type": "scale_x",
+			"colors": {
+				"topLeft":     [0,0,0,0.5],
+				"topRight":    [0,0,0,0.25],
+				"bottomLeft":  [0,0,0,0.25],
+				"bottomRight": [1,1,1,0.0]
+			}
+		},
+		"textbox": {
+			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec.",
+			"type": "TextBox",
+			"zLevel": 0,
+			"coordinates": [0,0],
+			"scale": [1,1],
+			"textScale": [1,1],
+			"textColor": [1,1,1],
+			"size": [200, 200],
+			"isTextScalable": false,
+			"scale_type": "none",
+			"dropShadow": true
+		},
+		"textline": {
+			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"type": "TextBox",
+			"textColor": [1,1,1]
+		}
+	}
+
+	}
+}
