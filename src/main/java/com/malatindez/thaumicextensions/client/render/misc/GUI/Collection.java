@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
+import com.sun.istack.internal.NotNull;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
+    public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
@@ -111,6 +112,25 @@ public class Collection extends DefaultGuiObject implements
                         temp.y < currentMousePosition.y &&
                                 temp.w > currentMousePosition.y &&
                         ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)
+                ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean mouseClicked(@NotNull  Vector2f currentMousePosition, int button) {
+        for(Object object : objects) {
+            if (object instanceof EnhancedGuiScreen.Clickable) {
+                Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
+                if(
+                        temp.x < currentMousePosition.x &&
+                                temp.z > currentMousePosition.x &&
+                                temp.y < currentMousePosition.y &&
+                                temp.w > currentMousePosition.y &&
+                                ((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)
                 ) {
                     return true;
                 }
@@ -140,7 +160,7 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public void render(Vector2f coordinates) {
+    public void render(@NotNull Vector2f coordinates) {
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
                 ((EnhancedGuiScreen.Renderable) object).render(
@@ -159,7 +179,7 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public void render(Vector2f coordinates, Vector2f scale) {
+    public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
                 ((EnhancedGuiScreen.Renderable) object).render(
@@ -192,17 +212,18 @@ public class Collection extends DefaultGuiObject implements
         return 0;
     }
 
-    @Override
-    public void Update() {
-        for(Object object : objects) {
-            if (object instanceof EnhancedGuiScreen.Updatable) {
-                ((EnhancedGuiScreen.Updatable) object).Update();
-            }
-        }
-    }
 
     @Override
     public void setParent(Collection parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public void Update(int flags) {
+        for(Object object : objects) {
+            if (object instanceof EnhancedGuiScreen.Updatable) {
+                ((EnhancedGuiScreen.Updatable) object).Update(flags);
+            }
+        }
     }
 }
