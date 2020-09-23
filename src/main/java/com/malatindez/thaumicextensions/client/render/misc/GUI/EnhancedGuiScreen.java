@@ -135,7 +135,7 @@ public class EnhancedGuiScreen extends GuiScreen {
          * This function is defined in DefaultGuiObject but
          *                          every object which has descendants should update their coordinates either
          */
-        void updateParentCoordinates(Vector2f parentCoordinates);
+        void updateParentBorders(Vector4f parentCoordinates);
 
         /**
          * @return if object can be scaled
