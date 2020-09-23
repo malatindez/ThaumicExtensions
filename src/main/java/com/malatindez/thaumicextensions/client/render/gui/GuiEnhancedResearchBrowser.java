@@ -2,7 +2,6 @@ package com.malatindez.thaumicextensions.client.render.gui;
 
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
-import com.malatindez.thaumicextensions.client.render.misc.GUI.GuiTextureMapping;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
