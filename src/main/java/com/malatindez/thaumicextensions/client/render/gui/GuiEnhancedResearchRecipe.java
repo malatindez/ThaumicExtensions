@@ -45,7 +45,18 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
         this.gui = new Collection(new Vector2f(0, 0), new Vector2f(DefaultGuiObject.defaultResolution
                 ), 1);
         //textBoxReference = (TextBox) this.gui.addObject();
-
+        Vector4f color = new Vector4f(1.0f,1.0f, 1.0f, 0.6f);
+        this.gui.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(DefaultGuiObject.defaultResolution),
+                -1, new Rect.VertexColors(
+                        color,
+                        color,
+                        color,
+                        color)
+                )
+        );
         map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
         Vector2f iconSize       = new Vector2f(26, 26);
         Vector2f nullVector     = new Vector2f(0, 0);
@@ -95,7 +106,7 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                             map.getGuiElement("specialResearch"),
                             new Vector2f(100, 100),
                             this, this.getClass().getDeclaredMethod("defaultResearchClicked", a),
-                            0, 1, null
+                            0, 5, null
                     )
             );
         } catch (Exception ignored) {
@@ -112,6 +123,17 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                         ), null,null,null
                 )
         );
+        color = new Vector4f(0,1,1,0.3f);
+        a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(200, 200),
+                -1, new Rect.VertexColors(
+                color,
+                color,
+                color,
+                color)
+        ));
         a.DragFocus((DefaultGuiObject)a.addObject(new Rect(
                 new Vector2f(0,0),
                 new Vector2f(1,1),
@@ -134,6 +156,101 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                         new Vector2f(1,1),
                         new Vector2f(200, 200), 0
                 ));
+        a = (Drag) a.addObject(
+                new Drag(
+                        new Collection(
+                                new Vector2f(100,100),
+                                new Vector2f(1,1),
+                                new Vector2f(100, 100),
+                                -1
+                        ), null,null,null
+                )
+        );
+        color = new Vector4f(1,0,0,0.3f);
+        a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(100, 100),
+                -1, new Rect.VertexColors(
+                color,
+                color,
+                color,
+                color)
+        ));
+        a.DragFocus((DefaultGuiObject)a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(100, 20),
+                -1,
+                new Rect.VertexColors(
+                        new Vector4f(0,0,0,1),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(1,1,1,0)))));
+
+        a = (Drag) a.addObject(
+                new Drag(
+                        new Collection(
+                                new Vector2f(50,50),
+                                new Vector2f(1,1),
+                                new Vector2f(50, 50),
+                                -1
+                        ), null,null,null
+                )
+        );
+        color = new Vector4f(1,1,0,0.3f);
+        a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(50, 50),
+                -1, new Rect.VertexColors(
+                color,
+                color,
+                color,
+                color)
+        ));
+        a.DragFocus((DefaultGuiObject)a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(50, 10),
+                -1,
+                new Rect.VertexColors(
+                        new Vector4f(0,0,0,1),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(1,1,1,0)))));
+
+        a = (Drag) a.addObject(
+                new Drag(
+                        new Collection(
+                                new Vector2f(25,25),
+                                new Vector2f(1,1),
+                                new Vector2f(25, 25),
+                                -1
+                        ), null,null,null
+                )
+        );
+        color = new Vector4f(1,1,1,0.5f);
+        a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(25, 25),
+                -1, new Rect.VertexColors(
+                color,
+                color,
+                color,
+                color)
+        ));
+        a.DragFocus((DefaultGuiObject)a.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(25, 5),
+                -1,
+                new Rect.VertexColors(
+                        new Vector4f(0,0,0,1),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(0,0,0,0.5f),
+                        new Vector4f(1,1,1,0)))));
     }
     public void defaultResearchClicked(Object obj, int id) {
         this.textBoxReference.color ^= 0xff0000;
