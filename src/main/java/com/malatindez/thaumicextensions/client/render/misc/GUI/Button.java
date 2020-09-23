@@ -86,10 +86,18 @@ public class Button extends DefaultGuiObject
 
     @Override
     public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
-        try {
-            method.invoke(obj, this, id);
-        } catch (Exception ignored) {
-            return false;
+
+        return true;
+    }
+
+    @Override
+    public boolean mouseClicked(Vector2f currentMousePosition, int button) {
+        if(button == 0 || button == 1) {
+            try {
+                method.invoke(obj, this, id);
+            } catch (Exception ignored) {
+                return false;
+            }
         }
         return true;
     }
