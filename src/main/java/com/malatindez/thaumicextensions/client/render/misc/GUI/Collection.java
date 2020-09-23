@@ -63,6 +63,16 @@ public class Collection extends DefaultGuiObject implements
         super(coordinates,new Vector2f(1.0f,1.0f),size,zLevel);
     }
 
+    public Collection(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel)  {
+        super(coordinates,scale,size,zLevel);
+    }
+    // if you've created another collection with this constructor than you should use only one of them
+    // Be careful! This constructor deletes objects from another collection.
+    public Collection(Collection collection) {
+        super(collection.coordinates, collection.scale, collection.size, collection.zLevel);
+        this.addObjects(collection.objects);
+        collection.objects.clear();
+    }
     @Override
     public Vector4f getBorders() {
         return borders;
