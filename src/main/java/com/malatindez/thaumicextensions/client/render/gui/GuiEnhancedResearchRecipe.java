@@ -117,10 +117,10 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                 new Vector2f(1,1),
                 new Vector2f(200, 200),
                 -1, new Rect.VertexColors(
-                        new Vector4f(0,255,255,255),
-                        new Vector4f(255,0,0,128),
-                        new Vector4f(0,255,0,128),
-                        new Vector4f(0,0,255,0)
+                        new Vector4f(0,1,1,1),
+                        new Vector4f(1,0,0,0.5f),
+                        new Vector4f(0,1,0,0.5f),
+                        new Vector4f(0,0,1,0)
         )
         ));
     }
