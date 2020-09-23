@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector4f;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
@@ -111,6 +112,17 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
             System.out.println(ignored.toString());
             ignored.printStackTrace();
         }
+        this.gui.addObject(new Rect(
+                new Vector2f(0,0),
+                new Vector2f(1,1),
+                new Vector2f(200, 200),
+                -1, new Rect.VertexColors(
+                        new Vector4f(0,255,255,255),
+                        new Vector4f(255,0,0,128),
+                        new Vector4f(0,255,0,128),
+                        new Vector4f(0,0,255,0)
+        )
+        ));
     }
     public void defaultResearchClicked(Object obj, int id) {
         this.textBoxReference.color ^= 0xff0000;
