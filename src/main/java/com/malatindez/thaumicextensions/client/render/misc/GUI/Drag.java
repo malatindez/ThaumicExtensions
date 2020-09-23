@@ -41,6 +41,12 @@ public class Drag extends Collection {
             } catch (Exception ignored) {
             }
         }
+        if(getBorders().x < getParentBorders().x) setCoordinates(0, getCoordinates().y);
+        if(getBorders().y < getParentBorders().y) setCoordinates(getCoordinates().x, 0);
+        if(getBorders().z > getParentBorders().z)
+            setCoordinates(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
+        if(getBorders().w > getParentBorders().w)
+            setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
     private void DraggingEnd() {
         if (obj != null && dragEnd != null) {
@@ -49,6 +55,12 @@ public class Drag extends Collection {
             } catch (Exception ignored) {
             }
         }
+        if(getBorders().x < getParentBorders().x) setCoordinates(0, getCoordinates().y);
+        if(getBorders().y < getParentBorders().y) setCoordinates(getCoordinates().x, 0);
+        if(getBorders().z > getParentBorders().z)
+            setCoordinates(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
+        if(getBorders().w > getParentBorders().w)
+            setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
 
     @Override
@@ -58,8 +70,8 @@ public class Drag extends Collection {
                 previousMousePos = new Vector2f(currentMousePosition);
             } else {
                 this.setCoordinates(
-                        getCurrentPosition().x - previousMousePos.x + currentMousePosition.x,
-                        getCurrentPosition().y - previousMousePos.y + currentMousePosition.y
+                        getCoordinates().x - previousMousePos.x + currentMousePosition.x,
+                        getCoordinates().y - previousMousePos.y + currentMousePosition.y
                 );
                 previousMousePos.set(currentMousePosition);
             }
