@@ -26,8 +26,9 @@ public class Button extends DefaultGuiObject
      *                   * Param int id, special number which you can add in constructor to identify caller
      */
     public Button(@NotNull Object icon, @NotNull Vector2f coordinates,
-                  @NotNull Object obj, @NotNull Method method, int id, int zLevel, ArrayList<EnhancedGuiScreen.Bind> binds) {
-        super(coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), false);
+                  @NotNull Object obj, @NotNull Method method, int id, int zLevel, ResolutionRescaleType type,
+                  ArrayList<EnhancedGuiScreen.Bind> binds) {
+        super(coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), zLevel, type, false);
         this.icon = icon;
         this.obj = obj;
         this.method = method;
@@ -44,10 +45,6 @@ public class Button extends DefaultGuiObject
         ((DefaultGuiObject)icon).render();
     }
 
-    @Override
-    public boolean scalable() {
-        return false;
-    }
 
     @Override
     public int getZLevel() {
