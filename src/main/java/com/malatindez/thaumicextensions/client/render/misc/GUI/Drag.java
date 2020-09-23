@@ -15,16 +15,6 @@ public class Drag extends Collection {
     protected DefaultGuiObject objectToFocusOn;
     private boolean currently_dragging = false;
 
-    public void setCoordinates(Vector2f newCoordinates) {
-        this.coordinates.set(newCoordinates);
-        updateBorders();
-    }
-    public Vector2f getCoordinates() {
-        return new Vector2f(coordinates);
-    }
-    public Vector4f getDragBorders() {
-        return objectToFocusOn.borders;
-    }
     /**
      * Drag constructor
      * @param obj object which has currentlyDragged and dragEnd methods.
@@ -44,6 +34,22 @@ public class Drag extends Collection {
         this.objectToFocusOn = objectToFocusOn;
     }
 
+    private void CurrentlyDragging() {
+        if (obj != null && dragEnd != null) {
+            try {
+                currentlyDragging.invoke(obj, getCurrentPosition());
+            } catch (Exception ignored) {
+            }
+        }
+    }
+    private void DraggingEnd() {
+        if (obj != null && dragEnd != null) {
+            try {
+                dragEnd.invoke(obj, getCurrentPosition());
+            } catch (Exception ignored) {
+            }
+        }
+    }
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
@@ -51,20 +57,21 @@ public class Drag extends Collection {
             if (previousMousePos == null) {
                 previousMousePos = new Vector2f(currentMousePosition);
             } else {
-                coordinates.set(
-                        coordinates.x - previousMousePos.x + currentMousePosition.x,
-                        coordinates.y - previousMousePos.y + currentMousePosition.y
+                this.setCoordinates(
+                        getCurrentPosition().x - previousMousePos.x + currentMousePosition.x,
+                        getCurrentPosition().y - previousMousePos.y + currentMousePosition.y
                 );
                 previousMousePos.set(currentMousePosition);
             }
-            if (obj != null && dragEnd != null) {
-                try {
-                    currentlyDragging.invoke(obj, coordinates);
-                } catch (Exception ignored) {
-                }
-            }
+            CurrentlyDragging();
         }
         return super.mouseHandler(currentMousePosition);
+    }
+
+    @Override
+    public void resolutionUpdated(Vector2f newResolution) {
+        super.resolutionUpdated(newResolution);
+
     }
     @Override
     public void Update(int flags) {
@@ -75,44 +82,25 @@ public class Drag extends Collection {
             currently_dragging = currently_dragging && ((flags & EnhancedGuiScreen.Updatable.Flags.LMB.getType()) != 0);
             if(!currently_dragging) {
                 previousMousePos = null;
-                if (obj != null && dragEnd != null) {
-                    try {
-                        dragEnd.invoke(obj, coordinates);
-                    } catch (Exception ignored) {
-                    }
-                }
+                DraggingEnd();
             }
         }
         super.Update(flags);
     }
 
-    Vector2f currentObjectCoordinates = new Vector2f();
-    @Override
-    public void render() {
-        currentObjectCoordinates.set(coordinates);
-    }
-    @Override
-    public void render(@NotNull Vector2f coordinates) {
-        Vector2f.add(coordinates,this.coordinates,currentObjectCoordinates);
-        super.render(coordinates);
-    }
-    @Override
-    public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
-        Vector2f.add(coordinates,this.coordinates,currentObjectCoordinates);
-        super.render(coordinates, scale);
-    }
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
 
-        if(objectToFocusOn != null &&
-           objectToFocusOn.borders.x < currentObjectCoordinates.x + currentMousePosition.x &&
-           objectToFocusOn.borders.z > currentObjectCoordinates.x + currentMousePosition.x &&
-           objectToFocusOn.borders.y < currentObjectCoordinates.y + currentMousePosition.y &&
-           objectToFocusOn.borders.w > currentObjectCoordinates.y + currentMousePosition.y &&
-           button == 0
-        ) {
-            currently_dragging = true;
-            return true;
+        if(objectToFocusOn != null) {
+            if (objectToFocusOn.getBorders().x < currentMousePosition.x &&
+                    objectToFocusOn.getBorders().z > currentMousePosition.x &&
+                    objectToFocusOn.getBorders().y < currentMousePosition.y &&
+                    objectToFocusOn.getBorders().w > currentMousePosition.y &&
+                    button == 0
+            ) {
+                currently_dragging = true;
+                return true;
+            }
         }
         return super.mouseClicked(currentMousePosition, button);
     }
