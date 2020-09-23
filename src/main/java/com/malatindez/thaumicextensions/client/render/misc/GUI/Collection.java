@@ -50,6 +50,7 @@ public class Collection extends DefaultGuiObject implements
         } else if (object instanceof EnhancedGuiScreen.Clickable) {
             ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(this.currentResolution);
         }
+        ((DefaultGuiObject)object).updateParentCoordinates(getCurrentPosition());
         objects.add(object); sortObjects();
         return object;
     }
@@ -69,13 +70,21 @@ public class Collection extends DefaultGuiObject implements
     // if you've created another collection with this constructor than you should use only one of them
     // Be careful! This constructor deletes objects from another collection.
     public Collection(Collection collection) {
-        super(collection.coordinates, collection.scale, collection.size, collection.zLevel);
+        super(collection.getCoordinates(), collection.getScale(), collection.getSize(), collection.zLevel);
         this.addObjects(collection.objects);
         collection.objects.clear();
     }
+
     @Override
-    public Vector4f getBorders() {
-        return borders;
+    protected void VectorsWereUpdated() {
+        if(objects == null) {
+            return;
+        }
+        for(Object object : objects) {
+            if(object instanceof DefaultGuiObject) {
+                ((DefaultGuiObject) object).updateParentCoordinates(getCurrentPosition());
+            }
+        }
     }
 
     @Override
@@ -83,13 +92,7 @@ public class Collection extends DefaultGuiObject implements
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
-                if(
-                        temp.x < currentMousePosition.x &&
-                                temp.z > currentMousePosition.x &&
-                        temp.y < currentMousePosition.y &&
-                                temp.w > currentMousePosition.y &&
-                        ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)
-                ) {
+                if(((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)) {
                     return true;
                 }
             }
@@ -131,43 +134,14 @@ public class Collection extends DefaultGuiObject implements
     public void render() {
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).render(new Vector2f(this.coordinates));
-            }
-        }
-    }
-
-    @Override
-    public void render(@NotNull Vector2f coordinates) {
-        for(Object object :  objects) {
-            if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).render(
-                        new Vector2f(
-                                this.coordinates.x + coordinates.x,
-                                this.coordinates.y + coordinates.y
-                        )
-                );
+                ((EnhancedGuiScreen.Renderable) object).render();
             }
         }
     }
 
     @Override
     public boolean scalable() {
-        return false;
-    }
-
-    @Override
-    public void render(@NotNull Vector2f coordinates, @NotNull Vector2f scale) {
-        for(Object object :  objects) {
-            if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).render(
-                        new Vector2f(
-                                this.coordinates.x + coordinates.x,
-                                this.coordinates.y + coordinates.y
-                        ),
-                        new Vector2f(scale)
-                );
-            }
-        }
+        return true;
     }
 
 
