@@ -113,6 +113,11 @@ public class Drag extends DefaultGuiObject implements EnhancedGuiScreen.Clickabl
     }
 
     @Override
+    public boolean mouseClicked(Vector2f currentMousePosition, int button) {
+        return false;
+    }
+
+    @Override
     public int getZLevel() {
         return 0;
     }
