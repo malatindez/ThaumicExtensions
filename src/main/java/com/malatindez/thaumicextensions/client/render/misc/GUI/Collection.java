@@ -4,6 +4,8 @@ import com.sun.istack.internal.NotNull;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.needParent {
@@ -12,72 +14,37 @@ public class Collection extends DefaultGuiObject implements
     protected ArrayList<Object> objects = new ArrayList<Object>();
     protected Collection parent = null;
 
-    private int getObjectZLevel(int i) {
-        if (objects.get(i) instanceof EnhancedGuiScreen.Renderable) {
-            return ((EnhancedGuiScreen.Renderable) objects.get(i)).getZLevel();
-        } else if (objects.get(i) instanceof EnhancedGuiScreen.Clickable) {
-            return ((EnhancedGuiScreen.Clickable) objects.get(i)).getZLevel();
+    private int getObjectZLevel(Object obj) {
+        if (obj instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject) obj).getZLevel();
         }
         return 0;
     }
-    private int sortPartition(int beginning, int end) {
-        int left, right, loc, flag;
-        Object temp;
-        loc = left = beginning; right = end;
-        flag = 0;
-        while(flag != 1) {
-            while(getObjectZLevel(loc) <= getObjectZLevel(right) && loc != right) {
-                right--;
+    private class ObjectComparator implements Comparator<Object> {
+        @Override
+        public int compare(Object x, Object y) {
+            if(x == null) {
+                return -1;
+            } else if (y == null) {
+                return 1;
             }
-            if (loc == right) {
-                flag = 1;
-            } else if (getObjectZLevel(loc) > getObjectZLevel(right)) {
-                temp = objects.get(loc);
-                objects.set(loc, objects.get(right));
-                objects.set(right, temp);
-                loc = right;
-            }
-            if(flag!=1)
-            {
-                while(getObjectZLevel(loc) >= getObjectZLevel(left) && (loc!=left)) {
-                    left++;
-                }
-                if(loc == left) {
-                    flag = 1;
-                }
-                else if(getObjectZLevel(loc) < getObjectZLevel(left)) {
-                    temp = objects.get(loc);
-                    objects.set(loc, objects.get(left));
-                    objects.set(left, temp);
-                    loc = left;
-                }
-            }
-        }
-        return loc;
-    }
-    private void quickSort(int beginning, int end) {
-        if(objects.size() == 1) {
-            return;
-        }
-        int loc;
-        if (beginning < end) {
-            loc = sortPartition(beginning, end);
-            quickSort(beginning, loc - 1);
-            quickSort(loc + 1, end);
+            return getObjectZLevel(x) - getObjectZLevel(y);
         }
     }
+    private ObjectComparator objectComparator;
     protected void sortObjects() {
-        quickSort(0,objects.size());
+        Collections.sort(objects, objectComparator);
     }
-
-
     public void removeObjects(ArrayList<Object> objects) {
         this.objects.remove(objects);
     }
     public void removeObject(Object object) {
         objects.remove(object);
     }
-    public Object addObject(Object object) {
+    public Object addObject(@NotNull Object object) {
+        if(object == null) {
+            return null;
+        }
         if (object instanceof EnhancedGuiScreen.Renderable) {
             ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(this.currentResolution);
         } else if (object instanceof EnhancedGuiScreen.Clickable) {
