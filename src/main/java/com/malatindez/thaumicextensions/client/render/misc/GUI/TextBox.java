@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 import net.minecraft.client.gui.FontRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
 
@@ -10,19 +11,17 @@ public class TextBox extends DefaultGuiObject {
     protected final FontRenderer fontRendererObj;
     public final String text;
     public final Vector2f textScale;
-    public int color;
+    public Vector3f color;
     public final boolean isTextScalable;
-    public final boolean scalable;
     public final boolean dropShadow;
-    public TextBox(FontRenderer fontRendererObj, String text, int color, boolean dropShadow, boolean isTextScalable,
-                   boolean scalable, Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
-                   int zLevel) {
-        super(coordinates, scale, size, zLevel);
+    public TextBox(FontRenderer fontRendererObj, String text, Vector3f color, boolean dropShadow, boolean isTextScalable,
+                   Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
+                   int zLevel, ResolutionRescaleType type) {
+        super(coordinates, scale, size, zLevel, type);
         this.text = text;
         this.color = color;
         this.dropShadow = dropShadow;
         this.isTextScalable = isTextScalable;
-        this.scalable = scalable;
         this.fontRendererObj = fontRendererObj;
         this.textScale = new Vector2f(textScale);
     }
@@ -57,7 +56,8 @@ public class TextBox extends DefaultGuiObject {
                     } else {
                         GL11.glScalef(textScale.x, textScale.y, 1);
                     }
-                    this.fontRendererObj.drawString(current_line.toString(), 0, 0, color, dropShadow);
+                    this.fontRendererObj.drawString(current_line.toString(), 0, 0,
+                            (int) (255 * 255 * color.x + 255 * color.y + color.z), dropShadow);
                     GL11.glPopMatrix();
                 }
 
@@ -84,10 +84,6 @@ public class TextBox extends DefaultGuiObject {
     }
 
 
-    @Override
-    public boolean scalable() {
-        return scalable;
-    }
 
     @Override
     protected void VectorsWereUpdated() {
