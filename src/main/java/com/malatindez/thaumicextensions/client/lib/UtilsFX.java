@@ -33,10 +33,11 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
 
     public static void drawCustomSizeModalRect(
             float x, float y, float texFromX, float texFromY,
-            float texToX, float texToY,
+            float texToX, float texToY, float scaleX, float scaleY,
             float textureSizeX, float textureSizeY, float zLevel)  {
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glScalef(scaleX, scaleY, 1);
         float f = 1.0F / textureSizeX;
         float f1 = 1.0F / textureSizeY;
         Tessellator tessellator = Tessellator.instance;
@@ -56,24 +57,13 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
         GL11.glPopMatrix();
     }
     public static void drawCustomSizeModalRect(
-            int x, int y, float texFromX, float texFromY,
-            int texToX, int texToY,
-            float textureSizeX, float textureSizeY, float zLevel)
-    {
-        drawCustomSizeModalRect(
-                (float)x, (float)y, texFromX, texFromY,
-                (float)texToX,  (float)texToY,
-                textureSizeX, textureSizeY, zLevel
-        );
-    }
-    public static void drawCustomSizeModalRect(
             Vector2f coordinates, Vector2f texFrom,
-            Vector2f texTo,
+            Vector2f texTo, Vector2f scale,
             Vector2f textureSize, float zLevel) {
         drawCustomSizeModalRect(
                 coordinates.x, coordinates.y,
                 texFrom.x, texFrom.y,
-                texTo.x, texTo.y,
+                texTo.x, texTo.y, scale.x, scale.y,
                 textureSize.x, textureSize.y, zLevel
         );
     }
