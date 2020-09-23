@@ -15,18 +15,6 @@ public class Button extends DefaultGuiObject
     protected final ArrayList<EnhancedGuiScreen.Bind> binds;
     protected Collection parent = null;
     protected int zLevel, id;
-    protected void updateBorders() {
-        borders.set(
-                coordinates.x,
-                coordinates.y,
-                ((DefaultGuiObject)icon).getSize().x + coordinates.x,
-                ((DefaultGuiObject)icon).getSize().y + coordinates.y
-        );
-    }
-    public void updateCoordinates(Vector2f newCoordinates) {
-        this.coordinates.set(newCoordinates);
-        updateBorders();
-    }
 
     /**
      * Button constructor
@@ -46,20 +34,14 @@ public class Button extends DefaultGuiObject
         this.binds = binds;
         this.zLevel = zLevel;
         this.id = id;
-        updateBorders();
+        updateVectors();
     }
+
+
 
     @Override
     public void render() {
-        ((DefaultGuiObject)icon).render(this.coordinates);
-    }
-
-    @Override
-    public void render(@NotNull Vector2f coordinates) {
-        ((DefaultGuiObject)icon).render(new Vector2f(
-                coordinates.x + this.coordinates.x,
-                coordinates.y + this.coordinates.y
-        ));
+        ((DefaultGuiObject)icon).render();
     }
 
     @Override
@@ -68,31 +50,23 @@ public class Button extends DefaultGuiObject
     }
 
     @Override
-    public void render(@NotNull Vector2f coordinates, Vector2f scale) {
-        ((DefaultGuiObject)icon).render(coordinates);
-    }
-
-
-
-    @Override
     public int getZLevel() {
         return zLevel;
     }
 
     @Override
-    public Vector4f getBorders() {
-        return borders;
+    protected void VectorsWereUpdated() {
+        ((DefaultGuiObject)icon).updateParentCoordinates(this.getCurrentPosition());
     }
 
     @Override
     public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
-
         return true;
     }
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(button == 0 || button == 1) {
+        if(button == 0) {
             try {
                 method.invoke(obj, this, id);
             } catch (Exception ignored) {
