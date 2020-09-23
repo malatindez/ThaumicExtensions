@@ -26,11 +26,13 @@ public class TextBox extends DefaultGuiObject {
         this.fontRendererObj = fontRendererObj;
         this.textScale = new Vector2f(textScale);
     }
-    public int getFittingCharAmount(String text) {
+    private int renderTextBox(String text, boolean render) {
+        Vector2f scale = this.getScale();
+        Vector2f size = this.getSize();
         ArrayList<String> words = new ArrayList<String>();
         StringBuilder current_word = new StringBuilder();
         for(int i = 0; i < text.length(); i++) {
-            current_word.append(' ');
+            current_word.append(text.charAt(i));
             if (text.charAt(i) == ' ') {
                 words.add(current_word.toString());
                 current_word = new StringBuilder();
@@ -45,14 +47,26 @@ public class TextBox extends DefaultGuiObject {
             if (isTextScalable) {
                 x = x * scale.x;
             }
-            if (x > this.size.x) {
+            if (x > this.getSize().x) {
                 returnValue += current_line.length();
+                if(render) {
+                    GL11.glPushMatrix();
+                    GL11.glTranslatef(this.getCurrentPosition().x, this.getCurrentPosition().y + current_height, 0);
+                    if (isTextScalable) {
+                        GL11.glScalef(scale.x * textScale.x, scale.y * textScale.y, 1);
+                    } else {
+                        GL11.glScalef(textScale.x, textScale.y, 1);
+                    }
+                    this.fontRendererObj.drawString(current_line.toString(), 0, 0, color, dropShadow);
+                    GL11.glPopMatrix();
+                }
+
                 current_line = new StringBuilder(word);
                 float y = textScale.y * fontRendererObj.FONT_HEIGHT;
                 if (isTextScalable) {
                     y = scale.y * y;
                 }
-                if (current_height + y > this.size.y) {
+                if (current_height + y > this.getSize().y) {
                     break;
                 }
                 current_height += y;
@@ -61,58 +75,14 @@ public class TextBox extends DefaultGuiObject {
         }
         return returnValue;
     }
-    protected void renderTextBox(Vector2f coordinates, Vector2f scale) {
-        ArrayList<String> words = new ArrayList<String>();
-        StringBuilder current_word = new StringBuilder();
-        for(int i = 0; i < text.length(); i++) {
-            current_word.append(text.charAt(i));
-            if (text.charAt(i) == ' ') {
-                words.add(current_word.toString());
-                current_word = new StringBuilder();
-            }
-        }
-        int current_height = 0;
-        StringBuilder current_line = new StringBuilder();
-        for (String word : words) {
-            float x = textScale.x * fontRendererObj.getStringWidth(current_line + word);
-
-            if (isTextScalable) {
-                x = x * scale.x;
-            }
-            if (x > this.size.x) {
-                GL11.glPushMatrix();
-                GL11.glTranslatef(coordinates.x, coordinates.y + current_height, 0);
-                if (isTextScalable) {
-                    GL11.glScalef(scale.x * textScale.x, scale.y * textScale.y, 1);
-                } else {
-                    GL11.glScalef(textScale.x, textScale.y, 1);
-                }
-                this.fontRendererObj.drawString(current_line.toString(), 0, 0, color, dropShadow);
-                GL11.glPopMatrix();
-
-                current_line = new StringBuilder(word);
-                float y = textScale.y * fontRendererObj.FONT_HEIGHT;
-                if (isTextScalable) {
-                    y = scale.y * y;
-                }
-                if (current_height + y > this.size.y) {
-                    break;
-                }
-                current_height += y;
-            }
-            current_line.append(word);
-        }
+    public int getFittingCharAmount(String text) {
+        return renderTextBox(text, false);
     }
     @Override
     public void render() {
-        renderTextBox(this.coordinates, this.scale);
+        renderTextBox(this.text, true);
     }
 
-    @Override
-    public void render(Vector2f coordinates) {
-        renderTextBox(new Vector2f(this.coordinates.x + coordinates.x,
-                this.coordinates.y + coordinates.y), this.scale);
-    }
 
     @Override
     public boolean scalable() {
@@ -120,16 +90,8 @@ public class TextBox extends DefaultGuiObject {
     }
 
     @Override
-    public void render(Vector2f coordinates, Vector2f scale) {
-        if(scalable) {
-            renderTextBox(new Vector2f(this.coordinates.x + coordinates.x,
-                            this.coordinates.y + coordinates.y),
-                    new Vector2f(this.scale.x * scale.x,
-                            this.scale.y * scale.y));
-        } else {
-            renderTextBox(new Vector2f(this.coordinates.x + coordinates.x,
-                    this.coordinates.y + coordinates.y), this.scale);
-        }
+    protected void VectorsWereUpdated() {
+
     }
 
     @Override
