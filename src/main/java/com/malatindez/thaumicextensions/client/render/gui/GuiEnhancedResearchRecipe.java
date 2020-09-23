@@ -44,17 +44,7 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
         this.gui = new Collection(new Vector2f(0, 0), new Vector2f(DefaultGuiObject.defaultResolution
                 ), 1);
-        textBoxReference = (TextBox) this.gui.addObject(
-                new TextBox(Minecraft.getMinecraft().fontRenderer,
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec." +
-                "Nulla dapibus cursus porttitor. Mauris vel bibendum massa. Suspendisse in accumsan ligula, tempor commodo elit. Mauris dapibus varius arcu ac finibus. Maecenas feugiat augue eu malesuada tristique. Maecenas sed neque rhoncus, ullamcorper risus ornare, dictum eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean sit amet ligula laoreet, rutrum magna a, pulvinar nulla. Donec sodales ac ligula non condimentum. Aenean dictum aliquet viverra. Donec sodales nunc in mauris iaculis bibendum. Sed lacinia mi ornare convallis bibendum. Nunc faucibus neque a elit sagittis, ac pretium nisl viverra. Quisque rutrum ipsum a neque posuere, at tincidunt enim faucibus. Sed id bibendum eros.",
-                0xffffff,
-                true, false, false,
-                new Vector2f(0,0),
-                new Vector2f(1,1),
-                new Vector2f(1,1),
-                new Vector2f(200, 200), 0
-                ));
+        //textBoxReference = (TextBox) this.gui.addObject();
 
         map = new GuiTextureMapping(new ResourceLocation(ThaumicExtensions.MODID, "textures/gui/gui_research.png"));
         Vector2f iconSize       = new Vector2f(26, 26);
@@ -112,17 +102,38 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
             System.out.println(ignored.toString());
             ignored.printStackTrace();
         }
-        this.gui.addObject(new Rect(
+        Drag a = (Drag) this.gui.addObject(
+                new Drag(
+                        new Collection(
+                                new Vector2f(0,0),
+                                new Vector2f(1,1),
+                                new Vector2f(200, 200),
+                                -1
+                        ), null,null,null
+                )
+        );
+        a.DragFocus((DefaultGuiObject)a.addObject(new Rect(
                 new Vector2f(0,0),
                 new Vector2f(1,1),
-                new Vector2f(200, 200),
-                -1, new Rect.VertexColors(
-                        new Vector4f(0,1,1,1),
-                        new Vector4f(1,0,0,0.5f),
-                        new Vector4f(0,1,0,0.5f),
-                        new Vector4f(0,0,1,0)
-        )
-        ));
+                new Vector2f(200, 20),
+                -1,
+                new Rect.VertexColors(
+                    new Vector4f(0,0,0,1),
+                    new Vector4f(0,0,0,0.5f),
+                    new Vector4f(0,0,0,0.5f),
+                    new Vector4f(1,1,1,0)
+        ))));
+        textBoxReference = (TextBox) a.addObject(
+                new TextBox(Minecraft.getMinecraft().fontRenderer,
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec." +
+                                "Nulla dapibus cursus porttitor. Mauris vel bibendum massa. Suspendisse in accumsan ligula, tempor commodo elit. Mauris dapibus varius arcu ac finibus. Maecenas feugiat augue eu malesuada tristique. Maecenas sed neque rhoncus, ullamcorper risus ornare, dictum eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean sit amet ligula laoreet, rutrum magna a, pulvinar nulla. Donec sodales ac ligula non condimentum. Aenean dictum aliquet viverra. Donec sodales nunc in mauris iaculis bibendum. Sed lacinia mi ornare convallis bibendum. Nunc faucibus neque a elit sagittis, ac pretium nisl viverra. Quisque rutrum ipsum a neque posuere, at tincidunt enim faucibus. Sed id bibendum eros.",
+                        0xffffff,
+                        true, false, false,
+                        new Vector2f(0,0),
+                        new Vector2f(1,1),
+                        new Vector2f(1,1),
+                        new Vector2f(200, 200), 0
+                ));
     }
     public void defaultResearchClicked(Object obj, int id) {
         this.textBoxReference.color ^= 0xff0000;
