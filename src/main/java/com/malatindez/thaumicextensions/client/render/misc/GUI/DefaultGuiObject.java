@@ -9,6 +9,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector2f scale;
     private final Vector2f size;
     private final Vector2f parentCoordinates = new Vector2f(0,0);
+    private final Vector4f parentBorders = new Vector4f(0,0,0,0);
     protected final Vector2f currentResolution = new Vector2f(427, 240);
     public static final Vector2f defaultResolution = new Vector2f(427, 240);
     private final Vector4f borders;
@@ -29,6 +30,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public Vector2f getParentCoordinates() {
         return new Vector2f(parentCoordinates);
+    }
+    public Vector4f getParentBorders() {
+        return new Vector4f(parentBorders);
     }
 
     public void setCoordinates(float x, float y) {
@@ -105,8 +109,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         currentResolution.set(newResolution);
     }
     @Override
-    public void updateParentCoordinates(Vector2f parentCoordinates) {
-        this.parentCoordinates.set(parentCoordinates);  updateVectors();
+    public void updateParentBorders(Vector4f parentBorders) {
+        this.parentCoordinates.set(parentBorders.x, parentBorders.y);
+        this.parentBorders.set(parentBorders);  updateVectors();
     }
     public int compareTo(Object o) {
         if (o instanceof DefaultGuiObject) {
