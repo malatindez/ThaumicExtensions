@@ -20,10 +20,10 @@ public class Rect extends DefaultGuiObject {
         Vector4f bottomLeft;
         Vector4f bottomRight;
         public VertexColors(Vector4f topLeft, Vector4f topRight, Vector4f bottomLeft, Vector4f bottomRight) {
-            this.topLeft = topLeft;
-            this.topRight = topRight;
-            this.bottomLeft = bottomLeft;
-            this.bottomRight = bottomRight;
+            this.topLeft        = new Vector4f(topLeft);
+            this.topRight       = new Vector4f(topRight);
+            this.bottomLeft     = new Vector4f(bottomLeft);
+            this.bottomRight    = new Vector4f(bottomRight);
         }
     }
     public final VertexColors colors;
