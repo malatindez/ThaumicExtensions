@@ -84,6 +84,8 @@ public class IconFactory {
 
         public Icon(String name, Object parent, JSONObject parameters) {
             super(name,parent,parameters);
+            setSize(Vector2f.sub(sample.texTo, sample.texFrom,null));
+            reScale(getScale());
         }
         @SuppressWarnings("rawtypes")
         @Override
