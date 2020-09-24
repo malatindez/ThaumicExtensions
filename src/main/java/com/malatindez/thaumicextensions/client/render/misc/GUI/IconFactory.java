@@ -65,19 +65,35 @@ public class IconFactory {
             this.texTo       = new Vector2f(icon.texTo);
             this.texture = new ResourceLocation(icon.texture.getResourceDomain(), icon.texture.getResourcePath());
         }*/
-        protected final IconSample sample;
-        public Icon(String name, Object parent, JSONObject parameters) {
-            super(name,parent,parameters);
-            sample = IconFactory.getFactory(
+        protected IconSample sample;
+
+        @Override
+        public void preInit(String name, Object parent, JSONObject parameters) {
+                sample = IconFactory.getFactory(
                     new ResourceLocation(
                             (String)parameters.get("mapping_resource_domain"),
                             (String)parameters.get("mapping_resource_path")
                     )
             ).getIconSample((String)parameters.get("mapping_icon_name"));
         }
+
+        public Icon(String name, Object parent, JSONObject parameters) {
+            super(name,parent,parameters);
+        }
         @Override
-        public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
-            return getMethod(objectName, name, parameterTypes, callParent);
+        public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
+            if(objectName == this.getName()) {
+                getMethodFunc(objectName, name, parameterTypes);
+            }
+            return null;
+        }
+
+        @Override
+        public Object getObjectDown(String objectName) {
+            if(objectName == this.getName()) {
+                return this;
+            }
+            return null;
         }
         /**
          * Render an icon on default coordinates
