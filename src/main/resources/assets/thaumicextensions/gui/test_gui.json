@@ -1,131 +1,117 @@
 {
-	"Main": {
-		"type": "Collection",
-		"parameters": {
-			"size": [427, 240],
-			"scale": [1, 1],
-			"coordinates": [0, 0],
-			"scale_type": "scale_xy"
-		},
-		"main_background": {
-			"type": "Rect",
-			"parameters": {
-				"zLevel": -1,
-				"coordinates": [0,0],
-				"scale": [1, 1],
-				"size": [427, 240],
-				"scale_type": "scale_xy",
-				"colors": {
-					"topLeft": [1,1,1,0.6],
-					"topRight": [1,1,1,0.6],
-					"bottomLeft": [1,1,1,0.6],
-					"bottomRight": [1,1,1,0.6]
-				}
-			}
-		},
-		"draggable_thing": {
-			"type": "Drag",
-			"parameters": {
-				"coordinates": [0,0],
-				"scale": [1,1],
-				"size": [200, 200],
-				"scale_type": "scale_smooth_xy",
-				"drag_focus": "top_bar",
-				"zLevel": 0,
-				"currently_dragging": {
-					"object_name": "none",
-					"method_name": "currently_dragging"
-				},
-				"dragging_end": {
-					"object_name": "none",
-					"method_name": "dragging_end"
-				}
-			},
-			"draggable_thing_background": {
-				"type": "Rect",
-				"parameters": {
-					"zLevel": -1,
-					"coordinates": [0,0],
-					"scale": [1, 1],
-					"size": [200, 200],
-					"scale_type": "scale_smooth_xy",
-					"colors": {
-						"topLeft":     [0,1,1,0.3],
-						"topRight":    [0,1,1,0.3],
-						"bottomLeft":  [0,1,1,0.3],
-						"bottomRight": [0,1,1,0.3]
-					}
-				}
-			},
-			"top_bar": {
-				"type": "Rect",
-				"parameters": {
-					"zLevel": -1,
-					"coordinates": [0,0],
-					"scale": [1, 1],
-					"size": [200, 20],
-					"scale_type": "scale_x",
-					"colors": {
-						"topLeft":     [0,0,0,0.5],
-						"topRight":    [0,0,0,0.25],
-						"bottomLeft":  [0,0,0,0.25],
-						"bottomRight": [1,1,1,0.0]
-					}
-				}
-			},
-			"textbox": {
-				"type": "TextBox",
-				"parameters": {
-					"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec.",
-					"zLevel": 0,
-					"coordinates": [0,0],
-					"scale": [1,1],
-					"textScale": [1,1],
-					"color": [1,1,1],
-					"size": [200, 200],
-					"isTextScalable": false,
-					"scale_type": "none",
-					"dropShadow": true
-				}
-			},
-			"textline": {
-				"type": "TextLine",
-				"parameters": {
-					"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-					"color": [1,1,1],
-					"dropShadow": true,
-					"coordinates": [75,75],
-					"zLevel":10,
-					"scale": [1,1],
-					"scale_type": "none"
-				}
-			},
-			"button_1": {
-				"type": "Button",
-				"parameters": {
-					"coordinates": [100, 100],
-					"method": {
-						"object_name": "none",
-						"method_name": "button_1_clicked"
-					},
-					"id": 0,
-					"zLevel": 10,
-					"scale_type": "none",
-					"icon": "abcdef",
-					"abcdef": {
-						"type": "Icon",
-						"parameters": {
-							"coordinates": [0,0],
-							"scale": [1,1],
-							"mapping_resource_domain": "thaumicextensions",
-							"mapping_resource_path": "texture_mapping\\test_gui.json",
-							"mapping_icon_name": "defaultResearch",
-							"zLevel": 0,
-							"scale_type": "none"
-						}
-					}
-				}
-			}
-		}
-	}
+  "Main": {
+    "type": "Collection",
+    "size": [427, 240],
+    "scale": [1, 1],
+    "coordinates": [0, 0],
+    "scale_type": "scale_xy",
+    "elements": {
+      "main_background": {
+        "type": "Rect",
+        "zLevel": -1,
+        "coordinates": [0,0],
+        "scale": [1, 1],
+        "size": [427, 240],
+        "scale_type": "scale_xy",
+        "colors": {
+          "topLeft": [1,1,1,0.6],
+          "topRight": [1,1,1,0.6],
+          "bottomLeft": [1,1,1,0.6],
+          "bottomRight": [1,1,1,0.6]
+        }
+      },
+      "draggable_thing": {
+        "type": "Drag",
+        "coordinates": [0,0],
+        "scale": [1,1],
+        "size": [200, 200],
+        "scale_type": "scale_smooth_xy",
+        "drag_focus": "top_bar",
+        "zLevel": 0,
+        "currently_dragging": {
+          "object_name": "none",
+          "method_name": "currently_dragging"
+        },
+        "dragging_end": {
+          "object_name": "none",
+          "method_name": "dragging_end"
+        },
+        "elements": {
+          "draggable_thing_background": {
+            "type": "Rect",
+            "zLevel": -1,
+            "coordinates": [0,0],
+            "scale": [1, 1],
+            "size": [200, 200],
+            "scale_type": "scale_smooth_xy",
+            "colors": {
+              "topLeft":     [0,1,1,0.3],
+              "topRight":    [0,1,1,0.3],
+              "bottomLeft":  [0,1,1,0.3],
+              "bottomRight": [0,1,1,0.3]
+            }
+          },
+          "top_bar": {
+            "type": "Rect",
+            "zLevel": -1,
+            "coordinates": [0,0],
+            "scale": [1, 1],
+            "size": [200, 20],
+            "scale_type": "scale_x",
+            "colors": {
+              "topLeft":     [0,0,0,0.5],
+              "topRight":    [0,0,0,0.25],
+              "bottomLeft":  [0,0,0,0.25],
+              "bottomRight": [1,1,1,0.0]
+            }
+          },
+          "textbox": {
+            "type": "TextBox",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae tincidunt nisl. In at enim at ipsum molestie vehicula vitae vitae metus. Curabitur nisl sem, lobortis nec erat in, consequat porttitor lacus. Curabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec.",
+            "zLevel": 0,
+            "coordinates": [0,0],
+            "scale": [1,1],
+            "textScale": [1,1],
+            "color": [1,0.3,1,0.5],
+            "size": [200, 200],
+            "isTextScalable": false,
+            "scale_type": "none",
+            "dropShadow": true
+          },
+          "textline": {
+            "type": "TextLine",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "color": [0.3,1,1,0.3],
+            "dropShadow": true,
+            "coordinates": [75,75],
+            "zLevel":10,
+            "scale": [1,1],
+            "scale_type": "none"
+          },
+          "button_1": {
+            "type": "Button",
+            "coordinates": [100, 100],
+            "method": {
+              "object_name": "none",
+              "method_name": "defaultResearchClicked"
+            },
+            "id": 0,
+            "zLevel": 10,
+            "scale_type": "none",
+            "icon": "abcdef",
+            "abcdef": {
+              "type": "Icon",
+              "coordinates": [0,0],
+              "scale": [1,1],
+              "mapping_resource_domain": "thaumicextensions",
+              "mapping_resource_path": "texture_mappings/gui_research.json",
+              "mapping_icon_name": "defaultResearch",
+              "zLevel": 0,
+              "scale_type": "none"
+            }
+          }
+        }
+      }
+    }
+  }
 }
