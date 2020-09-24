@@ -191,7 +191,14 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         gui.mouseClicked(new Vector2f(mx,my), button);
     }
     public static final HashMap<String, Class> parts = new HashMap<String, Class>(){{
-        put("Collection", Collection.class); // type name and class instance which will be constructed
+        put("Collection", Collection.class);
+        put("Button", Button.class);
+        put("Drag", Drag.class);
+        put("Icon", IconFactory.Icon.class);
+        put("Rect", Rect.class);
+        put("TextBox", TextBox.class);
+        put("TextLine", TextLine.class);
+        // type name and class instance which will be constructed
     }};
     public static DefaultGuiObject createObject(String name, Object parent, JSONObject object) {
         if(object.containsKey("type")) {
@@ -215,7 +222,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         System.out.println("Returning null.");
         return null;
     }
-    public static Collection loadFromFile(ResourceLocation json_file) {
+    public static Collection loadFromFile(Object parent, ResourceLocation json_file) {
         InputStream x;
         try {
             x = Minecraft.getMinecraft().getResourceManager().getResource(json_file).getInputStream();
@@ -237,11 +244,14 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         } catch (Exception ignored) { }
         str = sb.toString();
         JSONObject jsonObject = (JSONObject) JSONValue.parse(str);
-
-        return new Collection("a", new Vector2f(), new Vector2f(), 1, DefaultGuiObject.ResolutionRescaleType.NONE);
+        Object main = null;
+        for(Object obj : jsonObject.keySet()) {
+            main = obj; break;
+        }
+        return (Collection) createObject((String)main, parent, (JSONObject) jsonObject.get(main));
     }
     protected EnhancedGuiScreen() {}
     protected EnhancedGuiScreen(ResourceLocation json_file) {
-        this.gui = loadFromFile(json_file);
+        this.gui = loadFromFile(this, json_file);
     }
 }
