@@ -1,6 +1,6 @@
 package com.malatindez.thaumicextensions.client.lib;
 
-import com.sun.istack.internal.NotNull;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
@@ -72,8 +72,7 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
      * @param matrix Matrix to convert
      * @return FloatBuffer
      */
-    @NotNull
-    public static FloatBuffer matrixToBuffer(@NotNull Matrix4f matrix) {
+    public static FloatBuffer matrixToBuffer(Matrix4f matrix) {
         FloatBuffer dest = BufferUtils.createFloatBuffer(16);
         matrix.store(dest);
         dest.position(0);
