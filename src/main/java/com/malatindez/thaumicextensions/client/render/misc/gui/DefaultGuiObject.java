@@ -101,26 +101,35 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     // this function will be called when vectors were updated
     protected abstract void VectorsWereUpdated();
     protected void updateVectors() {
-        Vector2f.add(parentCoordinates,coordinates,currentObjectPosition);
+        Vector2f.add(parentCoordinates, coordinates, currentObjectPosition);
         this.borders.set(
                 currentObjectPosition.x, currentObjectPosition.y,
                 currentObjectPosition.x + size.x, currentObjectPosition.y + size.y
         );
         VectorsWereUpdated();
     }
-    public void checkBorders() {
+    public boolean checkBorders() {
+        boolean flag = false;
         if(getBorders().x < getParentBorders().x) {
             coordinates.set(0, getCoordinates().y);
+            flag = true;
         }
         if(getBorders().y < getParentBorders().y) {
             coordinates.set(getCoordinates().x, 0);
+            flag = true;
         }
         if(getBorders().z > getParentBorders().z) {
             coordinates.set(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
+            flag = true;
         }
         if(getBorders().w > getParentBorders().w) {
             coordinates.set(getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
+            flag = true;
         }
+        if(flag) {
+            updateVectors();
+        }
+        return flag;
     }
     public Vector2f getCoordinates() {
         return new Vector2f(coordinates);
