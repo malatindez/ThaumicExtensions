@@ -1,6 +1,5 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import com.sun.istack.internal.NotNull;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -23,7 +22,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
          * @param method Method without any returning value and parameters either
          * @param obj Object, where method is located.
          */
-        public Bind(int key, @NotNull Method method, @NotNull Object obj) {
+        public Bind(int key, Method method, Object obj) {
             this.method = method;
             this.obj = obj;
         }
@@ -59,16 +58,16 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         // 1 - Down arrow key   (0b1000000000)
         void Update(int flags);
         enum Flags {
-            LMB         (0b1),
-            RMB         (0b10),
-            MMB         (0b100),
-            Return      (0b1000),
-            Space       (0b10000),
-            Backspace   (0b100000),
-            LeftArrow   (0b1000000),
-            RightArrow  (0b10000000),
-            UpArrow     (0b100000000),
-            DownArrow   (0b1000000000);
+            LMB         (1),
+            RMB         (2),
+            MMB         (4),
+            Return      (8),
+            Space       (16),
+            Backspace   (32),
+            LeftArrow   (64),
+            RightArrow  (128),
+            UpArrow     (256),
+            DownArrow   (512);
             private final int type;
             public int getType() {
                 return type;
