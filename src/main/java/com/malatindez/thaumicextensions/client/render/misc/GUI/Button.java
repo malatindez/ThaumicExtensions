@@ -12,9 +12,8 @@ import java.util.ArrayList;
 
 public class Button extends DefaultGuiObject
         implements EnhancedGuiScreen.Clickable {
-    protected final Object icon;
-    protected final MethodObjectPair method;
-    protected Collection parent = null;
+    protected Object icon;
+    protected MethodObjectPair method;
     protected int zLevel, id;
 
     /*
@@ -38,24 +37,29 @@ public class Button extends DefaultGuiObject
         this.id = id;
         updateVectors();
     }*/
-    public Button(String name, Object parent, JSONObject parameters) {
-        super(name, parent, parameters);
-        if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {
-            JSONObject obj = (JSONObject) parameters.get("method");
-            method = this.getMethodA(
-                    (String) obj.get("object_name"),
-                    (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class}, true);
-        } else {
-            method = null;
-        }
+
+    @Override
+    public void preInit(String name, Object parent, JSONObject parameters) {
         if(parameters.containsKey("id")) {
-            id = (Integer)parameters.get("id");
+            id = (int)JsonToFloat(parameters.get("id"));
         } else {
             id = 0;
         }
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
         this.icon = EnhancedGuiScreen.createObject(name, this, icon);
+    }
+
+    public Button(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
+        if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {
+            JSONObject obj = (JSONObject) parameters.get("method");
+            method = this.getMethodUp(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    new Class[] {Object.class, int.class});
+        } else {
+            method = null;
+        }
     }
 
     @Override
@@ -70,15 +74,19 @@ public class Button extends DefaultGuiObject
     }
 
     @Override
-    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
         if(objectName == this.getName()) {
-            return getMethod(objectName, name, parameterTypes, callParent);
+            getMethodFunc(objectName, name, parameterTypes);
         }
-        MethodObjectPair retValue = ((DefaultGuiObject)icon).getMethodA(objectName, name, parameterTypes, false);
-        if(retValue == null) {
-            return getMethod(objectName, name, parameterTypes, callParent);
+        return ((DefaultGuiObject)icon).getMethodDown(objectName, name, parameterTypes);
+    }
+
+    @Override
+    public Object getObjectDown(String objectName) {
+        if(objectName == this.getName()) {
+            return this;
         }
-        return retValue;
+        return ((DefaultGuiObject)icon).getObjectDown(objectName);
     }
 
     @Override
