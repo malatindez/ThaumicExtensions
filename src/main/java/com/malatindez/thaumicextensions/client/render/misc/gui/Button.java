@@ -3,14 +3,15 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector4f;
 
-public class Button extends DefaultGuiObject
-        implements EnhancedGuiScreen.Clickable {
+public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
     protected Object icon;
-    protected final MethodObjectPair method;
-    protected int zLevel, id;
+    protected final MethodObjectPair clicked;
+    protected final MethodObjectPair hovered;
+    protected int id;
 
-    /*
+   /*
      * Button constructor
      * @param icon buttons icon which should be rendered, icon type should be DefaultGuiObject
      * @param obj object where a method is located
@@ -51,26 +52,15 @@ public class Button extends DefaultGuiObject
     public Button(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         this.setSize(((DefaultGuiObject)icon).getSize());
-        if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {
-            JSONObject obj = (JSONObject) parameters.get("method");
-            method = this.getMethodUp(
-                    (String) obj.get("object_name"),
-                    (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class});
-        } else {
-            method = null;
-        }
+        clicked = getMethod(parameters, "clicked", new Class[] {Object.class, int.class});
+        hovered = getMethod(parameters, "hovered", new Class[] {Object.class, int.class});
     }
 
     @Override
     public void render() {
-        ((DefaultGuiObject)icon).render();
-    }
-
-
-    @Override
-    public int getZLevel() {
-        return zLevel;
+        if(!hided()) {
+            ((DefaultGuiObject) icon).render();
+        }
     }
 
     @SuppressWarnings("rawtypes")
@@ -97,14 +87,37 @@ public class Button extends DefaultGuiObject
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
-        return true;
+        if(hided()) {
+            return false;
+        }
+        Vector4f temp = getBorders();
+        if(
+                temp.x < currentMousePosition.x &&
+                        temp.z > currentMousePosition.x &&
+                        temp.y < currentMousePosition.y &&
+                        temp.w > currentMousePosition.y
+        ) {
+            try {
+                hovered.method.invoke(hovered.object,this, id);
+                return true;
+            } catch (Exception ignored) {}
+        }
+        return false;
     }
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(button == 0 && method != null) {
+        if(hided()) {
+            return false;
+        }
+        Vector4f temp = getBorders();
+        if(button == 0 && clicked != null &&
+           temp.x < currentMousePosition.x &&
+           temp.z > currentMousePosition.x &&
+           temp.y < currentMousePosition.y &&
+           temp.w > currentMousePosition.y) {
             try {
-                method.method.invoke(method.object,this, id);
+                clicked.method.invoke(clicked.object,this, id);
             } catch (Exception ignored) {
                 return false;
             }
@@ -112,5 +125,10 @@ public class Button extends DefaultGuiObject
         return true;
     }
 
-
+    @Override
+    public void Update(int flags) {
+        if(icon instanceof EnhancedGuiScreen.Updatable) {
+            ((EnhancedGuiScreen.Updatable) icon).Update(flags);
+        }
+    }
 }
