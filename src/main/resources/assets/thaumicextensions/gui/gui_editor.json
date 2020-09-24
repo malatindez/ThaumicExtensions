@@ -1,0 +1,79 @@
+{
+  "gui_editor": {
+    "type": "Collection",
+    "size": [427, 240],
+    "scale_type": "scale_xy",
+    "elements": {
+      "right_wing": {
+        "type": "Collection",
+        "size": [87, 240],
+        "scale_type": "scale_y",
+        "elements": {
+
+        }
+      },
+
+      "gui": {
+        "type": "Collection",
+        "size": [350,240],
+        "scale_type": "scale_xy",
+        "elements": {
+          "background": {
+            "type": "Rect",
+            "size": [350,240],
+            "scale_type": "scale_xy",
+            "colors": {
+              "topLeft":     [0.7,0.7,0.7,0.5],
+              "topRight":    [0.7,0.7,0.7,0.5],
+              "bottomLeft":  [0.7,0.7,0.7,0.5],
+              "bottomRight": [0.7,0.7,0.7,0.5]
+            }
+          },
+          "mouseHandlingRect": {
+            "type": "ContextMenuField",
+            "size": [350,240],
+            "scale_type": "scale_xy",
+            "icon": "context_menu",
+            "lmbClicked": {
+              "object_name": "none",
+              "method_name": "closeContextMenu"
+            },
+            "rmbClicked": {
+              "object_name": "none",
+              "method_name": "openContextMenu"
+            },
+            "context_menu": {
+              "type": "Collection",
+              "size": [61,80],
+              "scale_type": "scale_xy",
+              "hided": true,
+              "elements": {
+                "context_menu_background": {
+                  "type": "Rect",
+                  "size": [61,80],
+                  "scale_type": "scale_xy",
+                  "colors": {
+                    "topLeft":     [0.3,0.3,0.3,0.5],
+                    "topRight":    [0.3,0.3,0.3,0.5],
+                    "bottomLeft":  [0.3,0.3,0.3,0.5],
+                    "bottomRight": [0.3,0.3,0.3,0.5]
+                  }
+                },
+                "textLine": {
+                  "type": "TextInputLine",
+                  "text": "Lorem",
+                  "color": [1,1,1,0.3],
+                  "dropShadow": true,
+                  "coordinates": [75,75],
+                  "zLevel":10,
+                  "scale": [1,1],
+                  "scale_type": "none"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
