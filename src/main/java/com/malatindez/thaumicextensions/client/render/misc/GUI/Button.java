@@ -41,9 +41,11 @@ public class Button extends DefaultGuiObject
     public Button(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {
-            method = ((DefaultGuiObject) parent).getMethod(
-                    (String) parameters.get("method"),
-                    new Class[] {Object.class, int.class});
+            JSONObject obj = (JSONObject) parameters.get("method");
+            method = this.getMethodA(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    new Class[] {Object.class, int.class}, true);
         } else {
             method = null;
         }
@@ -65,6 +67,18 @@ public class Button extends DefaultGuiObject
     @Override
     public int getZLevel() {
         return zLevel;
+    }
+
+    @Override
+    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        if(objectName == this.getName()) {
+            return getMethod(objectName, name, parameterTypes, callParent);
+        }
+        MethodObjectPair retValue = ((DefaultGuiObject)icon).getMethodA(objectName, name, parameterTypes, false);
+        if(retValue == null) {
+            return getMethod(objectName, name, parameterTypes, callParent);
+        }
+        return retValue;
     }
 
     @Override
