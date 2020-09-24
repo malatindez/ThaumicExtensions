@@ -1,6 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -10,6 +12,7 @@ public class TextLine extends DefaultGuiObject {
     public final String textLine;
     public Vector3f color;
     public boolean dropShadow;
+    /*
     public TextLine(
             String name, FontRenderer fontRendererObj, String textLine, Vector3f color, boolean dropShadow,
             Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
@@ -22,7 +25,20 @@ public class TextLine extends DefaultGuiObject {
         this.color = color;
         this.dropShadow = dropShadow;
         this.textLine = textLine;
+    }*/
+
+    public TextLine(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
+        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+        textLine = (String)parameters.get("text");
+        color = Json3Vec(parameters.get("color"));
     }
+
+    @Override
+    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        return getMethod(objectName, name, parameterTypes, callParent);
+    }
+
     @Override
     protected void VectorsWereUpdated() {
 
