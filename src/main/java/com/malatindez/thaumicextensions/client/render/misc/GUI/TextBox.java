@@ -14,10 +14,10 @@ public class TextBox extends DefaultGuiObject {
     public Vector3f color;
     public final boolean isTextScalable;
     public final boolean dropShadow;
-    public TextBox(FontRenderer fontRendererObj, String text, Vector3f color, boolean dropShadow, boolean isTextScalable,
-                   Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
+    public TextBox(String name, FontRenderer fontRendererObj, String text, Vector3f color, boolean dropShadow,
+                   boolean isTextScalable, Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
                    int zLevel, ResolutionRescaleType type) {
-        super(coordinates, scale, size, zLevel, type);
+        super(name, coordinates, scale, size, zLevel, type);
         this.text = text;
         this.color = color;
         this.dropShadow = dropShadow;

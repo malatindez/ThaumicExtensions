@@ -10,12 +10,13 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector2f size;
     private final Vector2f parentCoordinates = new Vector2f(0,0);
     private final Vector4f parentBorders = new Vector4f(0,0,0,0);
+    private final String name;
     protected final Vector2f currentResolution = new Vector2f(427, 240);
     public static final Vector2f defaultResolution = new Vector2f(427, 240);
     private final Vector4f borders;
     protected int zLevel;
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
-    // this function will be called when vectors were updates
+    // this function will be called when vectors were updated
     protected abstract void VectorsWereUpdated();
     protected void updateVectors() {
         Vector2f.add(parentCoordinates,coordinates,currentObjectPosition);
@@ -34,7 +35,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public Vector4f getParentBorders() {
         return new Vector4f(parentBorders);
     }
-
+    public String getName() {return name;}
     public void setCoordinates(float x, float y) {
         this.coordinates.set(x, y);
         updateVectors();
@@ -96,7 +97,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
      * @param size
      * @param zLevel
      */
-    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, ResolutionRescaleType type) {
+    public DefaultGuiObject(String name, Vector2f coordinates, Vector2f scale, Vector2f size,
+                            int zLevel, ResolutionRescaleType type) {
         this.coordinates = new Vector2f(coordinates);
         this.currentObjectPosition.set(coordinates);
         this.scale =  new Vector2f(scale);
@@ -104,9 +106,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.borders = new Vector4f();
         this.zLevel = zLevel;
         this.type = type;
+        this.name = name;
         updateVectors();
     }
-    public DefaultGuiObject(Vector2f coordinates, Vector2f scale, Vector2f size,
+    public DefaultGuiObject(String name, Vector2f coordinates, Vector2f scale, Vector2f size,
                             int zLevel, ResolutionRescaleType type, boolean updateVectors) {
         this.coordinates = new Vector2f(coordinates);
         this.scale =  new Vector2f(scale);
@@ -114,6 +117,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.borders = new Vector4f();
         this.zLevel = zLevel;
         this.type = type;
+        this.name = name;
         if(updateVectors) {
             updateVectors();
         }

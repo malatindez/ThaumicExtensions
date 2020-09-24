@@ -11,9 +11,9 @@ public class TextLine extends DefaultGuiObject {
     public Vector3f color;
     public boolean dropShadow;
     public TextLine(
-            FontRenderer fontRendererObj, String textLine, Vector3f color, boolean dropShadow,
+            String name, FontRenderer fontRendererObj, String textLine, Vector3f color, boolean dropShadow,
             Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
-        super(coordinates, scale,
+        super(name, coordinates, scale,
                 new Vector2f(fontRendererObj.getStringWidth(textLine) * scale.x,
                         fontRendererObj.FONT_HEIGHT * scale.y
                         ), zLevel, type

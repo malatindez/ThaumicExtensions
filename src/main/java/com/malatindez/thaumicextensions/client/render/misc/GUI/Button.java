@@ -25,10 +25,10 @@ public class Button extends DefaultGuiObject
      *                   * Param Object which will be set with this class
      *                   * Param int id, special number which you can add in constructor to identify caller
      */
-    public Button(Object icon, Vector2f coordinates,
+    public Button(String name, Object icon, Vector2f coordinates,
                   Object obj, Method method, int id, int zLevel, ResolutionRescaleType type,
                   ArrayList<EnhancedGuiScreen.Bind> binds) {
-        super(coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), zLevel, type, false);
+        super(name, coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), zLevel, type, false);
         this.icon = icon;
         this.obj = obj;
         this.method = method;

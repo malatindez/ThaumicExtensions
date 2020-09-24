@@ -27,9 +27,9 @@ public class Rect extends DefaultGuiObject {
         }
     }
     public final VertexColors colors;
-    public Rect(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
+    public Rect(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
                 ResolutionRescaleType type) {
-        super(coordinates, scale, size, zLevel, type);
+        super(name, coordinates, scale, size, zLevel, type);
         this.colors = colors;
     }
     @Override

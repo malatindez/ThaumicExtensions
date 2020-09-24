@@ -47,6 +47,9 @@ public class Collection extends DefaultGuiObject implements
         if(object == null) {
             return null;
         }
+        if(object instanceof EnhancedGuiScreen.needParent) {
+            ((EnhancedGuiScreen.needParent) object).setParent(this);
+        }
         if (object instanceof EnhancedGuiScreen.Renderable) {
             ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(this.currentResolution);
         } else if (object instanceof EnhancedGuiScreen.Clickable) {
@@ -62,17 +65,18 @@ public class Collection extends DefaultGuiObject implements
     public boolean isSelected(Object object) {
         return object == selected;
     }
-    public Collection(Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
-        super(coordinates,new Vector2f(1.0f,1.0f),size,zLevel, type);
+    public Collection(String name, Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
+        super(name, coordinates,new Vector2f(1.0f,1.0f),size,zLevel, type);
     }
 
-    public Collection(Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, ResolutionRescaleType type)  {
-        super(coordinates,scale,size,zLevel, type);
+    public Collection(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel,
+                      ResolutionRescaleType type)  {
+        super(name, coordinates,scale,size,zLevel, type);
     }
     // if you've created another collection with this constructor than you should use only one of them
     // Be careful! This constructor deletes objects from another collection.
     public Collection(Collection collection) {
-        super(collection.getCoordinates(), collection.getScale(),
+        super(collection.getName(), collection.getCoordinates(), collection.getScale(),
                 collection.getSize(), collection.zLevel, collection.getType());
         this.addObjects(collection.objects);
         collection.objects.clear();
