@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,7 @@ public class TextBox extends DefaultGuiObject {
     protected final FontRenderer fontRendererObj;
     public final String text;
     public final Vector2f textScale;
-    public Vector3f color;
+    public Vector4f color;
     public final boolean isTextScalable;
     public final boolean dropShadow;
     /*
@@ -28,11 +29,16 @@ public class TextBox extends DefaultGuiObject {
         this.fontRendererObj = fontRendererObj;
         this.textScale = new Vector2f(textScale);
     }*/
+
+    @Override
+    public void preInit(String name, Object parent, JSONObject parameters) {
+
+    }
     public TextBox(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
         fontRendererObj = Minecraft.getMinecraft().fontRenderer;
         text = (String)parameters.get("text");
-        color = Json3Vec(parameters.get("color"));
+        color = Json4Vec(parameters.get("color"));
         if(parameters.containsKey("textScale")) {
             textScale = Json2Vec(parameters.get("textScale"));
         } else {
@@ -81,7 +87,8 @@ public class TextBox extends DefaultGuiObject {
                         GL11.glScalef(textScale.x, textScale.y, 1);
                     }
                     this.fontRendererObj.drawString(current_line.toString(), 0, 0,
-                            (int) (255 * 255 * color.x + 255 * color.y + color.z), dropShadow);
+                            Vector4fToColor(color),
+                            dropShadow);
                     GL11.glPopMatrix();
                 }
 
@@ -109,8 +116,19 @@ public class TextBox extends DefaultGuiObject {
 
 
     @Override
-    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
-        return getMethod(objectName, name, parameterTypes, callParent);
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
+        if(objectName == this.getName()) {
+            getMethodFunc(objectName, name, parameterTypes);
+        }
+        return null;
+    }
+
+    @Override
+    public Object getObjectDown(String objectName) {
+        if(objectName == this.getName()) {
+            return this;
+        }
+        return null;
     }
 
     @Override
