@@ -21,7 +21,7 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     }
 
     protected void keyTyped(char par1, int par2) {
-        if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+        if (par1 == 27) {
             GuiResearchBrowser.highlightedItem.clear();
             this.mc.displayGuiScreen(null);
             this.mc.setIngameFocus();
@@ -30,6 +30,7 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                 GuiResearchBrowser.highlightedItem.clear();
             super.keyTyped(par1, par2);
         }
+        super.keyTyped(par1, par2);
     }
 
     public void onGuiClosed() {
@@ -39,8 +40,13 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     public void drawScreen(int mx, int my, float tick) {
         super.drawScreen(mx,my,tick);
     }
+    static Collection collection = null;
     public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
-        super(new ResourceLocation(ThaumicExtensions.MODID, "gui/test_gui.json"));
+        if(collection == null) {
+        collection = EnhancedGuiScreen.loadFromFile(this,
+                new ResourceLocation(ThaumicExtensions.MODID, "gui/test_gui.json"));
+    }
+        this.gui = collection;
     }
     public void defaultResearchClicked(Object obj, int id) {
         ((DefaultGuiObject)obj).setCoordinates(
