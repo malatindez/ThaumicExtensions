@@ -66,6 +66,9 @@ public class TextLine extends DefaultGuiObject {
     }
     @Override
     public void render() {
+        if(hided()) {
+            return;
+        }
         GL11.glPushMatrix();
         GL11.glTranslatef(getCurrentPosition().x, getCurrentPosition().y, 0);
         GL11.glScalef(getScale().x, getScale().y, 1);
