@@ -5,14 +5,11 @@ import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -26,17 +23,31 @@ import java.util.Set;
  * You should bind GUI texture before calling render functions
  */
 public class IconFactory {
-    public static class Icon extends DefaultGuiObject {
+    public static class IconSample {
         public final ResourceLocation texture;
-        protected final Vector2f texFrom, texTo, textureSize;
-        /**
+        public final Vector2f texFrom, texTo, textureSize;
+        protected IconSample(Vector2f texFrom, Vector2f iconSize, Vector2f textureSize, ResourceLocation texture) {
+            this.texFrom = new Vector2f(texFrom);
+            this.textureSize = new Vector2f(textureSize);
+            this.texTo       = Vector2f.add(texFrom, iconSize, null);
+            this.texture = new ResourceLocation(texture.getResourceDomain(), texture.getResourcePath());
+        }
+        protected IconSample(IconSample obj) {
+            this.texture     = new ResourceLocation(obj.texture.getResourceDomain(), obj.texture.getResourcePath());
+            this.texFrom     = new Vector2f(obj.texFrom);
+            this.textureSize = new Vector2f(obj.textureSize);
+            this.texTo       = new Vector2f(obj.texTo);
+
+        }
+    }
+    public static class Icon extends DefaultGuiObject {
+        /*
          * IconFactory.Part constructor
          * @param coordinates Default coordinates to render at
          * @param texFrom Coordinates of top left icons corner on the texture
          * @param iconSize The size of an icon (bottom right corner is texFrom + iconSize)
          * @param textureSize The size of the texture
          * @param scale The scale of an icon (1.0f, 1.0f is a default scale)
-         */
         protected Icon(Vector2f coordinates, Vector2f texFrom,
                     Vector2f iconSize,    Vector2f textureSize,
                     Vector2f scale, int zLevel, ResolutionRescaleType type, ResourceLocation texture) {
@@ -53,38 +64,29 @@ public class IconFactory {
             this.textureSize = new Vector2f(icon.textureSize);
             this.texTo       = new Vector2f(icon.texTo);
             this.texture = new ResourceLocation(icon.texture.getResourceDomain(), icon.texture.getResourcePath());
+        }*/
+        protected final IconSample sample;
+        public Icon(String name, Object parent, JSONObject parameters) {
+            super(name,parent,parameters);
+            sample = IconFactory.getFactory(
+                    new ResourceLocation(
+                            (String)parameters.get("mapping_resource_domain"),
+                            (String)parameters.get("mapping_resource_path")
+                    )
+            ).getIconSample((String)parameters.get("mapping_icon_name"));
         }
-
-        /**
-         * Multiply a vector to another vector and place the result in the destination vector.
-         * Multiplication defines as x = left.x * right.x; y = left.y * right.y;
-         * @param left The LHS vector
-         * @param right The RHS vector
-         * @param dest The destination vector, or null if a new vector is to be created
-         * @return the mul of left and right in dest
-         */
-        private Vector2f mul(Vector2f left, Vector2f right, Vector2f dest) {
-            if(dest == null) {
-                return new Vector2f(left.x * right.x, left.y * right.y);
-            } else {
-                dest.set(left.x * right.x, left.y * right.y);
-                return dest;
-            }
-        }
-        public Vector2f getTexFrom() {
-            return new Vector2f(texFrom);
-        }
-        public Vector2f getTexTo() {
-            return new Vector2f(texTo);
+        @Override
+        public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+            return getMethod(objectName, name, parameterTypes, callParent);
         }
         /**
          * Render an icon on default coordinates
          */
         @Override
         public void render() {
-            UtilsFX.bindTexture(texture);
+            UtilsFX.bindTexture(sample.texture);
             UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
-                    texFrom, texTo, getScale(), textureSize, getZLevel());
+                    sample.texFrom, sample.texTo, getScale(), sample.textureSize, getZLevel());
         }
 
         @Override
@@ -97,14 +99,8 @@ public class IconFactory {
             return 0;
         }
     }
-    protected final HashMap<String, Icon> parts = new HashMap<String, Icon>();
+    protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();
     private final ResourceLocation texture;
-    private Vector2f Json2Vec(Object array) {
-        return new Vector2f(
-                ((Long)((JSONArray)array).get(0)).floatValue(),
-                ((Long)((JSONArray)array).get(1)).floatValue()
-        );
-    }
     /**
      * Constructor of IconFactory
      * @param json_file json_file to work with
@@ -137,7 +133,7 @@ public class IconFactory {
                 (String)jsonObject.get("resource_domain"),
                 (String)jsonObject.get("resource_path"));
 
-        Vector2f textureSize = Json2Vec(jsonObject.get("textureSize"));
+        Vector2f textureSize = DefaultGuiObject.Json2Vec(jsonObject.get("textureSize"));
         Set<Object> set = jsonObject.keySet();
         for (Object object : set) {
             if (object instanceof String) {
@@ -145,14 +141,10 @@ public class IconFactory {
                         !((String)object).equals("resource_path") &&
                         !((String)object).equals("textureSize")
                 ) {
-                    parts.put((String)object, new Icon(
-                            new Vector2f(0,0),
-                            Json2Vec(((JSONObject) jsonObject.get(object)).get("texFrom")),
-                            Json2Vec(((JSONObject) jsonObject.get(object)).get("iconSize")),
+                    parts.put((String)object, new IconSample(
+                            DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("texFrom")),
+                            DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("iconSize")),
                             textureSize,
-                            new Vector2f(1,1),
-                            0,
-                            DefaultGuiObject.ResolutionRescaleType.NONE,
                             texture
                     ));
                 }
@@ -160,19 +152,17 @@ public class IconFactory {
         }
     }
 
-    /**
-     *
-     * @param IconName
-     * @param objectName
-     * @param coordinates
-     * @param scale
-     * @param zLevel
-     * @param type
-     * @return
-     */
-    public Icon getNewIcon(final String IconName, final String objectName, Vector2f coordinates, Vector2f scale,
-                           int zLevel, DefaultGuiObject.ResolutionRescaleType type) {
-        return new Icon(parts.get(IconName), objectName, coordinates, scale, zLevel, type);
+    public IconSample getIconSample(final String IconName) {
+        return new IconSample(parts.get(IconName));
     }
-
+    private static final HashMap<ResourceLocation, IconFactory> factories = new HashMap<ResourceLocation, IconFactory>();
+    public static IconFactory getFactory(ResourceLocation json_file) {
+        if(!factories.containsKey(json_file)) {
+            factories.put(
+                    json_file,
+                    new IconFactory(json_file)
+            );
+        }
+        return factories.get(json_file);
+    }
 }
