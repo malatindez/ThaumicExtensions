@@ -70,8 +70,30 @@
 		},
 		"textline": {
 			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-			"type": "TextBox",
-			"textColor": [1,1,1]
+			"type": "TextLine",
+			"textColor": [1,1,1],
+			"dropShadow": true,
+			"coordinates": [75,75],
+			"zLevel":10,
+			"scale": [1,1],
+			"scale_type": "none"
+		},
+		"button_1": {
+			"icon": {
+				"type": "Icon",
+				"coordinates": [0,0],
+				"scale": [1,1],
+				"mapping_resource_domain": "thaumicextensions",
+				"mapping_resource_path": "texture_mapping\\test_gui.json",
+				"zLevel": 0,
+				"scale_type": "none"
+			},
+			"coordinates": [100, 100],
+			"method": "button_1_clicked",
+			"id": 0,
+			"zLevel": 10,
+			"scale_type": "none",
+			"binds": ['KEY_F']
 		}
 	}
 
