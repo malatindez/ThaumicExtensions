@@ -28,6 +28,7 @@ import vazkii.botania.api.mana.IManaPool;
 /**
  * The basic class for a Functional Flower.
  */
+@SuppressWarnings("SameReturnValue")
 public class SubTileFunctional extends SubTileEntity {
 
 	public static final int RANGE = 10;

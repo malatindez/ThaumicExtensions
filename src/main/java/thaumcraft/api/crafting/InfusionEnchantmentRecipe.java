@@ -96,7 +96,7 @@ public class InfusionEnchantmentRecipe
 		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
 		if (!t1) return false;
 		if (true) {
-			Integer od = OreDictionary.getOreID(stack0);
+			int od = OreDictionary.getOreID(stack0);
 			if (od!=-1) {
 				ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[]{});
 				if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[]{stack1}, ores))

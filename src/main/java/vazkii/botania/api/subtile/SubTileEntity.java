@@ -34,6 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * of this using BotaniaAPI.mapSubTile(String, Class). Any subclass of this must have
  * a no parameter constructor.
  */
+@SuppressWarnings("SameReturnValue")
 public class SubTileEntity {
 
 	protected TileEntity supertile;

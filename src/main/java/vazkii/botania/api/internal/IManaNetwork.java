@@ -21,6 +21,7 @@ import vazkii.botania.api.mana.TileSignature;
  * A basic interface for a world's Mana Network.
  * @see IInternalMethodHandler#getManaNetworkInstance()
  */
+@SuppressWarnings("SameReturnValue")
 public interface IManaNetwork {
 
 	/**

@@ -158,7 +158,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     }
     protected Vector2f currentResolution = new Vector2f(DefaultGuiObject.defaultResolution);
     protected Collection gui;
-    public abstract Method getMethod(String method, Class<?> parameterTypes);
+
     public void onGuiClosed() {
         super.onGuiClosed();
     }

@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import thaumcraft.api.ThaumcraftApiHelper;
 
+@SuppressWarnings({"ALL", "UnusedReturnValue"})
 public class AspectList implements Serializable {
 	
 	public LinkedHashMap<Aspect,Integer> aspects = new LinkedHashMap<Aspect,Integer>();//aspects associated with this object

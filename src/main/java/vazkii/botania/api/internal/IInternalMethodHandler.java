@@ -44,6 +44,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * make your mod load after Botania if you have any intention of
  * doing anythign with this on PreInit.
  */
+@SuppressWarnings("SameReturnValue")
 public interface IInternalMethodHandler {
 
 	public LexiconPage textPage(String key);

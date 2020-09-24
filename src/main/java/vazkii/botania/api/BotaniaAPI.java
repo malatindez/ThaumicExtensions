@@ -308,6 +308,7 @@ public final class BotaniaAPI {
 	/**
 	 * Registers a paintableBlock and returns it.
 	 */
+	@SuppressWarnings("UnusedReturnValue")
 	public static Block registerPaintableBlock(Block paintable){
 		paintableBlocks.add(paintable);
 		return paintable;

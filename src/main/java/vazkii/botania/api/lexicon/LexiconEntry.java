@@ -20,6 +20,7 @@ import vazkii.botania.api.BotaniaAPI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings("SameReturnValue")
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final String unlocalizedName;

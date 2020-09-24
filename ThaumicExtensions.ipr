@@ -11,7 +11,7 @@
       <entry name="!?*.java" />
       <entry name="!?*.groovy" />
     </wildcardResourcePatterns>
-    <bytecodeTargetLevel target="7" />
+    <bytecodeTargetLevel target="1.6" />
   </component>
   <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
@@ -27,6 +27,37 @@
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
+      <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
+        <option name="TOP_LEVEL_CLASS_OPTIONS">
+          <value>
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+            <option name="REQUIRED_TAGS" value="" />
+          </value>
+        </option>
+        <option name="INNER_CLASS_OPTIONS">
+          <value>
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+            <option name="REQUIRED_TAGS" value="" />
+          </value>
+        </option>
+        <option name="METHOD_OPTIONS">
+          <value>
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+            <option name="REQUIRED_TAGS" value="@return@param@throws or @exception" />
+          </value>
+        </option>
+        <option name="FIELD_OPTIONS">
+          <value>
+            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
+            <option name="REQUIRED_TAGS" value="" />
+          </value>
+        </option>
+        <option name="IGNORE_DEPRECATED" value="false" />
+        <option name="IGNORE_JAVADOC_PERIOD" value="true" />
+        <option name="IGNORE_DUPLICATED_THROWS" value="false" />
+        <option name="IGNORE_POINT_TO_ITSELF" value="false" />
+        <option name="myAdditionalJavadocTags" value="return,return" />
+      </inspection_tool>
     </profile>
     <version value="1.0" />
   </component>
@@ -157,9 +188,11 @@
   <component name="ProjectDictionaryState">
     <dictionary name="Axenance">
       <words>
+        <w>bindable</w>
         <w>botania</w>
         <w>malatindez</w>
         <w>modid</w>
+        <w>renderable</w>
         <w>thaumcraft</w>
         <w>thaumic</w>
         <w>thaumicextensions</w>
@@ -168,7 +201,7 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module filepath="$PROJECT_DIR$/ThaumicExtensions.iml" fileurl="file://$PROJECT_DIR$/ThaumicExtensions.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ThaumicExtensions.iml" filepath="$PROJECT_DIR$/ThaumicExtensions.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK">
@@ -179,6 +212,25 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+  </component>
+  <component name="libraryTable">
+    <library name="com.googlecode.json-simple:json-simple:1.1.1" type="repository">
+      <properties maven-id="com.googlecode.json-simple:json-simple:1.1.1" />
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/junit-4.10.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1-javadoc.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/junit-4.10-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/junit-4.10-sources.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1-sources.jar!/" />
+      </SOURCES>
+    </library>
   </component>
   <component name="masterDetails">
     <states>

@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
 
+@SuppressWarnings("SameReturnValue")
 public class RecipePureDaisy {
 
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap();

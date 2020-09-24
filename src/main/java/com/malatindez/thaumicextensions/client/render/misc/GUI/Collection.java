@@ -44,6 +44,7 @@ public class Collection extends DefaultGuiObject implements
     public void removeObject(Object object) {
         objects.remove(object);
     }
+    @SuppressWarnings("UnusedReturnValue")
     public Object addObject(Object object) {
         if(!(object instanceof DefaultGuiObject)) {
             return null;

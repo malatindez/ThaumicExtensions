@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AnalysisUIOptions">
-    <option name="SCOPE_TYPE" value="3" />
+    <option name="CUSTOM_SCOPE_NAME" value="All Places" />
   </component>
   <component name="BranchesTreeState">
     <expand>
@@ -22,16 +22,37 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12267b90-7e5c-44a2-b62b-4d015d230f95" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/gui/GuiTextureMapping.java" afterDir="false" />
+    <list default="true" id="779344ce-5a29-4e9a-ad7c-41a810534943" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ThaumicExtensions.iws" beforeDir="false" afterPath="$PROJECT_DIR$/ThaumicExtensions.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/UtilsFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/UtilsFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/gui/GuiEnhancedResearchRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/gui/GuiEnhancedResearchRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ThaumicExtensions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ThaumicExtensions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/ClientProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Collection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/DefaultGuiObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/DefaultGuiObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/EnhancedGuiScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/EnhancedGuiScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/IconFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/IconFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Rect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Rect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/TileEntitySpecialRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/TileEntitySpecialRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionPillarRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/thaumicextensions/textures/gui/gui_research.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/thaumicextensions/textures/gui/gui_research.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigAspects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigAspects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/items/ItemEnhancedThaumonomicon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/items/ItemEnhancedThaumonomicon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/misc/AnimatedAspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/misc/AnimatedAspect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApiHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApiHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaTransport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaTransport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/CrucibleRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/CrucibleRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionEnchantmentRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionEnchantmentRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapedArcaneRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapedArcaneRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapelessArcaneRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapelessArcaneRecipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/ItemFocusBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/ItemFocusBasic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/BotaniaAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/BotaniaAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ManaItemHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ManaItemHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/SubTileFunctional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/SubTileFunctional.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/SubTileGenerating.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/SubTileGenerating.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/thaumicextensions/texture_mappings/gui_research.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/thaumicextensions/texture_mappings/gui_research.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,35 +99,18 @@
     <breakpoint_rules converted="true" />
     <ui_properties converted="true" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="vmOptionsForImporter" value="-Xmx768m" />
-      </MavenImportingSettings>
-    </option>
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
-  <component name="ProjectId" id="1gXoCQssvhVY3tfwz58eoiTb5rl" />
+  <component name="ProjectId" id="1hvvZfPQG5mUhj29DajqMua96o4" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state />
     </entry>
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -116,23 +120,25 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
+    <property name="Repository.Attach.Annotations" value="true" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveInnerDialog.RECENTS_KEY">
-      <recent name="com.malatindez.thaumicextensions.client.lib" />
-    </key>
+    <property name="show.unlinked.gradle.project.popup" value="false" />
   </component>
   <component name="RunManager" selected="Application.Minecraft Client">
     <configuration default="true" factoryName="Applet" type="Applet">
@@ -183,6 +189,40 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Client" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStart" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Xmx1024M -Xms1024M" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration name="Minecraft Server" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
       <module name="ThaumicExtensions" />
@@ -193,6 +233,40 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
+      <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
+      <option name="MAIN_CLASS_NAME" value="GradleStartServer" />
+      <option name="VM_PARAMETERS" value="-Xincgc -Dfml.ignoreInvalidMinecraftCertificates=true" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/../ThaumicExtensions\eclipse" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="ThaumicExtensions" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
     </configuration>
     <configuration default="false" factoryName="Application" name="Minecraft Server" type="Application">
       <extension enabled="false" name="coverage" runner="idea" sample_coverage="true" />
@@ -247,202 +321,20 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="12267b90-7e5c-44a2-b62b-4d015d230f95" name="Default Changelist" comment="" />
-      <created>1598270180596</created>
+      <changelist id="779344ce-5a29-4e9a-ad7c-41a810534943" name="Default Changelist" comment="" />
+      <created>1600904444532</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1598270180596</updated>
+      <updated>1600904444532</updated>
     </task>
-    <task id="LOCAL-00001" summary="UtilsFX update">
-      <created>1598371599316</created>
+    <task id="LOCAL-00001" summary="DefaultGuiObject update">
+      <created>1600949948883</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1598371599316</updated>
+      <updated>1600949948883</updated>
     </task>
-    <task id="LOCAL-00002" summary="Gui Factory init commit">
-      <created>1598371627094</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371627094</updated>
-    </task>
-    <task id="LOCAL-00003" summary="dependencies update">
-      <created>1598371658040</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371658040</updated>
-    </task>
-    <task id="LOCAL-00004" summary="dependencies update">
-      <created>1598371684659</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371684659</updated>
-    </task>
-    <task id="LOCAL-00005" summary="gui handling">
-      <created>1598371713025</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371713025</updated>
-    </task>
-    <task id="LOCAL-00006" summary="idea files update">
-      <created>1598371719796</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371719796</updated>
-    </task>
-    <task id="LOCAL-00007" summary="useless class deletion">
-      <created>1598371812910</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371812910</updated>
-    </task>
-    <task id="LOCAL-00008" summary="create ItemEnhancedThaumonomicon.java">
-      <created>1598371849980</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371849980</updated>
-    </task>
-    <task id="LOCAL-00009" summary="proxy update">
-      <created>1598371876479</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371876479</updated>
-    </task>
-    <task id="LOCAL-00010" summary="create GuiEnhancedResearchRecipe">
-      <created>1598371901540</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371901540</updated>
-    </task>
-    <task id="LOCAL-00011" summary="create GuiEnhancedResearchBrowser">
-      <created>1598371923664</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371923664</updated>
-    </task>
-    <task id="LOCAL-00012" summary="items config update">
-      <created>1598371965535</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371965535</updated>
-    </task>
-    <task id="LOCAL-00013" summary="config blocks update">
-      <created>1598371978189</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371978189</updated>
-    </task>
-    <task id="LOCAL-00014" summary="config update">
-      <created>1598371985152</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371985152</updated>
-    </task>
-    <task id="LOCAL-00015" summary="client proxy update">
-      <created>1598371993618</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1598371993618</updated>
-    </task>
-    <task id="LOCAL-00016" summary="animation update">
-      <created>1598372005302</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1598372005302</updated>
-    </task>
-    <task id="LOCAL-00017" summary="textures update">
-      <created>1598372022275</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1598372022275</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Transformation refactor">
-      <created>1598457085187</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1598457085187</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Transformation refactor">
-      <created>1598458677929</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1598458677929</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Transformation refactor">
-      <created>1598460704677</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1598460704677</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Animation update">
-      <created>1598461524221</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1598461524221</updated>
-    </task>
-    <task id="LOCAL-00022" summary="refactor">
-      <created>1598513748937</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1598513748937</updated>
-    </task>
-    <task id="LOCAL-00023" summary="refactor">
-      <created>1598514875853</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1598514875853</updated>
-    </task>
-    <task id="LOCAL-00024" summary="warning fixes">
-      <created>1598515236660</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1598515236660</updated>
-    </task>
-    <task id="LOCAL-00025" summary="refactor">
-      <created>1598516417427</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1598516417427</updated>
-    </task>
-    <task id="LOCAL-00026" summary="refactor">
-      <created>1598539684361</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1598539684361</updated>
-    </task>
-    <task id="LOCAL-00027" summary="refactor">
-      <created>1598540892901</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1598540892901</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -455,136 +347,114 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <MESSAGE value="UtilsFX update" />
-    <MESSAGE value="Gui Factory init commit" />
-    <MESSAGE value="dependencies update" />
-    <MESSAGE value="gui handling" />
-    <MESSAGE value="idea files update" />
-    <MESSAGE value="useless class deletion" />
-    <MESSAGE value="create ItemEnhancedThaumonomicon.java" />
-    <MESSAGE value="proxy update" />
-    <MESSAGE value="create GuiEnhancedResearchRecipe" />
-    <MESSAGE value="create GuiEnhancedResearchBrowser" />
-    <MESSAGE value="gradlew-wrapper.propeties update" />
-    <MESSAGE value="items config update" />
-    <MESSAGE value="config blocks update" />
-    <MESSAGE value="config update" />
-    <MESSAGE value="client proxy update" />
-    <MESSAGE value="animation update" />
-    <MESSAGE value="textures update" />
-    <MESSAGE value="Transformation refactor" />
-    <MESSAGE value="Animation update" />
-    <MESSAGE value="warning fixes" />
-    <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="DefaultGuiObject" />
+    <MESSAGE value="DefaultGuiObject update" />
+    <option name="LAST_COMMIT_MESSAGE" value="DefaultGuiObject update" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1598271900735">
+    <state x="440" y="114" key="#Project_Structure" timestamp="1600904669395">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598271900735" />
-    <state x="2719" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1598456973534">
+    <state x="440" y="114" key="#Project_Structure/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600904669395" />
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1600964863075">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600964863075" />
+    <state x="488" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1600904476465">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="488" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600904476465" />
+    <state x="1298" y="221" key="#xdebugger.evaluate" timestamp="1600962350730">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1298" y="221" key="#xdebugger.evaluate/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600962350730" />
+    <state x="678" y="394" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1600966237709">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="678" y="394" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600966237709" />
+    <state x="666" y="281" key="FileChooserDialogImpl" timestamp="1600905999060">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="666" y="281" key="FileChooserDialogImpl/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600905999060" />
+    <state width="1877" height="318" key="GridCell.Tab.0.bottom" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.0.center" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.0.left" timestamp="1600965531358">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531358" />
+    <state width="1877" height="318" key="GridCell.Tab.0.right" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.1.bottom" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.1.center" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.1.left" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state width="1877" height="318" key="GridCell.Tab.1.right" timestamp="1600965531359">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="318" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600965531359" />
+    <state x="440" y="114" key="SettingsEditor" timestamp="1600906024765">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="440" y="114" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600906024765" />
+    <state x="681" y="280" width="540" height="524" key="StructurePopup" timestamp="1600951340408">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="681" y="280" width="540" height="524" key="StructurePopup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600951340408" />
+    <state x="664" y="431" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1600906011368">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="664" y="431" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600906011368" />
+    <state x="1986" y="-27" width="1507" height="910" maximized="true" key="dock-window-1" timestamp="1600950389212">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2719" y="464" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598456973534" />
-    <state x="2663" y="384" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog" timestamp="1598457000901">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2663" y="384" key="#com.intellij.refactoring.move.moveInner.MoveInnerDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598457000901" />
-    <state x="461" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598455772344">
+    <state x="1986" y="-27" width="1507" height="910" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600950389212" />
+    <state x="616" y="250" key="run.anything.popup" timestamp="1600963032096">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="461" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598455772344" />
-    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598271194681">
+    <state x="616" y="250" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600963032096" />
+    <state x="723" y="397" key="scopes" timestamp="1600966229002">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="690" y="286" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598271194681" />
-    <state x="626" y="394" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1598539667451">
+    <state x="723" y="397" key="scopes/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600966229002" />
+    <state x="616" y="192" width="672" height="676" key="search.everywhere.popup" timestamp="1600961784414">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="626" y="394" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598539667451" />
-    <state x="184" y="90" key="DiffContextDialog" timestamp="1598272114881">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="184" y="90" key="DiffContextDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598272114881" />
-    <state width="1877" height="115" key="GridCell.Tab.0.bottom" timestamp="1598540492809">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492809" />
-    <state width="1877" height="295" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598519638074" />
-    <state width="1877" height="115" key="GridCell.Tab.0.center" timestamp="1598540492808">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492808" />
-    <state width="1877" height="295" key="GridCell.Tab.0.center/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598519638073" />
-    <state width="1877" height="115" key="GridCell.Tab.0.left" timestamp="1598540492808">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492808" />
-    <state width="1877" height="295" key="GridCell.Tab.0.left/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598519638073" />
-    <state width="1877" height="115" key="GridCell.Tab.0.right" timestamp="1598540492808">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492808" />
-    <state width="1877" height="295" key="GridCell.Tab.0.right/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598519638073" />
-    <state width="1877" height="115" key="GridCell.Tab.1.bottom" timestamp="1598540492809">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.1.bottom/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492809" />
-    <state width="1877" height="115" key="GridCell.Tab.1.center" timestamp="1598540492809">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.1.center/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492809" />
-    <state width="1877" height="115" key="GridCell.Tab.1.left" timestamp="1598540492809">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.1.left/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492809" />
-    <state width="1877" height="115" key="GridCell.Tab.1.right" timestamp="1598540492809">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1877" height="115" key="GridCell.Tab.1.right/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598540492809" />
-    <state x="677" y="242" key="RollbackChangesDialog" timestamp="1598525618995">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="677" y="242" key="RollbackChangesDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598525618995" />
-    <state x="461" y="184" key="SettingsEditor" timestamp="1598461492556">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="461" y="184" key="SettingsEditor/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598461492556" />
-    <state x="2695" y="318" key="chooseDestDirectoryDialog" timestamp="1598457000833">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2695" y="318" key="chooseDestDirectoryDialog/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598457000833" />
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1598524236833">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="769" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598524236833" />
-    <state x="2689" y="453" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598519198352" />
-    <state x="2002" y="-23" width="1369" height="1067" maximized="true" key="dock-window-1" timestamp="1598509094337">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2002" y="-23" width="1369" height="1067" maximized="true" key="dock-window-1/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598509094337" />
-    <state x="2587" y="139" width="756" height="801" key="find.popup" timestamp="1598516386655">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2587" y="139" width="756" height="801" key="find.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598516386655" />
-    <state x="616" y="250" width="672" height="677" key="run.anything.popup" timestamp="1598525363706">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="616" y="250" width="672" height="677" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598525363706" />
-    <state x="2536" y="250" width="672" height="677" key="run.anything.popup/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598515491957" />
-    <state x="2757" y="397" key="scopes" timestamp="1598515934509">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2757" y="397" key="scopes/1920.0.1920.1080/0.0.1920.1080@1920.0.1920.1080" timestamp="1598515934509" />
-    <state x="2543" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1598539382720">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2543" y="235" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1598539382720" />
+    <state x="616" y="192" width="672" height="676" key="search.everywhere.popup/1920.0.1920.1080/0.0.1920.1080@0.0.1920.1080" timestamp="1600961784414" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/IconFactory.java</url>
+          <line>129</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Collection.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
  * Blocks that implement this interface act as infusion crafting stabilisers like candles and skulls 
  *
  */
+@SuppressWarnings("SameReturnValue")
 public interface IInfusionStabiliser {
 	
 	/**

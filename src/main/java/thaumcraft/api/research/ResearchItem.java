@@ -201,6 +201,7 @@ public class ResearchItem
         return this;
     }
     
+    @SuppressWarnings("UnusedReturnValue")
     public ResearchItem setVirtual()
     {
         this.isVirtual = true;

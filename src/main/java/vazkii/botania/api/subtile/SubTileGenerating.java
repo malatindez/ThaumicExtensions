@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.IManaCollector;
 /**
  * The basic class for a Generating Flower.
  */
+@SuppressWarnings("SameReturnValue")
 public class SubTileGenerating extends SubTileEntity {
 
 	public static final int RANGE = 6;

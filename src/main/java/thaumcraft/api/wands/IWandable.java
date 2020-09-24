@@ -12,6 +12,7 @@ import net.minecraft.world.World;
  *
  */
 
+@SuppressWarnings("SameReturnValue")
 public interface IWandable {
 
 	public int onWandRightClick(World world, ItemStack wandstack, EntityPlayer player, int x, int y, int z, int side, int md);

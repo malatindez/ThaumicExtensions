@@ -34,6 +34,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
 
     }
+    @SuppressWarnings("UnusedReturnValue")
     protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
         try {
             return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
