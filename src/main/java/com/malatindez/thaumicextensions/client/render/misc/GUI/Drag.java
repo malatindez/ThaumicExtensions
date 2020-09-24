@@ -1,6 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import com.sun.istack.internal.NotNull;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
