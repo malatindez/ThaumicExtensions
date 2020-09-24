@@ -13,10 +13,11 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+@SuppressWarnings("unchecked")
 public class ShapelessArcaneRecipe implements IArcaneRecipe
 {
     private ItemStack output = null;
-    private ArrayList input = new ArrayList();
+    private final ArrayList input = new ArrayList();
     
     public AspectList aspects = null;
     public String research; 

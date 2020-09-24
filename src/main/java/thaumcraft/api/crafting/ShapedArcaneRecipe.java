@@ -13,6 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+@SuppressWarnings("unchecked")
 public class ShapedArcaneRecipe implements IArcaneRecipe
 {
     //Added in for future ease of change, but hard coded for now.

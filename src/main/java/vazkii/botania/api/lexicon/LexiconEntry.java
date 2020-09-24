@@ -20,7 +20,7 @@ import vazkii.botania.api.BotaniaAPI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "unchecked"})
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final String unlocalizedName;
@@ -32,7 +32,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 	private boolean priority = false;
 	private ItemStack icon = null;
 	
-	private List<ItemStack> extraDisplayedRecipes = new ArrayList();
+	private final List<ItemStack> extraDisplayedRecipes = new ArrayList();
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.

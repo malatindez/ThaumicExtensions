@@ -26,7 +26,6 @@ import thaumcraft.common.lib.research.ResearchManager;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class ItemEnhancedThaumonomicon extends Item {
     @SideOnly(Side.CLIENT)

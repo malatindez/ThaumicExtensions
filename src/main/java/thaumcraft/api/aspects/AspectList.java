@@ -16,7 +16,6 @@ public class AspectList implements Serializable {
 	
 	/**
 	 * this creates a new aspect list with preloaded values based off the aspects of the given item.
-	 * @param stack the itemstack of the given item
 	 */
 	public AspectList(ItemStack stack) {
 		try {
@@ -99,7 +98,7 @@ public class AspectList implements Serializable {
 						break;
 					}
 				}
-			} while (change==true);
+			} while (change);
 			return out;
 		} catch (Exception e) {
 			return this.getAspects(); 
@@ -127,7 +126,7 @@ public class AspectList implements Serializable {
 						break;
 					}
 				}
-			} while (change==true);
+			} while (change);
 			return out;
 		} catch (Exception e) {
 			return this.getAspects();

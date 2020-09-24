@@ -25,6 +25,6 @@ public interface ITileBound {
 	 * Gets where this block is bound to, can return null.
 	 */
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding();
+    ChunkCoordinates getBinding();
 
 }

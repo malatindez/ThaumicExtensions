@@ -20,6 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 
+@SuppressWarnings("unchecked")
 public class RecipeBrew {
 
 	Brew brew;

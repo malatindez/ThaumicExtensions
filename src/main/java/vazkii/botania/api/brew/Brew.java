@@ -20,6 +20,7 @@ import net.minecraft.potion.PotionEffect;
 /**
  * The class for a Brew definition, each one is a singleton.
  */
+@SuppressWarnings("unchecked")
 public class Brew {
 
 	String key;

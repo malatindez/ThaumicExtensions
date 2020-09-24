@@ -121,6 +121,7 @@ public class IconFactory {
         }
     }
     protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();
+    @SuppressWarnings("FieldCanBeLocal")
     private final ResourceLocation texture;
     /**
      * Constructor of IconFactory

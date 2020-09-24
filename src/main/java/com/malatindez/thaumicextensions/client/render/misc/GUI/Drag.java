@@ -3,9 +3,6 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector4f;
-
-import java.lang.reflect.Method;
 
 public class Drag extends Collection {
     protected final MethodObjectPair currentlyDragging;

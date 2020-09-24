@@ -22,6 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * A component of a multiblock, the normal one
  * is just a block.
  */
+@SuppressWarnings("deprecation")
 public class MultiblockComponent {
 
 	public ChunkCoordinates relPos;

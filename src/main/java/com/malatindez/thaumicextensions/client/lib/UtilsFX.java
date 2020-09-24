@@ -2,7 +2,6 @@ package com.malatindez.thaumicextensions.client.lib;
 
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 

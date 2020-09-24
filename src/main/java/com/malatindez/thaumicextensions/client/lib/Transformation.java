@@ -1,7 +1,5 @@
 package com.malatindez.thaumicextensions.client.lib;
 
-import com.malatindez.thaumicextensions.client.render.misc.Animation;
-
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 

@@ -8,9 +8,10 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
+@SuppressWarnings("unchecked")
 public class CrucibleRecipe {
 
-	private ItemStack recipeOutput;
+	private final ItemStack recipeOutput;
 	
 	public Object catalyst;
 	public AspectList aspects;
@@ -60,6 +61,7 @@ public class CrucibleRecipe {
 		return true;
 	}
 	
+	@SuppressWarnings("RedundantIfStatement")
 	public boolean catalystMatches(ItemStack cat) {
 		if (catalyst instanceof ItemStack && ThaumcraftApiHelper.itemMatches((ItemStack) catalyst,cat,false)) {
 			return true;

@@ -17,9 +17,9 @@ public class DamageSourceThaumcraft extends DamageSource
 	}
     
 	/** This kind of damage can be blocked or not. */
-    private boolean isUnblockable = false;
-    private boolean isDamageAllowedInCreativeMode = false;
-    private float hungerDamage = 0.3F;
+    private final boolean isUnblockable = false;
+    private final boolean isDamageAllowedInCreativeMode = false;
+    private final float hungerDamage = 0.3F;
 
     /** This kind of damage is based on fire or not. */
     private boolean fireDamage;
@@ -31,8 +31,8 @@ public class DamageSourceThaumcraft extends DamageSource
      * Whether this damage source will have its damage amount scaled based on the current difficulty.
      */
     private boolean difficultyScaled;
-    private boolean magicDamage = false;
-    private boolean explosion = false;
+    private final boolean magicDamage = false;
+    private final boolean explosion = false;
     
     public static DamageSource causeSwarmDamage(EntityLivingBase par0EntityLiving)
     {

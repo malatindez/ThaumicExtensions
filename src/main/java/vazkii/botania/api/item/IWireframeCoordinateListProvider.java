@@ -30,6 +30,6 @@ public interface IWireframeCoordinateListProvider {
 	 * Can be null.
 	 */
 	@SideOnly(Side.CLIENT)
-	public List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack);
+    List<ChunkCoordinates> getWireframesToDraw(EntityPlayer player, ItemStack stack);
 
 }

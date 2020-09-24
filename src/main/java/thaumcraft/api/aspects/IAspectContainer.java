@@ -11,10 +11,10 @@ package thaumcraft.api.aspects;
  */
 @SuppressWarnings("SameReturnValue")
 public interface IAspectContainer {
-	public AspectList getAspects();
+	AspectList getAspects();
 	
 	
-	public void setAspects(AspectList aspects);
+	void setAspects(AspectList aspects);
 	
 	
 	/**
@@ -22,7 +22,7 @@ public interface IAspectContainer {
 	 * @param tag 
 	 * @return true or false
 	 */
-	public boolean doesContainerAccept(Aspect tag);
+	boolean doesContainerAccept(Aspect tag);
 	
 	/**
 	 * This method is used to add a certain amount of an aspect to the tile entity.
@@ -30,7 +30,7 @@ public interface IAspectContainer {
 	 * @param amount
 	 * @return the amount of aspect left over that could not be added.
 	 */
-	public int addToContainer(Aspect tag, int amount);
+	int addToContainer(Aspect tag, int amount);
 
 	/**
 	 * Removes a certain amount of a specific aspect from the tile entity
@@ -38,7 +38,7 @@ public interface IAspectContainer {
 	 * @param amount
 	 * @return true if that amount of aspect was available and was removed
 	 */
-	public boolean takeFromContainer(Aspect tag, int amount);
+	boolean takeFromContainer(Aspect tag, int amount);
 	
 	/**
 	 * removes a bunch of different aspects and amounts from the tile entity.
@@ -48,7 +48,7 @@ public interface IAspectContainer {
 	 * Going away in the next major patch
 	 */
 	@Deprecated
-	public boolean takeFromContainer(AspectList ot);
+	boolean takeFromContainer(AspectList ot);
 	
 	/**
 	 * Checks if the tile entity contains the listed amount (or more) of the aspect
@@ -56,7 +56,7 @@ public interface IAspectContainer {
 	 * @param amount
 	 * @return
 	 */
-	public boolean doesContainerContainAmount(Aspect tag,int amount);
+	boolean doesContainerContainAmount(Aspect tag, int amount);
 	
 	/**
 	 * Checks if the tile entity contains all the listed aspects and their amounts
@@ -66,14 +66,14 @@ public interface IAspectContainer {
 	 * Going away in the next major patch
 	 */
 	@Deprecated
-	public boolean doesContainerContain(AspectList ot);
+	boolean doesContainerContain(AspectList ot);
 	
 	/**
 	 * Returns how much of the aspect this tile entity contains
 	 * @param tag
 	 * @return the amount of that aspect found
 	 */
-	public int containerContains(Aspect tag);
+	int containerContains(Aspect tag);
 	
 }
 

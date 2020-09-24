@@ -4,7 +4,6 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.tools.nsc.doc.model.Def;
 
 import java.util.ArrayList;
 import java.util.Collections;

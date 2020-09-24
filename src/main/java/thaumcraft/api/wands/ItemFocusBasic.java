@@ -21,7 +21,7 @@ import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "unchecked"})
 public class ItemFocusBasic extends Item {
 	
 	public ItemFocusBasic ()
@@ -114,8 +114,8 @@ public class ItemFocusBasic extends Item {
 	}
 	
 	public enum WandFocusAnimation {
-		WAVE, CHARGE;
-	}
+		WAVE, CHARGE
+    }
 
 	public WandFocusAnimation getAnimation(ItemStack focusstack) {
 		return WandFocusAnimation.WAVE;
@@ -167,7 +167,8 @@ public class ItemFocusBasic extends Item {
 	public short[] getAppliedUpgrades(ItemStack focusstack) {
 		short[] l = new short[] {-1,-1,-1,-1,-1};
 		NBTTagList nbttaglist = getFocusUpgradeTagList(focusstack);
-        if (nbttaglist == null)
+		//noinspection IfStatementWithIdenticalBranches
+		if (nbttaglist == null)
         {
             return l;
         }

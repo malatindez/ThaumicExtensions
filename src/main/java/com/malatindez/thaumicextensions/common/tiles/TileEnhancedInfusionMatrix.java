@@ -22,16 +22,15 @@ import thaumcraft.api.TileThaumcraft;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
-import thaumcraft.api.crafting.IInfusionStabiliser;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.wands.IWandable;
 
 
 public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWandable, IAspectContainer {
-    private ArrayList<ChunkCoordinates> pedestals = new ArrayList<ChunkCoordinates>();
+    private final ArrayList<ChunkCoordinates> pedestals = new ArrayList<ChunkCoordinates>();
 
-    private int dangerCount = 0;
+    private final int dangerCount = 0;
 
     public boolean active = false;
 
@@ -180,7 +179,8 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
 
     public float startUp;
 
-    private int countDelay = 10;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int countDelay = 10;
 
     public int tier = 0;
 
@@ -210,6 +210,7 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
 
     ArrayList<ItemStack> ingredients = new ArrayList<ItemStack>();
 
+    @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "RedundantIfStatement"})
     public boolean validLocation() {
         TileEntity te;
         te = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 2, this.zCoord);

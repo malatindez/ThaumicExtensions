@@ -25,6 +25,7 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
  * multiblock in the lexicon and to show the player in a ghost-like
  * look in the world.
  */
+@SuppressWarnings("unchecked")
 public class Multiblock {
 
 	public List<MultiblockComponent> components = new ArrayList();

@@ -20,6 +20,6 @@ import net.minecraft.world.World;
 @Deprecated
 public interface IGrassHornExcempt {
 
-	public boolean canUproot(World world, int x, int y, int z);
+	boolean canUproot(World world, int x, int y, int z);
 
 }

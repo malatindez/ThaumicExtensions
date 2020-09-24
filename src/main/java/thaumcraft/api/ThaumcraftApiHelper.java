@@ -168,8 +168,8 @@ public class ThaumcraftApiHelper {
 			return null;
 	}
     
-    private static HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
-    private static HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
+    private static final HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
+    private static final HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
     
     public static AspectList getAllAspects(int amount) {
     	if (allAspects.get(amount)==null) {

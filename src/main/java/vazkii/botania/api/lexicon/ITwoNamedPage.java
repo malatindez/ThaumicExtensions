@@ -16,8 +16,8 @@ package vazkii.botania.api.lexicon;
  */
 public interface ITwoNamedPage {
 
-	public void setSecondUnlocalizedName(String name);
+	void setSecondUnlocalizedName(String name);
 
-	public String getSecondUnlocalizedName();
+	String getSecondUnlocalizedName();
 
 }

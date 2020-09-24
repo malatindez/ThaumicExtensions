@@ -3,8 +3,6 @@ package com.malatindez.thaumicextensions.client.render.misc;
 import com.malatindez.thaumicextensions.client.lib.Transformation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -32,6 +30,7 @@ public class Animation {
         RotationAroundItself,
         Wave
     }
+    @SuppressWarnings("Since15")
     public static class SimpleAnimation {
         final float speed;
         final float amplitude;

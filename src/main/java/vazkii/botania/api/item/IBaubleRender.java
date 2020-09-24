@@ -36,12 +36,12 @@ public interface IBaubleRender {
 	 * has a cosmetic bauble attached to it.
 	 */
 	@SideOnly(Side.CLIENT)
-	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
+	void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
 
 	/**
 	 * A few helper methods for the render.
 	 */
-	public static class Helper {
+	class Helper {
 
 		public static void rotateIfSneaking(EntityPlayer player) {
 			if(player.isSneaking())
@@ -58,7 +58,7 @@ public interface IBaubleRender {
 
 	}
 
-	public static enum RenderType {
+	enum RenderType {
 		/**
 		 * Render Type for the player's body, translations apply on the player's rotation.
 		 * Sneaking is not handled and should be done during the render.
@@ -71,7 +71,7 @@ public interface IBaubleRender {
 		 * Sneaking is not handled and should be done during the render.~
 		 * @see IBaubleRender.Helper
 		 */
-		HEAD;
+		HEAD
 	}
 
 }

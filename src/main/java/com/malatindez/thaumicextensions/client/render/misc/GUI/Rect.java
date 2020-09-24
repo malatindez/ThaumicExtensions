@@ -1,6 +1,5 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import org.json.simple.JSONObject;

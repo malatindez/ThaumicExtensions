@@ -28,7 +28,7 @@ public interface IManaNetwork {
 	 * Clears the entire Mana Network of all it's contents, you probably
 	 * don't want to call this unless you have a very good reason.
 	 */
-	public void clear();
+    void clear();
 
 	/**
 	 * Gets the closest Mana Collector (eg. Mana Spreader) in the network to the Chunk
@@ -39,7 +39,7 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit);
+    TileEntity getClosestCollector(ChunkCoordinates pos, World world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
@@ -50,19 +50,19 @@ public interface IManaNetwork {
 	 * @param limit The maximum distance the closest block can be, if the closest block
 	 * is farther away than that, null will be returned instead.
 	 */
-	public TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit);
+    TileEntity getClosestPool(ChunkCoordinates pos, World world, int limit);
 
 	/**
 	 * Gets the list of all Mana Collectors (eg. Mana Spreader) in the dimension
 	 * passed in. Note that this is the actual list and not a copy, make sure to
 	 * clone the list if you intend to change it in any way.
 	 */
-	public List<TileSignature> getAllCollectorsInWorld(World world);
+    List<TileSignature> getAllCollectorsInWorld(World world);
 
 	/**
 	 * Gets the list of all Mana Pools in the dimension passed in. Note that this
 	 * is the actual list and not a copy, make sure to clone the list if you intend
 	 * to change it in any way.
 	 */
-	public List<TileSignature> getAllPoolsInWorld(World world);
+    List<TileSignature> getAllPoolsInWorld(World world);
 }

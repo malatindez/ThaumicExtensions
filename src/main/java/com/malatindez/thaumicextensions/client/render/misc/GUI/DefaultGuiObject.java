@@ -1,14 +1,10 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import net.minecraft.client.Minecraft;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.reflect.macros.NonemptyAttachments;
-import scala.tools.nsc.doc.model.Def;
-import scala.util.hashing.Hashing;
 
 import java.lang.reflect.Method;
 
@@ -24,7 +20,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector4f borders;
     protected int zLevel;
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
-    private Object parent;
+    private final Object parent;
     static class MethodObjectPair {
         public Method method;
         public Object object;
@@ -70,32 +66,32 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public abstract Object getObjectDown(String objectName);
 
-    public static final int Vector4fToColor(Vector4f vec) {
+    public static int Vector4fToColor(Vector4f vec) {
         return Integer.parseInt(
         Integer.toHexString((int)(vec.w*255.0f)) +
         Integer.toHexString((int)(vec.x*255.0f)) +
         Integer.toHexString((int)(vec.y*255.0f)) +
         Integer.toHexString((int)(vec.z*255.0f)), 16);
     }
-    public static final Vector2f Json2Vec(Object array) {
+    public static Vector2f Json2Vec(Object array) {
         return new Vector2f(
                 Float.parseFloat(((JSONArray)array).get(0).toString()),
                 Float.parseFloat(((JSONArray)array).get(1).toString()));
     }
-    public static final Vector3f Json3Vec(Object array) {
+    public static Vector3f Json3Vec(Object array) {
         return new Vector3f(
                 Float.parseFloat(((JSONArray)array).get(0).toString()),
                 Float.parseFloat(((JSONArray)array).get(1).toString()),
                 Float.parseFloat(((JSONArray)array).get(2).toString()));
     }
-    public static final Vector4f Json4Vec(Object array) {
+    public static Vector4f Json4Vec(Object array) {
         return new Vector4f(
                 Float.parseFloat(((JSONArray)array).get(0).toString()),
                 Float.parseFloat(((JSONArray)array).get(1).toString()),
                 Float.parseFloat(((JSONArray)array).get(2).toString()),
                 Float.parseFloat(((JSONArray)array).get(3).toString()));
     }
-    public static final float JsonToFloat(Object object) {
+    public static float JsonToFloat(Object object) {
         return Float.parseFloat(object.toString());
     }
     public Object getParent() {
@@ -166,7 +162,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         SCALE_X,
         SCALE_Y,
         SCALE_XY,
-        SCALE_SMOOTH_XY;
+        SCALE_SMOOTH_XY
     }
     private ResolutionRescaleType type;
     public ResolutionRescaleType getType() {

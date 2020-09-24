@@ -2,11 +2,9 @@ package com.malatindez.thaumicextensions.client;
 
 import com.malatindez.thaumicextensions.IProxy;
 import com.malatindez.thaumicextensions.client.render.block.BlockEnhancedInfusionPillarRenderer;
-import com.malatindez.thaumicextensions.client.render.gui.GuiEnhancedResearchBrowser;
 import com.malatindez.thaumicextensions.client.render.gui.GuiEnhancedResearchRecipe;
 import com.malatindez.thaumicextensions.client.render.tile.TileEnhancedInfusionPillarRenderer;
 import com.malatindez.thaumicextensions.common.ConfigBlocks;
-import com.malatindez.thaumicextensions.common.blocks.BlockEnhancedInfusionPillar;
 import com.malatindez.thaumicextensions.common.tiles.TileEnhancedInfusionPillar;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -19,7 +17,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class ClientProxy extends IProxy {
 

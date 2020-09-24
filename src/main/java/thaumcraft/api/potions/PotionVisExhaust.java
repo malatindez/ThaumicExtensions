@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PotionVisExhaust extends Potion
 {
     public static PotionVisExhaust instance = null; // will be instantiated at runtime
-    private int statusIconIndex = -1;
+    private final int statusIconIndex = -1;
     
     public PotionVisExhaust(int par1, boolean par2, int par3)
     {

@@ -13,6 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
+@SuppressWarnings("deprecation")
 public class InfusionEnchantmentRecipe
 {
 	
@@ -85,7 +86,7 @@ public class InfusionEnchantmentRecipe
 			if (!b) return false;
 		}
 //		System.out.println(ii.size());
-		return ii.size()==0?true:false;
+		return ii.size() == 0;
     }
 	
 	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1)
@@ -103,7 +104,7 @@ public class InfusionEnchantmentRecipe
 					return true;
 			}
 		}
-        return stack0.getItem() != stack1.getItem() ? false : (stack0.getItemDamage() != stack1.getItemDamage() ? false : stack0.stackSize <= stack0.getMaxStackSize() );
+        return stack0.getItem() == stack1.getItem() && (stack0.getItemDamage() == stack1.getItemDamage() && stack0.stackSize <= stack0.getMaxStackSize());
     }
 	
    

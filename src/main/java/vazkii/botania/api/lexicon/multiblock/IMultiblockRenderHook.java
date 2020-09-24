@@ -21,12 +21,13 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 /**
  * A hook for rendering blocks in the multiblock display.
  */
+@SuppressWarnings("unchecked")
 public interface IMultiblockRenderHook {
 
-	public static Map<Block, IMultiblockRenderHook> renderHooks = new HashMap();
+	Map<Block, IMultiblockRenderHook> renderHooks = new HashMap();
 
-	public void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks, MultiblockComponent comp, float alpha);
+	void renderBlockForMultiblock(IBlockAccess world, Multiblock mb, Block block, int meta, RenderBlocks renderBlocks, MultiblockComponent comp, float alpha);
 
-	public boolean needsTranslate(Block block);
+	boolean needsTranslate(Block block);
 
 }

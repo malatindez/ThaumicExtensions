@@ -23,6 +23,7 @@ public class BlockEnhancedInfusionMatrix extends BlockContainer {
         setCreativeTab(ThaumicExtensions.ThaumicExtensionsTab);
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
         par3List.add(new ItemStack(par1, 1, 0));

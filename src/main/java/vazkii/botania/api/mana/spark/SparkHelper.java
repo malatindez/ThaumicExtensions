@@ -15,6 +15,7 @@ import java.util.List;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
+@SuppressWarnings("unchecked")
 public final class SparkHelper {
 
 	public static final int SPARK_SCAN_RANGE = 12;

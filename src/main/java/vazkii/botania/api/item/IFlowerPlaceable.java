@@ -21,7 +21,7 @@ public interface IFlowerPlaceable {
 	/**
 	 * Gets the block to be placed, return null to not place anything.
 	 */
-	public Block getBlockToPlaceByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
+    Block getBlockToPlaceByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
 
-	public void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
+	void onBlockPlacedByFlower(ItemStack stack, SubTileEntity flower, int x, int y, int z);
 }

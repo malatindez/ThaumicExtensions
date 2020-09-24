@@ -17,14 +17,14 @@ package vazkii.botania.api.mana;
  */
 public interface IManaSpreader extends IManaBlock, IPingable, IDirectioned {
 
-	public void setCanShoot(boolean canShoot);
+	void setCanShoot(boolean canShoot);
 
-	public int getBurstParticleTick();
+	int getBurstParticleTick();
 
-	public void setBurstParticleTick(int i);
+	void setBurstParticleTick(int i);
 
-	public int getLastBurstDeathTick();
+	int getLastBurstDeathTick();
 
-	public void setLastBurstDeathTick(int ticksExisted);
+	void setLastBurstDeathTick(int ticksExisted);
 
 }

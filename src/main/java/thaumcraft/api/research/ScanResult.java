@@ -19,7 +19,8 @@ public class ScanResult {
 		this.phenomena = phenomena;
 	}
 
-	@Override
+	@SuppressWarnings("RedundantIfStatement")
+    @Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ScanResult) {
 			ScanResult sr = (ScanResult) obj;

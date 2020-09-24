@@ -17,6 +17,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+@SuppressWarnings("unchecked")
 public class RecipePetals {
 
 	ItemStack output;

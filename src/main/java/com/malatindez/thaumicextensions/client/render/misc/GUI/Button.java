@@ -1,14 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector4f;
-import scala.util.parsing.json.JSON;
-
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 
 public class Button extends DefaultGuiObject
         implements EnhancedGuiScreen.Clickable {

@@ -21,9 +21,10 @@ import vazkii.botania.api.mana.IManaItem;
  * craftable ItemStack. Use the map method to map an ItemStack to a page in
  * an entry in the lexicon.
  */
+@SuppressWarnings("unchecked")
 public final class LexiconRecipeMappings {
 
-	private static Map<String, EntryData> mappings = new HashMap();
+	private static final Map<String, EntryData> mappings = new HashMap();
 
 	/**
 	 * Maps the given stack to the given page of the entry.

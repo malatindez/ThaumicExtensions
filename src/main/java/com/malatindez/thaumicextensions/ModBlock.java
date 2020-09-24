@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 import java.util.Random;
 
 public class ModBlock extends Block {
-    private Item toDrop;
+    private final Item toDrop;
     public ModBlock(Material material, String blockName, Item toDrop) {
         super(material);
         this.setBlockName(blockName);

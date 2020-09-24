@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
  */
 public interface ICreativeManaProvider {
 
-	public boolean isCreative(ItemStack stack);
+	boolean isCreative(ItemStack stack);
 
 }
 

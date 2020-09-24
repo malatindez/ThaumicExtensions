@@ -18,6 +18,6 @@ import java.util.UUID;
  */
 public interface IIdentifiable {
 
-	public UUID getIdentifier();
+	UUID getIdentifier();
 
 }

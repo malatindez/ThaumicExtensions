@@ -17,8 +17,8 @@ package vazkii.botania.api.mana;
  */
 public interface IDirectioned {
 
-	public float getRotationX();
+	float getRotationX();
 
-	public float getRotationY();
+	float getRotationY();
 
 }

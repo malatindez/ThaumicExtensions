@@ -13,6 +13,7 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 
+@SuppressWarnings("unchecked")
 public class VisNetHandler {
 
 	// NODE DRAINING
@@ -79,6 +80,7 @@ public class VisNetHandler {
 		nearbyNodes.clear();
 	}
 
+	@SuppressWarnings("RedundantIfStatement")
 	public static boolean isNodeValid(WeakReference<TileVisNode> node) {
 		if (node == null || node.get() == null || node.get().isInvalid())
 			return false;
@@ -164,7 +166,7 @@ public class VisNetHandler {
 		return distance > range * range ? -1 : distance;
 	}
 
-	private static HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>> nearbyNodes = new HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>>();
+	private static final HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>> nearbyNodes = new HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>>();
 
 	private static void calculateNearbyNodes(World world, int x, int y, int z) {
 

@@ -18,8 +18,8 @@ import net.minecraft.item.ItemStack;
  */
 public interface IFlowerComponent {
 
-	public boolean canFit(ItemStack stack, IInventory apothecary);
+	boolean canFit(ItemStack stack, IInventory apothecary);
 
-	public int getParticleColor(ItemStack stack);
+	int getParticleColor(ItemStack stack);
 
 }

@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 
 import org.apache.commons.lang3.text.WordUtils;
 
+@SuppressWarnings("deprecation")
 public class SimpleWikiProvider implements IWikiProvider {
 
 	final String name, urlBase, replacement;

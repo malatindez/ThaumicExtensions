@@ -39,6 +39,7 @@ import thaumcraft.api.research.ResearchPage;
  * IMPORTANT: If you are adding your own aspects to items it is a good idea to do it AFTER Thaumcraft adds its aspects, otherwise odd things may happen.
  *
  */
+@SuppressWarnings({"deprecation", "unchecked"})
 public class ThaumcraftApi {
 	
 	//Materials	
@@ -114,8 +115,8 @@ public class ThaumcraftApi {
 	}
 	
 	//RECIPES/////////////////////////////////////////
-	private static ArrayList craftingRecipes = new ArrayList();
-	private static HashMap<Object,ItemStack> smeltingBonus = new HashMap<Object,ItemStack>();
+	private static final ArrayList craftingRecipes = new ArrayList();
+	private static final HashMap<Object,ItemStack> smeltingBonus = new HashMap<Object,ItemStack>();
 	
 	/**
 	 * This method is used to determine what bonus items are generated when the infernal furnace smelts items
@@ -284,7 +285,7 @@ public class ThaumcraftApi {
 	 * @param stack the item
 	 * @return the thaumcraft recipe key that produces that item. 
 	 */
-	private static HashMap<int[],Object[]> keyCache = new HashMap<int[],Object[]>();
+	private static final HashMap<int[],Object[]> keyCache = new HashMap<int[],Object[]>();
 	
 	public static Object[] getCraftingRecipeKey(EntityPlayer player, ItemStack stack) {
 		int[] key = new int[] {Item.getIdFromItem(stack.getItem()),stack.getItemDamage()};
@@ -334,6 +335,7 @@ public class ThaumcraftApi {
 	 * @param meta
 	 * @return 
 	 */
+	@SuppressWarnings("RedundantIfStatement")
 	public static boolean exists(Item item, int meta) {
 		AspectList tmp = ThaumcraftApi.objectTags.get(Arrays.asList(item,meta));
 		if (tmp==null) {
@@ -428,7 +430,7 @@ public class ThaumcraftApi {
 	}
 	
 	//WARP ///////////////////////////////////////////////////////////////////////////////////////
-		private static HashMap<Object,Integer> warpMap = new HashMap<Object,Integer>();
+		private static final HashMap<Object,Integer> warpMap = new HashMap<Object,Integer>();
 		
 		/**
 		 * This method is used to determine how much warp is gained if the item is crafted. The warp

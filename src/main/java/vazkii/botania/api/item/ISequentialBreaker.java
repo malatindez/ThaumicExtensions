@@ -20,8 +20,8 @@ import net.minecraft.item.ItemStack;
  */
 public interface ISequentialBreaker {
 
-	public void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side);
+	void breakOtherBlock(EntityPlayer player, ItemStack stack, int x, int y, int z, int originX, int originY, int originZ, int side);
 
-	public boolean disposeOfTrashBlocks(ItemStack stack);
+	boolean disposeOfTrashBlocks(ItemStack stack);
 
 }

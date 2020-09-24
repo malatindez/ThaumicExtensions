@@ -17,10 +17,10 @@ public class ConfigAspects {
         BloodAspect = new Aspect("Blood", 9109504, null, new ResourceLocation(ThaumicExtensions.MODID,"textures/aspects/blood.png"), 500);
         ArrayList<ResourceLocation> s = new ArrayList<ResourceLocation>();
         for(int i = 0; i < 10; i++) {
-            s.add(new ResourceLocation(ThaumicExtensions.MODID, "textures/aspects/mana/frame_0" + Integer.toString(i) + ".png"));
+            s.add(new ResourceLocation(ThaumicExtensions.MODID, "textures/aspects/mana/frame_0" + i + ".png"));
         }
         for(int i = 10; i < 48; i++) {
-            s.add(new ResourceLocation(ThaumicExtensions.MODID, "textures/aspects/mana/frame_" + Integer.toString(i) + ".png"));
+            s.add(new ResourceLocation(ThaumicExtensions.MODID, "textures/aspects/mana/frame_" + i + ".png"));
         }
         ManaAspect = new AnimatedAspect("Mana", 6088703, null, s, 5000);
     }

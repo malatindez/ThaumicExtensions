@@ -20,6 +20,6 @@ import net.minecraft.world.World;
  */
 public interface IPoolOverlayProvider {
 
-	public IIcon getIcon(World world, int x, int y, int z);
+	IIcon getIcon(World world, int x, int y, int z);
 
 }

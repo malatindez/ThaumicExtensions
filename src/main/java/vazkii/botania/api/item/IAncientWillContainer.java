@@ -18,8 +18,8 @@ import net.minecraft.item.ItemStack;
  */
 public interface IAncientWillContainer {
 
-	public void addAncientWill(ItemStack stack, int will);
+	void addAncientWill(ItemStack stack, int will);
 
-	public boolean hasAncientWill(ItemStack stack, int will);
+	boolean hasAncientWill(ItemStack stack, int will);
 
 }

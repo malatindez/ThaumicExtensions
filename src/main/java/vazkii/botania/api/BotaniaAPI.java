@@ -58,10 +58,11 @@ import com.google.common.collect.HashBiMap;
 
 import cpw.mods.fml.common.Loader;
 
+@SuppressWarnings("unchecked")
 public final class BotaniaAPI {
 
-	private static List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
-	private static List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
+	private static final List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
+	private static final List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 
 	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
@@ -78,8 +79,8 @@ public final class BotaniaAPI {
 	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
 	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
 
-	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
-	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
+	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
+	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
 	public static Map<String, String> subTileMods = new HashMap<String, String>();
 	public static BiMap<String, String> miniFlowers = HashBiMap.create();

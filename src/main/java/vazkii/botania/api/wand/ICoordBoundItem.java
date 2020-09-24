@@ -13,6 +13,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public interface ICoordBoundItem {
 
 	@SideOnly(Side.CLIENT)
-	public ChunkCoordinates getBinding(ItemStack stack);
+    ChunkCoordinates getBinding(ItemStack stack);
 
 }

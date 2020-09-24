@@ -19,6 +19,6 @@ import net.minecraft.world.World;
  */
 public interface IWireframeAABBProvider {
 
-	public AxisAlignedBB getWireframeAABB(World world, int x, int y, int z);
+	AxisAlignedBB getWireframeAABB(World world, int x, int y, int z);
 
 }

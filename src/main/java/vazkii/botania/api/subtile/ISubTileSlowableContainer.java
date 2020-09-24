@@ -18,9 +18,9 @@ package vazkii.botania.api.subtile;
  */
 public interface ISubTileSlowableContainer extends ISubTileContainer {
 
-	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
-	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
+	int SLOWDOWN_FACTOR_PODZOL = 5;
+	int SLOWDOWN_FACTOR_MYCEL = 10;
 	
-	public int getSlowdownFactor();
+	int getSlowdownFactor();
 	
 }

@@ -26,6 +26,6 @@ public interface IPingable extends IIdentifiable {
 	 * was created, this is used to let the object handle the check for if it's the
 	 * correct ID internally. IManaBurst implementations should do this every tick.
 	 */
-	public void pingback(IManaBurst burst, UUID expectedIdentity);
+    void pingback(IManaBurst burst, UUID expectedIdentity);
 
 }
