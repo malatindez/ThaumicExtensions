@@ -62,13 +62,14 @@ public class TextBox extends DefaultGuiObject {
         }
     }
     private int renderTextBox(String text, boolean render) {
+        text = text.replace("\\n","\n");
         Vector2f scale = this.getScale();
         Vector2f size = this.getSize();
         ArrayList<String> words = new ArrayList<String>();
         StringBuilder current_word = new StringBuilder();
         for(int i = 0; i < text.length(); i++) {
             current_word.append(text.charAt(i));
-            if (text.charAt(i) == ' ') {
+            if (text.charAt(i) == ' ' || text.charAt(i) == '\n') {
                 words.add(current_word.toString());
                 current_word = new StringBuilder();
             }
@@ -76,13 +77,15 @@ public class TextBox extends DefaultGuiObject {
         int current_height = 0;
         StringBuilder current_line = new StringBuilder();
         int returnValue = 0;
+        boolean flag = false;
         for (String word : words) {
             float x = textScale.x * fontRendererObj.getStringWidth(current_line + word);
 
             if (isTextScalable) {
                 x = x * scale.x;
             }
-            if (x > this.getSize().x) {
+            if (flag ||  x > this.getSize().x) {
+                flag = false;
                 returnValue += current_line.length();
                 if(render) {
                     GL11.glPushMatrix();
@@ -98,7 +101,7 @@ public class TextBox extends DefaultGuiObject {
                     GL11.glPopMatrix();
                 }
 
-                current_line = new StringBuilder(word);
+                current_line = new StringBuilder();
                 float y = textScale.y * fontRendererObj.FONT_HEIGHT;
                 if (isTextScalable) {
                     y = scale.y * y;
@@ -108,7 +111,10 @@ public class TextBox extends DefaultGuiObject {
                 }
                 current_height += y;
             }
-            current_line.append(word);
+            if(word.endsWith("\n") || word.endsWith("\r")) {
+                flag = true;
+            }
+            current_line.append(word.replaceAll("[\n\r]", ""));
         }
         return returnValue;
     }
@@ -117,6 +123,9 @@ public class TextBox extends DefaultGuiObject {
     }
     @Override
     public void render() {
+        if(hided()) {
+            return;
+        }
         renderTextBox(this.text, true);
     }
 
