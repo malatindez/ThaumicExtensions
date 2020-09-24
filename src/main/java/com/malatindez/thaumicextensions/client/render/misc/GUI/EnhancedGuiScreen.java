@@ -1,6 +1,5 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import com.malatindez.thaumicextensions.ThaumicExtensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -11,13 +10,14 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.collection.script.Update;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class EnhancedGuiScreen extends GuiScreen {
     static class Bind {
@@ -48,9 +48,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
             }
             return true;
         }
-    }
-    public interface needParent {
-        void setParent(Collection parent);
     }
     public interface Updatable  {
         // if bit is on than that button is currently pressed
@@ -124,13 +121,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
          */
         int getZLevel();
     }
-    public interface Bindable {
-        /**
-         * Get keyboard binds
-         * @return keyboard binds
-         */
-        ArrayList<Bind> getBinds();
-    }
     public interface Renderable {
         /**
          * Default render function, coordinates depends on object implementation.
@@ -200,18 +190,32 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     protected void mouseClicked(int mx, int my, int button) {
         gui.mouseClicked(new Vector2f(mx,my), button);
     }
-    private Vector2f Json2Vec(Object array) {
-        return new Vector2f(
-                ((Long)((JSONArray)array).get(0)).floatValue(),
-                ((Long)((JSONArray)array).get(1)).floatValue()
-        );
+    public static final HashMap<String, Class> parts = new HashMap<String, Class>(){{
+        put("Collection", Collection.class); // type name and class instance which will be constructed
+    }};
+    public static DefaultGuiObject createObject(String name, Object parent, JSONObject object) {
+        if(object.containsKey("type")) {
+            String type = (String)object.get("type");
+            if (parts.containsKey(type)) {
+                try {
+                    Constructor<?> constructor = parts.get(type).getConstructor(String.class, Object.class, JSONObject.class);
+                    return (DefaultGuiObject) constructor.newInstance(new Object[] {name, parent, object});
+                } catch(Exception exception) {
+                    System.out.println("Exception caught! Something went wrong in createObject.");
+                    System.out.println("Parent:" + parent.getClass().getSimpleName());
+                    System.out.println("JSONObject: " + object.toString());
+                    System.out.println("Stack trace: ");
+                    exception.printStackTrace();
+                }
+            }
+        }
+        System.out.println("Something went wrong in createObject.");
+        System.out.println("Parent:" + parent.getClass().getSimpleName());
+        System.out.println("JSONObject: " + object.toString());
+        System.out.println("Returning null.");
+        return null;
     }
-
-    void parseObject(Collection domain, JSONObject object) {
-
-    }
-
-    protected EnhancedGuiScreen(ResourceLocation json_file) {
+    public static Collection loadFromFile(ResourceLocation json_file) {
         InputStream x;
         try {
             x = Minecraft.getMinecraft().getResourceManager().getResource(json_file).getInputStream();
@@ -219,7 +223,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
             System.out.println("Exception caught! Wrong ResourceFile for IconFactory.");
             System.out.println(json_file);
             e.printStackTrace();
-            return;
+            return null;
         }
         InputStreamReader isReader = new InputStreamReader(x);
         //Creating a BufferedReader object
@@ -234,6 +238,10 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         str = sb.toString();
         JSONObject jsonObject = (JSONObject) JSONValue.parse(str);
 
-
+        return new Collection("a", new Vector2f(), new Vector2f(), 1, DefaultGuiObject.ResolutionRescaleType.NONE);
+    }
+    protected EnhancedGuiScreen() {}
+    protected EnhancedGuiScreen(ResourceLocation json_file) {
+        this.gui = loadFromFile(json_file);
     }
 }
