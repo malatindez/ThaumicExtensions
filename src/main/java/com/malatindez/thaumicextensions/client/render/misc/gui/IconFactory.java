@@ -108,6 +108,9 @@ public class IconFactory {
          */
         @Override
         public void render() {
+            if(hided()) {
+                return;
+            }
             UtilsFX.bindTexture(sample.texture);
             UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
                     sample.texFrom, sample.texTo, getScale(), sample.textureSize, getZLevel());
@@ -116,11 +119,6 @@ public class IconFactory {
         @Override
         protected void VectorsWereUpdated() {
 
-        }
-
-        @Override
-        public int getZLevel() {
-            return 0;
         }
     }
     protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();
