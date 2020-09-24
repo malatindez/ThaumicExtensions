@@ -83,6 +83,12 @@ public class Collection extends DefaultGuiObject implements
 
     public Collection(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
+        for(Object key : parameters.keySet()) {
+            if(key.equals("type") || key.equals("parameters")) {
+                continue;
+            }
+            EnhancedGuiScreen.createObject((String)key,this, (JSONObject) parameters.get(key));
+        }
     }
 
     @Override
