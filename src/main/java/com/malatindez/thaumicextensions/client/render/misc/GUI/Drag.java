@@ -30,32 +30,33 @@ public class Drag extends Collection {
         this.dragEnd = dragEnd;
     }
      */
-
+    private String objectToFocusOnName = "";
     public Drag(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("currently_dragging") && parent instanceof DefaultGuiObject) {
             JSONObject obj = (JSONObject) parameters.get("currently_dragging");
-            currentlyDragging = this.getMethodA(
+            currentlyDragging = this.getMethodUp(
                     (String) obj.get("object_name"),
                     (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class}, true);
+                    new Class[] {Object.class, int.class});
         } else {
             currentlyDragging = null;
         }
         if(parameters.containsKey("dragging_end") && parent instanceof DefaultGuiObject) {
             JSONObject obj = (JSONObject) parameters.get("dragging_end");
-            dragEnd = this.getMethodA(
+            dragEnd = this.getMethodUp(
                     (String) obj.get("object_name"),
                     (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class}, true);
+                    new Class[] {Object.class, int.class});
         } else {
             dragEnd = null;
         }
-        if(parameters.containsKey("drag_focus")) {
-            parameters.get("drag_focus");
-        }
+        objectToFocusOnName = (String)parameters.get("drag_focus");
     }
-
+    @Override
+    public void postInit() {
+        this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
+    }
     private void CurrentlyDragging() {
         if (currentlyDragging != null && dragEnd != null) {
             try {
