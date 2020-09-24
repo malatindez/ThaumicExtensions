@@ -61,12 +61,6 @@ public class Drag extends Collection {
             } catch (Exception ignored) {
             }
         }
-        if(getBorders().x < getParentBorders().x) setCoordinates(0, getCoordinates().y);
-        if(getBorders().y < getParentBorders().y) setCoordinates(getCoordinates().x, 0);
-        if(getBorders().z > getParentBorders().z)
-            setCoordinates(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
-        if(getBorders().w > getParentBorders().w)
-            setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
     private void DraggingEnd() {
         //noinspection ConstantConditions
@@ -76,12 +70,6 @@ public class Drag extends Collection {
             } catch (Exception ignored) {
             }
         }
-        if(getBorders().x < getParentBorders().x) setCoordinates(0, getCoordinates().y);
-        if(getBorders().y < getParentBorders().y) setCoordinates(getCoordinates().x, 0);
-        if(getBorders().z > getParentBorders().z)
-            setCoordinates(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
-        if(getBorders().w > getParentBorders().w)
-            setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
 
     @Override
@@ -94,7 +82,9 @@ public class Drag extends Collection {
                         getCoordinates().x - previousMousePos.x + currentMousePosition.x,
                         getCoordinates().y - previousMousePos.y + currentMousePosition.y
                 );
+                checkBorders();
                 previousMousePos.set(currentMousePosition);
+
             }
             CurrentlyDragging();
         }
@@ -117,6 +107,7 @@ public class Drag extends Collection {
             if(!currently_dragging) {
                 previousMousePos = null;
                 DraggingEnd();
+                checkBorders();
             }
         }
         super.Update(flags);
