@@ -33,23 +33,32 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
 
     }
-    public MethodObjectPair getMethod(String name, Class[] parameterTypes) {
-        try {
-            return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
-        } catch (NoSuchMethodException e) {
-            if(parent instanceof DefaultGuiObject) {
-                return ((DefaultGuiObject)parent).getMethod(name, parameterTypes);
-            }
-            else {
-                try {
-                    return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
-                } catch (Exception ignored) {}
+    protected MethodObjectPair getMethod(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        if(objectName == this.name) {
+            try {
+                return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
+            } catch (NoSuchMethodException e) {
+                System.out.println("Method wasn't found in " + objectName + ": " + name);
+                System.out.println(parameterTypes);
+                return null;
             }
         }
+        if(!callParent) {
+            return null;
+        }
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject)parent).getMethodA(objectName, name, parameterTypes, true);
+        }
+        try {
+            return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
+        } catch (Exception ignored) {}
         System.out.println("Method wasn't found: " + name);
         System.out.println(parameterTypes);
         return null;
     }
+
+    public abstract MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent);
+
     public static final Vector2f Json2Vec(Object array) {
         return new Vector2f(
                 ((Long)((JSONArray)array).get(0)).floatValue(),
