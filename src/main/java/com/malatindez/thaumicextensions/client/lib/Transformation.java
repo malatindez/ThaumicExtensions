@@ -1,7 +1,7 @@
 package com.malatindez.thaumicextensions.client.lib;
 
 import com.malatindez.thaumicextensions.client.render.misc.Animation;
-import com.sun.istack.internal.NotNull;
+
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
@@ -35,24 +35,24 @@ public class Transformation {
                 scaleX,  scaleY,  scaleZ);
         this.color.set(colorR, colorG, colorB, colorA);
     }
-    public Transformation(@NotNull final Vector3f position) {
+    public Transformation(final Vector3f position) {
         this.position.set(position);
     }
-    public Transformation(@NotNull final Vector3f position, @NotNull final Vector3f degree) {
+    public Transformation(final Vector3f position, final Vector3f degree) {
         this(position);
         this.degree.set(degree);
     }
-    public Transformation(@NotNull final Vector3f position, @NotNull final Vector3f degree,
-                          @NotNull final Vector3f scale) {
+    public Transformation(final Vector3f position, final Vector3f degree,
+                          final Vector3f scale) {
         this(position, degree);
         this.scale.set(scale);
     }
-    public Transformation(@NotNull final Vector3f position, @NotNull final Vector3f degree,
-                          @NotNull final Vector3f scale,    @NotNull final Vector4f color) {
+    public Transformation(final Vector3f position, final Vector3f degree,
+                          final Vector3f scale,    final Vector4f color) {
         this(position, degree, scale);
         this.color.set(color);
     }
-    public Transformation(@NotNull final Transformation transform) {
+    public Transformation(final Transformation transform) {
         this(transform.position, transform.degree, transform.scale, transform.color);
     }
 }
