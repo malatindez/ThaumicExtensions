@@ -34,88 +34,68 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
 
     }
-    protected MethodObjectPair getMethod(String objectName, String name, Class[] parameterTypes, boolean callParent) {
-        if(objectName == this.name) {
-            try {
-                return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
-            } catch (NoSuchMethodException e) {
-                System.out.println("Method wasn't found in " + objectName + ": " + name);
-                System.out.println(parameterTypes);
-                return null;
-            }
-        }
-        if(!callParent) {
+    protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
+        try {
+            return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
+        } catch (NoSuchMethodException e) {
+            System.out.println("Method" + name + " wasn't found in " + objectName);
+            System.out.println(parameterTypes);
             return null;
         }
-        if(parent instanceof DefaultGuiObject) {
-            return ((DefaultGuiObject)parent).getMethodA(objectName, name, parameterTypes, true);
-        }
-        try {
-            return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
-        } catch (Exception ignored) {}
-        System.out.println("Method wasn't found: " + name);
-        System.out.println(parameterTypes);
-        return null;
     }
+    protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
+        if(objectName == this.name) {
+            getMethodFunc(objectName, name, parameterTypes);
+        }
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject)parent).getMethodUp(objectName, name, parameterTypes);
+        } else {
+            try {
+                return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
+            } catch (Exception ignored) {}
+        }
+        return getMethodDown(objectName, name, parameterTypes);
+    }
+    public abstract MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes);
 
-    public abstract MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent);
+    protected Object getObjectUp(String objectName) {
+        if(objectName == this.name) {
+            return this;
+        }
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject)parent).getObjectUp(objectName);
+        }
+        return getObjectDown(objectName);
+    }
+    public abstract Object getObjectDown(String objectName);
 
+    public static final int Vector4fToColor(Vector4f vec) {
+        return Integer.parseInt(
+        Integer.toHexString((int)(vec.w*255.0f)) +
+        Integer.toHexString((int)(vec.x*255.0f)) +
+        Integer.toHexString((int)(vec.y*255.0f)) +
+        Integer.toHexString((int)(vec.z*255.0f)), 16);
+    }
     public static final Vector2f Json2Vec(Object array) {
-        Vector2f returnValue = new Vector2f();
-        if (((JSONArray)array).get(0) instanceof Long) {
-            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.x = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(1) instanceof Long) {
-            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.y = ((Float)((JSONArray)array).get(0));
-        }
-        return returnValue;
+        return new Vector2f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()));
     }
     public static final Vector3f Json3Vec(Object array) {
-        Vector3f returnValue = new Vector3f();
-        if (((JSONArray)array).get(0) instanceof Long) {
-            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.x = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(1) instanceof Long) {
-            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.y = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(2) instanceof Long) {
-            returnValue.z = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.z = ((Float)((JSONArray)array).get(0));
-        }
-        return returnValue;
+        return new Vector3f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()),
+                Float.parseFloat(((JSONArray)array).get(2).toString()));
     }
     public static final Vector4f Json4Vec(Object array) {
-        Vector4f  returnValue = new Vector4f();
-        if (((JSONArray)array).get(0) instanceof Long) {
-            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.x = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(1) instanceof Long) {
-            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.y = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(2) instanceof Long) {
-            returnValue.z = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.z = ((Float)((JSONArray)array).get(0));
-        }
-        if (((JSONArray)array).get(3) instanceof Long) {
-            returnValue.w = ((Long)((JSONArray)array).get(0)).floatValue();
-        } else {
-            returnValue.w = ((Float)((JSONArray)array).get(0));
-        }
-        return returnValue;
+        return new Vector4f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()),
+                Float.parseFloat(((JSONArray)array).get(2).toString()),
+                Float.parseFloat(((JSONArray)array).get(3).toString()));
+    }
+    public static final float JsonToFloat(Object object) {
+        return Float.parseFloat(object.toString());
     }
     public Object getParent() {
         return parent;
@@ -194,6 +174,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public void setType(ResolutionRescaleType type) {
         type = type;
     }
+    public abstract void preInit(String name, Object parent, JSONObject parameters);
     /**
      *
      * @param coordinates
@@ -215,6 +196,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.reScale(scale);
     }
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
+        preInit(name,parent,parameters);
         this.name = name;
         this.parent = parent;
         this.coordinates = new Vector2f(0, 0);
@@ -234,7 +216,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         zLevel = 0;
         if(parameters.containsKey("zLevel")) {
-            zLevel = (Integer)(parameters.get("zLevel"));
+            zLevel = (int) Float.parseFloat(parameters.get("zLevel").toString());
         }
         type = ResolutionRescaleType.SCALE_SMOOTH_XY;
         if(parameters.containsKey("scale_type")) {
