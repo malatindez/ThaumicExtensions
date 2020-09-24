@@ -1,6 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 
+import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.tools.nsc.doc.model.Def;
@@ -10,7 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Collection extends DefaultGuiObject implements
-        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Bindable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.needParent {
+        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
 
     protected Object selected = null;
     protected ArrayList<Object> objects = new ArrayList<Object>();
@@ -47,9 +48,6 @@ public class Collection extends DefaultGuiObject implements
         if(object == null) {
             return null;
         }
-        if(object instanceof EnhancedGuiScreen.needParent) {
-            ((EnhancedGuiScreen.needParent) object).setParent(this);
-        }
         if (object instanceof EnhancedGuiScreen.Renderable) {
             ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(this.currentResolution);
         } else if (object instanceof EnhancedGuiScreen.Clickable) {
@@ -65,6 +63,7 @@ public class Collection extends DefaultGuiObject implements
     public boolean isSelected(Object object) {
         return object == selected;
     }
+    /*
     public Collection(String name, Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
         super(name, coordinates,new Vector2f(1.0f,1.0f),size,zLevel, type);
     }
@@ -80,6 +79,25 @@ public class Collection extends DefaultGuiObject implements
                 collection.getSize(), collection.zLevel, collection.getType());
         this.addObjects(collection.objects);
         collection.objects.clear();
+    }*/
+
+    public Collection(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
+    }
+
+    @Override
+    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        if(objectName == this.getName()) {
+            return getMethod(objectName, name, parameterTypes, callParent);
+        }
+        MethodObjectPair retValue = null;
+        for(Object obj : objects) {
+            if(retValue != null) {
+                return retValue;
+            }
+            retValue = ((DefaultGuiObject)obj).getMethodA(objectName, name, parameterTypes, false);
+        }
+        return getMethod(objectName, name, parameterTypes, callParent);
     }
 
     @Override
@@ -127,17 +145,6 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public ArrayList<EnhancedGuiScreen.Bind> getBinds() {
-        ArrayList<EnhancedGuiScreen.Bind> binds = new ArrayList<EnhancedGuiScreen.Bind>();
-        for(Object object : objects) {
-            if (object instanceof EnhancedGuiScreen.Bindable) {
-                binds.addAll(((EnhancedGuiScreen.Bindable) object).getBinds());
-            }
-        }
-        return binds;
-    }
-
-    @Override
     public void render() {
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
@@ -164,12 +171,6 @@ public class Collection extends DefaultGuiObject implements
     @Override
     public int getZLevel() {
         return 0;
-    }
-
-
-    @Override
-    public void setParent(Collection parent) {
-        this.parent = parent;
     }
 
     @Override
