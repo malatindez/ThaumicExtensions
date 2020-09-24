@@ -37,18 +37,18 @@ public class IconFactory {
          * @param textureSize The size of the texture
          * @param scale The scale of an icon (1.0f, 1.0f is a default scale)
          */
-        public Icon(Vector2f coordinates, Vector2f texFrom,
+        protected Icon(Vector2f coordinates, Vector2f texFrom,
                     Vector2f iconSize,    Vector2f textureSize,
                     Vector2f scale, int zLevel, ResolutionRescaleType type, ResourceLocation texture) {
-            super(coordinates,scale,iconSize, zLevel, type);
+            super("none", coordinates,scale,iconSize, zLevel, type);
             this.texFrom     = new Vector2f(texFrom);
             this.textureSize = new Vector2f(textureSize);
             this.texTo       = Vector2f.add(texFrom, iconSize, null);
             this.texture = new ResourceLocation(texture.getResourceDomain(), texture.getResourcePath());
         }
 
-        public Icon(Icon icon, Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
-            super(coordinates, scale, icon.getSize(), zLevel, type);
+        public Icon(Icon icon, String name, Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
+            super(name, coordinates, scale, icon.getSize(), zLevel, type);
             this.texFrom     = new Vector2f(icon.texFrom);
             this.textureSize = new Vector2f(icon.textureSize);
             this.texTo       = new Vector2f(icon.texTo);
@@ -161,11 +161,18 @@ public class IconFactory {
     }
 
     /**
-     * @param name Elements name
-     * @return element
+     *
+     * @param IconName
+     * @param objectName
+     * @param coordinates
+     * @param scale
+     * @param zLevel
+     * @param type
+     * @return
      */
-    public Icon getNewIcon(final String name, Vector2f coordinates, Vector2f scale, int zLevel, DefaultGuiObject.ResolutionRescaleType type) {
-        return new Icon(parts.get(name), coordinates, scale, zLevel, type);
+    public Icon getNewIcon(final String IconName, final String objectName, Vector2f coordinates, Vector2f scale,
+                           int zLevel, DefaultGuiObject.ResolutionRescaleType type) {
+        return new Icon(parts.get(IconName), objectName, coordinates, scale, zLevel, type);
     }
 
 }
