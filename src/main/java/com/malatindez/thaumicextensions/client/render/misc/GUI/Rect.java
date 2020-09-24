@@ -3,11 +3,17 @@ package com.malatindez.thaumicextensions.client.render.misc.GUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 public class Rect extends DefaultGuiObject {
+
+    @Override
+    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        return getMethod(objectName, name, parameterTypes, callParent);
+    }
 
     @Override
     protected void VectorsWereUpdated() {
@@ -27,10 +33,20 @@ public class Rect extends DefaultGuiObject {
         }
     }
     public final VertexColors colors;
-    public Rect(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
+    /*public Rect(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
                 ResolutionRescaleType type) {
         super(name, coordinates, scale, size, zLevel, type);
         this.colors = colors;
+    }*/
+    public Rect(String name, Object parent, JSONObject parameters) {
+        super(name,parent,parameters);
+        JSONObject colors = (JSONObject) parameters.get("colors");
+        this.colors = new VertexColors(
+                Json4Vec(colors.get("topLeft")),
+                Json4Vec(colors.get("topRight")),
+                Json4Vec(colors.get("bottomLeft")),
+                Json4Vec(colors.get("bottomRight"))
+        );
     }
     @Override
     public void render() {
