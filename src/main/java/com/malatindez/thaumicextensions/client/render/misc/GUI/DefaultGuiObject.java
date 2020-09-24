@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.reflect.macros.NonemptyAttachments;
 import scala.tools.nsc.doc.model.Def;
@@ -60,10 +61,61 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public abstract MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent);
 
     public static final Vector2f Json2Vec(Object array) {
-        return new Vector2f(
-                ((Long)((JSONArray)array).get(0)).floatValue(),
-                ((Long)((JSONArray)array).get(1)).floatValue()
-        );
+        Vector2f returnValue = new Vector2f();
+        if (((JSONArray)array).get(0) instanceof Long) {
+            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.x = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(1) instanceof Long) {
+            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.y = ((Float)((JSONArray)array).get(0));
+        }
+        return returnValue;
+    }
+    public static final Vector3f Json3Vec(Object array) {
+        Vector3f returnValue = new Vector3f();
+        if (((JSONArray)array).get(0) instanceof Long) {
+            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.x = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(1) instanceof Long) {
+            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.y = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(2) instanceof Long) {
+            returnValue.z = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.z = ((Float)((JSONArray)array).get(0));
+        }
+        return returnValue;
+    }
+    public static final Vector4f Json4Vec(Object array) {
+        Vector4f  returnValue = new Vector4f();
+        if (((JSONArray)array).get(0) instanceof Long) {
+            returnValue.x = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.x = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(1) instanceof Long) {
+            returnValue.y = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.y = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(2) instanceof Long) {
+            returnValue.z = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.z = ((Float)((JSONArray)array).get(0));
+        }
+        if (((JSONArray)array).get(3) instanceof Long) {
+            returnValue.w = ((Long)((JSONArray)array).get(0)).floatValue();
+        } else {
+            returnValue.w = ((Float)((JSONArray)array).get(0));
+        }
+        return returnValue;
     }
     public Object getParent() {
         return parent;
