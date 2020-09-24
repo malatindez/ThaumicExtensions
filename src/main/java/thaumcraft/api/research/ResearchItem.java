@@ -6,7 +6,8 @@ import net.minecraft.util.StatCollector;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-public class ResearchItem 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+public class ResearchItem
 {
 	/**
 	 * A short string used as a key for this research. Must be unique

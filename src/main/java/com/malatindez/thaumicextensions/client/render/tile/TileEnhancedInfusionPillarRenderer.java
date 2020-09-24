@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.AdvancedModelLoader;
 
+@SuppressWarnings("ConstantConditions")
 @SideOnly(Side.CLIENT)
 public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRenderer {
     private static final Animation floatingPartAnimation = new Animation(new Animation.SimpleAnimation[] {
@@ -66,6 +67,7 @@ public class TileEnhancedInfusionPillarRenderer extends TileEntitySpecialRendere
             ),
 
     };
+    @SuppressWarnings("StatementWithEmptyBody")
     public void renderTileEntityAt(TileEnhancedInfusionPillar tile, double x, double y, double z, float tick) {
         // lambda = 2pi = 1 seconds
         this.renderModels(

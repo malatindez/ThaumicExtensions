@@ -3,7 +3,7 @@ package thaumcraft.api.research;
 import net.minecraft.entity.Entity;
 
 public class ScanResult {
-	public byte type = 0;   //1=blocks,2=entities,3=phenomena
+	public final byte type;   //1=blocks,2=entities,3=phenomena
 	public final int id;
 	public final int meta;
 	public final Entity entity;

@@ -1,15 +1,13 @@
 package com.malatindez.thaumicextensions.client.render.gui;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
-import com.malatindez.thaumicextensions.client.render.misc.GUI.*;
+import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
-
-import java.lang.reflect.Method;
 
 @SuppressWarnings("EmptyMethod")
 @SideOnly(Side.CLIENT)

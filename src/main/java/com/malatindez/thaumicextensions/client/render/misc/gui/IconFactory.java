@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
@@ -13,15 +13,15 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Set;
 
 
 /**
- * This class can be used to map a GUI texture
+ * This class can be used to map a gui texture
  * such as you can render something from texture at needed coordinates just by invoking
  * TextureMapping.get("arrow").render(x,y)
- * You should bind GUI texture before calling render functions
+ * You should bind gui texture before calling render functions
  */
+@SuppressWarnings("Convert2Diamond")
 public class IconFactory {
     public static class IconSample {
         public final ResourceLocation texture;
@@ -85,9 +85,10 @@ public class IconFactory {
         public Icon(String name, Object parent, JSONObject parameters) {
             super(name,parent,parameters);
         }
+        @SuppressWarnings("rawtypes")
         @Override
         public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-            if(objectName == this.getName()) {
+            if(objectName.equals(this.getName())) {
                 getMethodFunc(objectName, name, parameterTypes);
             }
             return null;
@@ -95,7 +96,7 @@ public class IconFactory {
 
         @Override
         public Object getObjectDown(String objectName) {
-            if(objectName == this.getName()) {
+            if(objectName.equals(this.getName())) {
                 return this;
             }
             return null;
@@ -141,8 +142,8 @@ public class IconFactory {
         InputStreamReader isReader = new InputStreamReader(x);
         //Creating a BufferedReader object
         BufferedReader reader = new BufferedReader(isReader);
-        StringBuffer sb = new StringBuffer();
-        String str = "";
+        StringBuilder sb = new StringBuilder();
+        String str;
         try {
             while ((str = reader.readLine()) != null) {
                 sb.append(str);
@@ -156,8 +157,7 @@ public class IconFactory {
                 (String)jsonObject.get("resource_path"));
 
         Vector2f textureSize = DefaultGuiObject.Json2Vec(jsonObject.get("textureSize"));
-        Set<Object> set = jsonObject.keySet();
-        for (Object object : set) {
+        for (Object object : jsonObject.keySet()) {
             if (object instanceof String) {
                 if (!object.equals("resource_domain") &&
                         !object.equals("resource_path") &&

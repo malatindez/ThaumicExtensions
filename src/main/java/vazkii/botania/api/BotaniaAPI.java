@@ -1,12 +1,12 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- * 
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
+/*
+  This class was created by <Vazkii>. It's distributed as
+  part of the Botania Mod. Get the Source Code in github:
+  https://github.com/Vazkii/Botania
+
+  Botania is Open Source and distributed under the
+  Botania License: http://botaniamod.net/license.php
+
+  File Created @ [Jan 14, 2014, 6:15:28 PM (GMT)]
  */
 package vazkii.botania.api;
 
@@ -58,7 +58,7 @@ import com.google.common.collect.HashBiMap;
 
 import cpw.mods.fml.common.Loader;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("ALL")
 public final class BotaniaAPI {
 
 	private static final List<LexiconCategory> categories = new ArrayList<LexiconCategory>();

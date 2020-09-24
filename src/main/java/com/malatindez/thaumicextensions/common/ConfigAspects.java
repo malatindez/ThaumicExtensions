@@ -7,6 +7,7 @@ import thaumcraft.api.aspects.Aspect;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("Convert2Diamond")
 public class ConfigAspects {
     public static Aspect TierAspect;
     public static Aspect BloodAspect;

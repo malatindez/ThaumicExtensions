@@ -15,7 +15,7 @@ import thaumcraft.api.aspects.Aspect;
  * a transport relay or vis receiver (like the infernal furnace).
  *
  */
-@SuppressWarnings({"unchecked", "EmptyMethod"})
+@SuppressWarnings({"unchecked", "EmptyMethod", "ConstantConditions", "rawtypes", "JavaDoc", "Convert2Diamond"})
 public abstract class TileVisNode extends TileThaumcraft {
 	
 	WeakReference<TileVisNode> parent = null;

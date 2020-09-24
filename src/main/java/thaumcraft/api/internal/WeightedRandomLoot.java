@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandom;
 
 
+@SuppressWarnings("Convert2Diamond")
 public class WeightedRandomLoot extends WeightedRandom.Item {
 	
 	/** The Item/Block ID to generate in the bag. */

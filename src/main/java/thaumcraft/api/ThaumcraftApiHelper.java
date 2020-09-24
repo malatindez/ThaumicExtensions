@@ -19,6 +19,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
+@SuppressWarnings({"ConstantConditions", "UnusedAssignment", "rawtypes", "WhileLoopReplaceableByForEach", "Convert2Diamond"})
 public class ThaumcraftApiHelper {
 	
 	public static AspectList cullTags(AspectList temp) {

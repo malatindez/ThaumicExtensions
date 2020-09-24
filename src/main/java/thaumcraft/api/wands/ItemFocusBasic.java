@@ -21,7 +21,7 @@ import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"SameReturnValue", "unchecked", "EmptyMethod"})
+@SuppressWarnings({"SameReturnValue", "unchecked", "EmptyMethod", "ConstantConditions", "Convert2Diamond"})
 public class ItemFocusBasic extends Item {
 	
 	public ItemFocusBasic ()
@@ -59,7 +59,8 @@ public class ItemFocusBasic extends Item {
 		addFocusInformation(stack,player,list,par4);
 	}
 	
-	public void addFocusInformation(ItemStack focusstack,EntityPlayer player, List list, boolean par4) {
+	@SuppressWarnings("rawtypes")
+    public void addFocusInformation(ItemStack focusstack, EntityPlayer player, List list, boolean par4) {
 		LinkedHashMap<Short, Integer> map = new LinkedHashMap<Short, Integer>();
 		for (short id:this.getAppliedUpgrades(focusstack)) {
 			if (id>=0) {

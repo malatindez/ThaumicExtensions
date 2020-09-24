@@ -36,6 +36,7 @@ public class ClientProxy extends IProxy {
     public void registerBlockRenderer(ISimpleBlockRenderingHandler renderer) {
         RenderingRegistry.registerBlockHandler(renderer);
     }
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public void registerTileEntitySpecialRenderer(Class tile, TileEntitySpecialRenderer renderer) {
         ClientRegistry.bindTileEntitySpecialRenderer(tile, renderer);
     }

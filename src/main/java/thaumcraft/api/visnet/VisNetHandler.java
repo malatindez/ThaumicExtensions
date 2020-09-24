@@ -13,7 +13,7 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "ConstantConditions", "rawtypes", "JavaDoc", "Convert2Diamond"})
 public class VisNetHandler {
 
 	// NODE DRAINING
@@ -93,7 +93,6 @@ public class VisNetHandler {
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
 				.get(world.provider.dimensionId);
 		if (sourcelist == null) {
-			sourcelist = new HashMap<WorldCoordinates, WeakReference<TileVisNode>>();
 			return null;
 		}
 
@@ -173,7 +172,6 @@ public class VisNetHandler {
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
 				.get(world.provider.dimensionId);
 		if (sourcelist == null) {
-			sourcelist = new HashMap<WorldCoordinates, WeakReference<TileVisNode>>();
 			return;
 		}
 
@@ -205,6 +203,7 @@ public class VisNetHandler {
 			
 			for (WeakReference<TileVisNode> child : children) {
 				TileVisNode n = child.get();
+				//noinspection EqualsBetweenInconvertibleTypes
 				if (n != null && !n.equals(root)) {
 					
 					float r2 = inRange(n.getWorldObj(), n.getLocation(),

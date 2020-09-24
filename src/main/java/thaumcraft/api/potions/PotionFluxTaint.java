@@ -10,6 +10,7 @@ import thaumcraft.api.entities.ITaintedMob;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings("ConstantConditions")
 public class PotionFluxTaint extends Potion
 {
     public static final PotionFluxTaint instance = null; // will be instantiated at runtime

@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("Convert2Diamond")
 public class TextBox extends DefaultGuiObject {
     protected final FontRenderer fontRendererObj;
     public final String text;
@@ -120,9 +121,10 @@ public class TextBox extends DefaultGuiObject {
     }
 
 
+    @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
         return null;
@@ -130,7 +132,7 @@ public class TextBox extends DefaultGuiObject {
 
     @Override
     public Object getObjectDown(String objectName) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             return this;
         }
         return null;

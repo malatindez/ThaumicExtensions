@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
 
+@SuppressWarnings({"rawtypes", "JavaDoc", "Convert2Diamond"})
 public class ResearchCategories {
 	
 	//Research

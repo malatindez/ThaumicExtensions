@@ -4,6 +4,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IAspectContainer;
 
+@SuppressWarnings("JavaDoc")
 public interface INode extends IAspectContainer {
 
 	/**

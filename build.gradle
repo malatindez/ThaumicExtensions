@@ -22,7 +22,9 @@ buildscript {
 apply plugin: 'forge'
 
 version = "1.0"
+//noinspection GroovyUnusedAssignment
 group= "com.malatindez.thaumicextensions" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+//noinspection GroovyUnusedAssignment
 archivesBaseName = "thaumicextensions"
 
 minecraft {
@@ -53,6 +55,7 @@ processResources
 {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
+    //noinspection GrUnresolvedAccess
     inputs.property "mcversion", project.minecraft.version
 
     // replace stuff in mcmod.info, nothing else

@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
-public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable {
+public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<Object> {
     private final Vector2f coordinates;
     private final Vector2f scale;
     private final Vector2f size;
@@ -30,16 +30,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
 
     }
-    @SuppressWarnings("UnusedReturnValue")
+    @SuppressWarnings({"UnusedReturnValue", "rawtypes"})
     protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
         try {
             return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
         } catch (NoSuchMethodException e) {
             System.out.println("Method" + name + " wasn't found in " + objectName);
-            System.out.println(parameterTypes);
             return null;
         }
     }
+    @SuppressWarnings("rawtypes")
     protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
         if(this.getName().equals(objectName)) {
             getMethodFunc(objectName, name, parameterTypes);
@@ -53,6 +53,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return getMethodDown(objectName, name, parameterTypes);
     }
+    @SuppressWarnings("rawtypes")
     public abstract MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes);
 
     protected Object getObjectUp(String objectName) {
@@ -174,13 +175,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded
     public abstract void postInit();
-    /**
-     *
-     * @param coordinates
-     * @param scale
-     * @param size
-     * @param zLevel
-     */
     public DefaultGuiObject(String name, Object parent, Vector2f coordinates, Vector2f scale, Vector2f size,
                             int zLevel, ResolutionRescaleType type) {
         this.coordinates = new Vector2f(coordinates);
@@ -220,16 +214,22 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         type = ResolutionRescaleType.SCALE_SMOOTH_XY;
         if(parameters.containsKey("scale_type")) {
             String scale_type = (String)parameters.get("scale_type");
-            if (scale_type.equals("none")) {
-                type = ResolutionRescaleType.NONE;
-            } else if(scale_type.equals("scale_x")) {
-                type = ResolutionRescaleType.SCALE_X;
-            } else if(scale_type.equals("scale_y")) {
-                type = ResolutionRescaleType.SCALE_Y;
-            } else if(scale_type.equals("scale_xy")) {
-                type = ResolutionRescaleType.SCALE_XY;
-            } else if(scale_type.equals("scale_smooth_xy")) {
-                type = ResolutionRescaleType.SCALE_SMOOTH_XY;
+            switch (scale_type) {
+                case "none":
+                    type = ResolutionRescaleType.NONE;
+                    break;
+                case "scale_x":
+                    type = ResolutionRescaleType.SCALE_X;
+                    break;
+                case "scale_y":
+                    type = ResolutionRescaleType.SCALE_Y;
+                    break;
+                case "scale_xy":
+                    type = ResolutionRescaleType.SCALE_XY;
+                    break;
+                case "scale_smooth_xy":
+                    type = ResolutionRescaleType.SCALE_SMOOTH_XY;
+                    break;
             }
         }
         this.reScale(scale);
@@ -269,6 +269,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.parentCoordinates.set(parentBorders.x, parentBorders.y);
         this.parentBorders.set(parentBorders);  updateVectors();
     }
+    @SuppressWarnings("NullableProblems")
     public int compareTo(Object o) {
         if (o instanceof DefaultGuiObject) {
             return this.getZLevel() - ((DefaultGuiObject) o).getZLevel();

@@ -13,16 +13,16 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "ConstantConditions", "Convert2Diamond"})
 public class ShapedArcaneRecipe implements IArcaneRecipe
 {
     //Added in for future ease of change, but hard coded for now.
     private static final int MAX_CRAFT_GRID_WIDTH = 3;
     private static final int MAX_CRAFT_GRID_HEIGHT = 3;
 
-    public ItemStack output = null;
-    public  Object[] input = null;
-    public AspectList aspects = null;
+    public final ItemStack output;
+    public  Object[] input;
+    public final AspectList aspects;
     public final String research;
     public int width = 0;
     public int height = 0;

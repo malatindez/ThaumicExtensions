@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
 import org.json.simple.JSONObject;
@@ -27,7 +27,7 @@ public class Drag extends Collection {
         this.dragEnd = dragEnd;
     }
      */
-    private String objectToFocusOnName = "";
+    private final String objectToFocusOnName;
     public Drag(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("currently_dragging") && parent instanceof DefaultGuiObject) {
@@ -69,6 +69,7 @@ public class Drag extends Collection {
             setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
     private void DraggingEnd() {
+        //noinspection ConstantConditions
         if (dragEnd != null && dragEnd != null) {
             try {
                 dragEnd.method.invoke(dragEnd.object, getCurrentPosition());
@@ -107,10 +108,11 @@ public class Drag extends Collection {
     }
     @Override
     public void Update(int flags) {
-        /**
-         * If LMB not pressed -> dragging ends
+        /*
+          If LMB not pressed -> dragging ends
          */
         if(currently_dragging) {
+            //noinspection ConstantConditions
             currently_dragging = currently_dragging && ((flags & EnhancedGuiScreen.Updatable.Flags.LMB.getType()) != 0);
             if(!currently_dragging) {
                 previousMousePos = null;

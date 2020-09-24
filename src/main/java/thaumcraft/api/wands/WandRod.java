@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
  * It is also used to generate the wand recipes ingame.
  *
  */
+@SuppressWarnings("Convert2Diamond")
 public class WandRod {
 
 	

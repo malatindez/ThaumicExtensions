@@ -13,6 +13,7 @@ import thaumcraft.api.aspects.Aspect;
  * @author Azanor
  *
  */
+@SuppressWarnings("Convert2Diamond")
 public class WandCap {
 
 	private String tag;

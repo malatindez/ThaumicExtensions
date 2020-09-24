@@ -13,6 +13,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
+@SuppressWarnings("Convert2Diamond")
 public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
 
     static final Map<String, ResourceLocation> boundTextures = new HashMap<String, ResourceLocation>();

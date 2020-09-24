@@ -1,7 +1,6 @@
 package com.malatindez.thaumicextensions.common.items;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;

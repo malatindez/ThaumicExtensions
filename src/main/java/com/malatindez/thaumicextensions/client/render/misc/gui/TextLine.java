@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -34,9 +34,10 @@ public class TextLine extends DefaultGuiObject {
         super(name, parent, parameters);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
         return null;
@@ -44,7 +45,7 @@ public class TextLine extends DefaultGuiObject {
 
     @Override
     public Object getObjectDown(String objectName) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             return this;
         }
         return null;

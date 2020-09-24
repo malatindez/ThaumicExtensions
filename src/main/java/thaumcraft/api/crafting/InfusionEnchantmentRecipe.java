@@ -13,7 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "ConstantConditions", "rawtypes", "JavaDoc", "WhileLoopReplaceableByForEach", "Convert2Diamond"})
 public class InfusionEnchantmentRecipe
 {
 	
@@ -51,7 +51,7 @@ public class InfusionEnchantmentRecipe
 		Iterator iterator = map1.keySet().iterator();
         while (iterator.hasNext())
         {
-        	int j1 = ((Integer)iterator.next()).intValue();
+        	int j1 = (Integer) iterator.next();
             Enchantment ench = Enchantment.enchantmentsList[j1];
             if (j1 == enchantment.effectId &&
             		EnchantmentHelper.getEnchantmentLevel(j1, central)>=ench.getMaxLevel())
@@ -63,7 +63,7 @@ public class InfusionEnchantmentRecipe
             }
         }
 		
-		ItemStack i2 = null;
+		ItemStack i2;
 		
 		ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
 		for (ItemStack is:input) {
@@ -127,9 +127,10 @@ public class InfusionEnchantmentRecipe
 		int i = 0;
 		Map map1 = EnchantmentHelper.getEnchantments(recipeInput);
 		Iterator iterator = map1.keySet().iterator();
-        while (iterator.hasNext())
+		//noinspection WhileLoopReplaceableByForEach
+		while (iterator.hasNext())
         {
-        	int j1 = ((Integer)iterator.next()).intValue();
+        	int j1 = (Integer) iterator.next();
         	i += EnchantmentHelper.getEnchantmentLevel(j1, recipeInput);
         }
 		return (i/2) + instability;
@@ -145,7 +146,7 @@ public class InfusionEnchantmentRecipe
 		Iterator iterator = map1.keySet().iterator();
         while (iterator.hasNext())
         {
-        	int j1 = ((Integer)iterator.next()).intValue();
+        	int j1 = (Integer) iterator.next();
         	if (j1 != enchantment.effectId)
         		mod += EnchantmentHelper.getEnchantmentLevel(j1, recipeInput) * .1f;
         }

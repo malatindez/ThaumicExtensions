@@ -1,12 +1,12 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- * 
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
+/*
+  This class was created by <Vazkii>. It's distributed as
+  part of the Botania Mod. Get the Source Code in github:
+  https://github.com/Vazkii/Botania
+
+  Botania is Open Source and distributed under the
+  Botania License: http://botaniamod.net/license.php
+
+  File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
@@ -144,7 +144,7 @@ public final class ManaItemHandler {
 					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
 						continue;
 
-					int received = 0;
+					int received;
 					if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
 						received = manaToSend;
 					else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));

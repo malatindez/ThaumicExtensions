@@ -1,12 +1,12 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- * 
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [Apr 17, 2015, 5:07:25 PM (GMT)]
+/*
+  This class was created by <Vazkii>. It's distributed as
+  part of the Botania Mod. Get the Source Code in github:
+  https://github.com/Vazkii/Botania
+
+  Botania is Open Source and distributed under the
+  Botania License: http://botaniamod.net/license.php
+
+  File Created @ [Apr 17, 2015, 5:07:25 PM (GMT)]
  */
 package vazkii.botania.api.recipe;
 
@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import vazkii.botania.api.subtile.SubTileEntity;
 
-@SuppressWarnings({"SameReturnValue", "unchecked"})
+@SuppressWarnings({"SameReturnValue", "unchecked", "rawtypes"})
 public class RecipePureDaisy {
 
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap();

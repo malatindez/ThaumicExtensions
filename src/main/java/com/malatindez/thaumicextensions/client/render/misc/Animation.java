@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Math.sin;
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "Convert2Diamond"})
 @SideOnly(Side.CLIENT)
 public class Animation {
     @SuppressWarnings("unused")
@@ -32,7 +32,7 @@ public class Animation {
         RotationAroundItself,
         Wave
     }
-    @SuppressWarnings({"Since15", "unused"})
+    @SuppressWarnings({"unused"})
     public static class SimpleAnimation {
         final float speed;
         final float amplitude;

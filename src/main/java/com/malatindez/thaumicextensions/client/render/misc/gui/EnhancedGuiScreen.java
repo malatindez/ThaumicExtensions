@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,7 +17,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
-@SuppressWarnings("EmptyMethod")
+@SuppressWarnings({"EmptyMethod", "unchecked"})
 public abstract class EnhancedGuiScreen extends GuiScreen {
     static class Bind {
         protected int key;
@@ -189,6 +189,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     protected void mouseClicked(int mx, int my, int button) {
         gui.mouseClicked(new Vector2f(mx,my), button);
     }
+    @SuppressWarnings("rawtypes")
     public static final HashMap<String, Class> parts = new HashMap<String, Class>(){{
         put("Collection", Collection.class);
         put("Button", Button.class);
@@ -234,8 +235,8 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         InputStreamReader isReader = new InputStreamReader(x);
         //Creating a BufferedReader object
         BufferedReader reader = new BufferedReader(isReader);
-        StringBuffer sb = new StringBuffer();
-        String str = "";
+        StringBuilder sb = new StringBuilder();
+        String str;
         try {
             while ((str = reader.readLine()) != null) {
                 sb.append(str);
@@ -248,6 +249,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
             main = obj; break;
         }
         Collection a = (Collection) createObject((String)main, parent, (JSONObject) jsonObject.get(main));
+        //noinspection ConstantConditions
         a.postInit();
         return a;
     }

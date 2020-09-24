@@ -1,12 +1,12 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- * 
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- * 
- * File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
+/*
+  This class was created by <Vazkii>. It's distributed as
+  part of the Botania Mod. Get the Source Code in github:
+  https://github.com/Vazkii/Botania
+
+  Botania is Open Source and distributed under the
+  Botania License: http://botaniamod.net/license.php
+
+  File Created @ [Jan 24, 2014, 3:59:06 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
@@ -107,6 +107,7 @@ public class SubTileEntity {
 	 * Called when a Wand of the Forest is used on this sub tile. Note that the
 	 * player parameter can be null if this is called from a dispenser.
 	 */
+
 	public boolean onWanded(EntityPlayer player, ItemStack wand) {
 		return false;
 	}

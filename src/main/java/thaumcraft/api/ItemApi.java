@@ -51,20 +51,20 @@ public class ItemApi {
 		return item;
 	}
 
-	/** 
-	 * 
-	 * Some examples
-	 * 
-	 * Casting Wands:
-	 * itemWandCasting
-	 *  
-	 * Resources:
-	 * itemEssence, itemWispEssence, itemResource, itemShard, itemNugget, 
-	 * itemNuggetChicken, itemNuggetBeef, itemNuggetPork, itemTripleMeatTreat
-	 * 
-	 * Research:
-	 * itemResearchNotes, itemInkwell, itemThaumonomicon
-	 * 
+	/*
+
+	  Some examples
+
+	  Casting Wands:
+	  itemWandCasting
+
+	  Resources:
+	  itemEssence, itemWispEssence, itemResource, itemShard, itemNugget,
+	  itemNuggetChicken, itemNuggetBeef, itemNuggetPork, itemTripleMeatTreat
+
+	  Research:
+	  itemResearchNotes, itemInkwell, itemThaumonomicon
+
 	 */
 
 }

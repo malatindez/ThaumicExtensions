@@ -5,18 +5,19 @@ import java.util.Map;
 
 import net.minecraft.util.ResourceLocation;
 
+@SuppressWarnings("Convert2Diamond")
 public class ResearchCategoryList {
 	
-	/** Is the smallest column used on the GUI. */
+	/** Is the smallest column used on the gui. */
     public int minDisplayColumn;
 
-    /** Is the smallest row used on the GUI. */
+    /** Is the smallest row used on the gui. */
     public int minDisplayRow;
 
-    /** Is the biggest column used on the GUI. */
+    /** Is the biggest column used on the gui. */
     public int maxDisplayColumn;
 
-    /** Is the biggest row used on the GUI. */
+    /** Is the biggest row used on the gui. */
     public int maxDisplayRow;
     
     /** display variables **/

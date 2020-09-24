@@ -39,7 +39,7 @@ import thaumcraft.api.research.ResearchPage;
  * IMPORTANT: If you are adding your own aspects to items it is a good idea to do it AFTER Thaumcraft adds its aspects, otherwise odd things may happen.
  *
  */
-@SuppressWarnings({"deprecation", "unchecked"})
+@SuppressWarnings({"deprecation", "unchecked", "ConstantConditions", "rawtypes", "JavaDoc", "Convert2Diamond"})
 public class ThaumcraftApi {
 	
 	//Materials	
@@ -363,7 +363,7 @@ public class ThaumcraftApi {
 		if (aspects==null) aspects=new AspectList();
 		try {
 		objectTags.put(Arrays.asList(item.getItem(),item.getItemDamage()), aspects);
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 	}	
 	
 	
@@ -382,7 +382,7 @@ public class ThaumcraftApi {
 				groupedObjectTags.put(Arrays.asList(item.getItem(),m), meta);
 			}
 			
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 	}
 	
 	/**
@@ -397,7 +397,7 @@ public class ThaumcraftApi {
 			for (ItemStack ore:ores) {
 				try {
 				objectTags.put(Arrays.asList(ore.getItem(), ore.getItemDamage()), aspects);
-				} catch (Exception e) {}
+				} catch (Exception ignored) {}
 			}
 		}
 	}
@@ -494,93 +494,93 @@ public class ThaumcraftApi {
 		
 	//CROPS //////////////////////////////////////////////////////////////////////////////////////////
 	
-	/**
-	 * To define mod crops you need to use FMLInterModComms in your @Mod.Init method.
-	 * There are two 'types' of crops you can add. Standard crops and clickable crops.
-	 * 
-	 * Standard crops work like normal vanilla crops - they grow until a certain metadata 
-	 * value is reached and you harvest them by destroying the block and collecting the blocks.
-	 * You need to create and ItemStack that tells the golem what block id and metadata represents
-	 * the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get 
-	 * checked.
-	 * Example for vanilla wheat: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Block.crops,1,7));
-	 *  
-	 * Clickable crops are crops that you right click to gather their bounty instead of destroying them.
-	 * As for standard crops, you need to create and ItemStack that tells the golem what block id 
-	 * and metadata represents the crop when fully grown. The golem will trigger the blocks onBlockActivated method. 
-	 * Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
-	 * Example (this will technically do nothing since clicking wheat does nothing, but you get the idea): 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Block.crops,1,7));
-	 * 
-	 * Stacked crops (like reeds) are crops that you wish the bottom block should remain after harvesting.
-	 * As for standard crops, you need to create and ItemStack that tells the golem what block id 
-	 * and metadata represents the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the actualy md won't get 
-	 * checked. If it has the order upgrade it will only harvest if the crop is more than one block high.
-	 * Example: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestStackedCrop", new ItemStack(Block.reed,1,7));
+	/*
+	  To define mod crops you need to use FMLInterModComms in your @Mod.Init method.
+	  There are two 'types' of crops you can add. Standard crops and clickable crops.
+
+	  Standard crops work like normal vanilla crops - they grow until a certain metadata
+	  value is reached and you harvest them by destroying the block and collecting the blocks.
+	  You need to create and ItemStack that tells the golem what block id and metadata represents
+	  the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get
+	  checked.
+	  Example for vanilla wheat:
+	  FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Block.crops,1,7));
+
+	  Clickable crops are crops that you right click to gather their bounty instead of destroying them.
+	  As for standard crops, you need to create and ItemStack that tells the golem what block id
+	  and metadata represents the crop when fully grown. The golem will trigger the blocks onBlockActivated method.
+	  Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
+	  Example (this will technically do nothing since clicking wheat does nothing, but you get the idea):
+	  FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Block.crops,1,7));
+
+	  Stacked crops (like reeds) are crops that you wish the bottom block should remain after harvesting.
+	  As for standard crops, you need to create and ItemStack that tells the golem what block id
+	  and metadata represents the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the actualy md won't get
+	  checked. If it has the order upgrade it will only harvest if the crop is more than one block high.
+	  Example:
+	  FMLInterModComms.sendMessage("Thaumcraft", "harvestStackedCrop", new ItemStack(Block.reed,1,7));
 	 */
 	
 	//NATIVE CLUSTERS //////////////////////////////////////////////////////////////////////////////////
 	
-	/**
-	 * You can define certain ores that will have a chance to produce native clusters via FMLInterModComms 
-	 * in your @Mod.Init method using the "nativeCluster" string message.
-	 * The format should be: 
-	 * "[ore item/block id],[ore item/block metadata],[cluster item/block id],[cluster item/block metadata],[chance modifier float]"
-	 * 
-	 * NOTE: The chance modifier is a multiplier applied to the default chance for that cluster to be produced (default 27.5% for a pickaxe of the core)
-	 * 
-	 * Example for vanilla iron ore to produce one of my own native iron clusters (assuming default id's) at double the default chance: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "nativeCluster","15,0,25016,16,2.0");
+	/*
+	  You can define certain ores that will have a chance to produce native clusters via FMLInterModComms
+	  in your @Mod.Init method using the "nativeCluster" string message.
+	  The format should be:
+	  "[ore item/block id],[ore item/block metadata],[cluster item/block id],[cluster item/block metadata],[chance modifier float]"
+
+	  NOTE: The chance modifier is a multiplier applied to the default chance for that cluster to be produced (default 27.5% for a pickaxe of the core)
+
+	  Example for vanilla iron ore to produce one of my own native iron clusters (assuming default id's) at double the default chance:
+	  FMLInterModComms.sendMessage("Thaumcraft", "nativeCluster","15,0,25016,16,2.0");
 	 */
 	
 	//LAMP OF GROWTH BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/**
-	 * You can blacklist crops that should not be effected by the Lamp of Growth via FMLInterModComms 
-	 * in your @Mod.Init method using the "lampBlacklist" itemstack message.
-	 * Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
-	 * Example for vanilla wheat: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "lampBlacklist", new ItemStack(Block.crops,1,OreDictionary.WILDCARD_VALUE));
+	/*
+	  You can blacklist crops that should not be effected by the Lamp of Growth via FMLInterModComms
+	  in your @Mod.Init method using the "lampBlacklist" itemstack message.
+	  Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
+	  Example for vanilla wheat:
+	  FMLInterModComms.sendMessage("Thaumcraft", "lampBlacklist", new ItemStack(Block.crops,1,OreDictionary.WILDCARD_VALUE));
 	 */
 	
 	//DIMENSION BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/**
-	 * You can blacklist a dimension to not spawn certain thaumcraft features 
-	 * in your @Mod.Init method using the "dimensionBlacklist" string message in the format "[dimension]:[level]"
-	 * The level values are as follows:
-	 * [0] stop all tc spawning and generation
-	 * [1] allow ore and node generation (and node special features)
-	 * [2] allow mob spawning
-	 * [3] allow ore and node gen + mob spawning (and node special features)
-	 * Example: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "dimensionBlacklist", "15:1");
+	/*
+	  You can blacklist a dimension to not spawn certain thaumcraft features
+	  in your @Mod.Init method using the "dimensionBlacklist" string message in the format "[dimension]:[level]"
+	  The level values are as follows:
+	  [0] stop all tc spawning and generation
+	  [1] allow ore and node generation (and node special features)
+	  [2] allow mob spawning
+	  [3] allow ore and node gen + mob spawning (and node special features)
+	  Example:
+	  FMLInterModComms.sendMessage("Thaumcraft", "dimensionBlacklist", "15:1");
 	 */
 	
 	//BIOME BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/**
-	 * You can blacklist a biome to not spawn certain thaumcraft features 
-	 * in your @Mod.Init method using the "biomeBlacklist" string message in the format "[biome id]:[level]"
-	 * The level values are as follows:
-	 * [0] stop all tc spawning and generation
-	 * [1] allow ore and node generation (and node special features)
-	 * [2] allow mob spawning
-	 * [3] allow ore and node gen + mob spawning (and node special features)
-	 * Example: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "biomeBlacklist", "180:2");
+	/*
+	  You can blacklist a biome to not spawn certain thaumcraft features
+	  in your @Mod.Init method using the "biomeBlacklist" string message in the format "[biome id]:[level]"
+	  The level values are as follows:
+	  [0] stop all tc spawning and generation
+	  [1] allow ore and node generation (and node special features)
+	  [2] allow mob spawning
+	  [3] allow ore and node gen + mob spawning (and node special features)
+	  Example:
+	  FMLInterModComms.sendMessage("Thaumcraft", "biomeBlacklist", "180:2");
 	 */
 		
 	//CHAMPION MOB WHITELIST ///////////////////////////////////////////////////////////////////////////
-	/**
-	 * You can whitelist an entity class so it can rarely spawn champion versions in your @Mod.Init method using 
-	 * the "championWhiteList" string message in the format "[Entity]:[level]"
-	 * The entity must extend EntityMob.
-	 * [Entity] is in a similar format to what is used for mob spawners and such (see EntityList.class for vanilla examples).
-	 * The [level] value indicate how rare the champion version will be - the higher the number the more common. 
-	 * The number roughly equals the [n] in 100 chance of a mob being a champion version. 
-	 * You can give 0 or negative numbers to allow champions to spawn with a very low chance only in particularly dangerous places. 
-	 * However anything less than about -2 will probably result in no spawns at all.
-	 * Example: 
-	 * FMLInterModComms.sendMessage("Thaumcraft", "championWhiteList", "Thaumcraft.Wisp:1");
+	/*
+	  You can whitelist an entity class so it can rarely spawn champion versions in your @Mod.Init method using
+	  the "championWhiteList" string message in the format "[Entity]:[level]"
+	  The entity must extend EntityMob.
+	  [Entity] is in a similar format to what is used for mob spawners and such (see EntityList.class for vanilla examples).
+	  The [level] value indicate how rare the champion version will be - the higher the number the more common.
+	  The number roughly equals the [n] in 100 chance of a mob being a champion version.
+	  You can give 0 or negative numbers to allow champions to spawn with a very low chance only in particularly dangerous places.
+	  However anything less than about -2 will probably result in no spawns at all.
+	  Example:
+	  FMLInterModComms.sendMessage("Thaumcraft", "championWhiteList", "Thaumcraft.Wisp:1");
 	 */
 }

@@ -9,7 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "ConstantConditions", "JavaDoc", "Convert2Diamond"})
 public class InfusionRecipe
 {
 	protected final AspectList aspects;

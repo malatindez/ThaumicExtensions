@@ -56,7 +56,7 @@
         <option name="IGNORE_JAVADOC_PERIOD" value="true" />
         <option name="IGNORE_DUPLICATED_THROWS" value="false" />
         <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-        <option name="myAdditionalJavadocTags" value="return,return" />
+        <option name="myAdditionalJavadocTags" value="return,return,Deprecated,inputs,param" />
       </inspection_tool>
       <inspection_tool class="unused" enabled="false" level="WARNING" enabled_by_default="false">
         <option name="LOCAL_VARIABLE" value="true" />
@@ -216,7 +216,7 @@
       <module fileurl="file://$PROJECT_DIR$/ThaumicExtensions.iml" filepath="$PROJECT_DIR$/ThaumicExtensions.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">

@@ -27,7 +27,9 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.wands.IWandable;
 
 
+@SuppressWarnings("Convert2Diamond")
 public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWandable, IAspectContainer {
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final ArrayList<ChunkCoordinates> pedestals = new ArrayList<ChunkCoordinates>();
 
     private final int dangerCount = 0;
@@ -184,6 +186,7 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
 
     public int tier = 0;
 
+    @SuppressWarnings("StatementWithEmptyBody")
     public void updateEntity() {
         super.updateEntity();
         this.count++;

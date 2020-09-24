@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
 import org.json.simple.JSONObject;
@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+@SuppressWarnings("Convert2Diamond")
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
 
-    protected final Object selected = null;
     protected final ArrayList<Object> objects = new ArrayList<Object>();
     protected Collection parent = null;
 
@@ -56,9 +56,6 @@ public class Collection extends DefaultGuiObject implements
     public void addObjects(ArrayList<Object> objects) {
         this.objects.addAll(objects); sortObjects();
     }
-    public boolean isSelected(Object object) {
-        return object == selected;
-    }
     /*
     public Collection(String name, Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
         super(name, coordinates,new Vector2f(1.0f,1.0f),size,zLevel, type);
@@ -99,9 +96,10 @@ public class Collection extends DefaultGuiObject implements
         }
 
     }
+    @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
         MethodObjectPair retValue = null;
@@ -116,7 +114,7 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public Object getObjectDown(String objectName) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             return this;
         }
         Object retValue = null;

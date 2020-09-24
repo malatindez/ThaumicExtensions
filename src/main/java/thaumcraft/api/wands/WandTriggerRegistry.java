@@ -19,6 +19,7 @@ import net.minecraft.world.World;
  * @author azanor
  *
  */
+@SuppressWarnings({"rawtypes", "JavaDoc", "Convert2Diamond"})
 public class WandTriggerRegistry {
 	
 	private static final HashMap<String,HashMap<List,List>> triggers = new HashMap<String,HashMap<List,List>>();

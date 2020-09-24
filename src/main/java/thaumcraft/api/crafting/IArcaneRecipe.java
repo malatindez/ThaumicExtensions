@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import thaumcraft.api.aspects.AspectList;
 
+@SuppressWarnings("JavaDoc")
 public interface IArcaneRecipe
 {
 	

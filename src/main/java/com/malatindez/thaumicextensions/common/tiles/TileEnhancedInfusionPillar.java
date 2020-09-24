@@ -7,7 +7,6 @@ import thaumcraft.api.TileThaumcraft;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@SuppressWarnings("Since15")
 public class TileEnhancedInfusionPillar extends TileThaumcraft {
     public byte orientation;
 

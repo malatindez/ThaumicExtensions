@@ -9,7 +9,7 @@ import net.minecraft.util.StatCollector;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "Convert2Diamond"})
 public class Aspect {
 	
 	String tag;

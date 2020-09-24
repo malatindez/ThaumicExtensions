@@ -13,6 +13,7 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 
+@SuppressWarnings({"rawtypes", "JavaDoc"})
 public class ResearchPage {
 	public enum PageType
     {
@@ -29,7 +30,7 @@ public class ResearchPage {
         SMELTING
     }
 	
-	public PageType type = PageType.TEXT;
+	public final PageType type;
 	
 	public String text=null;
 	public String research=null;

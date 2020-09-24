@@ -1,4 +1,4 @@
-package com.malatindez.thaumicextensions.client.render.misc.GUI;
+package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
 import org.json.simple.JSONObject;
@@ -72,9 +72,10 @@ public class Button extends DefaultGuiObject
         return zLevel;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
         return ((DefaultGuiObject)icon).getMethodDown(objectName, name, parameterTypes);
@@ -82,7 +83,7 @@ public class Button extends DefaultGuiObject
 
     @Override
     public Object getObjectDown(String objectName) {
-        if(objectName == this.getName()) {
+        if(objectName.equals(this.getName())) {
             return this;
         }
         return ((DefaultGuiObject)icon).getObjectDown(objectName);
