@@ -11,7 +11,7 @@ import java.util.Comparator;
 
 @SuppressWarnings("Convert2Diamond")
 public class Collection extends DefaultGuiObject implements
-        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
+        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
     protected final ArrayList<Object> objects = new ArrayList<Object>();
     protected Collection parent = null;
@@ -22,6 +22,19 @@ public class Collection extends DefaultGuiObject implements
         }
         return 0;
     }
+
+    @Override
+    public void keyTyped(char par1, int par2) {
+        if(hided()) {
+            return;
+        }
+        for(Object object : objects) {
+            if(object instanceof EnhancedGuiScreen.Inputable) {
+                ((EnhancedGuiScreen.Inputable) object).keyTyped(par1, par2);
+            }
+        }
+    }
+
     private class ObjectComparator implements Comparator<Object> {
         @Override
         public int compare(Object x, Object y) {
@@ -142,6 +155,9 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
+        if(hided()) {
+            return false;
+        }
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 if(((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)) {
@@ -154,16 +170,12 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public boolean mouseClicked( Vector2f currentMousePosition, int button) {
+        if(hided()) {
+            return false;
+        }
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
-                Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
-                if(
-                        temp.x < currentMousePosition.x &&
-                                temp.z > currentMousePosition.x &&
-                                temp.y < currentMousePosition.y &&
-                                temp.w > currentMousePosition.y &&
-                                ((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)
-                ) {
+                if(((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)) {
                     return true;
                 }
             }
@@ -173,6 +185,9 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public void render() {
+        if(hided()) {
+            return;
+        }
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
                 ((EnhancedGuiScreen.Renderable) object).render();
@@ -193,11 +208,6 @@ public class Collection extends DefaultGuiObject implements
                 ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(newResolution);
             }
         }
-    }
-
-    @Override
-    public int getZLevel() {
-        return 0;
     }
 
     @Override
