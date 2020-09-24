@@ -88,8 +88,8 @@ public class ItemEnhancedThaumonomicon extends Item {
                     }
                 }
             }
-            PacketHandler.INSTANCE.sendTo((IMessage)new PacketSyncResearch(player), (EntityPlayerMP)player);
-            PacketHandler.INSTANCE.sendTo((IMessage)new PacketSyncAspects(player), (EntityPlayerMP)player);
+            PacketHandler.INSTANCE.sendTo(new PacketSyncResearch(player), (EntityPlayerMP)player);
+            PacketHandler.INSTANCE.sendTo(new PacketSyncAspects(player), (EntityPlayerMP)player);
         } else {
             par2World.playSound(player.posX, player.posY, player.posZ, "thaumcraft:page", 1.0F, 1.0F, false);
         }

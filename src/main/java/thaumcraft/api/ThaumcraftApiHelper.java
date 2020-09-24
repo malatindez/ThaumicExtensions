@@ -407,7 +407,7 @@ public class ThaumcraftApiHelper {
 	                }
 	
 	                Vec3 vec32 = Vec3.createVectorHelper(v1.xCoord, v1.yCoord, v1.zCoord);
-	                l = (int)(vec32.xCoord = (double)MathHelper.floor_double(v1.xCoord));
+	                l = (int)(vec32.xCoord = MathHelper.floor_double(v1.xCoord));
 	
 	                if (b0 == 5)
 	                {
@@ -415,7 +415,7 @@ public class ThaumcraftApiHelper {
 	                    ++vec32.xCoord;
 	                }
 	
-	                i1 = (int)(vec32.yCoord = (double)MathHelper.floor_double(v1.yCoord));
+	                i1 = (int)(vec32.yCoord = MathHelper.floor_double(v1.yCoord));
 	
 	                if (b0 == 1)
 	                {
@@ -423,7 +423,7 @@ public class ThaumcraftApiHelper {
 	                    ++vec32.yCoord;
 	                }
 	
-	                j1 = (int)(vec32.zCoord = (double)MathHelper.floor_double(v1.zCoord));
+	                j1 = (int)(vec32.zCoord = MathHelper.floor_double(v1.zCoord));
 	
 	                if (b0 == 3)
 	                {

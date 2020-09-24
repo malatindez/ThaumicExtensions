@@ -33,13 +33,13 @@ public class Animation {
         Wave
     }
     public static class SimpleAnimation {
-        float speed;
-        float amplitude;
+        final float speed;
+        final float amplitude;
         float speedY;
         float speedZ;
-        Type type;
+        final Type type;
         Axis axis;
-        double noise;
+        final double noise;
         protected SimpleAnimation(float speedX, float speedY, float speedZ, float radius) {
             this.type = Type.RotationAroundCenter;
             this.speed = speedX;
@@ -58,8 +58,8 @@ public class Animation {
     }
 
     protected SimpleAnimation rotationAroundCenter = null;
-    protected ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
-    protected ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
+    protected final ArrayList<SimpleAnimation> rotationsAroundItself = new ArrayList<SimpleAnimation>();
+    protected final ArrayList<SimpleAnimation> waves = new ArrayList<SimpleAnimation>();
     public Animation(SimpleAnimation[] animations) {
         if (animations == null) {
             return;

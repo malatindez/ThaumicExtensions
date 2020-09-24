@@ -44,13 +44,13 @@ public class ClientProxy extends IProxy {
     }
     void setupBlockRenderers() {
         ConfigBlocks.BlockInfusionPillarRI = RenderingRegistry.getNextAvailableRenderId();
-        registerBlockRenderer((ISimpleBlockRenderingHandler)new BlockEnhancedInfusionPillarRenderer());
+        registerBlockRenderer(new BlockEnhancedInfusionPillarRenderer());
     }
     void setupTileRenderers() {
-        registerTileEntitySpecialRenderer(TileEnhancedInfusionPillar.class, (TileEntitySpecialRenderer)new TileEnhancedInfusionPillarRenderer());
+        registerTileEntitySpecialRenderer(TileEnhancedInfusionPillar.class, new TileEnhancedInfusionPillarRenderer());
     }
     public World getClientWorld() {
-        return (World)(FMLClientHandler.instance().getClient()).theWorld;
+        return (FMLClientHandler.instance().getClient()).theWorld;
     }
 
     public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {

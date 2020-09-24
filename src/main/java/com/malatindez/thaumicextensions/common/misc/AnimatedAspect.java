@@ -43,14 +43,14 @@ for i in listdir():
     im1.save(i)
  */
 public class AnimatedAspect extends Aspect {
-    ArrayList<ResourceLocation> images;
+    final ArrayList<ResourceLocation> images;
     public AnimatedAspect(String tag, int color, Aspect[] components, ArrayList<ResourceLocation> images, int blend) {
         super(tag, color, components, images.get(0), blend);
         this.images = images;
     }
     @Override
     public ResourceLocation getImage() {
-        double pic = (System.currentTimeMillis()) % (images.size() * 1000 / 30); // 30 frames per second
+        double pic = (System.currentTimeMillis()) % ((int)(1000.0f / 30.0f * images.size())); // 30 frames per second
 
         return images.get((int)(pic / 1000 * 30));
     }

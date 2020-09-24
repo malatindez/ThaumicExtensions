@@ -59,7 +59,7 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
         model.model.renderAll();
         GL11.glPopMatrix();
     }
-    private class DoubleIntPair implements Comparable<DoubleIntPair> {
+    private static class DoubleIntPair implements Comparable<DoubleIntPair> {
         public Double x;
         public Integer y;
         public DoubleIntPair(Double x, Integer y) {
@@ -101,7 +101,7 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
                 t.scale.z *= models[i].transform.scale.z;
                 Matrix4f m = animations[i].getMatrix(t, time, noise);
                 double distance = (float)Math.sqrt(m.m30 * m.m30 + m.m31 * m.m31 + m.m32 * m.m32);
-                distances.add(new TileEntitySpecialRenderer.DoubleIntPair(distance, i));
+                distances.add(new DoubleIntPair(distance, i));
             }
             Collections.sort(distances);
         }

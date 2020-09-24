@@ -158,9 +158,9 @@ public class IconFactory {
         Set<Object> set = jsonObject.keySet();
         for (Object object : set) {
             if (object instanceof String) {
-                if (!((String)object).equals("resource_domain") &&
-                        !((String)object).equals("resource_path") &&
-                        !((String)object).equals("textureSize")
+                if (!object.equals("resource_domain") &&
+                        !object.equals("resource_path") &&
+                        !object.equals("textureSize")
                 ) {
                     parts.put((String)object, new IconSample(
                             DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("texFrom")),

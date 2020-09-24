@@ -120,7 +120,7 @@ public class SubTileGenerating extends SubTileEntity {
 				if(supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
-					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
+					if(tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
 						linkedCollector = tileAt;
 						needsNew = false;
 					}
@@ -129,7 +129,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		} else {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-			if(tileAt != null && tileAt instanceof IManaCollector)
+			if(tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
 

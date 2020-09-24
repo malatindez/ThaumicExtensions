@@ -67,7 +67,7 @@ public class ThaumcraftApi {
 	
 	//Internal (Do not alter this unless you like pretty explosions)
 	//Calling methods from this will only work properly once Thaumcraft is past the FMLPreInitializationEvent phase.
-	public static IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();	
+	public static IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();
 	
 	//RESEARCH/////////////////////////////////////////
 	public static ArrayList<IScanEventHandler> scanEventhandlers = new ArrayList<IScanEventHandler>();
@@ -114,7 +114,7 @@ public class ThaumcraftApi {
 	}
 	
 	//RECIPES/////////////////////////////////////////
-	private static ArrayList craftingRecipes = new ArrayList();	
+	private static ArrayList craftingRecipes = new ArrayList();
 	private static HashMap<Object,ItemStack> smeltingBonus = new HashMap<Object,ItemStack>();
 	
 	/**
@@ -223,7 +223,6 @@ public class ThaumcraftApi {
     }
 	
 	/**
-	 * @param stack the recipe result
 	 * @return the recipe
 	 */
 	public static InfusionRecipe getInfusionRecipe(ItemStack res) {
@@ -243,7 +242,6 @@ public class ThaumcraftApi {
      * @param key the research key required for this recipe to work. 
      * @param result the output result
      * @param catalyst an itemstack of the catalyst or a string if it is an ore dictionary item
-     * @param cost the vis cost
      * @param tags the aspects required to craft this
      */
     public static CrucibleRecipe addCrucibleRecipe(String key, ItemStack result, Object catalyst, AspectList tags) {
@@ -302,7 +300,7 @@ public class ThaumcraftApi {
 				if (ri.getPages()==null) continue;
 				for (int a=0;a<ri.getPages().length;a++) {
 					ResearchPage page = ri.getPages()[a];
-					if (page.recipe!=null && page.recipe instanceof CrucibleRecipe[]) {
+					if (page.recipe instanceof CrucibleRecipe[]) {
 						CrucibleRecipe[] crs = (CrucibleRecipe[]) page.recipe;
 						for (CrucibleRecipe cr:crs) {
 							if (cr.getRecipeOutput().isItemEqual(stack)) {
@@ -333,7 +331,6 @@ public class ThaumcraftApi {
 	
 	/**
 	 * Checks to see if the passed item/block already has aspects associated with it.
-	 * @param id
 	 * @param meta
 	 * @return 
 	 */
@@ -445,7 +442,6 @@ public class ThaumcraftApi {
 		
 		/**
 		 * This method is used to determine how much permanent warp is gained if the research is completed
-		 * @param in The item crafted
 		 * @param amount how much warp is gained
 		 */
 		public static void addWarpToResearch(String research, int amount) {
@@ -462,8 +458,8 @@ public class ThaumcraftApi {
 			if (in instanceof ItemStack && warpMap.containsKey(Arrays.asList(((ItemStack)in).getItem(),((ItemStack)in).getItemDamage()))) {
 				return warpMap.get(Arrays.asList(((ItemStack)in).getItem(),((ItemStack)in).getItemDamage()));
 			} else
-			if (in instanceof String && warpMap.containsKey((String)in)) {
-				return warpMap.get((String)in);
+			if (in instanceof String && warpMap.containsKey(in)) {
+				return warpMap.get(in);
 			}
 			return 0;
 		}

@@ -124,11 +124,11 @@ public class ItemFocusBasic extends Item {
 	 * Just insert two alphanumeric characters before this string in your focus item class
 	 */
 	public String getSortingHelper(ItemStack focusstack) {		
-		String out="";
+		StringBuilder out= new StringBuilder();
 		for (short id:this.getAppliedUpgrades(focusstack)) {
-			out = out + id;
+			out.append(id);
 		}
-		return out;
+		return out.toString();
 	}
 	
 	

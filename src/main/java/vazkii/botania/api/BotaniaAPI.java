@@ -78,11 +78,11 @@ public final class BotaniaAPI {
 	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
 	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
 
-	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.<String, Class<? extends SubTileEntity>> create();
+	private static BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
 	private static Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
 	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
 	public static Map<String, String> subTileMods = new HashMap<String, String>();
-	public static BiMap<String, String> miniFlowers = HashBiMap.<String, String> create();
+	public static BiMap<String, String> miniFlowers = HashBiMap.create();
 
 	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
 	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();

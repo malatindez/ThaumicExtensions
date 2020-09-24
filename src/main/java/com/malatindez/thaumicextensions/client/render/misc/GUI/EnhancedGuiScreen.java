@@ -248,7 +248,9 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         for(Object obj : jsonObject.keySet()) {
             main = obj; break;
         }
-        return (Collection) createObject((String)main, parent, (JSONObject) jsonObject.get(main));
+        Collection a = (Collection) createObject((String)main, parent, (JSONObject) jsonObject.get(main));
+        a.postInit();
+        return a;
     }
     protected EnhancedGuiScreen() {}
     protected EnhancedGuiScreen(ResourceLocation json_file) {

@@ -5,43 +5,43 @@
 	
 	"defaultResearch": {
 		"texFrom": [0,230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"specialResearch": {
 		"texFrom": [26, 230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"roundResearch": {
 		"texFrom": [54,230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"hiddenDefaultResearch": {
 		"texFrom": [86,230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"secondaryResearch": {
 		"texFrom": [110,230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"selectedCategory": {
 		"texFrom": [152,232],
-		"iconSize": [24,24],
+		"iconSize": [24,24]
 	},
 	"unselectedCategory": {
 		"texFrom": [176,232],
-		"iconSize": [24,24],
+		"iconSize": [24,24]
 	},
 	"unselectedCategoryShadow": {
 		"texFrom": [200,232],
-		"iconSize": [24,24],
+		"iconSize": [24,24]
 	},
 	"hiddenResearch": {
 		"texFrom": [230,230],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	},
 	"frame": {
 		"texFrom": [0,0],
-		"iconSize": [26,26],
+		"iconSize": [26,26]
 	}
 
 }

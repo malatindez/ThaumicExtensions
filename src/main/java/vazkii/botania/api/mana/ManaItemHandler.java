@@ -115,7 +115,6 @@ public final class ManaItemHandler {
 	 * Dispatches mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * @param manaToSend How much mana is to be sent.
-	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
 	 * @return The amount of mana actually sent.
 	 */
 	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
@@ -168,7 +167,6 @@ public final class ManaItemHandler {
 	 * Dispatches an exact amount of mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * @param manaToSend How much mana is to be sent.
-	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
 	 * @return If an item received the mana sent.
 	 */
 	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {

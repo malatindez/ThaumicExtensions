@@ -45,7 +45,7 @@ public class Collection extends DefaultGuiObject implements
         objects.remove(object);
     }
     public Object addObject(Object object) {
-        if(object == null || !(object instanceof DefaultGuiObject)) {
+        if(!(object instanceof DefaultGuiObject)) {
             return null;
         }
         ((DefaultGuiObject) object).resolutionUpdated(this.currentResolution);

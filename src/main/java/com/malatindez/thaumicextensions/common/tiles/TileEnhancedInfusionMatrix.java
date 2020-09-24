@@ -66,7 +66,7 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
 
     private int recipeEnergy = 0;
 
-    public class SourceFX {
+    public static class SourceFX {
         public ChunkCoordinates loc;
 
         public int ticks;

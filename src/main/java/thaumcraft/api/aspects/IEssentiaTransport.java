@@ -32,13 +32,11 @@ public interface IEssentiaTransport {
 			
 	/**
 	 * Sets the amount of suction this block will apply
-	 * @param suction
 	 */
 	public void setSuction(Aspect aspect, int amount);
 	
 	/**
-	 * Returns the type of suction this block is applying. 
-	 * @param loc
+	 * Returns the type of suction this block is applying.
 	 * 		the location from where the suction is being checked
 	 * @return
 	 * 		a return type of null indicates the suction is untyped and the first thing available will be drawn
@@ -46,8 +44,7 @@ public interface IEssentiaTransport {
 	public Aspect getSuctionType(ForgeDirection face);
 	
 	/**
-	 * Returns the strength of suction this block is applying. 
-	 * @param loc
+	 * Returns the strength of suction this block is applying.
 	 * 		the location from where the suction is being checked
 	 * @return
 	 */

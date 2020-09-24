@@ -12,7 +12,7 @@ public class Rect extends DefaultGuiObject {
 
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName == this.getName()) {
+        if(this.getName().equals(objectName)) {
             getMethodFunc(objectName, name, parameterTypes);
         }
         return null;
@@ -20,7 +20,7 @@ public class Rect extends DefaultGuiObject {
 
     @Override
     public Object getObjectDown(String objectName) {
-        if(objectName == this.getName()) {
+        if(this.getName().equals(objectName)) {
             return this;
         }
         return null;

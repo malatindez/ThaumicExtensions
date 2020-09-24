@@ -49,13 +49,13 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
             }
             else
             {
-                String ret = "Invalid shapeless ore recipe: ";
+                StringBuilder ret = new StringBuilder("Invalid shapeless ore recipe: ");
                 for (Object tmp :  recipe)
                 {
-                    ret += tmp + ", ";
+                    ret.append(tmp).append(", ");
                 }
-                ret += output;
-                throw new RuntimeException(ret);
+                ret.append(output);
+                throw new RuntimeException(ret.toString());
             }
         }
     }

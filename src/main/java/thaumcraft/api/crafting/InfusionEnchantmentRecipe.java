@@ -76,7 +76,7 @@ public class InfusionEnchantmentRecipe
 				if (comp.getItemDamage()==OreDictionary.WILDCARD_VALUE) {
 					i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
 				}
-				if (areItemStacksEqual(i2, comp,true)) {
+				if (areItemStacksEqual(i2, comp)) {
 					ii.remove(a);
 					b=true;
 					break;
@@ -88,14 +88,14 @@ public class InfusionEnchantmentRecipe
 		return ii.size()==0?true:false;
     }
 	
-	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
+	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1)
     {
 		if (stack0==null && stack1!=null) return false;
 		if (stack0!=null && stack1==null) return false;
 		if (stack0==null && stack1==null) return true;
 		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
 		if (!t1) return false;
-		if (fuzzy) {
+		if (true) {
 			Integer od = OreDictionary.getOreID(stack0);
 			if (od!=-1) {
 				ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[]{});

@@ -15,7 +15,7 @@ public class AspectList implements Serializable {
 	
 	/**
 	 * this creates a new aspect list with preloaded values based off the aspects of the given item.
-	 * @param the itemstack of the given item
+	 * @param stack the itemstack of the given item
 	 */
 	public AspectList(ItemStack stack) {
 		try {
@@ -173,7 +173,6 @@ public class AspectList implements Serializable {
 	/**
 	 * Simply removes the aspect from the list
 	 * @param key
-	 * @param amount
 	 * @return
 	 */
 	public AspectList remove(Aspect key) {
@@ -237,7 +236,7 @@ public class AspectList implements Serializable {
         aspects.clear();
         NBTTagList tlist = nbttagcompound.getTagList("Aspects",(byte)10);
 		for (int j = 0; j < tlist.tagCount(); j++) {
-			NBTTagCompound rs = (NBTTagCompound) tlist.getCompoundTagAt(j);
+			NBTTagCompound rs = tlist.getCompoundTagAt(j);
 			if (rs.hasKey("key")) {
 				add(	Aspect.getAspect(rs.getString("key")),
 						rs.getInteger("amount"));
@@ -250,7 +249,7 @@ public class AspectList implements Serializable {
         aspects.clear();
         NBTTagList tlist = nbttagcompound.getTagList(label,(byte)10);
 		for (int j = 0; j < tlist.tagCount(); j++) {
-			NBTTagCompound rs = (NBTTagCompound) tlist.getCompoundTagAt(j);
+			NBTTagCompound rs = tlist.getCompoundTagAt(j);
 			if (rs.hasKey("key")) {
 				add(	Aspect.getAspect(rs.getString("key")),
 						rs.getInteger("amount"));

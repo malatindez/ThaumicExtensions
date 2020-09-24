@@ -39,7 +39,7 @@ public class ThaumicExtensions
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent e) {
-        this.instance = this;
+        instance = this;
         proxy.preInit(e);
         this.networkEventHandler = new EventHandlerNetwork();
 
@@ -52,6 +52,6 @@ public class ThaumicExtensions
     @EventHandler
     public void init(FMLInitializationEvent e) {
         proxy.init(e);
-        NetworkRegistry.INSTANCE.registerGuiHandler(this.instance, proxy);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
     }
 }
