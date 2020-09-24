@@ -1,6 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import com.sun.istack.internal.NotNull;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.tools.nsc.doc.model.Def;
@@ -43,7 +43,7 @@ public class Collection extends DefaultGuiObject implements
     public void removeObject(Object object) {
         objects.remove(object);
     }
-    public Object addObject(@NotNull Object object) {
+    public Object addObject(Object object) {
         if(object == null) {
             return null;
         }
@@ -91,7 +91,7 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
+    public boolean mouseHandler(Vector2f currentMousePosition) {
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
@@ -104,7 +104,7 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public boolean mouseClicked(@NotNull  Vector2f currentMousePosition, int button) {
+    public boolean mouseClicked( Vector2f currentMousePosition, int button) {
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
