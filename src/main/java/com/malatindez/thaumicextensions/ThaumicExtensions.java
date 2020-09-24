@@ -12,7 +12,6 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import com.malatindez.thaumicextensions.client.ClientProxy;
 import thaumcraft.common.lib.network.EventHandlerNetwork;
 
 @Mod(modid = ThaumicExtensions.MODID, version = ThaumicExtensions.VERSION,
