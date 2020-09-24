@@ -1,8 +1,15 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 import net.minecraft.client.Minecraft;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
+import scala.reflect.macros.NonemptyAttachments;
+import scala.tools.nsc.doc.model.Def;
+import scala.util.hashing.Hashing;
+
+import java.lang.reflect.Method;
 
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable {
     private final Vector2f coordinates;
@@ -16,6 +23,42 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector4f borders;
     protected int zLevel;
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
+    private Object parent;
+    class MethodObjectPair {
+        public Method method;
+        public Object object;
+        public MethodObjectPair(Object object, Method method) {
+            this.method = method;
+            this.object = object;
+        }
+
+    }
+    public MethodObjectPair getMethod(String name, Class[] parameterTypes) {
+        try {
+            return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
+        } catch (NoSuchMethodException e) {
+            if(parent instanceof DefaultGuiObject) {
+                return ((DefaultGuiObject)parent).getMethod(name, parameterTypes);
+            }
+            else {
+                try {
+                    return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
+                } catch (Exception ignored) {}
+            }
+        }
+        System.out.println("Method wasn't found: " + name);
+        System.out.println(parameterTypes);
+        return null;
+    }
+    public static final Vector2f Json2Vec(Object array) {
+        return new Vector2f(
+                ((Long)((JSONArray)array).get(0)).floatValue(),
+                ((Long)((JSONArray)array).get(1)).floatValue()
+        );
+    }
+    public Object getParent() {
+        return parent;
+    }
     // this function will be called when vectors were updated
     protected abstract void VectorsWereUpdated();
     protected void updateVectors() {
@@ -97,30 +140,57 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
      * @param size
      * @param zLevel
      */
-    public DefaultGuiObject(String name, Vector2f coordinates, Vector2f scale, Vector2f size,
+    public DefaultGuiObject(String name, Object parent, Vector2f coordinates, Vector2f scale, Vector2f size,
                             int zLevel, ResolutionRescaleType type) {
         this.coordinates = new Vector2f(coordinates);
         this.currentObjectPosition.set(coordinates);
-        this.scale =  new Vector2f(scale);
+        this.scale =  new Vector2f(1,1);
         this.size =  new Vector2f(size);
         this.borders = new Vector4f();
         this.zLevel = zLevel;
         this.type = type;
         this.name = name;
-        updateVectors();
+        this.parent = parent;
+        this.reScale(scale);
     }
-    public DefaultGuiObject(String name, Vector2f coordinates, Vector2f scale, Vector2f size,
-                            int zLevel, ResolutionRescaleType type, boolean updateVectors) {
-        this.coordinates = new Vector2f(coordinates);
-        this.scale =  new Vector2f(scale);
-        this.size =  new Vector2f(size);
-        this.borders = new Vector4f();
-        this.zLevel = zLevel;
-        this.type = type;
+    public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         this.name = name;
-        if(updateVectors) {
-            updateVectors();
+        this.parent = parent;
+        this.coordinates = new Vector2f(0, 0);
+        if(parameters.containsKey("coordinates")) {
+            this.coordinates.set(Json2Vec(parameters.get("coordinates")));
         }
+        this.currentObjectPosition.set(coordinates);
+        this.borders = new Vector4f();
+        this.scale = new Vector2f(1,1);
+        Vector2f scale = new Vector2f(1, 1);
+        if(parameters.containsKey("scale")) {
+            scale = Json2Vec(parameters.get("scale"));
+        }
+        this.size = new Vector2f(0, 0);
+        if(parameters.containsKey("size")) {
+            this.size.set(Json2Vec(parameters.get("size")));
+        }
+        zLevel = 0;
+        if(parameters.containsKey("zLevel")) {
+            zLevel = (Integer)(parameters.get("zLevel"));
+        }
+        type = ResolutionRescaleType.SCALE_SMOOTH_XY;
+        if(parameters.containsKey("scale_type")) {
+            String scale_type = (String)parameters.get("scale_type");
+            if (scale_type.equals("none")) {
+                type = ResolutionRescaleType.NONE;
+            } else if(scale_type.equals("scale_x")) {
+                type = ResolutionRescaleType.SCALE_X;
+            } else if(scale_type.equals("scale_y")) {
+                type = ResolutionRescaleType.SCALE_Y;
+            } else if(scale_type.equals("scale_xy")) {
+                type = ResolutionRescaleType.SCALE_XY;
+            } else if(scale_type.equals("scale_smooth_xy")) {
+                type = ResolutionRescaleType.SCALE_SMOOTH_XY;
+            }
+        }
+        this.reScale(scale);
     }
     @Override
     public int getZLevel() {
