@@ -50,6 +50,7 @@ public class Button extends DefaultGuiObject
 
     public Button(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
+        this.setSize(((DefaultGuiObject)icon).getSize());
         if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {
             JSONObject obj = (JSONObject) parameters.get("method");
             method = this.getMethodUp(
