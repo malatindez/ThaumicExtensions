@@ -64,14 +64,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         enum Flags {
             LMB         (1),
             RMB         (2),
-            MMB         (4),
-            Return      (8),
-            Space       (16),
-            Backspace   (32),
-            LeftArrow   (64),
-            RightArrow  (128),
-            UpArrow     (256),
-            DownArrow   (512);
+            MMB         (4);
             private final int type;
             public int getType() {
                 return type;
@@ -148,6 +141,9 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
          */
         int getZLevel();
     }
+    public interface Inputable {
+        void keyTyped(char par1, int par2);
+    }
     protected final Vector2f mousePosition = new Vector2f(0,0);
     public Vector2f getCurrentMousePosition() {
         return new Vector2f(mousePosition);
@@ -160,6 +156,10 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
 
     public void onGuiClosed() {
         super.onGuiClosed();
+    }
+    protected void keyTyped(char par1, int par2) {
+        super.keyTyped(par1, par2);
+        gui.keyTyped(par1, par2);
     }
 
 
@@ -176,13 +176,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         if(Mouse.isButtonDown(0))                   flags |= Updatable.Flags.LMB.getType();
         if(Mouse.isButtonDown(1))                   flags |= Updatable.Flags.RMB.getType();
         if(Mouse.isButtonDown(2))                   flags |= Updatable.Flags.MMB.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)) flags |= Updatable.Flags.Return.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE))  flags |= Updatable.Flags.Space.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_BACK))   flags |= Updatable.Flags.Backspace.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_LEFT))   flags |= Updatable.Flags.LeftArrow.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT))  flags |= Updatable.Flags.RightArrow.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_UP))     flags |= Updatable.Flags.UpArrow.getType();
-        if(Keyboard.isKeyDown(Keyboard.KEY_DOWN))   flags |= Updatable.Flags.DownArrow.getType();
         gui.Update(flags);
         gui.render();
     }
@@ -192,12 +185,15 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     @SuppressWarnings("rawtypes")
     public static final HashMap<String, Class> parts = new HashMap<String, Class>(){{
         put("Collection", Collection.class);
+        put("ContextMenuField", ContextMenuField.class);
         put("Button", Button.class);
         put("Drag", Drag.class);
         put("Icon", IconFactory.Icon.class);
         put("Rect", Rect.class);
         put("TextBox", TextBox.class);
         put("TextLine", TextLine.class);
+        put("TextInputBox", TextInputBox.class);
+        put("TextInputLine", TextInputLine.class);
         // type name and class instance which will be constructed
     }};
     public static DefaultGuiObject createObject(String name, Object parent, JSONObject object) {
@@ -208,7 +204,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
                     Constructor<?> constructor = parts.get(type).getConstructor(String.class, Object.class, JSONObject.class);
                     return (DefaultGuiObject) constructor.newInstance(new Object[] {name, parent, object});
                 } catch(Exception exception) {
-                    System.out.println("Exception caught! Something went wrong in createObject. Objects name: " + name);
+                    System.out.println("Exception caught! Failed to construct " + name);
                     System.out.println("Parent:" + parent.getClass().getSimpleName());
                     System.out.println("JSONObject: " + object.toString());
                     System.out.println("Stack trace: ");
