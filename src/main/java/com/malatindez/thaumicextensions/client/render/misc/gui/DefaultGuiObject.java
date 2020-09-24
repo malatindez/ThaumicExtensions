@@ -21,6 +21,21 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     protected int zLevel;
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
     private final Object parent;
+
+    private boolean hide = false;
+    public void hide() {
+        hide = true;
+    }
+    public void show() {
+        hide = false;
+    }
+    public void setHide(boolean hide) {
+        this.hide = hide;
+    }
+    public boolean hided() {
+        return hide;
+    }
+
     static class MethodObjectPair {
         public final Method method;
         public final Object object;
@@ -200,19 +215,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded
     public abstract void postInit();
-    public DefaultGuiObject(String name, Object parent, Vector2f coordinates, Vector2f scale, Vector2f size,
-                            int zLevel, ResolutionRescaleType type) {
-        this.coordinates = new Vector2f(coordinates);
-        this.currentObjectPosition.set(coordinates);
-        this.scale =  new Vector2f(1,1);
-        this.size =  new Vector2f(size);
-        this.borders = new Vector4f();
-        this.zLevel = zLevel;
-        this.type = type;
-        this.name = name;
-        this.parent = parent;
-        this.reScale(scale);
-    }
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         preInit(name,parent,parameters);
         this.name = name;
@@ -236,6 +238,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(parameters.containsKey("zLevel")) {
             zLevel = (int) Float.parseFloat(parameters.get("zLevel").toString());
         }
+        if(parameters.containsKey("hided")) {
+            hide = (Boolean)parameters.get("hided");
+        }
         type = ResolutionRescaleType.SCALE_SMOOTH_XY;
         if(parameters.containsKey("scale_type")) {
             String scale_type = (String)parameters.get("scale_type");
@@ -256,6 +261,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             }
         }
         this.reScale(scale);
+    }
+    MethodObjectPair getMethod(JSONObject parameters, String methodName, Class[] methodParameters) {
+        if(parameters.containsKey(methodName)) {
+            JSONObject obj = (JSONObject) parameters.get(methodName);
+            return this.getMethodUp(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    methodParameters);
+        }
+        return null;
     }
     @Override
     public int getZLevel() {
