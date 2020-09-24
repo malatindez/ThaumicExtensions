@@ -44,10 +44,8 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     public void drawScreen(int mx, int my, float tick) {
         super.drawScreen(mx,my,tick);
     }
-    protected final IconFactory map;
     public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
         super(new ResourceLocation(ThaumicExtensions.MODID, "gui/test_gui.json"));
-        map = new IconFactory(new ResourceLocation(ThaumicExtensions.MODID, "texture_mappings/gui_research.json"));
     }
     public void defaultResearchClicked(Object obj, int id) {
 
