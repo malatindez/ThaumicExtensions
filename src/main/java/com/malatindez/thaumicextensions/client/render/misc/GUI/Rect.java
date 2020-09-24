@@ -11,12 +11,28 @@ import org.lwjgl.util.vector.Vector4f;
 public class Rect extends DefaultGuiObject {
 
     @Override
-    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
-        return getMethod(objectName, name, parameterTypes, callParent);
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
+        if(objectName == this.getName()) {
+            getMethodFunc(objectName, name, parameterTypes);
+        }
+        return null;
+    }
+
+    @Override
+    public Object getObjectDown(String objectName) {
+        if(objectName == this.getName()) {
+            return this;
+        }
+        return null;
     }
 
     @Override
     protected void VectorsWereUpdated() {
+
+    }
+
+    @Override
+    public void preInit(String name, Object parent, JSONObject parameters) {
 
     }
 
