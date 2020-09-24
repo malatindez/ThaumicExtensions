@@ -1,6 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -14,6 +16,7 @@ public class TextBox extends DefaultGuiObject {
     public Vector3f color;
     public final boolean isTextScalable;
     public final boolean dropShadow;
+    /*
     public TextBox(String name, FontRenderer fontRendererObj, String text, Vector3f color, boolean dropShadow,
                    boolean isTextScalable, Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
                    int zLevel, ResolutionRescaleType type) {
@@ -24,6 +27,27 @@ public class TextBox extends DefaultGuiObject {
         this.isTextScalable = isTextScalable;
         this.fontRendererObj = fontRendererObj;
         this.textScale = new Vector2f(textScale);
+    }*/
+    public TextBox(String name, Object parent, JSONObject parameters) {
+        super(name,parent,parameters);
+        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+        text = (String)parameters.get("text");
+        color = Json3Vec(parameters.get("color"));
+        if(parameters.containsKey("textScale")) {
+            textScale = Json2Vec(parameters.get("textScale"));
+        } else {
+            textScale = new Vector2f(1,1);
+        }
+        if(parameters.containsKey("isTextScalable")) {
+            isTextScalable = (Boolean)parameters.get("isTextScalable");
+        } else {
+            isTextScalable = false;
+        }
+        if(parameters.containsKey("dropShadow")) {
+            dropShadow = (Boolean)parameters.get("dropShadow");
+        } else {
+            dropShadow = false;
+        }
     }
     private int renderTextBox(String text, boolean render) {
         Vector2f scale = this.getScale();
@@ -84,6 +108,10 @@ public class TextBox extends DefaultGuiObject {
     }
 
 
+    @Override
+    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+        return getMethod(objectName, name, parameterTypes, callParent);
+    }
 
     @Override
     protected void VectorsWereUpdated() {
