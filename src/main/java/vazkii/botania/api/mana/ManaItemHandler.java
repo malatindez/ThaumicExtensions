@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Mar 13, 2014, 5:32:24 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
@@ -115,6 +115,7 @@ public final class ManaItemHandler {
 	 * Dispatches mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * @param manaToSend How much mana is to be sent.
+	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
 	 * @return The amount of mana actually sent.
 	 */
 	public static int dispatchMana(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {
@@ -144,7 +145,7 @@ public final class ManaItemHandler {
 					if(stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canExportManaToItem(stack, stackInSlot))
 						continue;
 
-					int received;
+					int received = 0;
 					if(manaItemSlot.getMana(stackInSlot) + manaToSend <= manaItemSlot.getMaxMana(stackInSlot))
 						received = manaToSend;
 					else received = manaToSend - (manaItemSlot.getMana(stackInSlot) + manaToSend - manaItemSlot.getMaxMana(stackInSlot));
@@ -167,6 +168,7 @@ public final class ManaItemHandler {
 	 * Dispatches an exact amount of mana to items in a given player's inventory. Note that this method
 	 * does not automatically remove mana from the item which is exporting.
 	 * @param manaToSend How much mana is to be sent.
+	 * @param remove If true, the mana will be added from the target item. Set to false to just check.
 	 * @return If an item received the mana sent.
 	 */
 	public static boolean dispatchManaExact(ItemStack stack, EntityPlayer player, int manaToSend, boolean add) {

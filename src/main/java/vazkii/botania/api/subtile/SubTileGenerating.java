@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jan 24, 2014, 8:03:36 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jan 24, 2014, 8:03:36 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
@@ -34,7 +34,6 @@ import vazkii.botania.api.mana.IManaCollector;
 /**
  * The basic class for a Generating Flower.
  */
-@SuppressWarnings("SameReturnValue")
 public class SubTileGenerating extends SubTileEntity {
 
 	public static final int RANGE = 6;
@@ -121,7 +120,7 @@ public class SubTileGenerating extends SubTileEntity {
 				if(supertile.getWorldObj().blockExists(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedCollectorCoordinates.posX, cachedCollectorCoordinates.posY, cachedCollectorCoordinates.posZ);
-					if(tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
+					if(tileAt != null && tileAt instanceof IManaCollector && !tileAt.isInvalid()) {
 						linkedCollector = tileAt;
 						needsNew = false;
 					}
@@ -130,7 +129,7 @@ public class SubTileGenerating extends SubTileEntity {
 			}
 		} else {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedCollector.xCoord, linkedCollector.yCoord, linkedCollector.zCoord);
-			if(tileAt instanceof IManaCollector)
+			if(tileAt != null && tileAt instanceof IManaCollector)
 				linkedCollector = tileAt;
 		}
 

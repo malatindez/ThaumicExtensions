@@ -13,7 +13,6 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.WorldCoordinates;
 import thaumcraft.api.aspects.Aspect;
 
-@SuppressWarnings({"unchecked", "ConstantConditions", "rawtypes", "JavaDoc", "Convert2Diamond"})
 public class VisNetHandler {
 
 	// NODE DRAINING
@@ -67,7 +66,7 @@ public class VisNetHandler {
 		ThaumcraftApi.internalMethods.generateVisEffect(dim, x, y, z, x2, y2, z2, color);
 	}
 
-	public static final HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>> sources = new HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>>();
+	public static HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>> sources = new HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>>();
 
 	public static void addSource(World world, TileVisNode vs) {
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
@@ -80,7 +79,6 @@ public class VisNetHandler {
 		nearbyNodes.clear();
 	}
 
-	@SuppressWarnings("RedundantIfStatement")
 	public static boolean isNodeValid(WeakReference<TileVisNode> node) {
 		if (node == null || node.get() == null || node.get().isInvalid())
 			return false;
@@ -93,6 +91,7 @@ public class VisNetHandler {
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
 				.get(world.provider.dimensionId);
 		if (sourcelist == null) {
+			sourcelist = new HashMap<WorldCoordinates, WeakReference<TileVisNode>>();
 			return null;
 		}
 
@@ -136,7 +135,7 @@ public class VisNetHandler {
 		return null;
 	}
 
-	static final ArrayList<WorldCoordinates> cache = new ArrayList<WorldCoordinates>();
+	static ArrayList<WorldCoordinates> cache = new ArrayList<WorldCoordinates>();
 	public static ArrayList<Object[]> findClosestNodes(TileVisNode target,
 			TileVisNode parent, ArrayList<Object[]> in) {
 		
@@ -165,13 +164,14 @@ public class VisNetHandler {
 		return distance > range * range ? -1 : distance;
 	}
 
-	private static final HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>> nearbyNodes = new HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>>();
+	private static HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>> nearbyNodes = new HashMap<WorldCoordinates, ArrayList<WeakReference<TileVisNode>>>();
 
 	private static void calculateNearbyNodes(World world, int x, int y, int z) {
 
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
 				.get(world.provider.dimensionId);
 		if (sourcelist == null) {
+			sourcelist = new HashMap<WorldCoordinates, WeakReference<TileVisNode>>();
 			return;
 		}
 
@@ -203,7 +203,6 @@ public class VisNetHandler {
 			
 			for (WeakReference<TileVisNode> child : children) {
 				TileVisNode n = child.get();
-				//noinspection EqualsBetweenInconvertibleTypes
 				if (n != null && !n.equals(root)) {
 					
 					float r2 = inRange(n.getWorldObj(), n.getLocation(),

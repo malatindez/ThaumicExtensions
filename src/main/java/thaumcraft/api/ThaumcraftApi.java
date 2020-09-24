@@ -39,7 +39,6 @@ import thaumcraft.api.research.ResearchPage;
  * IMPORTANT: If you are adding your own aspects to items it is a good idea to do it AFTER Thaumcraft adds its aspects, otherwise odd things may happen.
  *
  */
-@SuppressWarnings({"deprecation", "unchecked", "ConstantConditions", "rawtypes", "JavaDoc", "Convert2Diamond"})
 public class ThaumcraftApi {
 	
 	//Materials	
@@ -68,18 +67,18 @@ public class ThaumcraftApi {
 	
 	//Internal (Do not alter this unless you like pretty explosions)
 	//Calling methods from this will only work properly once Thaumcraft is past the FMLPreInitializationEvent phase.
-	public static final IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();
+	public static IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();	
 	
 	//RESEARCH/////////////////////////////////////////
-	public static final ArrayList<IScanEventHandler> scanEventhandlers = new ArrayList<IScanEventHandler>();
-	public static final ArrayList<EntityTags> scanEntities = new ArrayList<EntityTags>();
+	public static ArrayList<IScanEventHandler> scanEventhandlers = new ArrayList<IScanEventHandler>();
+	public static ArrayList<EntityTags> scanEntities = new ArrayList<EntityTags>();
 	public static class EntityTagsNBT {
 		public EntityTagsNBT(String name, Object value) {
 			this.name = name;
 			this.value = value;
 		}
-		public final String name;
-		public final Object value;
+		public String name;
+		public Object value;
 	}
 	public static class EntityTags {
 		public EntityTags(String entityName, AspectList aspects, EntityTagsNBT... nbts) {
@@ -87,9 +86,9 @@ public class ThaumcraftApi {
 			this.nbts = nbts;
 			this.aspects = aspects;
 		}
-		public final String entityName;
-		public final EntityTagsNBT[] nbts;
-		public final AspectList aspects;
+		public String entityName;
+		public EntityTagsNBT[] nbts;
+		public AspectList aspects;
 	}
 	
 	/**
@@ -115,8 +114,8 @@ public class ThaumcraftApi {
 	}
 	
 	//RECIPES/////////////////////////////////////////
-	private static final ArrayList craftingRecipes = new ArrayList();
-	private static final HashMap<Object,ItemStack> smeltingBonus = new HashMap<Object,ItemStack>();
+	private static ArrayList craftingRecipes = new ArrayList();	
+	private static HashMap<Object,ItemStack> smeltingBonus = new HashMap<Object,ItemStack>();
 	
 	/**
 	 * This method is used to determine what bonus items are generated when the infernal furnace smelts items
@@ -224,6 +223,7 @@ public class ThaumcraftApi {
     }
 	
 	/**
+	 * @param stack the recipe result
 	 * @return the recipe
 	 */
 	public static InfusionRecipe getInfusionRecipe(ItemStack res) {
@@ -243,6 +243,7 @@ public class ThaumcraftApi {
      * @param key the research key required for this recipe to work. 
      * @param result the output result
      * @param catalyst an itemstack of the catalyst or a string if it is an ore dictionary item
+     * @param cost the vis cost
      * @param tags the aspects required to craft this
      */
     public static CrucibleRecipe addCrucibleRecipe(String key, ItemStack result, Object catalyst, AspectList tags) {
@@ -285,7 +286,7 @@ public class ThaumcraftApi {
 	 * @param stack the item
 	 * @return the thaumcraft recipe key that produces that item. 
 	 */
-	private static final HashMap<int[],Object[]> keyCache = new HashMap<int[],Object[]>();
+	private static HashMap<int[],Object[]> keyCache = new HashMap<int[],Object[]>();
 	
 	public static Object[] getCraftingRecipeKey(EntityPlayer player, ItemStack stack) {
 		int[] key = new int[] {Item.getIdFromItem(stack.getItem()),stack.getItemDamage()};
@@ -301,7 +302,7 @@ public class ThaumcraftApi {
 				if (ri.getPages()==null) continue;
 				for (int a=0;a<ri.getPages().length;a++) {
 					ResearchPage page = ri.getPages()[a];
-					if (page.recipe instanceof CrucibleRecipe[]) {
+					if (page.recipe!=null && page.recipe instanceof CrucibleRecipe[]) {
 						CrucibleRecipe[] crs = (CrucibleRecipe[]) page.recipe;
 						for (CrucibleRecipe cr:crs) {
 							if (cr.getRecipeOutput().isItemEqual(stack)) {
@@ -327,15 +328,15 @@ public class ThaumcraftApi {
 	
 	//ASPECTS////////////////////////////////////////
 	
-	public static final ConcurrentHashMap<List,AspectList> objectTags = new ConcurrentHashMap<List,AspectList>();
-	public static final ConcurrentHashMap<List,int[]> groupedObjectTags = new ConcurrentHashMap<List,int[]>();
+	public static ConcurrentHashMap<List,AspectList> objectTags = new ConcurrentHashMap<List,AspectList>();
+	public static ConcurrentHashMap<List,int[]> groupedObjectTags = new ConcurrentHashMap<List,int[]>();
 	
 	/**
 	 * Checks to see if the passed item/block already has aspects associated with it.
+	 * @param id
 	 * @param meta
 	 * @return 
 	 */
-	@SuppressWarnings("RedundantIfStatement")
 	public static boolean exists(Item item, int meta) {
 		AspectList tmp = ThaumcraftApi.objectTags.get(Arrays.asList(item,meta));
 		if (tmp==null) {
@@ -363,7 +364,7 @@ public class ThaumcraftApi {
 		if (aspects==null) aspects=new AspectList();
 		try {
 		objectTags.put(Arrays.asList(item.getItem(),item.getItemDamage()), aspects);
-		} catch (Exception ignored) {}
+		} catch (Exception e) {}
 	}	
 	
 	
@@ -382,7 +383,7 @@ public class ThaumcraftApi {
 				groupedObjectTags.put(Arrays.asList(item.getItem(),m), meta);
 			}
 			
-		} catch (Exception ignored) {}
+		} catch (Exception e) {}
 	}
 	
 	/**
@@ -397,7 +398,7 @@ public class ThaumcraftApi {
 			for (ItemStack ore:ores) {
 				try {
 				objectTags.put(Arrays.asList(ore.getItem(), ore.getItemDamage()), aspects);
-				} catch (Exception ignored) {}
+				} catch (Exception e) {}
 			}
 		}
 	}
@@ -430,7 +431,7 @@ public class ThaumcraftApi {
 	}
 	
 	//WARP ///////////////////////////////////////////////////////////////////////////////////////
-		private static final HashMap<Object,Integer> warpMap = new HashMap<Object,Integer>();
+		private static HashMap<Object,Integer> warpMap = new HashMap<Object,Integer>();
 		
 		/**
 		 * This method is used to determine how much warp is gained if the item is crafted. The warp
@@ -444,6 +445,7 @@ public class ThaumcraftApi {
 		
 		/**
 		 * This method is used to determine how much permanent warp is gained if the research is completed
+		 * @param in The item crafted
 		 * @param amount how much warp is gained
 		 */
 		public static void addWarpToResearch(String research, int amount) {
@@ -460,8 +462,8 @@ public class ThaumcraftApi {
 			if (in instanceof ItemStack && warpMap.containsKey(Arrays.asList(((ItemStack)in).getItem(),((ItemStack)in).getItemDamage()))) {
 				return warpMap.get(Arrays.asList(((ItemStack)in).getItem(),((ItemStack)in).getItemDamage()));
 			} else
-			if (in instanceof String && warpMap.containsKey(in)) {
-				return warpMap.get(in);
+			if (in instanceof String && warpMap.containsKey((String)in)) {
+				return warpMap.get((String)in);
 			}
 			return 0;
 		}
@@ -494,93 +496,93 @@ public class ThaumcraftApi {
 		
 	//CROPS //////////////////////////////////////////////////////////////////////////////////////////
 	
-	/*
-	  To define mod crops you need to use FMLInterModComms in your @Mod.Init method.
-	  There are two 'types' of crops you can add. Standard crops and clickable crops.
-
-	  Standard crops work like normal vanilla crops - they grow until a certain metadata
-	  value is reached and you harvest them by destroying the block and collecting the blocks.
-	  You need to create and ItemStack that tells the golem what block id and metadata represents
-	  the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get
-	  checked.
-	  Example for vanilla wheat:
-	  FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Block.crops,1,7));
-
-	  Clickable crops are crops that you right click to gather their bounty instead of destroying them.
-	  As for standard crops, you need to create and ItemStack that tells the golem what block id
-	  and metadata represents the crop when fully grown. The golem will trigger the blocks onBlockActivated method.
-	  Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
-	  Example (this will technically do nothing since clicking wheat does nothing, but you get the idea):
-	  FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Block.crops,1,7));
-
-	  Stacked crops (like reeds) are crops that you wish the bottom block should remain after harvesting.
-	  As for standard crops, you need to create and ItemStack that tells the golem what block id
-	  and metadata represents the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the actualy md won't get
-	  checked. If it has the order upgrade it will only harvest if the crop is more than one block high.
-	  Example:
-	  FMLInterModComms.sendMessage("Thaumcraft", "harvestStackedCrop", new ItemStack(Block.reed,1,7));
+	/**
+	 * To define mod crops you need to use FMLInterModComms in your @Mod.Init method.
+	 * There are two 'types' of crops you can add. Standard crops and clickable crops.
+	 * 
+	 * Standard crops work like normal vanilla crops - they grow until a certain metadata 
+	 * value is reached and you harvest them by destroying the block and collecting the blocks.
+	 * You need to create and ItemStack that tells the golem what block id and metadata represents
+	 * the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get 
+	 * checked.
+	 * Example for vanilla wheat: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestStandardCrop", new ItemStack(Block.crops,1,7));
+	 *  
+	 * Clickable crops are crops that you right click to gather their bounty instead of destroying them.
+	 * As for standard crops, you need to create and ItemStack that tells the golem what block id 
+	 * and metadata represents the crop when fully grown. The golem will trigger the blocks onBlockActivated method. 
+	 * Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
+	 * Example (this will technically do nothing since clicking wheat does nothing, but you get the idea): 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(Block.crops,1,7));
+	 * 
+	 * Stacked crops (like reeds) are crops that you wish the bottom block should remain after harvesting.
+	 * As for standard crops, you need to create and ItemStack that tells the golem what block id 
+	 * and metadata represents the crop when fully grown. Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the actualy md won't get 
+	 * checked. If it has the order upgrade it will only harvest if the crop is more than one block high.
+	 * Example: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "harvestStackedCrop", new ItemStack(Block.reed,1,7));
 	 */
 	
 	//NATIVE CLUSTERS //////////////////////////////////////////////////////////////////////////////////
 	
-	/*
-	  You can define certain ores that will have a chance to produce native clusters via FMLInterModComms
-	  in your @Mod.Init method using the "nativeCluster" string message.
-	  The format should be:
-	  "[ore item/block id],[ore item/block metadata],[cluster item/block id],[cluster item/block metadata],[chance modifier float]"
-
-	  NOTE: The chance modifier is a multiplier applied to the default chance for that cluster to be produced (default 27.5% for a pickaxe of the core)
-
-	  Example for vanilla iron ore to produce one of my own native iron clusters (assuming default id's) at double the default chance:
-	  FMLInterModComms.sendMessage("Thaumcraft", "nativeCluster","15,0,25016,16,2.0");
+	/**
+	 * You can define certain ores that will have a chance to produce native clusters via FMLInterModComms 
+	 * in your @Mod.Init method using the "nativeCluster" string message.
+	 * The format should be: 
+	 * "[ore item/block id],[ore item/block metadata],[cluster item/block id],[cluster item/block metadata],[chance modifier float]"
+	 * 
+	 * NOTE: The chance modifier is a multiplier applied to the default chance for that cluster to be produced (default 27.5% for a pickaxe of the core)
+	 * 
+	 * Example for vanilla iron ore to produce one of my own native iron clusters (assuming default id's) at double the default chance: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "nativeCluster","15,0,25016,16,2.0");
 	 */
 	
 	//LAMP OF GROWTH BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/*
-	  You can blacklist crops that should not be effected by the Lamp of Growth via FMLInterModComms
-	  in your @Mod.Init method using the "lampBlacklist" itemstack message.
-	  Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
-	  Example for vanilla wheat:
-	  FMLInterModComms.sendMessage("Thaumcraft", "lampBlacklist", new ItemStack(Block.crops,1,OreDictionary.WILDCARD_VALUE));
+	/**
+	 * You can blacklist crops that should not be effected by the Lamp of Growth via FMLInterModComms 
+	 * in your @Mod.Init method using the "lampBlacklist" itemstack message.
+	 * Sending a metadata of [OreDictionary.WILDCARD_VALUE] will mean the metadata won't get checked.
+	 * Example for vanilla wheat: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "lampBlacklist", new ItemStack(Block.crops,1,OreDictionary.WILDCARD_VALUE));
 	 */
 	
 	//DIMENSION BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/*
-	  You can blacklist a dimension to not spawn certain thaumcraft features
-	  in your @Mod.Init method using the "dimensionBlacklist" string message in the format "[dimension]:[level]"
-	  The level values are as follows:
-	  [0] stop all tc spawning and generation
-	  [1] allow ore and node generation (and node special features)
-	  [2] allow mob spawning
-	  [3] allow ore and node gen + mob spawning (and node special features)
-	  Example:
-	  FMLInterModComms.sendMessage("Thaumcraft", "dimensionBlacklist", "15:1");
+	/**
+	 * You can blacklist a dimension to not spawn certain thaumcraft features 
+	 * in your @Mod.Init method using the "dimensionBlacklist" string message in the format "[dimension]:[level]"
+	 * The level values are as follows:
+	 * [0] stop all tc spawning and generation
+	 * [1] allow ore and node generation (and node special features)
+	 * [2] allow mob spawning
+	 * [3] allow ore and node gen + mob spawning (and node special features)
+	 * Example: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "dimensionBlacklist", "15:1");
 	 */
 	
 	//BIOME BLACKLIST ///////////////////////////////////////////////////////////////////////////
-	/*
-	  You can blacklist a biome to not spawn certain thaumcraft features
-	  in your @Mod.Init method using the "biomeBlacklist" string message in the format "[biome id]:[level]"
-	  The level values are as follows:
-	  [0] stop all tc spawning and generation
-	  [1] allow ore and node generation (and node special features)
-	  [2] allow mob spawning
-	  [3] allow ore and node gen + mob spawning (and node special features)
-	  Example:
-	  FMLInterModComms.sendMessage("Thaumcraft", "biomeBlacklist", "180:2");
+	/**
+	 * You can blacklist a biome to not spawn certain thaumcraft features 
+	 * in your @Mod.Init method using the "biomeBlacklist" string message in the format "[biome id]:[level]"
+	 * The level values are as follows:
+	 * [0] stop all tc spawning and generation
+	 * [1] allow ore and node generation (and node special features)
+	 * [2] allow mob spawning
+	 * [3] allow ore and node gen + mob spawning (and node special features)
+	 * Example: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "biomeBlacklist", "180:2");
 	 */
 		
 	//CHAMPION MOB WHITELIST ///////////////////////////////////////////////////////////////////////////
-	/*
-	  You can whitelist an entity class so it can rarely spawn champion versions in your @Mod.Init method using
-	  the "championWhiteList" string message in the format "[Entity]:[level]"
-	  The entity must extend EntityMob.
-	  [Entity] is in a similar format to what is used for mob spawners and such (see EntityList.class for vanilla examples).
-	  The [level] value indicate how rare the champion version will be - the higher the number the more common.
-	  The number roughly equals the [n] in 100 chance of a mob being a champion version.
-	  You can give 0 or negative numbers to allow champions to spawn with a very low chance only in particularly dangerous places.
-	  However anything less than about -2 will probably result in no spawns at all.
-	  Example:
-	  FMLInterModComms.sendMessage("Thaumcraft", "championWhiteList", "Thaumcraft.Wisp:1");
+	/**
+	 * You can whitelist an entity class so it can rarely spawn champion versions in your @Mod.Init method using 
+	 * the "championWhiteList" string message in the format "[Entity]:[level]"
+	 * The entity must extend EntityMob.
+	 * [Entity] is in a similar format to what is used for mob spawners and such (see EntityList.class for vanilla examples).
+	 * The [level] value indicate how rare the champion version will be - the higher the number the more common. 
+	 * The number roughly equals the [n] in 100 chance of a mob being a champion version. 
+	 * You can give 0 or negative numbers to allow champions to spawn with a very low chance only in particularly dangerous places. 
+	 * However anything less than about -2 will probably result in no spawns at all.
+	 * Example: 
+	 * FMLInterModComms.sendMessage("Thaumcraft", "championWhiteList", "Thaumcraft.Wisp:1");
 	 */
 }

@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class DamageSourceIndirectThaumcraftEntity extends EntityDamageSourceIndirect {
 
 	private boolean fireDamage;

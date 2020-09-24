@@ -21,7 +21,6 @@ import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"SameReturnValue", "unchecked", "EmptyMethod", "ConstantConditions", "Convert2Diamond"})
 public class ItemFocusBasic extends Item {
 	
 	public ItemFocusBasic ()
@@ -59,8 +58,7 @@ public class ItemFocusBasic extends Item {
 		addFocusInformation(stack,player,list,par4);
 	}
 	
-	@SuppressWarnings("rawtypes")
-    public void addFocusInformation(ItemStack focusstack, EntityPlayer player, List list, boolean par4) {
+	public void addFocusInformation(ItemStack focusstack,EntityPlayer player, List list, boolean par4) {
 		LinkedHashMap<Short, Integer> map = new LinkedHashMap<Short, Integer>();
 		for (short id:this.getAppliedUpgrades(focusstack)) {
 			if (id>=0) {
@@ -115,8 +113,8 @@ public class ItemFocusBasic extends Item {
 	}
 	
 	public enum WandFocusAnimation {
-		WAVE, CHARGE
-    }
+		WAVE, CHARGE;
+	}
 
 	public WandFocusAnimation getAnimation(ItemStack focusstack) {
 		return WandFocusAnimation.WAVE;
@@ -126,11 +124,11 @@ public class ItemFocusBasic extends Item {
 	 * Just insert two alphanumeric characters before this string in your focus item class
 	 */
 	public String getSortingHelper(ItemStack focusstack) {		
-		StringBuilder out= new StringBuilder();
+		String out="";
 		for (short id:this.getAppliedUpgrades(focusstack)) {
-			out.append(id);
+			out = out + id;
 		}
-		return out.toString();
+		return out;
 	}
 	
 	
@@ -168,8 +166,7 @@ public class ItemFocusBasic extends Item {
 	public short[] getAppliedUpgrades(ItemStack focusstack) {
 		short[] l = new short[] {-1,-1,-1,-1,-1};
 		NBTTagList nbttaglist = getFocusUpgradeTagList(focusstack);
-		//noinspection IfStatementWithIdenticalBranches
-		if (nbttaglist == null)
+        if (nbttaglist == null)
         {
             return l;
         }

@@ -9,15 +9,14 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings({"deprecation", "ConstantConditions", "JavaDoc", "Convert2Diamond"})
 public class InfusionRecipe
 {
-	protected final AspectList aspects;
-	protected final String research;
-	private final ItemStack[] components;
-	private final ItemStack recipeInput;
-	protected final Object recipeOutput;
-	protected final int instability;
+	protected AspectList aspects;
+	protected String research;
+	private ItemStack[] components;
+	private ItemStack recipeInput;
+	protected Object recipeOutput;
+	protected int instability;
 	
 	public InfusionRecipe(String research, Object output, int inst,
 			AspectList aspects2, ItemStack input, ItemStack[] recipe) {
@@ -67,7 +66,7 @@ public class InfusionRecipe
 			}
 			if (!b) return false;
 		}
-		return ii.size() == 0;
+		return ii.size()==0?true:false;
     }
 	
 	public static boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
@@ -81,7 +80,7 @@ public class InfusionRecipe
 		if (!t1) return false;
 		
 		if (fuzzy) {
-			int od = OreDictionary.getOreID(stack0);
+			Integer od = OreDictionary.getOreID(stack0);
 			if (od!=-1) {
 				ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[]{});
 				if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[]{stack1}, ores))
@@ -93,7 +92,7 @@ public class InfusionRecipe
 		boolean damage = stack0.getItemDamage() == stack1.getItemDamage() ||
 				stack1.getItemDamage() == OreDictionary.WILDCARD_VALUE;		
 		
-        return stack0.getItem() == stack1.getItem() && (damage && stack0.stackSize <= stack0.getMaxStackSize());
+        return stack0.getItem() != stack1.getItem() ? false : (!damage ? false : stack0.stackSize <= stack0.getMaxStackSize() );
     }
 	   
     public Object getRecipeOutput() {

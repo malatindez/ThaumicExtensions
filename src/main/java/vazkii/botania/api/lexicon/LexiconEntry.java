@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jan 14, 2014, 6:17:06 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
 
@@ -20,7 +20,6 @@ import vazkii.botania.api.BotaniaAPI;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"SameReturnValue", "unchecked", "rawtypes", "Convert2Diamond"})
 public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	public final String unlocalizedName;
@@ -28,11 +27,11 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public final List<LexiconPage> pages = new ArrayList<LexiconPage>();
+	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
 	private ItemStack icon = null;
 	
-	private final List<ItemStack> extraDisplayedRecipes = new ArrayList();
+	private List<ItemStack> extraDisplayedRecipes = new ArrayList();
 
 	/**
 	 * @param unlocalizedName The unlocalized name of this entry. This will be localized by the client display.

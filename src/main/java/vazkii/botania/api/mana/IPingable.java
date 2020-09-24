@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jun 19, 2015, 9:52:05 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jun 19, 2015, 9:52:05 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
@@ -26,6 +26,6 @@ public interface IPingable extends IIdentifiable {
 	 * was created, this is used to let the object handle the check for if it's the
 	 * correct ID internally. IManaBurst implementations should do this every tick.
 	 */
-    void pingback(IManaBurst burst, UUID expectedIdentity);
+	public void pingback(IManaBurst burst, UUID expectedIdentity);
 
 }

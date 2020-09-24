@@ -13,16 +13,15 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings({"deprecation", "ConstantConditions", "rawtypes", "JavaDoc", "WhileLoopReplaceableByForEach", "Convert2Diamond"})
 public class InfusionEnchantmentRecipe
 {
 	
-	public final AspectList aspects;
-	public final String research;
-	public final ItemStack[] components;
-	public final Enchantment enchantment;
-	public final int recipeXP;
-	public final int instability;
+	public AspectList aspects;
+	public String research;
+	public ItemStack[] components;
+	public Enchantment enchantment;
+	public int recipeXP;
+	public int instability;
 	
 	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst, 
 			AspectList aspects2, ItemStack[] recipe) {
@@ -51,7 +50,7 @@ public class InfusionEnchantmentRecipe
 		Iterator iterator = map1.keySet().iterator();
         while (iterator.hasNext())
         {
-        	int j1 = (Integer) iterator.next();
+        	int j1 = ((Integer)iterator.next()).intValue();
             Enchantment ench = Enchantment.enchantmentsList[j1];
             if (j1 == enchantment.effectId &&
             		EnchantmentHelper.getEnchantmentLevel(j1, central)>=ench.getMaxLevel())
@@ -63,7 +62,7 @@ public class InfusionEnchantmentRecipe
             }
         }
 		
-		ItemStack i2;
+		ItemStack i2 = null;
 		
 		ArrayList<ItemStack> ii = new ArrayList<ItemStack>();
 		for (ItemStack is:input) {
@@ -77,7 +76,7 @@ public class InfusionEnchantmentRecipe
 				if (comp.getItemDamage()==OreDictionary.WILDCARD_VALUE) {
 					i2.setItemDamage(OreDictionary.WILDCARD_VALUE);
 				}
-				if (areItemStacksEqual(i2, comp)) {
+				if (areItemStacksEqual(i2, comp,true)) {
 					ii.remove(a);
 					b=true;
 					break;
@@ -86,25 +85,25 @@ public class InfusionEnchantmentRecipe
 			if (!b) return false;
 		}
 //		System.out.println(ii.size());
-		return ii.size() == 0;
+		return ii.size()==0?true:false;
     }
 	
-	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1)
+	protected boolean areItemStacksEqual(ItemStack stack0, ItemStack stack1, boolean fuzzy)
     {
 		if (stack0==null && stack1!=null) return false;
 		if (stack0!=null && stack1==null) return false;
 		if (stack0==null && stack1==null) return true;
 		boolean t1=ThaumcraftApiHelper.areItemStackTagsEqualForCrafting(stack0, stack1);
 		if (!t1) return false;
-		if (true) {
-			int od = OreDictionary.getOreID(stack0);
+		if (fuzzy) {
+			Integer od = OreDictionary.getOreID(stack0);
 			if (od!=-1) {
 				ItemStack[] ores = OreDictionary.getOres(od).toArray(new ItemStack[]{});
 				if (ThaumcraftApiHelper.containsMatch(false, new ItemStack[]{stack1}, ores))
 					return true;
 			}
 		}
-        return stack0.getItem() == stack1.getItem() && (stack0.getItemDamage() == stack1.getItemDamage() && stack0.stackSize <= stack0.getMaxStackSize());
+        return stack0.getItem() != stack1.getItem() ? false : (stack0.getItemDamage() != stack1.getItemDamage() ? false : stack0.stackSize <= stack0.getMaxStackSize() );
     }
 	
    
@@ -127,10 +126,9 @@ public class InfusionEnchantmentRecipe
 		int i = 0;
 		Map map1 = EnchantmentHelper.getEnchantments(recipeInput);
 		Iterator iterator = map1.keySet().iterator();
-		//noinspection WhileLoopReplaceableByForEach
-		while (iterator.hasNext())
+        while (iterator.hasNext())
         {
-        	int j1 = (Integer) iterator.next();
+        	int j1 = ((Integer)iterator.next()).intValue();
         	i += EnchantmentHelper.getEnchantmentLevel(j1, recipeInput);
         }
 		return (i/2) + instability;
@@ -146,7 +144,7 @@ public class InfusionEnchantmentRecipe
 		Iterator iterator = map1.keySet().iterator();
         while (iterator.hasNext())
         {
-        	int j1 = (Integer) iterator.next();
+        	int j1 = ((Integer)iterator.next()).intValue();
         	if (j1 != enchantment.effectId)
         		mod += EnchantmentHelper.getEnchantmentLevel(j1, recipeInput) * .1f;
         }

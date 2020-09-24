@@ -13,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
  * It is also used to generate the wand recipes ingame.
  *
  */
-@SuppressWarnings("Convert2Diamond")
 public class WandRod {
 
 	
@@ -50,7 +49,7 @@ public class WandRod {
 	 */
 	boolean glow;
 
-	public static final LinkedHashMap<String,WandRod> rods = new LinkedHashMap<String,WandRod>();
+	public static LinkedHashMap<String,WandRod> rods = new LinkedHashMap<String,WandRod>();
 	
 	public WandRod (String tag, int capacity, ItemStack item, int craftCost, ResourceLocation texture) {
 		this.setTag(tag);

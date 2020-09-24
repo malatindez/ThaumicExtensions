@@ -19,10 +19,9 @@ import net.minecraft.world.World;
  * @author azanor
  *
  */
-@SuppressWarnings({"rawtypes", "JavaDoc", "Convert2Diamond"})
 public class WandTriggerRegistry {
 	
-	private static final HashMap<String,HashMap<List,List>> triggers = new HashMap<String,HashMap<List,List>>();
+	private static HashMap<String,HashMap<List,List>> triggers = new HashMap<String,HashMap<List,List>>();
 	private static final String DEFAULT = "default";
 
 	/**
@@ -68,8 +67,7 @@ public class WandTriggerRegistry {
 	/**
 	 * modid sensitive version
 	 */
-	@SuppressWarnings("RedundantIfStatement")
-    public static boolean hasTrigger(Block block, int meta, String modid) {
+	public static boolean hasTrigger(Block block, int meta, String modid) {
 		if (!triggers.containsKey(modid)) return false;
 		HashMap<List,List> temp = triggers.get(modid);
 		if (temp.containsKey(Arrays.asList(block,meta)) ||

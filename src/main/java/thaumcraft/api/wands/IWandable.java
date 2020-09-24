@@ -12,15 +12,14 @@ import net.minecraft.world.World;
  *
  */
 
-@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public interface IWandable {
 
-	int onWandRightClick(World world, ItemStack wandstack, EntityPlayer player, int x, int y, int z, int side, int md);
+	public int onWandRightClick(World world, ItemStack wandstack, EntityPlayer player, int x, int y, int z, int side, int md);
 	
-	ItemStack onWandRightClick(World world, ItemStack wandstack, EntityPlayer player);
+	public ItemStack onWandRightClick(World world, ItemStack wandstack, EntityPlayer player);
 	
-	void onUsingWandTick(ItemStack wandstack, EntityPlayer player, int count);
+	public void onUsingWandTick(ItemStack wandstack, EntityPlayer player, int count);
 	
-	void onWandStoppedUsing(ItemStack wandstack, World world, EntityPlayer player, int count);
+	public void onWandStoppedUsing(ItemStack wandstack, World world, EntityPlayer player, int count);
 	
 }

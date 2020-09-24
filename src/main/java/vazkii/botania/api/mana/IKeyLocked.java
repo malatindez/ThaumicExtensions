@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jul 11, 2014, 4:29:32 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jul 11, 2014, 4:29:32 PM (GMT)]
  */
 package vazkii.botania.api.mana;
 
@@ -22,8 +22,8 @@ package vazkii.botania.api.mana;
  */
 public interface IKeyLocked {
 
-	String getInputKey();
+	public String getInputKey();
 
-	String getOutputKey();
+	public String getOutputKey();
 
 }

@@ -3,11 +3,11 @@ package thaumcraft.api.research;
 import net.minecraft.entity.Entity;
 
 public class ScanResult {
-	public final byte type;   //1=blocks,2=entities,3=phenomena
-	public final int id;
-	public final int meta;
-	public final Entity entity;
-	public final String phenomena;
+	public byte type = 0;   //1=blocks,2=entities,3=phenomena
+	public int id;
+	public int meta;
+	public Entity entity;
+	public String phenomena;
 
 	public ScanResult(byte type, int blockId, int blockMeta, Entity entity,
 			String phenomena) {
@@ -19,8 +19,7 @@ public class ScanResult {
 		this.phenomena = phenomena;
 	}
 
-	@SuppressWarnings("RedundantIfStatement")
-    @Override
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ScanResult) {
 			ScanResult sr = (ScanResult) obj;

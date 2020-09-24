@@ -5,24 +5,23 @@ import java.util.Map;
 
 import net.minecraft.util.ResourceLocation;
 
-@SuppressWarnings("Convert2Diamond")
 public class ResearchCategoryList {
 	
-	/** Is the smallest column used on the gui. */
+	/** Is the smallest column used on the GUI. */
     public int minDisplayColumn;
 
-    /** Is the smallest row used on the gui. */
+    /** Is the smallest row used on the GUI. */
     public int minDisplayRow;
 
-    /** Is the biggest column used on the gui. */
+    /** Is the biggest column used on the GUI. */
     public int maxDisplayColumn;
 
-    /** Is the biggest row used on the gui. */
+    /** Is the biggest row used on the GUI. */
     public int maxDisplayRow;
     
     /** display variables **/
-    public final ResourceLocation icon;
-    public final ResourceLocation background;
+    public ResourceLocation icon;
+    public ResourceLocation background;
 	
 	public ResearchCategoryList(ResourceLocation icon, ResourceLocation background) {
 		this.icon = icon;
@@ -30,7 +29,7 @@ public class ResearchCategoryList {
 	}
 
 	//Research
-	public final Map<String, ResearchItem> research = new HashMap<String,ResearchItem>();
+	public Map<String, ResearchItem> research = new HashMap<String,ResearchItem>();
 		
 		
 	

@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Dec 4, 2014, 3:28:43 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Dec 4, 2014, 3:28:43 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -36,12 +36,12 @@ public interface IBaubleRender {
 	 * has a cosmetic bauble attached to it.
 	 */
 	@SideOnly(Side.CLIENT)
-	void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
+	public void onPlayerBaubleRender(ItemStack stack, RenderPlayerEvent event, RenderType type);
 
 	/**
 	 * A few helper methods for the render.
 	 */
-	class Helper {
+	public static class Helper {
 
 		public static void rotateIfSneaking(EntityPlayer player) {
 			if(player.isSneaking())
@@ -58,7 +58,7 @@ public interface IBaubleRender {
 
 	}
 
-	enum RenderType {
+	public static enum RenderType {
 		/**
 		 * Render Type for the player's body, translations apply on the player's rotation.
 		 * Sneaking is not handled and should be done during the render.
@@ -71,7 +71,7 @@ public interface IBaubleRender {
 		 * Sneaking is not handled and should be done during the render.~
 		 * @see IBaubleRender.Helper
 		 */
-		HEAD
+		HEAD;
 	}
 
 }

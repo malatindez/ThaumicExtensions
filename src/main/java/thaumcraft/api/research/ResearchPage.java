@@ -13,9 +13,8 @@ import thaumcraft.api.crafting.IArcaneRecipe;
 import thaumcraft.api.crafting.InfusionEnchantmentRecipe;
 import thaumcraft.api.crafting.InfusionRecipe;
 
-@SuppressWarnings({"rawtypes", "JavaDoc"})
 public class ResearchPage {
-	public enum PageType
+	public static enum PageType
     {
         TEXT,
         TEXT_CONCEALED,
@@ -30,7 +29,7 @@ public class ResearchPage {
         SMELTING
     }
 	
-	public final PageType type;
+	public PageType type = PageType.TEXT;
 	
 	public String text=null;
 	public String research=null;
@@ -125,6 +124,7 @@ public class ResearchPage {
 	}
 	
 	/**
+	 * @param recipe a furnace smelting crafting recipe.
 	 */
 	public ResearchPage(ItemStack input) {
 		this.type = PageType.SMELTING;

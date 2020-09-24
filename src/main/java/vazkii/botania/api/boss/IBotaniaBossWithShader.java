@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Oct 29, 2014, 6:13:21 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Oct 29, 2014, 6:13:21 PM (GMT)]
  */
 package vazkii.botania.api.boss;
 
@@ -31,12 +31,12 @@ public interface IBotaniaBossWithShader extends IBotaniaBoss {
 	 * false if rendering the bar itself that shows the HP.
 	 */
 	@SideOnly(Side.CLIENT)
-    int getBossBarShaderProgram(boolean background);
+	public int getBossBarShaderProgram(boolean background);
 
 	/**
 	 * A callback for the shader, used to pass in uniforms. Return null for no callback.
 	 */
 	@SideOnly(Side.CLIENT)
-    ShaderCallback getBossBarShaderCallback(boolean background, int shader);
+	public ShaderCallback getBossBarShaderCallback(boolean background, int shader);
 
 }

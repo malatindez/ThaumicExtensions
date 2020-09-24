@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jun 27, 2015, 2:42:32 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jun 27, 2015, 2:42:32 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock.component;
 
@@ -22,14 +22,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  * A component of a multiblock, the normal one
  * is just a block.
  */
-@SuppressWarnings("deprecation")
 public class MultiblockComponent {
 
 	public ChunkCoordinates relPos;
 	public final Block block;
 	public final int meta;
 	public final TileEntity tileEntity;
-	public final boolean doFancyRender;
+	public boolean doFancyRender;
 
 	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta) {
 		this(relPos, block, meta, null);

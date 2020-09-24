@@ -7,11 +7,10 @@ import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("ConstantConditions")
 public class PotionVisExhaust extends Potion
 {
-    public static final PotionVisExhaust instance = null; // will be instantiated at runtime
-    private final int statusIconIndex = -1;
+    public static PotionVisExhaust instance = null; // will be instantiated at runtime
+    private int statusIconIndex = -1;
     
     public PotionVisExhaust(int par1, boolean par2, int par3)
     {

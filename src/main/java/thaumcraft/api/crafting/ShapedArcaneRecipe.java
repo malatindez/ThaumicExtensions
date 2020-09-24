@@ -13,17 +13,16 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings({"unchecked", "ConstantConditions", "Convert2Diamond"})
 public class ShapedArcaneRecipe implements IArcaneRecipe
 {
     //Added in for future ease of change, but hard coded for now.
     private static final int MAX_CRAFT_GRID_WIDTH = 3;
     private static final int MAX_CRAFT_GRID_HEIGHT = 3;
 
-    public final ItemStack output;
-    public  Object[] input;
-    public final AspectList aspects;
-    public final String research;
+    public ItemStack output = null;
+    public  Object[] input = null;
+    public AspectList aspects = null;
+    public String research; 
     public int width = 0;
     public int height = 0;
     private boolean mirrored = true;
@@ -35,7 +34,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
         output = result.copy();
         this.research = research;
         this.aspects = aspects;
-        StringBuilder shape = new StringBuilder();
+        String shape = "";
         
         int idx = 0;
 
@@ -59,7 +58,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
             for (String s : parts)
             {
                 width = s.length();
-                shape.append(s);
+                shape += s;
             }
 
             height = parts.length;
@@ -69,7 +68,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
             while (recipe[idx] instanceof String)
             {
                 String s = (String)recipe[idx++];
-                shape.append(s);
+                shape += s;
                 width = s.length();
                 height++;
             }
@@ -77,13 +76,13 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
 
         if (width * height != shape.length())
         {
-            StringBuilder ret = new StringBuilder("Invalid shaped ore recipe: ");
+            String ret = "Invalid shaped ore recipe: ";
             for (Object tmp :  recipe)
             {
-                ret.append(tmp).append(", ");
+                ret += tmp + ", ";
             }
-            ret.append(output);
-            throw new RuntimeException(ret.toString());
+            ret += output;
+            throw new RuntimeException(ret);
         }
 
         HashMap<Character, Object> itemMap = new HashMap<Character, Object>();
@@ -111,19 +110,19 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
             }
             else
             {
-                StringBuilder ret = new StringBuilder("Invalid shaped ore recipe: ");
+                String ret = "Invalid shaped ore recipe: ";
                 for (Object tmp :  recipe)
                 {
-                    ret.append(tmp).append(", ");
+                    ret += tmp + ", ";
                 }
-                ret.append(output);
-                throw new RuntimeException(ret.toString());
+                ret += output;
+                throw new RuntimeException(ret);
             }
         }
 
         input = new Object[width * height];
         int x = 0;
-        for (char chr : shape.toString().toCharArray())
+        for (char chr : shape.toCharArray())
         {
             input[x++] = itemMap.get(chr);
         }

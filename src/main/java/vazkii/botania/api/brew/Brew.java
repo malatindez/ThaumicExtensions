@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Nov 1, 2014, 6:22:54 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Nov 1, 2014, 6:22:54 PM (GMT)]
  */
 package vazkii.botania.api.brew;
 
@@ -20,14 +20,13 @@ import net.minecraft.potion.PotionEffect;
 /**
  * The class for a Brew definition, each one is a singleton.
  */
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class Brew {
 
-	final String key;
-	final String name;
-	final int color;
-	final int cost;
-	final List<PotionEffect> effects;
+	String key;
+	String name;
+	int color;
+	int cost;
+	List<PotionEffect> effects;
 	boolean canInfuseBloodPendant = true;
 	boolean canInfuseIncense = true;
 

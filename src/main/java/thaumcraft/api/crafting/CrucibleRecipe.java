@@ -8,16 +8,15 @@ import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("unchecked")
 public class CrucibleRecipe {
 
-	private final ItemStack recipeOutput;
+	private ItemStack recipeOutput;
 	
 	public Object catalyst;
-	public final AspectList aspects;
-	public final String key;
+	public AspectList aspects;
+	public String key;
 	
-	public final int hash;
+	public int hash;
 	
 	public CrucibleRecipe(String researchKey, ItemStack result, Object cat, AspectList tags) {
 		recipeOutput = result;
@@ -27,20 +26,20 @@ public class CrucibleRecipe {
 		if (cat instanceof String) {
 			this.catalyst = OreDictionary.getOres((String) cat);
 		}
-		StringBuilder hc = new StringBuilder(researchKey + result.toString());
+		String hc = researchKey + result.toString();
 		for (Aspect tag:tags.getAspects()) {
-			hc.append(tag.getTag()).append(tags.getAmount(tag));
+			hc += tag.getTag()+tags.getAmount(tag);
 		}
 		if (cat instanceof ItemStack) {
-			hc.append(((ItemStack) cat).toString());
+			hc += ((ItemStack)cat).toString();
 		} else
 		if (cat instanceof ArrayList && ((ArrayList<ItemStack>)catalyst).size()>0) {
 			for (ItemStack is :(ArrayList<ItemStack>)catalyst) {
-				hc.append(is.toString());
+				hc += is.toString();
 			}
 		}
 		
-		hash = hc.toString().hashCode();
+		hash = hc.hashCode();
 	}
 	
 		
@@ -61,7 +60,6 @@ public class CrucibleRecipe {
 		return true;
 	}
 	
-	@SuppressWarnings("RedundantIfStatement")
 	public boolean catalystMatches(ItemStack cat) {
 		if (catalyst instanceof ItemStack && ThaumcraftApiHelper.itemMatches((ItemStack) catalyst,cat,false)) {
 			return true;

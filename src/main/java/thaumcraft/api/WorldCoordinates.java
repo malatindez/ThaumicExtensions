@@ -3,7 +3,6 @@ package thaumcraft.api;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-@SuppressWarnings("rawtypes")
 public class WorldCoordinates implements Comparable
 {
     public int x;
@@ -96,7 +95,6 @@ public class WorldCoordinates implements Comparable
         return this.getDistanceSquared(par1ChunkCoordinates.x, par1ChunkCoordinates.y, par1ChunkCoordinates.z);
     }
 
-    @SuppressWarnings("NullableProblems")
     public int compareTo(Object par1Obj)
     {
         return this.compareWorldCoordinate((WorldCoordinates)par1Obj);

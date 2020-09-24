@@ -10,11 +10,10 @@ import thaumcraft.api.entities.ITaintedMob;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("ConstantConditions")
 public class PotionFluxTaint extends Potion
 {
-    public static final PotionFluxTaint instance = null; // will be instantiated at runtime
-    private final int statusIconIndex = -1;
+    public static PotionFluxTaint instance = null; // will be instantiated at runtime
+    private int statusIconIndex = -1;
     
     public PotionFluxTaint(int par1, boolean par2, int par3)
     {
@@ -62,7 +61,7 @@ public class PotionFluxTaint extends Potion
 	public boolean isReady(int par1, int par2)
     {
 		int k = 40 >> par2;
-        return k <= 0 || par1 % k == 0;
+        return k > 0 ? par1 % k == 0 : true;
     }
     
 }

@@ -13,7 +13,6 @@ import thaumcraft.api.aspects.Aspect;
  * @author Azanor
  *
  */
-@SuppressWarnings("Convert2Diamond")
 public class WandCap {
 
 	private String tag;
@@ -26,12 +25,12 @@ public class WandCap {
 	/**
 	 * the amount by which all aspect costs are multiplied
 	 */
-    final float baseCostModifier;
+	float baseCostModifier; 
 	
 	/**
 	 * specifies a list of primal aspects that use the special discount figure instead of the normal discount.
 	 */
-    final List<Aspect> specialCostModifierAspects;
+	List<Aspect> specialCostModifierAspects;
 	
 	/**
 	 * the amount by which the specified aspect costs are multiplied
@@ -48,7 +47,7 @@ public class WandCap {
 	 */
 	ItemStack item;
 	
-	public static final LinkedHashMap<String,WandCap> caps = new LinkedHashMap<String,WandCap>();
+	public static LinkedHashMap<String,WandCap> caps = new LinkedHashMap<String,WandCap>();
 
 	public WandCap (String tag, float discount, ItemStack item, int craftCost) {
 		this.setTag(tag);

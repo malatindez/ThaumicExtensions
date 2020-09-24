@@ -214,22 +214,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         type = ResolutionRescaleType.SCALE_SMOOTH_XY;
         if(parameters.containsKey("scale_type")) {
             String scale_type = (String)parameters.get("scale_type");
-            switch (scale_type) {
-                case "none":
-                    type = ResolutionRescaleType.NONE;
-                    break;
-                case "scale_x":
-                    type = ResolutionRescaleType.SCALE_X;
-                    break;
-                case "scale_y":
-                    type = ResolutionRescaleType.SCALE_Y;
-                    break;
-                case "scale_xy":
-                    type = ResolutionRescaleType.SCALE_XY;
-                    break;
-                case "scale_smooth_xy":
-                    type = ResolutionRescaleType.SCALE_SMOOTH_XY;
-                    break;
+            if (scale_type.equals("none")) {
+                type = ResolutionRescaleType.NONE;
+            } else if(scale_type.equals("scale_x")) {
+                type = ResolutionRescaleType.SCALE_X;
+            } else if(scale_type.equals("scale_y")) {
+                type = ResolutionRescaleType.SCALE_Y;
+            } else if(scale_type.equals("scale_xy")) {
+                type = ResolutionRescaleType.SCALE_XY;
+            } else if(scale_type.equals("scale_smooth_xy")) {
+                type = ResolutionRescaleType.SCALE_SMOOTH_XY;
             }
         }
         this.reScale(scale);

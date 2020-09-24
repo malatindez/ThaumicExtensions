@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Feb 14, 2015, 3:28:54 PM (GMT)]
  */
 package vazkii.botania.api.corporea;
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import vazkii.botania.api.BotaniaAPI;
 
-@SuppressWarnings({"unchecked", "rawtypes", "Convert2Diamond"})
 public final class CorporeaHelper {
 
 	private static final List<IInventory> empty = Collections.unmodifiableList(new ArrayList());
@@ -131,8 +130,7 @@ public final class CorporeaHelper {
 		for (IWrappedInventory inv : wrappedInventories) {
 			CorporeaRequest request = new CorporeaRequest(stack, checkNBT, -1);
 			inv.countItems(request);
-            //noinspection ConstantConditions
-            if (request.foundItems > 0) {
+			if (request.foundItems > 0) {
 				countMap.put(inv.getWrappedObject(), request.foundItems);
 			}
 		}

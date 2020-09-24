@@ -17,6 +17,6 @@ public interface IGoggles {
 	/*
 	 * If this method returns true things like block essentia contents will be shown.
 	 */
-    boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player);
+	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player);
 
 }

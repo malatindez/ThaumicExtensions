@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import thaumcraft.api.ThaumcraftApiHelper;
 
-@SuppressWarnings({"ALL", "UnusedReturnValue"})
 public class AspectList implements Serializable {
 	
 	public LinkedHashMap<Aspect,Integer> aspects = new LinkedHashMap<Aspect,Integer>();//aspects associated with this object
@@ -16,6 +15,7 @@ public class AspectList implements Serializable {
 	
 	/**
 	 * this creates a new aspect list with preloaded values based off the aspects of the given item.
+	 * @param the itemstack of the given item
 	 */
 	public AspectList(ItemStack stack) {
 		try {
@@ -98,7 +98,7 @@ public class AspectList implements Serializable {
 						break;
 					}
 				}
-			} while (change);
+			} while (change==true);
 			return out;
 		} catch (Exception e) {
 			return this.getAspects(); 
@@ -126,7 +126,7 @@ public class AspectList implements Serializable {
 						break;
 					}
 				}
-			} while (change);
+			} while (change==true);
 			return out;
 		} catch (Exception e) {
 			return this.getAspects();
@@ -173,6 +173,7 @@ public class AspectList implements Serializable {
 	/**
 	 * Simply removes the aspect from the list
 	 * @param key
+	 * @param amount
 	 * @return
 	 */
 	public AspectList remove(Aspect key) {
@@ -236,7 +237,7 @@ public class AspectList implements Serializable {
         aspects.clear();
         NBTTagList tlist = nbttagcompound.getTagList("Aspects",(byte)10);
 		for (int j = 0; j < tlist.tagCount(); j++) {
-			NBTTagCompound rs = tlist.getCompoundTagAt(j);
+			NBTTagCompound rs = (NBTTagCompound) tlist.getCompoundTagAt(j);
 			if (rs.hasKey("key")) {
 				add(	Aspect.getAspect(rs.getString("key")),
 						rs.getInteger("amount"));
@@ -249,7 +250,7 @@ public class AspectList implements Serializable {
         aspects.clear();
         NBTTagList tlist = nbttagcompound.getTagList(label,(byte)10);
 		for (int j = 0; j < tlist.tagCount(); j++) {
-			NBTTagCompound rs = tlist.getCompoundTagAt(j);
+			NBTTagCompound rs = (NBTTagCompound) tlist.getCompoundTagAt(j);
 			if (rs.hasKey("key")) {
 				add(	Aspect.getAspect(rs.getString("key")),
 						rs.getInteger("amount"));

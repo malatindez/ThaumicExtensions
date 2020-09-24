@@ -6,7 +6,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.common.FMLLog;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class AspectSourceHelper {
 
 	static Method drainEssentia;
@@ -22,8 +21,7 @@ public class AspectSourceHelper {
 	 * @param range how many blocks you wish to search for essentia sources. 
 	 * @return boolean returns true if essentia was found and removed from a source.
 	 */
-	@SuppressWarnings("unused")
-    public static boolean drainEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
+	public static boolean drainEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
 	    try {
 	        if(drainEssentia == null) {
 	            Class fake = Class.forName("thaumcraft.common.lib.events.EssentiaHandler");
@@ -45,8 +43,7 @@ public class AspectSourceHelper {
 	 * @param range how many blocks you wish to search for essentia sources. 
 	 * @return boolean returns true if essentia was found and removed from a source.
 	 */
-	@SuppressWarnings("unused")
-    public static boolean findEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
+	public static boolean findEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
 	    try {
 	        if(findEssentia == null) {
 	            Class fake = Class.forName("thaumcraft.common.lib.events.EssentiaHandler");

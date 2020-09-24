@@ -6,10 +6,9 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class RecipeElvenTrade {
 
-	final ItemStack output;
+	ItemStack output;
 	List<Object> inputs;
 
 	public RecipeElvenTrade(ItemStack output, Object... inputs) {

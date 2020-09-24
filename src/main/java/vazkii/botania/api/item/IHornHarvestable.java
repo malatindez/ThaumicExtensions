@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Oct 24, 2015, 11:16:00 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Oct 24, 2015, 11:16:00 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -22,22 +22,22 @@ public interface IHornHarvestable {
 	 * Returns true if this block can be uprooted.
 	 * Note that the stack param can be null if it's a drum breaking it.
 	 */
-	boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
+	public boolean canHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
 
 	/**
 	 * Returns true if harvestByHorn() should be called. If false it just uses the normal
 	 * block breaking method.
 	 * Note that the stack param can be null if it's a drum breaking it.
 	 */
-	boolean hasSpecialHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
+	public boolean hasSpecialHornHarvest(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
 
 	/**
 	 * Called to harvest by a horn.
 	 * Note that the stack param can be null if it's a drum breaking it.
 	 */
-	void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
+	public void harvestByHorn(World world, int x, int y, int z, ItemStack stack, EnumHornType hornType);
 
-	enum EnumHornType {
+	public static enum EnumHornType {
 
 		/**
 		 * Horn of the Wild, for grass and crops
@@ -59,6 +59,6 @@ public interface IHornHarvestable {
 			return values[Math.min(values.length - 1, meta)];
 		}
 
-	}
+	};
 
 }

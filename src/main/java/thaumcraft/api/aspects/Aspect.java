@@ -9,7 +9,6 @@ import net.minecraft.util.StatCollector;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-@SuppressWarnings({"unused", "Convert2Diamond"})
 public class Aspect {
 	
 	String tag;
@@ -137,7 +136,7 @@ public class Aspect {
 	
 
 	///////////////////////////////
-	public static final LinkedHashMap<String,Aspect> aspects = new LinkedHashMap<String,Aspect>();
+	public static LinkedHashMap<String,Aspect> aspects = new LinkedHashMap<String,Aspect>();
 	
 	//PRIMAL
 		public static final Aspect AIR = new Aspect("aer",0xffff7e,"e",1);

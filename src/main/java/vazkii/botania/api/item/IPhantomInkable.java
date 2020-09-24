@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Mar 17, 2015, 4:57:44 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Mar 17, 2015, 4:57:44 PM (GMT)]
  */
 package vazkii.botania.api.item;
 
@@ -17,8 +17,8 @@ import net.minecraft.item.ItemStack;
  */
 public interface IPhantomInkable {
 
-	boolean hasPhantomInk(ItemStack stack);
+	public boolean hasPhantomInk(ItemStack stack);
 
-	void setPhantomInk(ItemStack stack, boolean ink);
+	public void setPhantomInk(ItemStack stack, boolean ink);
 
 }

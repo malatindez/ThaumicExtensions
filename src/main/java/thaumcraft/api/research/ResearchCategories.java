@@ -10,11 +10,10 @@ import org.apache.logging.log4j.Level;
 
 import cpw.mods.fml.common.FMLLog;
 
-@SuppressWarnings({"rawtypes", "JavaDoc", "Convert2Diamond"})
 public class ResearchCategories {
 	
 	//Research
-	public static final LinkedHashMap <String, ResearchCategoryList> researchCategories = new LinkedHashMap <String,ResearchCategoryList>();
+	public static LinkedHashMap <String, ResearchCategoryList> researchCategories = new LinkedHashMap <String,ResearchCategoryList>();
 	
 	/**
 	 * @param key

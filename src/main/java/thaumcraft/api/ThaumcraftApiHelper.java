@@ -19,7 +19,6 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.aspects.IEssentiaTransport;
 
-@SuppressWarnings({"ConstantConditions", "UnusedAssignment", "rawtypes", "WhileLoopReplaceableByForEach", "Convert2Diamond"})
 public class ThaumcraftApiHelper {
 	
 	public static AspectList cullTags(AspectList temp) {
@@ -169,8 +168,8 @@ public class ThaumcraftApiHelper {
 			return null;
 	}
     
-    private static final HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
-    private static final HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
+    private static HashMap<Integer, AspectList> allAspects= new HashMap<Integer, AspectList>();
+    private static HashMap<Integer, AspectList> allCompoundAspects= new HashMap<Integer, AspectList>();
     
     public static AspectList getAllAspects(int amount) {
     	if (allAspects.get(amount)==null) {
@@ -408,7 +407,7 @@ public class ThaumcraftApiHelper {
 	                }
 	
 	                Vec3 vec32 = Vec3.createVectorHelper(v1.xCoord, v1.yCoord, v1.zCoord);
-	                l = (int)(vec32.xCoord = MathHelper.floor_double(v1.xCoord));
+	                l = (int)(vec32.xCoord = (double)MathHelper.floor_double(v1.xCoord));
 	
 	                if (b0 == 5)
 	                {
@@ -416,7 +415,7 @@ public class ThaumcraftApiHelper {
 	                    ++vec32.xCoord;
 	                }
 	
-	                i1 = (int)(vec32.yCoord = MathHelper.floor_double(v1.yCoord));
+	                i1 = (int)(vec32.yCoord = (double)MathHelper.floor_double(v1.yCoord));
 	
 	                if (b0 == 1)
 	                {
@@ -424,7 +423,7 @@ public class ThaumcraftApiHelper {
 	                    ++vec32.yCoord;
 	                }
 	
-	                j1 = (int)(vec32.zCoord = MathHelper.floor_double(v1.zCoord));
+	                j1 = (int)(vec32.zCoord = (double)MathHelper.floor_double(v1.zCoord));
 	
 	                if (b0 == 3)
 	                {

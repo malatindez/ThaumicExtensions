@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Oct 17, 2014, 5:34:35 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Oct 17, 2014, 5:34:35 PM (GMT)]
  */
 package vazkii.botania.api.subtile.signature;
 
@@ -26,7 +26,6 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 /**
  * A basic (and fallback) implementation of SubTileSignature.
  */
-@SuppressWarnings("ALL")
 public class BasicSignature extends SubTileSignature {
 
 	final String name;

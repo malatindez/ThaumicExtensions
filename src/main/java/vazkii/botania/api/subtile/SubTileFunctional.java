@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jan 24, 2014, 8:03:44 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jan 24, 2014, 8:03:44 PM (GMT)]
  */
 package vazkii.botania.api.subtile;
 
@@ -28,7 +28,6 @@ import vazkii.botania.api.mana.IManaPool;
 /**
  * The basic class for a Functional Flower.
  */
-@SuppressWarnings("SameReturnValue")
 public class SubTileFunctional extends SubTileEntity {
 
 	public static final int RANGE = 10;
@@ -97,7 +96,7 @@ public class SubTileFunctional extends SubTileEntity {
 				if(supertile.getWorldObj().blockExists(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ)) {
 					needsNew = true;
 					TileEntity tileAt = supertile.getWorldObj().getTileEntity(cachedPoolCoordinates.posX, cachedPoolCoordinates.posY, cachedPoolCoordinates.posZ);
-					if(tileAt instanceof IManaPool && !tileAt.isInvalid()) {
+					if(tileAt != null && tileAt instanceof IManaPool && !tileAt.isInvalid()) {
 						linkedPool = tileAt;
 						needsNew = false;
 					}
@@ -106,7 +105,7 @@ public class SubTileFunctional extends SubTileEntity {
 			}
 		} else {
 			TileEntity tileAt = supertile.getWorldObj().getTileEntity(linkedPool.xCoord, linkedPool.yCoord, linkedPool.zCoord);
-			if(tileAt instanceof IManaPool)
+			if(tileAt != null && tileAt instanceof IManaPool)
 				linkedPool = tileAt;
 		}
 

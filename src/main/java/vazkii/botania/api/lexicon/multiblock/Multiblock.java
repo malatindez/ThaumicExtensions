@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jun 27, 2015, 2:37:22 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jun 27, 2015, 2:37:22 PM (GMT)]
  */
 package vazkii.botania.api.lexicon.multiblock;
 
@@ -25,15 +25,14 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
  * multiblock in the lexicon and to show the player in a ghost-like
  * look in the world.
  */
-@SuppressWarnings({"unchecked", "rawtypes", "Convert2Diamond"})
 public class Multiblock {
 
-	public final List<MultiblockComponent> components = new ArrayList();
-	public final List<ItemStack> materials = new ArrayList();
+	public List<MultiblockComponent> components = new ArrayList();
+	public List<ItemStack> materials = new ArrayList();
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
 
-	public final HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
+	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z

@@ -8,14 +8,13 @@ import net.minecraftforge.common.util.ForgeDirection;
  * This interface is used by tiles that use or transport vis. 
  * Only tiles that implement this interface will be able to connect to vis conduits or other thaumic devices
  */
-@SuppressWarnings("JavaDoc")
 public interface IEssentiaTransport {
 	/**
 	 * Is this tile able to connect to other vis users/sources on the specified side?
 	 * @param face
 	 * @return
 	 */
-    boolean isConnectable(ForgeDirection face);
+	public boolean isConnectable(ForgeDirection face);
 	
 	/**
 	 * Is this side used to input essentia?
@@ -33,49 +32,52 @@ public interface IEssentiaTransport {
 			
 	/**
 	 * Sets the amount of suction this block will apply
+	 * @param suction
 	 */
-    void setSuction(Aspect aspect, int amount);
+	public void setSuction(Aspect aspect, int amount);
 	
 	/**
-	 * Returns the type of suction this block is applying.
+	 * Returns the type of suction this block is applying. 
+	 * @param loc
 	 * 		the location from where the suction is being checked
 	 * @return
 	 * 		a return type of null indicates the suction is untyped and the first thing available will be drawn
 	 */
-    Aspect getSuctionType(ForgeDirection face);
+	public Aspect getSuctionType(ForgeDirection face);
 	
 	/**
-	 * Returns the strength of suction this block is applying.
+	 * Returns the strength of suction this block is applying. 
+	 * @param loc
 	 * 		the location from where the suction is being checked
 	 * @return
 	 */
-    int getSuctionAmount(ForgeDirection face);
+	public int getSuctionAmount(ForgeDirection face);
 	
 	/**
 	 * remove the specified amount of essentia from this transport tile
 	 * @return how much was actually taken
 	 */
-    int takeEssentia(Aspect aspect, int amount, ForgeDirection face);
+	public int takeEssentia(Aspect aspect, int amount, ForgeDirection face);
 	
 	/**
 	 * add the specified amount of essentia to this transport tile
 	 * @return how much was actually added
 	 */
-    int addEssentia(Aspect aspect, int amount, ForgeDirection face);
+	public int addEssentia(Aspect aspect, int amount, ForgeDirection face);
 	
 	/**
 	 * What type of essentia this contains
 	 * @param face
 	 * @return
 	 */
-    Aspect getEssentiaType(ForgeDirection face);
+	public Aspect getEssentiaType(ForgeDirection face);
 	
 	/**
 	 * How much essentia this block contains
 	 * @param face
 	 * @return
 	 */
-    int getEssentiaAmount(ForgeDirection face);
+	public int getEssentiaAmount(ForgeDirection face);
 	
 	
 
@@ -83,7 +85,7 @@ public interface IEssentiaTransport {
 	 * Essentia will not be drawn from this container unless the suction exceeds this amount.
 	 * @return the amount
 	 */
-    int getMinimumSuction();
+	public int getMinimumSuction();
 
 	/**
 	 * Return true if you want the conduit to extend a little further into the block. 

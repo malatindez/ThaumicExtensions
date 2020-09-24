@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Mar 6, 2014, 3:54:12 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Mar 6, 2014, 3:54:12 PM (GMT)]
  */
 package vazkii.botania.api.lexicon;
 
@@ -21,10 +21,9 @@ import vazkii.botania.api.mana.IManaItem;
  * craftable ItemStack. Use the map method to map an ItemStack to a page in
  * an entry in the lexicon.
  */
-@SuppressWarnings({"unchecked", "rawtypes"})
 public final class LexiconRecipeMappings {
 
-	private static final Map<String, EntryData> mappings = new HashMap();
+	private static Map<String, EntryData> mappings = new HashMap();
 
 	/**
 	 * Maps the given stack to the given page of the entry.

@@ -13,14 +13,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import thaumcraft.api.ThaumcraftApiHelper;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings({"unchecked", "ConstantConditions", "rawtypes", "WhileLoopReplaceableByForEach"})
 public class ShapelessArcaneRecipe implements IArcaneRecipe
 {
-    private final ItemStack output;
-    private final ArrayList input = new ArrayList();
+    private ItemStack output = null;
+    private ArrayList input = new ArrayList();
     
-    public final AspectList aspects;
-    public final String research;
+    public AspectList aspects = null;
+    public String research; 
 
     public ShapelessArcaneRecipe(String research, Block result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
     public ShapelessArcaneRecipe(String research, Item  result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
@@ -50,13 +49,13 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
             }
             else
             {
-                StringBuilder ret = new StringBuilder("Invalid shapeless ore recipe: ");
+                String ret = "Invalid shapeless ore recipe: ";
                 for (Object tmp :  recipe)
                 {
-                    ret.append(tmp).append(", ");
+                    ret += tmp + ", ";
                 }
-                ret.append(output);
-                throw new RuntimeException(ret.toString());
+                ret += output;
+                throw new RuntimeException(ret);
             }
         }
     }

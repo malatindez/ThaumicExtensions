@@ -1,12 +1,12 @@
-/*
-  This class was created by <Vazkii>. It's distributed as
-  part of the Botania Mod. Get the Source Code in github:
-  https://github.com/Vazkii/Botania
-
-  Botania is Open Source and distributed under the
-  Botania License: http://botaniamod.net/license.php
-
-  File Created @ [Jan 14, 2014, 6:34:34 PM (GMT)]
+/**
+ * This class was created by <Vazkii>. It's distributed as
+ * part of the Botania Mod. Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ * 
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ * 
+ * File Created @ [Jan 14, 2014, 6:34:34 PM (GMT)]
  */
 package vazkii.botania.api.internal;
 
@@ -44,88 +44,87 @@ import cpw.mods.fml.relauncher.SideOnly;
  * make your mod load after Botania if you have any intention of
  * doing anythign with this on PreInit.
  */
-@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public interface IInternalMethodHandler {
 
-	LexiconPage textPage(String key);
+	public LexiconPage textPage(String key);
 
-	LexiconPage elfPaperTextPage(String key);
+	public LexiconPage elfPaperTextPage(String key);
 
-	LexiconPage imagePage(String key, String resource);
+	public LexiconPage imagePage(String key, String resource);
 
-	LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes);
+	public LexiconPage craftingRecipesPage(String key, List<IRecipe> recipes);
 
-	LexiconPage craftingRecipePage(String key, IRecipe recipe);
+	public LexiconPage craftingRecipePage(String key, IRecipe recipe);
 
-	LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
+	public LexiconPage petalRecipesPage(String key, List<RecipePetals> recipes);
 
-	LexiconPage petalRecipePage(String key, RecipePetals recipe);
+	public LexiconPage petalRecipePage(String key, RecipePetals recipe);
 
-	LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes);
+	public LexiconPage runeRecipesPage(String key, List<RecipeRuneAltar> recipes);
 
-	LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe);
+	public LexiconPage runeRecipePage(String key, RecipeRuneAltar recipe);
 
-	LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
+	public LexiconPage manaInfusionRecipesPage(String key, List<RecipeManaInfusion> recipes);
 
-	LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
+	public LexiconPage manaInfusionRecipePage(String key, RecipeManaInfusion recipe);
 
-	LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
+	public LexiconPage elvenTradePage(String key, List<RecipeElvenTrade> recipes);
 
-	LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
+	public LexiconPage elvenTradesPage(String key, RecipeElvenTrade recipe);
 
-	LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
+	public LexiconPage brewPage(String key, String bottomText, RecipeBrew recipe);
 
-	LexiconPage multiblockPage(String key, MultiblockSet mb);
+	public LexiconPage multiblockPage(String key, MultiblockSet mb);
 
-	IManaNetwork getManaNetworkInstance();
+	public IManaNetwork getManaNetworkInstance();
 
-	ItemStack getSubTileAsStack(String subTile);
+	public ItemStack getSubTileAsStack(String subTile);
 
-	ItemStack getSubTileAsFloatingFlowerStack(String subTile);
+	public ItemStack getSubTileAsFloatingFlowerStack(String subTile);
 
-	String getStackSubTileKey(ItemStack stack);
+	public String getStackSubTileKey(ItemStack stack);
 
-	IIcon getSubTileIconForName(String name);
+	public IIcon getSubTileIconForName(String name);
 
-	void registerBasicSignatureIcons(String name, IIconRegister register);
+	public void registerBasicSignatureIcons(String name, IIconRegister register);
 
-	boolean shouldForceCheck();
+	public boolean shouldForceCheck();
 
-	int getPassiveFlowerDecay();
+	public int getPassiveFlowerDecay();
 
-	IInventory getBaublesInventory(EntityPlayer player);
+	public IInventory getBaublesInventory(EntityPlayer player);
 
-	void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side);
+	public void breakOnAllCursors(EntityPlayer player, Item item, ItemStack stack, int x, int y, int z, int side);
 
-	boolean hasSolegnoliaAround(Entity e);
-
-	@SideOnly(Side.CLIENT)
-    void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
+	public boolean hasSolegnoliaAround(Entity e);
 
 	@SideOnly(Side.CLIENT)
-    void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
+	public void drawSimpleManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res);
 
 	@SideOnly(Side.CLIENT)
-    ItemStack getBindDisplayForFlowerType(SubTileEntity e);
+	public void drawComplexManaHUD(int color, int mana, int maxMana, String name, ScaledResolution res, ItemStack bindDisplay, boolean properlyBound);
 
 	@SideOnly(Side.CLIENT)
-    void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
+	public ItemStack getBindDisplayForFlowerType(SubTileEntity e);
 
 	@SideOnly(Side.CLIENT)
-    ResourceLocation getDefaultBossBarTexture();
+	public void renderLexiconText(int x, int y, int width, int height, String unlocalizedText);
 
 	@SideOnly(Side.CLIENT)
-    void setBossStatus(IBotaniaBoss status);
+	public ResourceLocation getDefaultBossBarTexture();
 
-	boolean isBuildcraftPipe(TileEntity tile);
+	@SideOnly(Side.CLIENT)
+	public void setBossStatus(IBotaniaBoss status);
 
-	void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
+	public boolean isBuildcraftPipe(TileEntity tile);
 
-	long getWorldElapsedTicks();
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m);
 
-	boolean isBotaniaFlower(World world, int x, int y, int z);
+	public long getWorldElapsedTicks();
 
-	void sendBaubleUpdatePacket(EntityPlayer player, int slot);
+	public boolean isBotaniaFlower(World world, int x, int y, int z);
+
+	public void sendBaubleUpdatePacket(EntityPlayer player, int slot);
 
 	/**
 	 * Wrap inventories in the network into wrappers providing compatibility for storage mods.

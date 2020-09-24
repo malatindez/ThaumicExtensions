@@ -16,7 +16,7 @@ public interface IRunicArmor {
 	/**
 	 * returns how much charge this item can provide. This is the base shielding value - any hardening is stored and calculated internally. 
 	 */
-    int getRunicCharge(ItemStack itemstack);
+	public int getRunicCharge(ItemStack itemstack);
 	
 
 }

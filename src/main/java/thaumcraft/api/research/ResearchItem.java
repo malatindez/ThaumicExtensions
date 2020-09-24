@@ -6,8 +6,7 @@ import net.minecraft.util.StatCollector;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-public class ResearchItem
+public class ResearchItem 
 {
 	/**
 	 * A short string used as a key for this research. Must be unique
@@ -202,7 +201,6 @@ public class ResearchItem
         return this;
     }
     
-    @SuppressWarnings("UnusedReturnValue")
     public ResearchItem setVirtual()
     {
         this.isVirtual = true;
@@ -363,8 +361,8 @@ public class ResearchItem
 			if (tags.getAmount(tag)>highest) {
 				aspect=tag;
 				highest=tags.getAmount(tag);
-			}
-        }
+			};
+		}
 		return aspect;
 	}
 	

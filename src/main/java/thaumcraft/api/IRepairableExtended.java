@@ -12,6 +12,6 @@ import net.minecraft.item.ItemStack;
  */
 public interface IRepairableExtended extends IRepairable {
 	
-	boolean doRepair(ItemStack stack, EntityPlayer player, int enchantlevel);
+	public boolean doRepair(ItemStack stack, EntityPlayer player, int enchantlevel);
 
 }
