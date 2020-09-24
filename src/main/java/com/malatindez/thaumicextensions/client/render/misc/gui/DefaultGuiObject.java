@@ -42,7 +42,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     @SuppressWarnings("rawtypes")
     protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
         if(this.getName().equals(objectName)) {
-            getMethodFunc(objectName, name, parameterTypes);
+            return getMethodFunc(objectName, name, parameterTypes);
         }
         if(parent instanceof DefaultGuiObject) {
             return ((DefaultGuiObject)parent).getMethodUp(objectName, name, parameterTypes);
@@ -108,6 +108,20 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         );
         VectorsWereUpdated();
     }
+    public void checkBorders() {
+        if(getBorders().x < getParentBorders().x) {
+            coordinates.set(0, getCoordinates().y);
+        }
+        if(getBorders().y < getParentBorders().y) {
+            coordinates.set(getCoordinates().x, 0);
+        }
+        if(getBorders().z > getParentBorders().z) {
+            coordinates.set(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
+        }
+        if(getBorders().w > getParentBorders().w) {
+            coordinates.set(getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
+        }
+    }
     public Vector2f getCoordinates() {
         return new Vector2f(coordinates);
     }
@@ -162,6 +176,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         NONE,
         SCALE_X,
         SCALE_Y,
+        SCALE_SMOOTH_X,
+        SCALE_SMOOTH_Y,
         SCALE_XY,
         SCALE_SMOOTH_XY
     }
@@ -220,6 +236,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 type = ResolutionRescaleType.SCALE_X;
             } else if(scale_type.equals("scale_y")) {
                 type = ResolutionRescaleType.SCALE_Y;
+            }else if(scale_type.equals("scale_smooth_x")) {
+                type = ResolutionRescaleType.SCALE_SMOOTH_X;
+            } else if(scale_type.equals("scale_smooth_y")) {
+                type = ResolutionRescaleType.SCALE_SMOOTH_Y;
             } else if(scale_type.equals("scale_xy")) {
                 type = ResolutionRescaleType.SCALE_XY;
             } else if(scale_type.equals("scale_smooth_xy")) {
@@ -245,6 +265,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 break;
             case SCALE_Y:
                 deltaY = newResolution.y / currentResolution.y;
+                break;
+            case SCALE_SMOOTH_X:
+                deltaX = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+            case SCALE_SMOOTH_Y:
+                deltaY = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
                 break;
             case SCALE_XY:
                 deltaY = newResolution.y / currentResolution.y;
