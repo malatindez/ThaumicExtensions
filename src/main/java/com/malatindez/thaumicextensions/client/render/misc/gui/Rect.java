@@ -71,6 +71,9 @@ public class Rect extends DefaultGuiObject {
     }
     @Override
     public void render() {
+        if(hided()) {
+            return;
+        }
         Vector2f coordinates = this.getCurrentPosition();
         Vector2f size = this.getSize();
 
