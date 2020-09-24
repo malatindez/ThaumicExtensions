@@ -208,7 +208,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
                     Constructor<?> constructor = parts.get(type).getConstructor(String.class, Object.class, JSONObject.class);
                     return (DefaultGuiObject) constructor.newInstance(new Object[] {name, parent, object});
                 } catch(Exception exception) {
-                    System.out.println("Exception caught! Something went wrong in createObject.");
+                    System.out.println("Exception caught! Something went wrong in createObject. Objects name: " + name);
                     System.out.println("Parent:" + parent.getClass().getSimpleName());
                     System.out.println("JSONObject: " + object.toString());
                     System.out.println("Stack trace: ");
