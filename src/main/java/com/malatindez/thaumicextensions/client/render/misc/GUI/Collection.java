@@ -45,14 +45,10 @@ public class Collection extends DefaultGuiObject implements
         objects.remove(object);
     }
     public Object addObject(Object object) {
-        if(object == null) {
+        if(object == null || !(object instanceof DefaultGuiObject)) {
             return null;
         }
-        if (object instanceof EnhancedGuiScreen.Renderable) {
-            ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(this.currentResolution);
-        } else if (object instanceof EnhancedGuiScreen.Clickable) {
-            ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(this.currentResolution);
-        }
+        ((DefaultGuiObject) object).resolutionUpdated(this.currentResolution);
         ((DefaultGuiObject) object).updateParentBorders(getBorders());
         objects.add(object); sortObjects();
         return object;
@@ -81,29 +77,48 @@ public class Collection extends DefaultGuiObject implements
         collection.objects.clear();
     }*/
 
+    @Override
+    public void preInit(String name, Object parent, JSONObject parameters) {
+
+    }
     public Collection(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
-        for(Object key : parameters.keySet()) {
-            if(key.equals("type") || key.equals("parameters")) {
-                continue;
+        if(parameters.containsKey("elements")) {
+            JSONObject elements = (JSONObject)parameters.get("elements");
+            for(Object key : elements.keySet()) {
+                this.addObject(EnhancedGuiScreen.createObject((String)key,this, (JSONObject) elements.get(key)));
             }
-            EnhancedGuiScreen.createObject((String)key,this, (JSONObject) parameters.get(key));
         }
-    }
 
+    }
     @Override
-    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
         if(objectName == this.getName()) {
-            return getMethod(objectName, name, parameterTypes, callParent);
+            getMethodFunc(objectName, name, parameterTypes);
         }
         MethodObjectPair retValue = null;
         for(Object obj : objects) {
             if(retValue != null) {
                 return retValue;
             }
-            retValue = ((DefaultGuiObject)obj).getMethodA(objectName, name, parameterTypes, false);
+            retValue = ((DefaultGuiObject)obj).getMethodDown(objectName, name, parameterTypes);
         }
-        return getMethod(objectName, name, parameterTypes, callParent);
+        return retValue;
+    }
+
+    @Override
+    public Object getObjectDown(String objectName) {
+        if(objectName == this.getName()) {
+            return this;
+        }
+        Object retValue = null;
+        for(Object obj : objects) {
+            if(retValue != null) {
+                return retValue;
+            }
+            retValue = ((DefaultGuiObject)obj).getObjectDown(objectName);
+        }
+        return retValue;
     }
 
     @Override
@@ -118,11 +133,11 @@ public class Collection extends DefaultGuiObject implements
         }
     }
 
+
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         for(Object object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
-                Vector4f temp = ((EnhancedGuiScreen.Clickable) object).getBorders();
                 if(((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)) {
                     return true;
                 }
