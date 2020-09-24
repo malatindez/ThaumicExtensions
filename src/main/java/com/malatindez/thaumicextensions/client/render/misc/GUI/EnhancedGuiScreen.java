@@ -1,13 +1,21 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
+import com.malatindez.thaumicextensions.ThaumicExtensions;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.collection.script.Update;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -164,6 +172,9 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     public void onGuiClosed() {
         super.onGuiClosed();
     }
+
+
+
     public void drawScreen(int mx, int my, float tick) {
         mousePosition.set(mx,my);
         if (currentResolution.x != this.width || currentResolution.y != this.height) {
@@ -189,8 +200,40 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     protected void mouseClicked(int mx, int my, int button) {
         gui.mouseClicked(new Vector2f(mx,my), button);
     }
+    private Vector2f Json2Vec(Object array) {
+        return new Vector2f(
+                ((Long)((JSONArray)array).get(0)).floatValue(),
+                ((Long)((JSONArray)array).get(1)).floatValue()
+        );
+    }
 
-    protected EnhancedGuiScreen(ResourceLocation file) {
-        // TODO json loading
+    void parseObject(Collection domain, JSONObject object) {
+
+    }
+
+    protected EnhancedGuiScreen(ResourceLocation json_file) {
+        InputStream x;
+        try {
+            x = Minecraft.getMinecraft().getResourceManager().getResource(json_file).getInputStream();
+        } catch (Exception e) {
+            System.out.println("Exception caught! Wrong ResourceFile for IconFactory.");
+            System.out.println(json_file);
+            e.printStackTrace();
+            return;
+        }
+        InputStreamReader isReader = new InputStreamReader(x);
+        //Creating a BufferedReader object
+        BufferedReader reader = new BufferedReader(isReader);
+        StringBuffer sb = new StringBuffer();
+        String str = "";
+        try {
+            while ((str = reader.readLine()) != null) {
+                sb.append(str);
+            }
+        } catch (Exception ignored) { }
+        str = sb.toString();
+        JSONObject jsonObject = (JSONObject) JSONValue.parse(str);
+
+
     }
 }
