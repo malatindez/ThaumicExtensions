@@ -11,6 +11,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings("EmptyMethod")
 @SideOnly(Side.CLIENT)
 public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     public void initGui() {}
@@ -29,11 +30,6 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
                 GuiResearchBrowser.highlightedItem.clear();
             super.keyTyped(par1, par2);
         }
-    }
-
-    @Override
-    public Method getMethod(String method, Class<?> parameterTypes) {
-        return null;
     }
 
     public void onGuiClosed() {

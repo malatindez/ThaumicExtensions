@@ -18,10 +18,10 @@ import vazkii.botania.api.internal.IGuiLexiconEntry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public abstract class LexiconPage {
 
-	public String unlocalizedName;
+	public final String unlocalizedName;
 	public boolean skipRegistry;
 
 	public LexiconPage(String unlocalizedName) {

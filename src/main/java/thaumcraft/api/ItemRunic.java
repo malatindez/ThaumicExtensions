@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public class ItemRunic extends Item implements IRunicArmor  {
 	
-	int charge;
+	final int charge;
 	
 	public ItemRunic (int charge)
     {

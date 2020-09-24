@@ -12,7 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PotionFluxTaint extends Potion
 {
-    public static PotionFluxTaint instance = null; // will be instantiated at runtime
+    public static final PotionFluxTaint instance = null; // will be instantiated at runtime
     private final int statusIconIndex = -1;
     
     public PotionFluxTaint(int par1, boolean par2, int par3)

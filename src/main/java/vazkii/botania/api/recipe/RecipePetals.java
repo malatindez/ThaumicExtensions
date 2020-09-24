@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 @SuppressWarnings("unchecked")
 public class RecipePetals {
 
-	ItemStack output;
+	final ItemStack output;
 	List<Object> inputs;
 
 	public RecipePetals(ItemStack output, Object... inputs) {

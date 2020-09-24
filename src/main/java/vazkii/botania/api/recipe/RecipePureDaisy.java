@@ -25,9 +25,9 @@ public class RecipePureDaisy {
 
 	private static final Map<String, List<ItemStack>> oreMap = new HashMap();
 
-	Object input;
-	Block output;
-	int outputMeta;
+	final Object input;
+	final Block output;
+	final int outputMeta;
 
 	public RecipePureDaisy(Object input, Block output, int outputMeta) {
 		this.input = input;

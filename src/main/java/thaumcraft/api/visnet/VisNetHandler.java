@@ -67,7 +67,7 @@ public class VisNetHandler {
 		ThaumcraftApi.internalMethods.generateVisEffect(dim, x, y, z, x2, y2, z2, color);
 	}
 
-	public static HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>> sources = new HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>>();
+	public static final HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>> sources = new HashMap<Integer, HashMap<WorldCoordinates, WeakReference<TileVisNode>>>();
 
 	public static void addSource(World world, TileVisNode vs) {
 		HashMap<WorldCoordinates, WeakReference<TileVisNode>> sourcelist = sources
@@ -137,7 +137,7 @@ public class VisNetHandler {
 		return null;
 	}
 
-	static ArrayList<WorldCoordinates> cache = new ArrayList<WorldCoordinates>();
+	static final ArrayList<WorldCoordinates> cache = new ArrayList<WorldCoordinates>();
 	public static ArrayList<Object[]> findClosestNodes(TileVisNode target,
 			TileVisNode parent, ArrayList<Object[]> in) {
 		

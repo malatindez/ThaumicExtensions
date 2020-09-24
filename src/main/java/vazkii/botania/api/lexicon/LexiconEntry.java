@@ -28,7 +28,7 @@ public class LexiconEntry implements Comparable<LexiconEntry> {
 
 	private KnowledgeType type = BotaniaAPI.basicKnowledge;
 
-	public List<LexiconPage> pages = new ArrayList<LexiconPage>();
+	public final List<LexiconPage> pages = new ArrayList<LexiconPage>();
 	private boolean priority = false;
 	private ItemStack icon = null;
 	

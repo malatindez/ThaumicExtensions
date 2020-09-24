@@ -28,12 +28,12 @@ import vazkii.botania.api.lexicon.multiblock.component.MultiblockComponent;
 @SuppressWarnings("unchecked")
 public class Multiblock {
 
-	public List<MultiblockComponent> components = new ArrayList();
-	public List<ItemStack> materials = new ArrayList();
+	public final List<MultiblockComponent> components = new ArrayList();
+	public final List<ItemStack> materials = new ArrayList();
 
 	public int minX, minY, minZ, maxX, maxY, maxZ, offX, offY, offZ;
 
-	public HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
+	public final HashMap<List<Integer>, MultiblockComponent> locationCache = new HashMap<List<Integer>, MultiblockComponent>();
 
 	/**
 	 * Adds a multiblock component to this multiblock. The component's x y z

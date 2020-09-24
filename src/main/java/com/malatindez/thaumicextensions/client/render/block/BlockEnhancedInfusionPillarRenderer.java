@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 
+@SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
 public class BlockEnhancedInfusionPillarRenderer extends BlockRenderer implements ISimpleBlockRenderingHandler {
     public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {

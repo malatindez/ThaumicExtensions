@@ -36,6 +36,7 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.api.recipe.RecipeRuneAltar;
 import vazkii.botania.api.subtile.SubTileEntity;
 
+@SuppressWarnings("ALL")
 public class DummyMethodHandler implements IInternalMethodHandler {
 
 	@Override

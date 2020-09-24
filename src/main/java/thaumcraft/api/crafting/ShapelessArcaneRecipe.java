@@ -20,7 +20,7 @@ public class ShapelessArcaneRecipe implements IArcaneRecipe
     private final ArrayList input = new ArrayList();
     
     public AspectList aspects = null;
-    public String research; 
+    public final String research;
 
     public ShapelessArcaneRecipe(String research, Block result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }
     public ShapelessArcaneRecipe(String research, Item  result, AspectList aspects, Object... recipe){ this(research,new ItemStack(result),aspects, recipe); }

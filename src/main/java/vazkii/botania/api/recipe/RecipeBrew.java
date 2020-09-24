@@ -23,7 +23,7 @@ import vazkii.botania.api.brew.IBrewContainer;
 @SuppressWarnings("unchecked")
 public class RecipeBrew {
 
-	Brew brew;
+	final Brew brew;
 	List<Object> inputs;
 
 	public RecipeBrew(Brew brew, Object... inputs) {

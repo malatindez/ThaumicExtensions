@@ -26,6 +26,7 @@ import vazkii.botania.api.subtile.SubTileGenerating;
 /**
  * A basic (and fallback) implementation of SubTileSignature.
  */
+@SuppressWarnings("ALL")
 public class BasicSignature extends SubTileSignature {
 
 	final String name;

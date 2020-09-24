@@ -12,12 +12,12 @@ import thaumcraft.api.aspects.AspectList;
 @SuppressWarnings("deprecation")
 public class InfusionRecipe
 {
-	protected AspectList aspects;
-	protected String research;
+	protected final AspectList aspects;
+	protected final String research;
 	private final ItemStack[] components;
 	private final ItemStack recipeInput;
-	protected Object recipeOutput;
-	protected int instability;
+	protected final Object recipeOutput;
+	protected final int instability;
 	
 	public InfusionRecipe(String research, Object output, int inst,
 			AspectList aspects2, ItemStack input, ItemStack[] recipe) {

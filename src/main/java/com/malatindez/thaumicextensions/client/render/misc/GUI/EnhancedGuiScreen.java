@@ -17,6 +17,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
+@SuppressWarnings("EmptyMethod")
 public abstract class EnhancedGuiScreen extends GuiScreen {
     static class Bind {
         protected int key;

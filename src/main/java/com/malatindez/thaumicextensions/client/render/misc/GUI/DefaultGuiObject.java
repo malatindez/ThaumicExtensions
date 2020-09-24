@@ -22,8 +22,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
     private final Object parent;
     static class MethodObjectPair {
-        public Method method;
-        public Object object;
+        public final Method method;
+        public final Object object;
         public MethodObjectPair(Object object, Method method) {
             this.method = method;
             this.object = object;
@@ -169,7 +169,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return type;
     }
     public void setType(ResolutionRescaleType type) {
-        type = type;
+        this.type = type;
     }
     public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded

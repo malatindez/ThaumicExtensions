@@ -10,8 +10,10 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Math.sin;
+@SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
 public class Animation {
+    @SuppressWarnings("unused")
     public enum Axis {
         x(0),
         y(1),
@@ -30,7 +32,7 @@ public class Animation {
         RotationAroundItself,
         Wave
     }
-    @SuppressWarnings("Since15")
+    @SuppressWarnings({"Since15", "unused"})
     public static class SimpleAnimation {
         final float speed;
         final float amplitude;

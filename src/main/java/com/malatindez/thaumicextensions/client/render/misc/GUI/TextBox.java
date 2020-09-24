@@ -13,7 +13,7 @@ public class TextBox extends DefaultGuiObject {
     protected final FontRenderer fontRendererObj;
     public final String text;
     public final Vector2f textScale;
-    public Vector4f color;
+    public final Vector4f color;
     public final boolean isTextScalable;
     public final boolean dropShadow;
     /*

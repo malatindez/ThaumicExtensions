@@ -30,7 +30,7 @@ public class ThaumicExtensions
 
     public EventHandlerNetwork networkEventHandler;
 
-    public static CreativeTabs ThaumicExtensionsTab = new CreativeTabs("tabName") {
+    public static final CreativeTabs ThaumicExtensionsTab = new CreativeTabs("tabName") {
         public Item getTabIconItem() {
             return Items.apple;
         }

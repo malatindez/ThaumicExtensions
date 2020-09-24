@@ -4,10 +4,10 @@ import net.minecraft.entity.Entity;
 
 public class ScanResult {
 	public byte type = 0;   //1=blocks,2=entities,3=phenomena
-	public int id;
-	public int meta;
-	public Entity entity;
-	public String phenomena;
+	public final int id;
+	public final int meta;
+	public final Entity entity;
+	public final String phenomena;
 
 	public ScanResult(byte type, int blockId, int blockMeta, Entity entity,
 			String phenomena) {

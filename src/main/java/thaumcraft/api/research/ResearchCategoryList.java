@@ -20,8 +20,8 @@ public class ResearchCategoryList {
     public int maxDisplayRow;
     
     /** display variables **/
-    public ResourceLocation icon;
-    public ResourceLocation background;
+    public final ResourceLocation icon;
+    public final ResourceLocation background;
 	
 	public ResearchCategoryList(ResourceLocation icon, ResourceLocation background) {
 		this.icon = icon;
@@ -29,7 +29,7 @@ public class ResearchCategoryList {
 	}
 
 	//Research
-	public Map<String, ResearchItem> research = new HashMap<String,ResearchItem>();
+	public final Map<String, ResearchItem> research = new HashMap<String,ResearchItem>();
 		
 		
 	

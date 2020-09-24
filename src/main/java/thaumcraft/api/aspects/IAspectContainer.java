@@ -9,7 +9,7 @@ package thaumcraft.api.aspects;
  * Tiles extending this interface will have their aspects show up when viewed by goggles of revealing
  *
  */
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public interface IAspectContainer {
 	AspectList getAspects();
 	

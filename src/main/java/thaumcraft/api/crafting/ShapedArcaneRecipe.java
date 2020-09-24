@@ -23,7 +23,7 @@ public class ShapedArcaneRecipe implements IArcaneRecipe
     public ItemStack output = null;
     public  Object[] input = null;
     public AspectList aspects = null;
-    public String research; 
+    public final String research;
     public int width = 0;
     public int height = 0;
     private boolean mirrored = true;

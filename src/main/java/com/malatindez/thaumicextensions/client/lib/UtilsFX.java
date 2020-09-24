@@ -15,7 +15,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
 
-    static Map<String, ResourceLocation> boundTextures = new HashMap<String, ResourceLocation>();
+    static final Map<String, ResourceLocation> boundTextures = new HashMap<String, ResourceLocation>();
     public static void bindTexture(String mod, String texture) {
         ResourceLocation rl;
         if (boundTextures.containsKey(texture)) {

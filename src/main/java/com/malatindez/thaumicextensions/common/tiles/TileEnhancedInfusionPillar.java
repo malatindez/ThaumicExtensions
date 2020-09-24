@@ -11,11 +11,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TileEnhancedInfusionPillar extends TileThaumcraft {
     public byte orientation;
 
-    public double noise;
+    public final double noise;
 
     public byte tier = 0;
 
-    public TileEnhancedInfusionMatrix matrixRef = null;
+    public final TileEnhancedInfusionMatrix matrixRef = null;
 
     public TileEnhancedInfusionPillar() {
         noise = ThreadLocalRandom.current().nextDouble() * ThreadLocalRandom.current().nextInt(1000000);

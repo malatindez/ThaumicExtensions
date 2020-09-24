@@ -25,12 +25,12 @@ public class WandCap {
 	/**
 	 * the amount by which all aspect costs are multiplied
 	 */
-	float baseCostModifier; 
+    final float baseCostModifier;
 	
 	/**
 	 * specifies a list of primal aspects that use the special discount figure instead of the normal discount.
 	 */
-	List<Aspect> specialCostModifierAspects;
+    final List<Aspect> specialCostModifierAspects;
 	
 	/**
 	 * the amount by which the specified aspect costs are multiplied
@@ -47,7 +47,7 @@ public class WandCap {
 	 */
 	ItemStack item;
 	
-	public static LinkedHashMap<String,WandCap> caps = new LinkedHashMap<String,WandCap>();
+	public static final LinkedHashMap<String,WandCap> caps = new LinkedHashMap<String,WandCap>();
 
 	public WandCap (String tag, float discount, ItemStack item, int craftCost) {
 		this.setTag(tag);

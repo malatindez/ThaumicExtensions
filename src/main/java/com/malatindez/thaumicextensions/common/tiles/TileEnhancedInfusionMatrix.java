@@ -38,7 +38,7 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
 
     public boolean checkSurroundings = true;
 
-    public int symmetry = 0;
+    public final int symmetry = 0;
 
     public int instability = 0;
     private AspectList recipeEssentia = new AspectList();
@@ -66,11 +66,11 @@ public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWanda
     private int recipeEnergy = 0;
 
     public static class SourceFX {
-        public ChunkCoordinates loc;
+        public final ChunkCoordinates loc;
 
-        public int ticks;
+        public final int ticks;
 
-        public int color;
+        public final int color;
 
         public int entity;
 

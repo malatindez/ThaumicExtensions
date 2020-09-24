@@ -12,18 +12,18 @@ public class FocusUpgradeType {
 
 	public static FocusUpgradeType[] types = new FocusUpgradeType[20];
 	
-	public short id;
+	public final short id;
 	
-	public ResourceLocation icon;
+	public final ResourceLocation icon;
 	
-	public String name;
+	public final String name;
 	
-	public String text;
+	public final String text;
 	
 	/**
 	 * What aspects are used to calculate the cost of this upgrade. The amounts given is ignored, just the type is used for the calculation.
 	 */
-	public AspectList aspects;
+	public final AspectList aspects;
 
 	
 

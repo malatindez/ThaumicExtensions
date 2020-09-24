@@ -64,34 +64,34 @@ public final class BotaniaAPI {
 	private static final List<LexiconCategory> categories = new ArrayList<LexiconCategory>();
 	private static final List<LexiconEntry> allEntries = new ArrayList<LexiconEntry>();
 
-	public static Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
+	public static final Map<String, KnowledgeType> knowledgeTypes = new HashMap<String, KnowledgeType>();
 
-	public static Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
+	public static final Map<String, Brew> brewMap = new LinkedHashMap<String, Brew>();
 	
-	public static List<String> disposableBlocks = new ArrayList<String>();
-	public static List<String> semiDisposableBlocks = new ArrayList<String>();
+	public static final List<String> disposableBlocks = new ArrayList<String>();
+	public static final List<String> semiDisposableBlocks = new ArrayList<String>();
 
-	public static List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
-	public static List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
-	public static List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
-	public static List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
-	public static List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
-	public static List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
-	public static List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
+	public static final List<RecipePetals> petalRecipes = new ArrayList<RecipePetals>();
+	public static final List<RecipePureDaisy> pureDaisyRecipes = new ArrayList<RecipePureDaisy>();
+	public static final List<RecipeManaInfusion> manaInfusionRecipes = new ArrayList<RecipeManaInfusion>();
+	public static final List<RecipeRuneAltar> runeAltarRecipes = new ArrayList<RecipeRuneAltar>();
+	public static final List<RecipeElvenTrade> elvenTradeRecipes = new ArrayList<RecipeElvenTrade>();
+	public static final List<RecipeBrew> brewRecipes = new ArrayList<RecipeBrew>();
+	public static final List<RecipeManaInfusion> miniFlowerRecipes = new ArrayList<RecipeManaInfusion>();
 
 	private static final BiMap<String, Class<? extends SubTileEntity>> subTiles = HashBiMap.create();
 	private static final Map<Class<? extends SubTileEntity>, SubTileSignature> subTileSignatures = new HashMap<Class<? extends SubTileEntity>, SubTileSignature>();
-	public static Set<String> subtilesForCreativeMenu = new LinkedHashSet();
-	public static Map<String, String> subTileMods = new HashMap<String, String>();
-	public static BiMap<String, String> miniFlowers = HashBiMap.create();
+	public static final Set<String> subtilesForCreativeMenu = new LinkedHashSet();
+	public static final Map<String, String> subTileMods = new HashMap<String, String>();
+	public static final BiMap<String, String> miniFlowers = HashBiMap.create();
 
-	public static Map<String, Integer> oreWeights = new HashMap<String, Integer>();
-	public static Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
-	public static Map<Item, Block> seeds = new HashMap();
-	public static Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
-	public static Set<Block> paintableBlocks = new LinkedHashSet<Block>();
-	public static Set<String> magnetBlacklist = new LinkedHashSet<String>();
-	public static Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
+	public static final Map<String, Integer> oreWeights = new HashMap<String, Integer>();
+	public static final Map<String, Integer> oreWeightsNether = new HashMap<String, Integer>();
+	public static final Map<Item, Block> seeds = new HashMap();
+	public static final Set<Item> looniumBlacklist = new LinkedHashSet<Item>();
+	public static final Set<Block> paintableBlocks = new LinkedHashSet<Block>();
+	public static final Set<String> magnetBlacklist = new LinkedHashSet<String>();
+	public static final Set<Class<? extends Entity>> gravityRodBlacklist = new LinkedHashSet<Class<? extends Entity>>();
 
 	public static ArmorMaterial manasteelArmorMaterial = EnumHelper.addArmorMaterial("MANASTEEL", 16, new int[] { 2, 6, 5, 2 }, 18);
 	public static ToolMaterial manasteelToolMaterial = EnumHelper.addToolMaterial("MANASTEEL", 3, 300, 6.2F, 2F, 20);
@@ -106,11 +106,11 @@ public final class BotaniaAPI {
 
 	public static EnumRarity rarityRelic = EnumHelper.addRarity("RELIC", EnumChatFormatting.GOLD, "Relic");
 
-	public static KnowledgeType basicKnowledge;
-	public static KnowledgeType elvenKnowledge;
+	public static final KnowledgeType basicKnowledge;
+	public static final KnowledgeType elvenKnowledge;
 
 	// This is here for completeness sake, but you shouldn't use it
-	public static KnowledgeType relicKnowledge;
+	public static final KnowledgeType relicKnowledge;
 
 	// All of these categories are initialized during botania's PreInit stage.
 	public static LexiconCategory categoryBasics;
@@ -124,7 +124,7 @@ public final class BotaniaAPI {
 	public static LexiconCategory categoryAlfhomancy;
 	public static LexiconCategory categoryMisc;
 
-	public static Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
+	public static final Brew fallbackBrew = new Brew("fallback", "botania.brew.fallback", 0, 0);
 
 	static {
 		registerSubTile("", DummySubTile.class);
@@ -260,7 +260,7 @@ public final class BotaniaAPI {
 	 * The fact I have to write that means some moron already tried, don't be that moron.
 	 * @see IInternalMethodHandler
 	 */
-	public static IInternalMethodHandler internalHandler = new DummyMethodHandler();
+	public static final IInternalMethodHandler internalHandler = new DummyMethodHandler();
 
 	/**
 	 * Registers a new Knowledge Type.

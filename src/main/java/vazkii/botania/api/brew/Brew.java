@@ -23,11 +23,11 @@ import net.minecraft.potion.PotionEffect;
 @SuppressWarnings("unchecked")
 public class Brew {
 
-	String key;
-	String name;
-	int color;
-	int cost;
-	List<PotionEffect> effects;
+	final String key;
+	final String name;
+	final int color;
+	final int cost;
+	final List<PotionEffect> effects;
 	boolean canInfuseBloodPendant = true;
 	boolean canInfuseIncense = true;
 

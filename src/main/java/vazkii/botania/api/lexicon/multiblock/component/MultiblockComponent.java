@@ -29,7 +29,7 @@ public class MultiblockComponent {
 	public final Block block;
 	public final int meta;
 	public final TileEntity tileEntity;
-	public boolean doFancyRender;
+	public final boolean doFancyRender;
 
 	public MultiblockComponent(ChunkCoordinates relPos, Block block, int meta) {
 		this(relPos, block, meta, null);

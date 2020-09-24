@@ -9,7 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 @SuppressWarnings("unchecked")
 public class RecipeElvenTrade {
 
-	ItemStack output;
+	final ItemStack output;
 	List<Object> inputs;
 
 	public RecipeElvenTrade(ItemStack output, Object... inputs) {

@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 
+@SuppressWarnings("EmptyMethod")
 @SideOnly(Side.CLIENT)
 public class TileEnhancedInfusionMatrixRenderer extends TileEntitySpecialRenderer {
 

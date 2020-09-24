@@ -17,12 +17,12 @@ import thaumcraft.api.aspects.AspectList;
 public class InfusionEnchantmentRecipe
 {
 	
-	public AspectList aspects;
-	public String research;
-	public ItemStack[] components;
-	public Enchantment enchantment;
-	public int recipeXP;
-	public int instability;
+	public final AspectList aspects;
+	public final String research;
+	public final ItemStack[] components;
+	public final Enchantment enchantment;
+	public final int recipeXP;
+	public final int instability;
 	
 	public InfusionEnchantmentRecipe(String research, Enchantment input, int inst, 
 			AspectList aspects2, ItemStack[] recipe) {

@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 public class Button extends DefaultGuiObject
         implements EnhancedGuiScreen.Clickable {
     protected Object icon;
-    protected MethodObjectPair method;
+    protected final MethodObjectPair method;
     protected int zLevel, id;
 
     /*

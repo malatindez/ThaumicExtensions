@@ -13,7 +13,7 @@ public class BlockCoordinates implements Comparable
     /** the z coordinate */
     public int z;
 
-    public BlockCoordinates() {}
+    // --Commented out by Inspection (9/24/2020 8:10 PM):public BlockCoordinates() {}
 
     public BlockCoordinates(int par1, int par2, int par3)
     {
@@ -62,7 +62,7 @@ public class BlockCoordinates implements Comparable
         return this.y == par1.y ? (this.z == par1.z ? this.x - par1.x : this.z - par1.z) : this.y - par1.y;
     }
 
-    public void set(int par1, int par2, int par3, int d)
+    public void set(int par1, int par2, int par3, @SuppressWarnings("unused") int d)
     {
         this.x = par1;
         this.y = par2;
@@ -104,5 +104,5 @@ public class BlockCoordinates implements Comparable
     	nbt.setInteger("b_y",y);
     	nbt.setInteger("b_z",z);
     }
-    
+
 }

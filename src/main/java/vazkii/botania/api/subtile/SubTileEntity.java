@@ -34,7 +34,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * of this using BotaniaAPI.mapSubTile(String, Class). Any subclass of this must have
  * a no parameter constructor.
  */
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public class SubTileEntity {
 
 	protected TileEntity supertile;
@@ -42,7 +42,7 @@ public class SubTileEntity {
 	public int ticksExisted = 0;
 
 	/** true if this flower is working on Enchanted Soil **/
-	public boolean overgrowth = false;
+	public final boolean overgrowth = false;
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
 	public boolean overgrowthBoost = false;
 

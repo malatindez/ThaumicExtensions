@@ -12,8 +12,8 @@ import java.util.Comparator;
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
 
-    protected Object selected = null;
-    protected ArrayList<Object> objects = new ArrayList<Object>();
+    protected final Object selected = null;
+    protected final ArrayList<Object> objects = new ArrayList<Object>();
     protected Collection parent = null;
 
     private int getObjectZLevel(Object obj) {

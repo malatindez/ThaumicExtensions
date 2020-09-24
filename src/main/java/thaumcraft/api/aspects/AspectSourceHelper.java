@@ -22,7 +22,8 @@ public class AspectSourceHelper {
 	 * @param range how many blocks you wish to search for essentia sources. 
 	 * @return boolean returns true if essentia was found and removed from a source.
 	 */
-	public static boolean drainEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
+	@SuppressWarnings("unused")
+    public static boolean drainEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
 	    try {
 	        if(drainEssentia == null) {
 	            Class fake = Class.forName("thaumcraft.common.lib.events.EssentiaHandler");
@@ -44,7 +45,8 @@ public class AspectSourceHelper {
 	 * @param range how many blocks you wish to search for essentia sources. 
 	 * @return boolean returns true if essentia was found and removed from a source.
 	 */
-	public static boolean findEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
+	@SuppressWarnings("unused")
+    public static boolean findEssentia(TileEntity tile, Aspect aspect, ForgeDirection direction, int range) {
 	    try {
 	        if(findEssentia == null) {
 	            Class fake = Class.forName("thaumcraft.common.lib.events.EssentiaHandler");

@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 /**
  * A multiblock component that matches any non air blocks that have a collision box.
  */
+@SuppressWarnings("unused")
 public class AnyComponent extends MultiblockComponent {
 
 	public AnyComponent(ChunkCoordinates relPos, Block block, int meta) {

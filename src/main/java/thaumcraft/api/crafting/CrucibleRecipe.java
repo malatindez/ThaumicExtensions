@@ -14,10 +14,10 @@ public class CrucibleRecipe {
 	private final ItemStack recipeOutput;
 	
 	public Object catalyst;
-	public AspectList aspects;
-	public String key;
+	public final AspectList aspects;
+	public final String key;
 	
-	public int hash;
+	public final int hash;
 	
 	public CrucibleRecipe(String researchKey, ItemStack result, Object cat, AspectList tags) {
 		recipeOutput = result;

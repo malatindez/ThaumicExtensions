@@ -106,6 +106,7 @@ public class BlockRenderer {
         renderAllSides(world, x, y, z, block, renderer, tex, true);
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected static void renderAllSides(IBlockAccess world, int x, int y, int z, Block block, RenderBlocks renderer, IIcon tex, boolean allsides) {
         if (allsides || block.shouldSideBeRendered(world, x + 1, y, z, 6))
             renderer.renderFaceXPos(block, x, y, z, tex);

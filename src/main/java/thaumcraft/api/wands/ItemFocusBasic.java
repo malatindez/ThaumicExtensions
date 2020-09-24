@@ -21,7 +21,7 @@ import thaumcraft.api.aspects.AspectList;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@SuppressWarnings({"SameReturnValue", "unchecked"})
+@SuppressWarnings({"SameReturnValue", "unchecked", "EmptyMethod"})
 public class ItemFocusBasic extends Item {
 	
 	public ItemFocusBasic ()

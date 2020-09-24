@@ -21,10 +21,10 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
     // Example of usage:
     // Part("thaumicextensions", "models/pillars/pillar1_1.png", "pillar_base")
     public static class Model {
-        public IModelCustom model;
-        public String modID;
-        public String pathToTexture;
-        public Transformation transform;
+        public final IModelCustom model;
+        public final String modID;
+        public final String pathToTexture;
+        public final Transformation transform;
         public Model(IModelCustom model, String modID, String pathToTexture, Transformation transform) {
             this.modID = modID;
             this.pathToTexture = pathToTexture;
@@ -60,8 +60,8 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
         GL11.glPopMatrix();
     }
     private static class DoubleIntPair implements Comparable<DoubleIntPair> {
-        public Double x;
-        public Integer y;
+        public final Double x;
+        public final Integer y;
         public DoubleIntPair(Double x, Integer y) {
             this.x = x;
             this.y = y;
@@ -73,9 +73,10 @@ public abstract class TileEntitySpecialRenderer extends net.minecraft.client.ren
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected void renderModels(double noise,
                                 Model[] models,
-                                Animation[] animations,
+                                @SuppressWarnings("SameParameterValue") Animation[] animations,
                                 Transformation[] transformations,
                                 Transformation cameraOffset) {
         double time = ((double)Minecraft.getSystemTime()) / 1000.0f;

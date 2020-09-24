@@ -23,146 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="779344ce-5a29-4e9a-ad7c-41a810534943" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ModBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ModBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ThaumicExtensions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/ThaumicExtensions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/ClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/Transformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/Transformation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/UtilsFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/lib/UtilsFX.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/block/BlockEnhancedInfusionPillarRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/block/BlockEnhancedInfusionPillarRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/gui/GuiEnhancedResearchRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/gui/GuiEnhancedResearchRecipe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/Animation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Button.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Collection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Collection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/DefaultGuiObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/DefaultGuiObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Drag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Drag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/EnhancedGuiScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/EnhancedGuiScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Rect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/Rect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/TextBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/TextBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/TextLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/TextLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionMatrixRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/tile/TileEnhancedInfusionMatrixRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigAspects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigAspects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigBlocks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/ConfigBlocks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/blocks/BlockEnhancedInfusionPillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/items/ItemEnhancedThaumonomicon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/items/ItemEnhancedThaumonomicon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/common/tiles/TileEnhancedInfusionPillar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IArchitect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IArchitect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IGoggles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IGoggles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IRepairableExtended.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IRepairableExtended.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IRunicArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IRunicArmor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IWarpingGear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/IWarpingGear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApiHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/ThaumcraftApiHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/BlockCoordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/BlockCoordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/Aspect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/Aspect.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectSourceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/AspectSourceHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IAspectContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IAspectContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaContainerItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaContainerItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaTransport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/aspects/IEssentiaTransport.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/CrucibleRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/CrucibleRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/IInfusionStabiliser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/IInfusionStabiliser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionEnchantmentRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionEnchantmentRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/InfusionRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapelessArcaneRecipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/crafting/ShapelessArcaneRecipe.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/damagesource/DamageSourceIndirectThaumcraftEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/damagesource/DamageSourceIndirectThaumcraftEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/damagesource/DamageSourceThaumcraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/damagesource/DamageSourceThaumcraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/internal/IInternalMethodHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/internal/IInternalMethodHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/nodes/INode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/nodes/INode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/nodes/IRevealer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/nodes/IRevealer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/potions/PotionFluxTaint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/potions/PotionFluxTaint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/potions/PotionVisExhaust.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/potions/PotionVisExhaust.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ResearchPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ScanResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/research/ScanResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/visnet/VisNetHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/visnet/VisNetHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/IWandTriggerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/IWandTriggerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/IWandable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/IWandable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/ItemFocusBasic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/ItemFocusBasic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/WandTriggerRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/thaumcraft/api/wands/WandTriggerRegistry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/BotaniaAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/BotaniaAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/boss/IBotaniaBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/boss/IBotaniaBoss.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/boss/IBotaniaBossWithShader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/boss/IBotaniaBossWithShader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/brew/IBrewContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/brew/IBrewContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/brew/IBrewItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/brew/IBrewItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaAutoCompleteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaAutoCompleteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaRequestor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaRequestor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaSpark.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/corporea/ICorporeaSpark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IGuiLexiconEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IGuiLexiconEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IInternalMethodHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IInternalMethodHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IManaBurst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IManaBurst.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IManaNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/IManaNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAncientWillContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAncientWillContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAvatarTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAvatarTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAvatarWieldable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IAvatarWieldable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IBaubleRender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IBaubleRender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IBlockProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IBlockProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ICosmeticAttachable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ICosmeticAttachable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IDyablePool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IDyablePool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExoflameHeatable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExoflameHeatable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExtendedPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExtendedPlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExtendedWireframeCoordinateListProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IExtendedWireframeCoordinateListProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerPlaceable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerPlaceable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerlessBiome.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerlessBiome.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerlessWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IFlowerlessWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IGrassHornExcempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IGrassHornExcempt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IHornHarvestable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IHornHarvestable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IManaDissolvable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IManaDissolvable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IManaProficiencyArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IManaProficiencyArmor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPetalApothecary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPetalApothecary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPhantomInkable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPhantomInkable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPixieSpawner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IPixieSpawner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IRelic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IRelic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ISequentialBreaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ISequentialBreaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ISortableTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/ISortableTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IWireframeCoordinateListProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/item/IWireframeCoordinateListProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/IAddonEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/IAddonEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ILexicon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ILexicon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ILexiconable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ILexiconable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/IRecipeKeyProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/IRecipeKeyProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ITwoNamedPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/ITwoNamedPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/LexiconEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/LexiconEntry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/LexiconRecipeMappings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/LexiconRecipeMappings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/IMultiblockRenderHook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/IMultiblockRenderHook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/component/MultiblockComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/component/MultiblockComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ICompositableLens.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ICompositableLens.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ICreativeManaProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ICreativeManaProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IDirectioned.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IDirectioned.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IIdentifiable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IIdentifiable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IKeyLocked.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IKeyLocked.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILaputaImmobile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILaputaImmobile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILens.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILens.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILensControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILensControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILensEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ILensEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaCollector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaCollector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaCollisionGhost.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaCollisionGhost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaDiscountArmor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaDiscountArmor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaReceiver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaSpreader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaSpreader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaTooltipDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaTooltipDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaTrigger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaTrigger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaUsingItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IManaUsingItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IPingable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IPingable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IPoolOverlayProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IPoolOverlayProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IRedirectable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IRedirectable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IThrottledPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/IThrottledPacket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ITinyPlanetExcempt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/ITinyPlanetExcempt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/spark/ISparkAttachable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/spark/ISparkAttachable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/spark/ISparkEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/mana/spark/ISparkEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/recipe/IElvenItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/recipe/IElvenItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/recipe/IFlowerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/recipe/IFlowerComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/ISubTileContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/ISubTileContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/ISubTileSlowableContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/ISubTileSlowableContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/ICoordBoundItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/ICoordBoundItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/ITileBound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/ITileBound.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandBindable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandBindable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandHUD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandHUD.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWandable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWireframeAABBProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wand/IWireframeAABBProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wiki/IWikiProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wiki/IWikiProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wiki/SimpleWikiProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/wiki/SimpleWikiProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/DummyMethodHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/internal/DummyMethodHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/component/AnyComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/lexicon/multiblock/component/AnyComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/signature/BasicSignature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/vazkii/botania/api/subtile/signature/BasicSignature.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -458,7 +327,14 @@
       <option name="project" value="LOCAL" />
       <updated>1600966667368</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="warning fixes">
+      <created>1600967325190</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1600967325190</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -571,7 +447,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/malatindez/thaumicextensions/client/render/misc/GUI/IconFactory.java</url>
-          <line>129</line>
+          <line>130</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

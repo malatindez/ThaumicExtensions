@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 
-@SuppressWarnings("SameReturnValue")
+@SuppressWarnings({"SameReturnValue", "EmptyMethod"})
 public interface IInternalMethodHandler {
 
 	void generateVisEffect(int dim, int x, int y, int z, int x2, int y2, int z2, int color);

@@ -68,18 +68,18 @@ public class ThaumcraftApi {
 	
 	//Internal (Do not alter this unless you like pretty explosions)
 	//Calling methods from this will only work properly once Thaumcraft is past the FMLPreInitializationEvent phase.
-	public static IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();
+	public static final IInternalMethodHandler internalMethods = new DummyInternalMethodHandler();
 	
 	//RESEARCH/////////////////////////////////////////
-	public static ArrayList<IScanEventHandler> scanEventhandlers = new ArrayList<IScanEventHandler>();
-	public static ArrayList<EntityTags> scanEntities = new ArrayList<EntityTags>();
+	public static final ArrayList<IScanEventHandler> scanEventhandlers = new ArrayList<IScanEventHandler>();
+	public static final ArrayList<EntityTags> scanEntities = new ArrayList<EntityTags>();
 	public static class EntityTagsNBT {
 		public EntityTagsNBT(String name, Object value) {
 			this.name = name;
 			this.value = value;
 		}
-		public String name;
-		public Object value;
+		public final String name;
+		public final Object value;
 	}
 	public static class EntityTags {
 		public EntityTags(String entityName, AspectList aspects, EntityTagsNBT... nbts) {
@@ -87,9 +87,9 @@ public class ThaumcraftApi {
 			this.nbts = nbts;
 			this.aspects = aspects;
 		}
-		public String entityName;
-		public EntityTagsNBT[] nbts;
-		public AspectList aspects;
+		public final String entityName;
+		public final EntityTagsNBT[] nbts;
+		public final AspectList aspects;
 	}
 	
 	/**
@@ -327,8 +327,8 @@ public class ThaumcraftApi {
 	
 	//ASPECTS////////////////////////////////////////
 	
-	public static ConcurrentHashMap<List,AspectList> objectTags = new ConcurrentHashMap<List,AspectList>();
-	public static ConcurrentHashMap<List,int[]> groupedObjectTags = new ConcurrentHashMap<List,int[]>();
+	public static final ConcurrentHashMap<List,AspectList> objectTags = new ConcurrentHashMap<List,AspectList>();
+	public static final ConcurrentHashMap<List,int[]> groupedObjectTags = new ConcurrentHashMap<List,int[]>();
 	
 	/**
 	 * Checks to see if the passed item/block already has aspects associated with it.

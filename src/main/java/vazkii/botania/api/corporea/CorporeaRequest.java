@@ -10,11 +10,11 @@
 package vazkii.botania.api.corporea;
 
 public class CorporeaRequest {
-	public Object matcher;
-	public boolean checkNBT;
-	public int count;
-	public int foundItems = 0;
-	public int extractedItems = 0;
+	public final Object matcher;
+	public final boolean checkNBT;
+	public final int count;
+	public final int foundItems = 0;
+	public final int extractedItems = 0;
 	
 	public CorporeaRequest(Object matcher, boolean checkNBT, int count) {
 		super();
