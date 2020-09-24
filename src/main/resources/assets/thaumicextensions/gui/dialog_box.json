@@ -1,0 +1,23 @@
+{
+  "DialogBox": {
+    "type": "Collection",
+    "size": [106,30],
+    "coordinates": [0,0],
+    "elements": {
+      "DialogBox_background": {
+        "type": "Rect",
+        "zLevel": -1,
+        "coordinates": [0,0],
+        "scale": [1, 1],
+        "size": [106, 30],
+        "scale_type": "scale_xy",
+        "colors": {
+          "topLeft":      [0.7,0.2,0.2,1],
+          "topRight":     [0.7,0.2,0.2,1],
+          "bottomLeft":   [0.7,0.2,0.2,1],
+          "bottomRight":  [0.7,0.2,0.2,1]
+        }
+      }
+    }
+  }
+}
