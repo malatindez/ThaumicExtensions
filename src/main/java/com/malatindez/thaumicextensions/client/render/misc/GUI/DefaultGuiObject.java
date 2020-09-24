@@ -175,6 +175,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         type = type;
     }
     public abstract void preInit(String name, Object parent, JSONObject parameters);
+    // postInit is called after entire gui is loaded
+    public abstract void postInit();
     /**
      *
      * @param coordinates

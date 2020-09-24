@@ -34,6 +34,12 @@ public class TextBox extends DefaultGuiObject {
     public void preInit(String name, Object parent, JSONObject parameters) {
 
     }
+
+    @Override
+    public void postInit() {
+
+    }
+
     public TextBox(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
         fontRendererObj = Minecraft.getMinecraft().fontRenderer;

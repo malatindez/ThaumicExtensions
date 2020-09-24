@@ -77,6 +77,11 @@ public class IconFactory {
             ).getIconSample((String)parameters.get("mapping_icon_name"));
         }
 
+        @Override
+        public void postInit() {
+
+        }
+
         public Icon(String name, Object parent, JSONObject parameters) {
             super(name,parent,parameters);
         }

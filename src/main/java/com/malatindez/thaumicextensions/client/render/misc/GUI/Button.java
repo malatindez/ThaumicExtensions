@@ -49,6 +49,11 @@ public class Button extends DefaultGuiObject
         this.icon = EnhancedGuiScreen.createObject(name, this, icon);
     }
 
+    @Override
+    public void postInit() {
+        ((DefaultGuiObject)icon).postInit();
+    }
+
     public Button(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("method") && parent instanceof DefaultGuiObject) {

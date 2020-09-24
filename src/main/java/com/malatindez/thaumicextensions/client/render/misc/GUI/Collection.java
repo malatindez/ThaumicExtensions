@@ -81,6 +81,14 @@ public class Collection extends DefaultGuiObject implements
     public void preInit(String name, Object parent, JSONObject parameters) {
 
     }
+
+    @Override
+    public void postInit() {
+        for(Object object : objects) {
+            ((DefaultGuiObject)object).postInit();
+        }
+    }
+
     public Collection(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("elements")) {

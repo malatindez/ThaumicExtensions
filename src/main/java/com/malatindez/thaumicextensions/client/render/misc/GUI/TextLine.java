@@ -26,6 +26,11 @@ public class TextLine extends DefaultGuiObject {
         }
     }
 
+    @Override
+    public void postInit() {
+
+    }
+
     public TextLine(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }

@@ -36,6 +36,11 @@ public class Rect extends DefaultGuiObject {
 
     }
 
+    @Override
+    public void postInit() {
+
+    }
+
     public static class VertexColors {
         Vector4f topLeft;
         Vector4f topRight;
