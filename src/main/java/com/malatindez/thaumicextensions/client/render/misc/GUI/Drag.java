@@ -51,6 +51,9 @@ public class Drag extends Collection {
         } else {
             dragEnd = null;
         }
+        if(parameters.containsKey("drag_focus")) {
+            parameters.get("drag_focus");
+        }
     }
 
     private void CurrentlyDragging() {
