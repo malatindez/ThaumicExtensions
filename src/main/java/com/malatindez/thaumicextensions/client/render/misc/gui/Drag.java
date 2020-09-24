@@ -74,6 +74,9 @@ public class Drag extends Collection {
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
+        if(hided()) {
+            return false;
+        }
         if(currently_dragging) {
             if (previousMousePos == null) {
                 previousMousePos = new Vector2f(currentMousePosition);
@@ -115,7 +118,9 @@ public class Drag extends Collection {
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-
+        if(hided()) {
+            return false;
+        }
         if(objectToFocusOn != null) {
             if (objectToFocusOn.getBorders().x < currentMousePosition.x &&
                     objectToFocusOn.getBorders().z > currentMousePosition.x &&
