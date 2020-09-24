@@ -57,7 +57,7 @@
             "coordinates": [0,0],
             "scale": [1, 1],
             "size": [200, 20],
-            "scale_type": "scale_x",
+            "scale_type": "scale_smooth_x",
             "colors": {
               "topLeft":     [0,0,0,0.5],
               "topRight":    [0,0,0,0.25],
