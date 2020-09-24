@@ -27,49 +27,6 @@
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
       <option name="myName" value="Project Default" />
-      <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="true">
-        <option name="TOP_LEVEL_CLASS_OPTIONS">
-          <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
-          </value>
-        </option>
-        <option name="INNER_CLASS_OPTIONS">
-          <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
-          </value>
-        </option>
-        <option name="METHOD_OPTIONS">
-          <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="@return@param@throws or @exception" />
-          </value>
-        </option>
-        <option name="FIELD_OPTIONS">
-          <value>
-            <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="none" />
-            <option name="REQUIRED_TAGS" value="" />
-          </value>
-        </option>
-        <option name="IGNORE_DEPRECATED" value="false" />
-        <option name="IGNORE_JAVADOC_PERIOD" value="true" />
-        <option name="IGNORE_DUPLICATED_THROWS" value="false" />
-        <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-        <option name="myAdditionalJavadocTags" value="return,return,Deprecated,inputs,param" />
-      </inspection_tool>
-      <inspection_tool class="unused" enabled="false" level="WARNING" enabled_by_default="false">
-        <option name="LOCAL_VARIABLE" value="true" />
-        <option name="FIELD" value="true" />
-        <option name="METHOD" value="true" />
-        <option name="CLASS" value="true" />
-        <option name="PARAMETER" value="true" />
-        <option name="REPORT_PARAMETER_FOR_PUBLIC_METHODS" value="true" />
-        <option name="ADD_MAINS_TO_ENTRIES" value="true" />
-        <option name="ADD_APPLET_TO_ENTRIES" value="true" />
-        <option name="ADD_SERVLET_TO_ENTRIES" value="true" />
-        <option name="ADD_NONJAVA_TO_ENTRIES" value="true" />
-      </inspection_tool>
     </profile>
     <version value="1.0" />
   </component>
@@ -197,26 +154,12 @@
       </item>
     </group>
   </component>
-  <component name="ProjectDictionaryState">
-    <dictionary name="Axenance">
-      <words>
-        <w>bindable</w>
-        <w>botania</w>
-        <w>malatindez</w>
-        <w>modid</w>
-        <w>renderable</w>
-        <w>thaumcraft</w>
-        <w>thaumic</w>
-        <w>thaumicextensions</w>
-      </words>
-    </dictionary>
-  </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ThaumicExtensions.iml" filepath="$PROJECT_DIR$/ThaumicExtensions.iml" />
+      <module filepath="$PROJECT_DIR$/ThaumicExtensions.iml" fileurl="file://$PROJECT_DIR$/ThaumicExtensions.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="SvnBranchConfigurationManager">
@@ -224,25 +167,6 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-  </component>
-  <component name="libraryTable">
-    <library name="com.googlecode.json-simple:json-simple:1.1.1" type="repository">
-      <properties maven-id="com.googlecode.json-simple:json-simple:1.1.1" />
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/junit-4.10.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1-javadoc.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/junit-4.10-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.1-sources.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/junit-4.10-sources.jar!/" />
-        <root url="jar://$PROJECT_DIR$/lib/hamcrest-core-1.1-sources.jar!/" />
-      </SOURCES>
-    </library>
   </component>
   <component name="masterDetails">
     <states>
