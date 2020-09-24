@@ -1,6 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
-import com.sun.istack.internal.NotNull;
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
@@ -25,8 +25,8 @@ public class Button extends DefaultGuiObject
      *                   * Param Object which will be set with this class
      *                   * Param int id, special number which you can add in constructor to identify caller
      */
-    public Button(@NotNull Object icon, @NotNull Vector2f coordinates,
-                  @NotNull Object obj, @NotNull Method method, int id, int zLevel, ResolutionRescaleType type,
+    public Button(Object icon, Vector2f coordinates,
+                  Object obj, Method method, int id, int zLevel, ResolutionRescaleType type,
                   ArrayList<EnhancedGuiScreen.Bind> binds) {
         super(coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), zLevel, type, false);
         this.icon = icon;
@@ -57,7 +57,7 @@ public class Button extends DefaultGuiObject
     }
 
     @Override
-    public boolean mouseHandler(@NotNull Vector2f currentMousePosition) {
+    public boolean mouseHandler(Vector2f currentMousePosition) {
         return true;
     }
 
