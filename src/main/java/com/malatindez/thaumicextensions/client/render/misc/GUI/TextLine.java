@@ -6,37 +6,44 @@ import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 
 public class TextLine extends DefaultGuiObject {
-    protected final FontRenderer fontRendererObj;
-    public final String textLine;
-    public Vector3f color;
+    protected FontRenderer fontRendererObj;
+    public String textLine;
+    public Vector4f color;
     public boolean dropShadow;
-    /*
-    public TextLine(
-            String name, FontRenderer fontRendererObj, String textLine, Vector3f color, boolean dropShadow,
-            Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
-        super(name, coordinates, scale,
-                new Vector2f(fontRendererObj.getStringWidth(textLine) * scale.x,
-                        fontRendererObj.FONT_HEIGHT * scale.y
-                        ), zLevel, type
-                );
-        this.fontRendererObj = fontRendererObj;
-        this.color = color;
-        this.dropShadow = dropShadow;
-        this.textLine = textLine;
-    }*/
+
+    @Override
+    public void preInit(String name, Object parent, JSONObject parameters) {
+        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+        textLine = (String)parameters.get("text");
+        color = Json4Vec(parameters.get("color"));
+        if(parameters.containsKey("dropShadow")) {
+            dropShadow = (Boolean)parameters.get("dropShadow");
+        } else {
+            dropShadow = false;
+        }
+    }
 
     public TextLine(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
-        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
-        textLine = (String)parameters.get("text");
-        color = Json3Vec(parameters.get("color"));
     }
 
     @Override
-    public MethodObjectPair getMethodA(String objectName, String name, Class[] parameterTypes, boolean callParent) {
-        return getMethod(objectName, name, parameterTypes, callParent);
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
+        if(objectName == this.getName()) {
+            getMethodFunc(objectName, name, parameterTypes);
+        }
+        return null;
+    }
+
+    @Override
+    public Object getObjectDown(String objectName) {
+        if(objectName == this.getName()) {
+            return this;
+        }
+        return null;
     }
 
     @Override
@@ -46,19 +53,20 @@ public class TextLine extends DefaultGuiObject {
 
     @Override
     public void reScale(Vector2f scale) {
-        this.reScale(scale);
+        super.reScale(scale);
         this.setSize(
                 new Vector2f(fontRendererObj.getStringWidth(textLine) * scale.x,
                         fontRendererObj.FONT_HEIGHT * scale.y
                 ));
     }
-
     @Override
     public void render() {
         GL11.glPushMatrix();
         GL11.glTranslatef(getCurrentPosition().x, getCurrentPosition().y, 0);
         GL11.glScalef(getScale().x, getScale().y, 1);
-        this.fontRendererObj.drawString(textLine, 0, 0, (int) (color.x * 255 * 255 + color.y * 255 + color.z), dropShadow);
+        this.fontRendererObj.drawString(textLine, 0, 0,
+                Vector4fToColor(color),
+                dropShadow);
         GL11.glPopMatrix();
     }
 
