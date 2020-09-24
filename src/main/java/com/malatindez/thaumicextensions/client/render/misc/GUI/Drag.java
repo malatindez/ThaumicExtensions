@@ -1,21 +1,21 @@
 package com.malatindez.thaumicextensions.client.render.misc.GUI;
 
 
+import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
 public class Drag extends Collection {
-    protected final Object obj;
-    protected final Method currentlyDragging;
-    protected final Method dragEnd;
+    protected final MethodObjectPair currentlyDragging;
+    protected final MethodObjectPair dragEnd;
 
     protected Vector2f previousMousePos = null;
     protected DefaultGuiObject objectToFocusOn;
     private boolean currently_dragging = false;
 
-    /**
+    /*
      * Drag constructor
      * @param obj object which has currentlyDragged and dragEnd methods.
      *            This parameter can be null.
@@ -23,21 +23,40 @@ public class Drag extends Collection {
      *                         This parameter can be null.
      * @param dragEnd object method which has to have a Vector2f parameter which means current position.
      *                This parameter can be null.
-     */
     public Drag(Collection collection, Object obj, Method currentlyDragging, Method dragEnd) {
         super(collection);
         this.obj = obj;
         this.currentlyDragging = currentlyDragging;
         this.dragEnd = dragEnd;
     }
-    public void DragFocus(DefaultGuiObject objectToFocusOn) {
-        this.objectToFocusOn = objectToFocusOn;
+     */
+
+    public Drag(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
+        if(parameters.containsKey("currently_dragging") && parent instanceof DefaultGuiObject) {
+            JSONObject obj = (JSONObject) parameters.get("currently_dragging");
+            currentlyDragging = this.getMethodA(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    new Class[] {Object.class, int.class}, true);
+        } else {
+            currentlyDragging = null;
+        }
+        if(parameters.containsKey("dragging_end") && parent instanceof DefaultGuiObject) {
+            JSONObject obj = (JSONObject) parameters.get("dragging_end");
+            dragEnd = this.getMethodA(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    new Class[] {Object.class, int.class}, true);
+        } else {
+            dragEnd = null;
+        }
     }
 
     private void CurrentlyDragging() {
-        if (obj != null && dragEnd != null) {
+        if (currentlyDragging != null && dragEnd != null) {
             try {
-                currentlyDragging.invoke(obj, getCurrentPosition());
+                currentlyDragging.method.invoke(currentlyDragging.object, getCurrentPosition());
             } catch (Exception ignored) {
             }
         }
@@ -49,9 +68,9 @@ public class Drag extends Collection {
             setCoordinates( getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
     }
     private void DraggingEnd() {
-        if (obj != null && dragEnd != null) {
+        if (dragEnd != null && dragEnd != null) {
             try {
-                dragEnd.invoke(obj, getCurrentPosition());
+                dragEnd.method.invoke(dragEnd.object, getCurrentPosition());
             } catch (Exception ignored) {
             }
         }
