@@ -6,6 +6,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.util.vector.Vector2f;
+import scala.tools.nsc.doc.model.Def;
 import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
@@ -41,6 +43,10 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
         super(new ResourceLocation(ThaumicExtensions.MODID, "gui/test_gui.json"));
     }
     public void defaultResearchClicked(Object obj, int id) {
-
+        ((DefaultGuiObject)obj).setCoordinates(
+                Vector2f.add(((DefaultGuiObject) obj).getCoordinates(),
+                        new Vector2f(1,1), null)
+        );
+        ((DefaultGuiObject)obj).checkBorders();
     }
 }
