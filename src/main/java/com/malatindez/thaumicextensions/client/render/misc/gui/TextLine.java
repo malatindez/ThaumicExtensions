@@ -69,11 +69,11 @@ public class TextLine extends DefaultGuiObject {
     void textLineWasUpdated() {
         int maxSize = (int) getSize().x;
         lineToRender = fontRendererObj.trimStringToWidth(textLine.substring(renderCursor), maxSize);
-        if(lineToRender.length() != 0 && cutLine) {
+        if(lineToRender.length() != 0 && cutLine && !textLine.endsWith(lineToRender)) {
             String substring = lineToRender.substring(0,lineToRender.length() - 1);
             int threeDotsSize = fontRendererObj.getStringWidth("...");
             while (substring.length() != 0) {
-                if (fontRendererObj.getStringWidth(substring) + threeDotsSize > maxSize) {
+                if (fontRendererObj.getStringWidth(substring) + threeDotsSize < maxSize) {
                     lineToRender = substring + "...";
                     break;
                 }
