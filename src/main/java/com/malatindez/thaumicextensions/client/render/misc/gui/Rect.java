@@ -69,14 +69,7 @@ public class Rect extends DefaultGuiObject {
                 Json4Vec(colors.get("bottomRight"))
         );
     }
-    @Override
-    public void render() {
-        if(hided()) {
-            return;
-        }
-        Vector2f coordinates = this.getCurrentPosition();
-        Vector2f size = this.getSize();
-
+    public static void renderGradientRect(Vector4f borders, VertexColors colors, int zLevel) {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -85,21 +78,32 @@ public class Rect extends DefaultGuiObject {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.setColorRGBA_F(colors.topRight.x, colors.topRight.y, colors.topRight.z, colors.topRight.w);
-        tessellator.addVertex(coordinates.x + size.x, coordinates.y, this.zLevel);
-
+        tessellator.addVertex(borders.z, borders.y, zLevel);
         tessellator.setColorRGBA_F(colors.topLeft.x, colors.topLeft.y, colors.topLeft.z, colors.topLeft.w);
-        tessellator.addVertex(coordinates.x, coordinates.y, this.zLevel);
-
+        tessellator.addVertex(borders.x, borders.y, zLevel);
         tessellator.setColorRGBA_F(colors.bottomLeft.x, colors.bottomLeft.y, colors.bottomLeft.z, colors.bottomLeft.w);
-        tessellator.addVertex(coordinates.x, coordinates.y + size.y, this.zLevel);
-
+        tessellator.addVertex(borders.x, borders.w, zLevel);
         tessellator.setColorRGBA_F(colors.bottomRight.x, colors.bottomRight.y, colors.bottomRight.z, colors.bottomRight.w);
-        tessellator.addVertex(coordinates.x + size.x, coordinates.y + size.y, this.zLevel);
+        tessellator.addVertex(borders.z, borders.w, zLevel);
         tessellator.draw();
         GL11.glShadeModel(GL11.GL_FLAT);
         GL11.glDisable(GL11.GL_BLEND);
         GL11.glEnable(GL11.GL_ALPHA_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
+    }
+    public static void renderSolidRect(Vector4f borders, Vector4f color, int zLevel) {
+        renderGradientRect(borders, new VertexColors(color, color, color, color), zLevel);
+    }
+    @Override
+    public void render() {
+        if(hided()) {
+            return;
+        }
+        Vector2f coordinates = this.getCurrentPosition();
+        Vector2f size = this.getSize();
+        renderGradientRect(new Vector4f(coordinates.x, coordinates.y,
+                        coordinates.x + size.x, coordinates.y + size.y),
+                colors, zLevel);
     }
 
 }
