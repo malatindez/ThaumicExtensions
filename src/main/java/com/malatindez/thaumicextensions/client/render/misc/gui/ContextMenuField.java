@@ -115,12 +115,13 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
     }
 
     @Override
-    public void keyTyped(char par1, int par2) {
+    public boolean keyTyped(char par1, int par2) {
         if(hided()) {
-            return;
+            return false;
         }
         if(icon instanceof EnhancedGuiScreen.Inputable) {
-            ((EnhancedGuiScreen.Inputable) icon).keyTyped(par1, par2);
+            return ((EnhancedGuiScreen.Inputable) icon).keyTyped(par1, par2);
         }
+        return false;
     }
 }
