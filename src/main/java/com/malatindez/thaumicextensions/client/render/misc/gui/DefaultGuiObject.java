@@ -120,6 +120,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         );
         VectorsWereUpdated();
     }
+    @SuppressWarnings("UnusedReturnValue")
     public boolean checkBorders() {
         boolean flag = false;
         if(getBorders().x < getParentBorders().x) {

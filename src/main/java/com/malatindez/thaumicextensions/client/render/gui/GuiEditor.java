@@ -3,12 +3,10 @@ package com.malatindez.thaumicextensions.client.render.gui;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.render.misc.gui.Collection;
 import com.malatindez.thaumicextensions.client.render.misc.gui.ContextMenuField;
-import com.malatindez.thaumicextensions.client.render.misc.gui.DefaultGuiObject;
 import com.malatindez.thaumicextensions.client.render.misc.gui.EnhancedGuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Vector2f;
-import thaumcraft.api.research.ResearchItem;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
 public class GuiEditor extends EnhancedGuiScreen {

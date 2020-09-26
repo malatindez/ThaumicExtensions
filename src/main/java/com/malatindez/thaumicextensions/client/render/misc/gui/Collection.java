@@ -3,7 +3,6 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
-import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 import java.util.Collections;

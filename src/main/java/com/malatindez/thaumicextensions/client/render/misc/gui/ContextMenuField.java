@@ -8,8 +8,8 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         EnhancedGuiScreen.Updatable,
         EnhancedGuiScreen.Inputable {
     public DefaultGuiObject icon;
-    protected MethodObjectPair rmbClicked;
-    protected MethodObjectPair lmbClicked;
+    protected final MethodObjectPair rmbClicked;
+    protected final MethodObjectPair lmbClicked;
 
     @Override
     public void preInit(String name, Object parent, JSONObject parameters) {
