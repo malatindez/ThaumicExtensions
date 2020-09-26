@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import net.minecraft.client.Minecraft;
 import org.json.simple.JSONObject;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -9,7 +10,7 @@ import org.lwjgl.util.vector.Vector4f;
 public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickable,
         EnhancedGuiScreen.Inputable {
 
-    public Vector4f cursorColor;
+    public final Vector4f cursorColor;
     public TextInputLine(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         if(parameters.containsKey("cursorColor")) {
@@ -42,7 +43,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
             if(lineToRender.length() > 0) {
                 float x = (currentMousePosition.x - getCurrentPosition().x) / fontRendererObj.getStringWidth(lineToRender);
                 x = Math.min(x, 1);
-                cursor = renderCursor + (int) Math.round(x * lineToRender.length());
+                cursor = renderCursor + Math.round(x * lineToRender.length());
             }
         } else if (!cutLine) {
             cutLine = true;
@@ -57,30 +58,44 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
         } else {
             cursor = Math.max(0, cursor + value);
         }
-        if(cursor < renderCursor) {
+        if(cursor <= renderCursor) {
             renderCursor = Math.max(renderCursor - 4, 0);
         } else if (cursor > renderCursor + lineToRender.length() &&
-                fontRendererObj.getStringWidth(textLine.substring(renderCursor)) > getSize().x) {
-            renderCursor = Math.min(textLine.length() - 4, cursor);
+                fontRendererObj.getStringWidth(textLine.substring(renderCursor)) > getSize().x
+        ) {
+            renderCursor = Math.max(0, Math.min(textLine.length(), renderCursor + 4));
         }
         textLineWasUpdated();
+
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean keyTyped(char par1, int par2) {
         if(hided() || !selected) {
             return false;
         }
+        int offset;
         switch(par2)  {
             case Keyboard.KEY_BACK:
+                offset = cursor-1;
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = cursor-1; (i >= renderCursor) && !(textLine.charAt(i) == ' ' ||
+                            textLine.charAt(i) == '\n' || textLine.charAt(i) == '\r'); offset=i--);
+                }
                 if (textLine.length() > 0 && cursor > 0) {
-                    textLine = textLine.substring(0, cursor - 1) + textLine.substring(cursor);
-                    moveCursor(-1);
+                    textLine = textLine.substring(0, offset) + textLine.substring(cursor);
+                    moveCursor(offset - cursor);
                 }
                 break;
             case Keyboard.KEY_DELETE:
+                offset = cursor+1;
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = cursor; (i < renderCursor + lineToRender.length()) && !(textLine.charAt(i) == ' ' ||
+                            textLine.charAt(i) == '\n' || textLine.charAt(i) == '\r'); offset=++i);
+                }
                 if (cursor < textLine.length()) {
-                    textLine = textLine.substring(0, cursor) + textLine.substring(cursor + 1);
+                    textLine = textLine.substring(0, cursor) + textLine.substring(offset);
                     textLineWasUpdated();
                 }
                 break;
@@ -90,16 +105,29 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
                 textLineWasUpdated();
                 break;
             case Keyboard.KEY_RIGHT:
-                moveCursor(+1);
+                offset = cursor + 1;
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = cursor; (i < renderCursor + lineToRender.length()) && !(textLine.charAt(i) == ' ' ||
+                            textLine.charAt(i) == '\n' || textLine.charAt(i) == '\r'); i++, offset=i);
+                }
+                moveCursor(offset-cursor);
                 break;
             case Keyboard.KEY_LEFT:
-                moveCursor(-1);
+                offset = cursor-1;
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = cursor-1; (i >= renderCursor) && !(textLine.charAt(i) == ' ' ||
+                            textLine.charAt(i) == '\n' || textLine.charAt(i) == '\r'); offset=i--);
+                }
+                moveCursor(offset - cursor);
+                break;
+            default:
+                if (par1 > 31) {
+                    textLine = textLine.substring(0, cursor) + par1 + textLine.substring(cursor);
+                    moveCursor(+1);
+                }
                 break;
         }
-        if (par1 > 31) {
-            textLine = textLine.substring(0, cursor) + par1 + textLine.substring(cursor);
-            moveCursor(+1);
-        }
+
         return true;
     }
 
@@ -111,19 +139,14 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
         super.render();
         Vector2f position = getCurrentPosition();
         Vector2f scale = getScale();
-        if(selected) {
+        if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
             GL11.glPushMatrix();
-            float xCoord = this.fontRendererObj.getStringWidth(lineToRender.substring(lineToRender.length() - cursor + renderCursor)) * scale.x;
-            /*
-            // this.fontRendererObj.getStringWidth("|") = 2
-            GL11.glTranslatef(position.x * scale.x + xCoord - 2.25f * scale.x, position.y, 0);
-            GL11.glScalef(0.5f, scale.y, 1);
-            this.fontRendererObj.drawString("│", 0, 0, Vector4fToColor(cursorColor), dropShadow);
-            */
+            int a = Math.min(Math.max(0, cursor - renderCursor), lineToRender.length());
+            float xCoord = this.fontRendererObj.getStringWidth(lineToRender.substring(0, a)) * scale.x - 0.25f;
             Rect.renderSolidRect(new Vector4f(
                     position.x + xCoord,
                     position.y,
-                    position.x + xCoord + 1,
+                    position.x + xCoord + 0.75f,
                     position.y + fontRendererObj.FONT_HEIGHT * scale.y
             ), cursorColor, getZLevel());
             GL11.glPopMatrix();
