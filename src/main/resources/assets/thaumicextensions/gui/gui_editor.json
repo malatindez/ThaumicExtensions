@@ -64,10 +64,11 @@
                   "text": "Lorem",
                   "color": [1,1,1,0.3],
                   "dropShadow": true,
-                  "coordinates": [75,75],
+                  "coordinates": [0,0],
+                  "size": [61,10],
                   "zLevel":10,
                   "scale": [1,1],
-                  "scale_type": "none"
+                  "scale_type": "scale_x"
                 }
               }
             }
