@@ -24,15 +24,17 @@ public class Collection extends DefaultGuiObject implements
     }
 
     @Override
-    public void keyTyped(char par1, int par2) {
+    public boolean keyTyped(char par1, int par2) {
         if(hided()) {
-            return;
+            return false;
         }
         for(Object object : objects) {
-            if(object instanceof EnhancedGuiScreen.Inputable) {
-                ((EnhancedGuiScreen.Inputable) object).keyTyped(par1, par2);
+            if(object instanceof EnhancedGuiScreen.Inputable &&
+                    ((EnhancedGuiScreen.Inputable) object).keyTyped(par1, par2)) {
+                return true;
             }
         }
+        return false;
     }
 
     private class ObjectComparator implements Comparator<Object> {
