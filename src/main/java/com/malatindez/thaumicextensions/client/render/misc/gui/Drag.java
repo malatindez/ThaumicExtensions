@@ -102,7 +102,7 @@ public class Drag extends Collection {
     @Override
     public void Update(int flags) {
         /*
-          If LMB not pressed -> dragging ends
+          If LMB not pressed -> dragging event ends
          */
         if(currently_dragging) {
             //noinspection ConstantConditions
