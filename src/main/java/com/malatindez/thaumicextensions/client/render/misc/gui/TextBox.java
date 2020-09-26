@@ -62,9 +62,7 @@ public class TextBox extends DefaultGuiObject {
         }
     }
     private int renderTextBox(String text, boolean render) {
-        text = text.replace("\\n","\n");
         Vector2f scale = this.getScale();
-        Vector2f size = this.getSize();
         ArrayList<String> words = new ArrayList<String>();
         StringBuilder current_word = new StringBuilder();
         for(int i = 0; i < text.length(); i++) {
