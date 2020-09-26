@@ -19,13 +19,15 @@ public class GuiEditor extends EnhancedGuiScreen {
     }
 
     protected void keyTyped(char par1, int par2) {
-        if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
-            this.mc.displayGuiScreen(null);
-            this.mc.setIngameFocus();
-        } else {
-            if (par2 == 1)
-                GuiResearchBrowser.highlightedItem.clear();
-            super.keyTyped(par1, par2);
+        if(!keyTyped1(par1, par2)) {
+            if (par2 == this.mc.gameSettings.keyBindInventory.getKeyCode()) {
+                this.mc.displayGuiScreen(null);
+                this.mc.setIngameFocus();
+            } else {
+                if (par2 == 1)
+                    GuiResearchBrowser.highlightedItem.clear();
+                super.keyTyped(par1, par2);
+            }
         }
     }
 
