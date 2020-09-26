@@ -29,9 +29,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public void show() {
         hide = false;
     }
-    public void setHide(boolean hide) {
-        this.hide = hide;
-    }
     public boolean hided() {
         return hide;
     }
@@ -83,7 +80,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public abstract Object getObjectDown(String objectName);
 
     public static int Vector4fToColor(Vector4f vec) {
-        return Integer.parseInt(
+        return (int) Long.parseLong(
         Integer.toHexString((int)(vec.w*255.0f)) +
         Integer.toHexString((int)(vec.x*255.0f)) +
         Integer.toHexString((int)(vec.y*255.0f)) +
