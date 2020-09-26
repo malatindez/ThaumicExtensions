@@ -142,7 +142,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         int getZLevel();
     }
     public interface Inputable {
-        void keyTyped(char par1, int par2);
+        boolean keyTyped(char par1, int par2);
     }
     protected final Vector2f mousePosition = new Vector2f(0,0);
     public Vector2f getCurrentMousePosition() {
@@ -157,9 +157,9 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     public void onGuiClosed() {
         super.onGuiClosed();
     }
-    protected void keyTyped(char par1, int par2) {
+    protected boolean keyTyped1(char par1, int par2) {
         super.keyTyped(par1, par2);
-        gui.keyTyped(par1, par2);
+        return gui.keyTyped(par1, par2);
     }
 
 
