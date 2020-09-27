@@ -84,12 +84,83 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         }
     }
 
+    protected void moveCursor(Vector2f value) {
+        moveCursor(value.x, value.y);
+    }
+    protected void moveCursor(float x, float y) {
+        if(y > 0) {
+            cursor.set(cursor.x, Math.min(cursor.y + y, lines.size()-1));
+        } else {
+            cursor.set(cursor.x, Math.max(0, cursor.y + y));
+        }
+        if(y != 0) {
+            String s = lines.get((int)(cursor.y - y));
+            int a = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x + 1) ));
+            int b = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x) ));
+            int avg = (a+b)/2;
+            cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), avg).length();
+
+        }
+        if(x >= 0) {
+            if(cursor.y == linesToRender.size() || (cursor.x + x >= 0)) {
+                cursor.set(Math.min(cursor.x + x, lines.get((int)cursor.y).length()), cursor.y);
+            } else {
+                cursor.set(0, cursor.y + 1);
+            }
+        } else {
+            if(cursor.y == 0 || (cursor.x + x >= 0)) {
+                cursor.set(Math.max(0, cursor.x + x), cursor.y);
+            } else {
+                cursor.set(lines.get((int)(cursor.y-1)).length()-1, cursor.y - 1);
+                String s = lines.get((int)(cursor.y + 1));
+                int w = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x+1) ));
+                cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), w).length();
+            }
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean keyTyped(char par1, int par2) {
         if(hided() || !selected) {
             return false;
         }
+        Vector2f offset = new Vector2f(0,0);
+        switch(par2) {
+            case Keyboard.KEY_BACK:
+                //offset.set(0,-1);
+                break;
 
+            case Keyboard.KEY_ESCAPE:
+            case Keyboard.KEY_RETURN:
+                selected = false;
+                break;
+            case Keyboard.KEY_RIGHT:
+                offset.set(cursor.x+1,0);
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    String line = lines.get((int)cursor.y);
+                    int l = (int)(renderCursor.x + line.length());
+                    for (int i = (int) cursor.x; i < l && !(line.charAt(i) == ' ' ||
+                            line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(++i,0));
+                }
+                moveCursor(new Vector2f(offset.x-cursor.x, 0));
+                break;
+            case Keyboard.KEY_LEFT:
+                offset.set(cursor.x-1,0);
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    String line = lines.get((int)cursor.y);
+                    for (int i = (int)cursor.x-1; (i >= renderCursor.x) && !(line.charAt(i) == ' ' ||
+                            line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(i--,0));
+                }
+                moveCursor(new Vector2f(offset.x-cursor.x, 0));
+                break;
+            case Keyboard.KEY_UP:
+                moveCursor(new Vector2f(0, -1));
+                break;
+            case Keyboard.KEY_DOWN:
+                moveCursor(new Vector2f(0, 1));
+                break;
+        }
         return true;
     }
 
@@ -99,7 +170,6 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         Vector2f position = getCurrentPosition();
         Vector2f scale = getScale();
         if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
-
             String str = this.linesToRender.get((int)(cursor.y - renderCursor.y));
             GL11.glPushMatrix();
             int a = (int) Math.min(Math.max(0, cursor.x - renderCursor.x), str.length());
