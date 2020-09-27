@@ -88,13 +88,14 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         moveCursor(value.x, value.y);
     }
     protected void moveCursor(float x, float y) {
+        Vector2f cursorBuf = new Vector2f(cursor);
         if(y > 0) {
             cursor.set(cursor.x, Math.min(cursor.y + y, lines.size()-1));
         } else {
             cursor.set(cursor.x, Math.max(0, cursor.y + y));
         }
         if(y != 0) {
-            String s = lines.get((int)(cursor.y - y));
+            String s = lines.get((int)(cursorBuf.y));
             int a = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x + 1) ));
             int b = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x) ));
             int avg = (a+b)/2;
@@ -111,8 +112,8 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             if(cursor.y == 0 || (cursor.x + x >= 0)) {
                 cursor.set(Math.max(0, cursor.x + x), cursor.y);
             } else {
-                cursor.set(lines.get((int)(cursor.y-1)).length()-1, cursor.y - 1);
-                String s = lines.get((int)(cursor.y + 1));
+                cursor.set(lines.get((int)(cursor.y - 1)).length() - 1, cursor.y - 1);
+                String s = lines.get((int)(cursor.y));
                 int w = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x+1) ));
                 cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), w).length();
             }
