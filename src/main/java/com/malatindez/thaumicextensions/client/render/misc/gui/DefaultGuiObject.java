@@ -212,12 +212,19 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         SCALE_XY,
         SCALE_SMOOTH_XY
     }
-    private ResolutionRescaleType type;
-    public ResolutionRescaleType getType() {
-        return type;
+    private ResolutionRescaleType sizeRescaleType;
+    private ResolutionRescaleType coordinatesRescaleType;
+    public ResolutionRescaleType getSizeRescaleType() {
+        return sizeRescaleType;
     }
-    public void setType(ResolutionRescaleType type) {
-        this.type = type;
+    public ResolutionRescaleType getCoordinatesRescaleType() {
+        return coordinatesRescaleType;
+    }
+    public void setSizeRescaleType(ResolutionRescaleType type) {
+        this.sizeRescaleType = type;
+    }
+    public void setCoordinatesRescaleType(ResolutionRescaleType type) {
+        this.coordinatesRescaleType = type;
     }
     public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded
@@ -248,23 +255,42 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(parameters.containsKey("hided")) {
             hide = (Boolean)parameters.get("hided");
         }
-        type = ResolutionRescaleType.SCALE_SMOOTH_XY;
-        if(parameters.containsKey("scale_type")) {
-            String scale_type = (String)parameters.get("scale_type");
+        sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
+        if(parameters.containsKey("size_scale_type")) {
+            String scale_type = (String)parameters.get("size_scale_type");
             if (scale_type.equals("none")) {
-                type = ResolutionRescaleType.NONE;
+                sizeRescaleType = ResolutionRescaleType.NONE;
             } else if(scale_type.equals("scale_x")) {
-                type = ResolutionRescaleType.SCALE_X;
+                sizeRescaleType = ResolutionRescaleType.SCALE_X;
             } else if(scale_type.equals("scale_y")) {
-                type = ResolutionRescaleType.SCALE_Y;
+                sizeRescaleType = ResolutionRescaleType.SCALE_Y;
             }else if(scale_type.equals("scale_smooth_x")) {
-                type = ResolutionRescaleType.SCALE_SMOOTH_X;
+                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_X;
             } else if(scale_type.equals("scale_smooth_y")) {
-                type = ResolutionRescaleType.SCALE_SMOOTH_Y;
+                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_Y;
             } else if(scale_type.equals("scale_xy")) {
-                type = ResolutionRescaleType.SCALE_XY;
+                sizeRescaleType = ResolutionRescaleType.SCALE_XY;
             } else if(scale_type.equals("scale_smooth_xy")) {
-                type = ResolutionRescaleType.SCALE_SMOOTH_XY;
+                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
+            }
+        }
+        coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
+        if(parameters.containsKey("coordinates_scale_type")) {
+            String scale_type = (String)parameters.get("coordinates_scale_type");
+            if (scale_type.equals("none")) {
+                coordinatesRescaleType = ResolutionRescaleType.NONE;
+            } else if(scale_type.equals("scale_x")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_X;
+            } else if(scale_type.equals("scale_y")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_Y;
+            }else if(scale_type.equals("scale_smooth_x")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_X;
+            } else if(scale_type.equals("scale_smooth_y")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_Y;
+            } else if(scale_type.equals("scale_xy")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_XY;
+            } else if(scale_type.equals("scale_smooth_xy")) {
+                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
             }
         }
         this.reScale(scale);
@@ -285,12 +311,35 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     @Override
     public void resolutionUpdated(Vector2f newResolution) {
-        setCoordinates(
-                this.coordinates.x * newResolution.x / currentResolution.x,
-                this.coordinates.y * newResolution.y / currentResolution.y
-        );
+
         float deltaX = 1, deltaY = 1;
-        switch (type) {
+        switch (coordinatesRescaleType) {
+            case SCALE_X:
+                deltaX = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_Y:
+                deltaY = newResolution.y / currentResolution.y;
+                break;
+            case SCALE_SMOOTH_X:
+                deltaX = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+            case SCALE_SMOOTH_Y:
+                deltaY = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+            case SCALE_XY:
+                deltaY = newResolution.y / currentResolution.y;
+                deltaX = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_SMOOTH_XY:
+                deltaX = deltaY =
+                        (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+        }
+        setCoordinates(
+                this.coordinates.x * deltaX,
+                this.coordinates.y * deltaY
+        );
+        switch (sizeRescaleType) {
             case SCALE_X:
                 deltaX = newResolution.x / currentResolution.x;
                 break;
