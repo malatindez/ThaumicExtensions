@@ -16,7 +16,6 @@ public class TextBox extends DefaultGuiObject {
     public final Vector4f color;
     public final boolean dropShadow;
     protected boolean selected;
-    public Vector2f renderCursor = new Vector2f(0,0);
     @Override
     public void preInit(String name, Object parent, JSONObject parameters) {
 
@@ -58,9 +57,9 @@ public class TextBox extends DefaultGuiObject {
         textWasUpdated();
     }
 
-    private ArrayList<String> linesToRender = new ArrayList<String>();
-    private Vector2f previousSize = new Vector2f(0,0);
-    private String previousText;
+    protected ArrayList<String> linesToRender = new ArrayList<String>();
+    protected Vector2f previousSize = new Vector2f(0,0);
+    protected String previousText;
     protected void textWasUpdated() {
         if (linesToRender != null && (previousSize != getSize()  || !text.equals(previousText))) {
             String buf = previousText = text;
