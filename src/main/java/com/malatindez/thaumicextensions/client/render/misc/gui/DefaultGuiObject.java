@@ -339,6 +339,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 this.coordinates.x * deltaX,
                 this.coordinates.y * deltaY
         );
+        deltaX = 1; deltaY = 1;
         switch (sizeRescaleType) {
             case SCALE_X:
                 deltaX = newResolution.x / currentResolution.x;

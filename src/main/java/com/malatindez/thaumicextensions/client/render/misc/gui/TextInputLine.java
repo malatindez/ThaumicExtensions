@@ -99,6 +99,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
                     textLineWasUpdated();
                 }
                 break;
+            case Keyboard.KEY_ESCAPE:
             case Keyboard.KEY_RETURN:
                 selected = false;
                 cutLine = true;

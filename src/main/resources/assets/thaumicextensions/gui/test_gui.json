@@ -4,7 +4,7 @@
     "size": [427, 240],
     "scale": [1, 1],
     "coordinates": [0, 0],
-    "scale_type": "scale_xy",
+    "size_scale_type": "scale_xy",
     "elements": {
       "main_background": {
         "type": "Rect",
@@ -12,7 +12,7 @@
         "coordinates": [0,0],
         "scale": [1, 1],
         "size": [427, 240],
-        "scale_type": "scale_xy",
+        "size_scale_type": "scale_xy",
         "colors": {
           "topLeft": [1,1,1,0.6],
           "topRight": [1,1,1,0.6],
@@ -25,7 +25,7 @@
         "coordinates": [0,0],
         "scale": [1,1],
         "size": [200, 200],
-        "scale_type": "scale_smooth_xy",
+        "size_scale_type": "scale_smooth_xy",
         "drag_focus": "top_bar",
         "zLevel": 0,
         "currently_dragging": {
@@ -43,7 +43,7 @@
             "coordinates": [0,0],
             "scale": [1, 1],
             "size": [200, 200],
-            "scale_type": "scale_smooth_xy",
+            "size_scale_type": "scale_smooth_xy",
             "colors": {
               "topLeft":     [0,1,1,0.3],
               "topRight":    [0,1,1,0.3],
@@ -57,7 +57,7 @@
             "coordinates": [0,0],
             "scale": [1, 1],
             "size": [200, 20],
-            "scale_type": "scale_smooth_x",
+            "size_scale_type": "scale_smooth_x",
             "colors": {
               "topLeft":     [0,0,0,0.5],
               "topRight":    [0,0,0,0.25],
@@ -66,15 +66,16 @@
             }
           },
           "textbox": {
-            "type": "TextBox",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus. Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo, eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis. Morbi elementum maximus nulla, venenatis tincidunt eros semper quis. Aenean consectetur in neque mollis maximus. Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan. In sollicitudin risus ac nisl porta, quis interdum libero convallis. Phasellus posuere ornare mauris nec congue. Nam accumsan porta odio, id molestie felis tempus eu. Phasellus vitae erat vel dolor ullamcorper porttitor. Curabitur tincidunt viverra purus, eget vulputate eros egestas vitae. Fusce varius blandit velit, ut lobortis elit tincidunt nec.",
+            "type": "TextInputBox",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus.\n Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo,\n eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis.\n Morbi elementum maximus nulla, venenatis tincidunt eros semper quis.\n Aenean consectetur in neque mollis maximus.\n Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan.\n In sollicitudin risus ac nisl porta, quis interdum libero convallis.\nPhasellus posuere ornare mauris nec congue.\nNam accumsan porta odio, id molestie felis tempus eu.\nPhasellus vitae erat vel dolor ullamcorper porttitor.\nCurabitur tincidunt viverra purus, eget vulputate eros egestas vitae.\nFusce varius blandit velit, ut lobortis elit tincidunt nec.",
             "zLevel": 0,
-            "coordinates": [0,0],
+            "coordinates": [0,20],
             "scale": [1,1],
             "textScale": [1,1],
             "color": [1,0.3,1,0.5],
-            "size": [200, 200],
-            "scale_type": "scale_smooth_xy",
+            "size": [200, 180],
+            "size_scale_type": "scale_smooth_xy",
+            "coordinates_scale_type": "scale_smooth_x",
             "dropShadow": true
           },
           "textline": {
@@ -85,7 +86,7 @@
             "coordinates": [75,75],
             "zLevel":10,
             "scale": [1,1],
-            "scale_type": "none"
+            "size_scale_type": "none"
           },
           "button_1": {
             "type": "Button",
@@ -96,7 +97,7 @@
             },
             "id": 0,
             "zLevel": 10,
-            "scale_type": "none",
+            "size_scale_type": "none",
             "icon": "abcdef",
             "abcdef": {
               "type": "Icon",
@@ -106,7 +107,7 @@
               "mapping_resource_path": "texture_mappings/gui_research.json",
               "mapping_icon_name": "defaultResearch",
               "zLevel": 0,
-              "scale_type": "none"
+              "size_scale_type": "none"
             }
           }
         }
