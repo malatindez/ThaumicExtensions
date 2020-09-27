@@ -41,10 +41,10 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
     }
     static Collection collection = null;
     public GuiEnhancedResearchRecipe(ResearchItem research, int page, double x, double y) {
-        if(collection == null) {
+        //if(collection == null) {
         collection = EnhancedGuiScreen.loadFromFile(this,
                 new ResourceLocation(ThaumicExtensions.MODID, "gui/test_gui.json"));
-    }
+  //  }
         this.gui = collection;
     }
     public void defaultResearchClicked(Object obj, int id) {

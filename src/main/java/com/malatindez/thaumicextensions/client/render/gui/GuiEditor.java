@@ -34,10 +34,10 @@ public class GuiEditor extends EnhancedGuiScreen {
     }
     static Collection collection = null;
     public GuiEditor() {
-        if(collection == null) {
+        //if(collection == null) {
             collection = EnhancedGuiScreen.loadFromFile(this,
                     new ResourceLocation(ThaumicExtensions.MODID, "gui/gui_editor.json"));
-        }
+        //}
         this.gui = collection;
     }
     public void openContextMenu(Object object, Vector2f mousePosition) {

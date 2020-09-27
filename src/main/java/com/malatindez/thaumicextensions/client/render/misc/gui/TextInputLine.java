@@ -127,7 +127,6 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
                 }
                 break;
         }
-
         return true;
     }
 

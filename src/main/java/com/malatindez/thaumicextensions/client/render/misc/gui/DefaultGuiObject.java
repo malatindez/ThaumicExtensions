@@ -79,8 +79,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public abstract Object getObjectDown(String objectName);
 
-    public static int Vector4fToColor(Vector4f vec) {
-        return (int) Long.parseLong(
+    public static long Vector4fToColor(Vector4f vec) {
+        return Long.parseLong(
         Integer.toHexString((int)(vec.w*255.0f)) +
         Integer.toHexString((int)(vec.x*255.0f)) +
         Integer.toHexString((int)(vec.y*255.0f)) +
@@ -122,21 +122,30 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     @SuppressWarnings("UnusedReturnValue")
     public boolean checkBorders() {
+        if(!(parent instanceof DefaultGuiObject)) {
+            return false;
+        }
+        Vector4f borders = getBorders();
+        Vector4f parentBorders = getParentBorders();
+        if(parentBorders.z - parentBorders.x < borders.z - borders.x ||
+                parentBorders.w - parentBorders.y < borders.w - borders.y) {
+            return false;
+        }
         boolean flag = false;
-        if(getBorders().x < getParentBorders().x) {
-            coordinates.set(0, getCoordinates().y);
+        if(borders.z > parentBorders.z) {
+            coordinates.set(coordinates.x + parentBorders.z - borders.z, coordinates.y);
             flag = true;
         }
-        if(getBorders().y < getParentBorders().y) {
-            coordinates.set(getCoordinates().x, 0);
+        if(borders.w > parentBorders.w) {
+            coordinates.set(coordinates.x, coordinates.y + parentBorders.w - borders.w);
             flag = true;
         }
-        if(getBorders().z > getParentBorders().z) {
-            coordinates.set(getCoordinates().x + getParentBorders().z - getBorders().z, getCoordinates().y);
+        if(borders.x < parentBorders.x) {
+            coordinates.set(0, coordinates.y);
             flag = true;
         }
-        if(getBorders().w > getParentBorders().w) {
-            coordinates.set(getCoordinates().x, getCoordinates().y + getParentBorders().w - getBorders().w);
+        if(borders.y < parentBorders.y) {
+            coordinates.set(coordinates.x, 0);
             flag = true;
         }
         if(flag) {
@@ -305,6 +314,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         reScale(deltaX, deltaY);
         currentResolution.set(newResolution);
+        checkBorders();
     }
     @Override
     public void updateParentBorders(Vector4f parentBorders) {

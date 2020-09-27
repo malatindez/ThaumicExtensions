@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("Convert2Diamond")
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
@@ -62,8 +61,8 @@ public class Collection extends DefaultGuiObject implements
         if(!(object instanceof DefaultGuiObject)) {
             return null;
         }
-        ((DefaultGuiObject) object).resolutionUpdated(this.currentResolution);
         ((DefaultGuiObject) object).updateParentBorders(getBorders());
+        ((DefaultGuiObject) object).resolutionUpdated(this.currentResolution);
         objects.add(object); sortObjects();
         return object;
     }

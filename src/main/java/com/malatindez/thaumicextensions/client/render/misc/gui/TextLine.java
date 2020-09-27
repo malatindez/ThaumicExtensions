@@ -93,7 +93,7 @@ public class TextLine extends DefaultGuiObject {
         GL11.glTranslatef(getCurrentPosition().x, getCurrentPosition().y, 0);
         GL11.glScalef(getScale().x, getScale().y, 1);
         this.fontRendererObj.drawString(lineToRender, 0, 0,
-                Vector4fToColor(color),
+                (int) Vector4fToColor(color),
                 dropShadow);
         GL11.glPopMatrix();
     }
