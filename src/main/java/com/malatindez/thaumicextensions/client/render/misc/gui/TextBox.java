@@ -9,27 +9,14 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("Convert2Diamond")
 public class TextBox extends DefaultGuiObject {
     protected final FontRenderer fontRendererObj;
-    public final String text;
-    public final Vector2f textScale;
+    protected String text;
+    protected final Vector2f textScale;
     public final Vector4f color;
-    public final boolean isTextScalable;
     public final boolean dropShadow;
-    /*
-    public TextBox(String name, FontRenderer fontRendererObj, String text, Vector3f color, boolean dropShadow,
-                   boolean isTextScalable, Vector2f coordinates, Vector2f textScale, Vector2f scale, Vector2f size,
-                   int zLevel, ResolutionRescaleType type) {
-        super(name, coordinates, scale, size, zLevel, type);
-        this.text = text;
-        this.color = color;
-        this.dropShadow = dropShadow;
-        this.isTextScalable = isTextScalable;
-        this.fontRendererObj = fontRendererObj;
-        this.textScale = new Vector2f(textScale);
-    }*/
-
+    protected boolean selected;
+    public Vector2f renderCursor = new Vector2f(0,0);
     @Override
     public void preInit(String name, Object parent, JSONObject parameters) {
 
@@ -39,7 +26,20 @@ public class TextBox extends DefaultGuiObject {
     public void postInit() {
 
     }
-
+    public void setText(String text) {
+        this.text = text;
+        textWasUpdated();
+    }
+    public String getText() {
+        return text;
+    }
+    public void setTextScale(Vector2f scale) {
+        this.textScale.set(scale);
+        textWasUpdated();
+    }
+    public Vector2f getTextScale() {
+        return new Vector2f(textScale);
+    }
     public TextBox(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
         fontRendererObj = Minecraft.getMinecraft().fontRenderer;
@@ -50,81 +50,90 @@ public class TextBox extends DefaultGuiObject {
         } else {
             textScale = new Vector2f(1,1);
         }
-        if(parameters.containsKey("isTextScalable")) {
-            isTextScalable = (Boolean)parameters.get("isTextScalable");
-        } else {
-            isTextScalable = false;
-        }
         if(parameters.containsKey("dropShadow")) {
             dropShadow = (Boolean)parameters.get("dropShadow");
         } else {
             dropShadow = false;
         }
+        textWasUpdated();
     }
-    private int renderTextBox(String text, boolean render) {
-        Vector2f scale = this.getScale();
-        ArrayList<String> words = new ArrayList<String>();
-        StringBuilder current_word = new StringBuilder();
-        for(int i = 0; i < text.length(); i++) {
-            current_word.append(text.charAt(i));
-            if (text.charAt(i) == ' ' || text.charAt(i) == '\n') {
-                words.add(current_word.toString());
-                current_word = new StringBuilder();
-            }
-        }
-        int current_height = 0;
-        StringBuilder current_line = new StringBuilder();
-        int returnValue = 0;
-        boolean flag = false;
-        for (String word : words) {
-            float x = textScale.x * fontRendererObj.getStringWidth(current_line + word);
 
-            if (isTextScalable) {
-                x = x * scale.x;
-            }
-            if (flag ||  x > this.getSize().x) {
-                flag = false;
-                returnValue += current_line.length();
-                if(render) {
-                    GL11.glPushMatrix();
-                    GL11.glTranslatef(this.getCurrentPosition().x, this.getCurrentPosition().y + current_height, 0);
-                    if (isTextScalable) {
-                        GL11.glScalef(scale.x * textScale.x, scale.y * textScale.y, 1);
+    private ArrayList<String> linesToRender = new ArrayList<String>();
+    private Vector2f previousSize = new Vector2f(0,0);
+    private String previousText;
+    protected void textWasUpdated() {
+        if (linesToRender != null && (previousSize != getSize()  || !text.equals(previousText))) {
+            String buf = previousText = text;
+            linesToRender.clear();
+            previousSize = getSize();
+            Vector2f size = getSize();
+            size.set(size.x / textScale.x, size.y / textScale.y);
+            int height = 0;
+            while (buf.length() > 0) {
+                int a = buf.indexOf("\n") + 1;
+                if (a == 0) {
+                    a = buf.length();
+                }
+                String b = fontRendererObj.trimStringToWidth(buf, (int)(size.x));
+                if(b.length() < a) {
+                    if(b.contains(" ")) {
+                        a = b.lastIndexOf(" ") + 1;
                     } else {
-                        GL11.glScalef(textScale.x, textScale.y, 1);
+                        a = b.length();
                     }
-                    this.fontRendererObj.drawString(current_line.toString(), 0, 0,
-                            Vector4fToColor(color),
-                            dropShadow);
-                    GL11.glPopMatrix();
                 }
-
-                current_line = new StringBuilder();
-                float y = textScale.y * fontRendererObj.FONT_HEIGHT;
-                if (isTextScalable) {
-                    y = scale.y * y;
-                }
-                if (current_height + y > this.getSize().y) {
+                b = buf.substring(0, a);
+                buf = buf.substring(a);
+                linesToRender.add(b.replaceAll("[\n\r]", ""));
+                if(size.y  < (height + 2 * fontRendererObj.FONT_HEIGHT)) {
                     break;
                 }
-                current_height += y;
+                height += fontRendererObj.FONT_HEIGHT;
             }
-            if(word.endsWith("\n") || word.endsWith("\r")) {
-                flag = true;
-            }
-            current_line.append(word.replaceAll("[\n\r]", ""));
         }
-        return returnValue;
     }
-    public int getFittingCharAmount(String text) {
-        return renderTextBox(text, false);
+    public int fitsInBox(String text) {
+        String buf = text;
+        Vector2f size = getSize();
+        size.set(size.x / textScale.x, size.y / textScale.y);
+        int height = 0;
+        while (buf.length() > 0) {
+            int a = buf.indexOf("\n");
+            if (a == -1) {
+                a = buf.length();
+            }
+            String str = fontRendererObj.trimStringToWidth(buf.substring(0, a), (int)(size.x));
+            if(str.length() < a) {
+                if(str.contains(" ")) {
+                    a = str.lastIndexOf(" ");
+                } else {
+                    a = str.length();
+                }
+            }
+            buf = buf.substring(a);
+            if(size.y  < (height + 2 * fontRendererObj.FONT_HEIGHT)) {
+                break;
+            }
+            height += fontRendererObj.FONT_HEIGHT;
+        }
+        return text.length() - buf.length();
     }
     @Override
     public void render() {
         if(hided()) {
             return;
         }
-        renderTextBox(this.text, true);
+        int current_height = 0;
+        for(String line : this.linesToRender) {
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.getCurrentPosition().x, this.getCurrentPosition().y + current_height, 0);
+            GL11.glScalef(textScale.x, textScale.y, 1);
+            this.fontRendererObj.drawString(line, 0, 0,
+                    (int)Vector4fToColor(color),
+                    dropShadow);
+            GL11.glPopMatrix();
+            current_height += fontRendererObj.FONT_HEIGHT * textScale.y;
+        }
     }
 
 
@@ -147,7 +156,7 @@ public class TextBox extends DefaultGuiObject {
 
     @Override
     protected void VectorsWereUpdated() {
-
+        textWasUpdated();
     }
 
     @Override
@@ -155,3 +164,6 @@ public class TextBox extends DefaultGuiObject {
         return 0;
     }
 }
+/*
+
+             */
