@@ -157,8 +157,11 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         super.onGuiClosed();
     }
     protected boolean keyTyped1(char par1, int par2) {
+        if(gui.keyTyped(par1, par2)) {
+            return true;
+        }
         super.keyTyped(par1, par2);
-        return gui.keyTyped(par1, par2);
+        return false;
     }
 
 
