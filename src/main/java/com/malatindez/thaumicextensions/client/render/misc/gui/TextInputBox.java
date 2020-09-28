@@ -53,10 +53,12 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         return selected;
     }
     ArrayList<String> lines = new ArrayList<String>();
+    private final Vector2f cursorBuf = new Vector2f(0,0);
     @Override
     protected void textWasUpdated() {
-        if (lines != null && (previousSize != getSize()  || !text.equals(previousText))) {
+        if (lines != null && (!cursorBuf.equals(renderCursor) || previousSize != getSize()  || !text.equals(previousText))) {
             String buf = previousText = text;
+            cursorBuf.set(renderCursor);
             lines.clear();
             previousSize = getSize();
             Vector2f size = getSize();
@@ -68,13 +70,17 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                 }
                 String b = buf.substring(0, a);
                 buf = buf.substring(a);
-                lines.add(b.replaceAll("[\n\r]", ""));
+                lines.add(b);
             }
             int height = 0;
             linesToRender.clear();
             for(int i = (int) renderCursor.y; i < lines.size(); i++) {
+                String s = lines.get(i);
                 linesToRender.add(
-                        fontRendererObj.trimStringToWidth(lines.get(i).substring((int) renderCursor.x), (int)size.x)
+                        fontRendererObj.trimStringToWidth(
+                                s.substring(Math.min(s.length(), (int) renderCursor.x)).
+                                        replaceAll("[\n\r]", ""),
+                                (int)size.x)
                 );
                 if(size.y  < (height + 2 * fontRendererObj.FONT_HEIGHT)) {
                     break;
@@ -83,10 +89,6 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             }
         }
     }
-
-    protected void moveCursor(Vector2f value) {
-        moveCursor(value.x, value.y);
-    }
     protected void moveCursor(float x, float y) {
         Vector2f cursorBuf = new Vector2f(cursor);
         if(y > 0) {
@@ -94,28 +96,26 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         } else {
             cursor.y = Math.max(0, cursor.y + y);
         }
+        String line = lines.get((int)(cursor.y)).replaceAll("[\n\r]", "");
         if(y != 0) {
-            String s = lines.get((int)(cursorBuf.y));
-            int a = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x + 1) ));
-            int b = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x) ));
+            int a = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int)cursor.x + 1) ));
+            int b = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int)cursor.x) ));
             int avg = (a+b)/2;
-            cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), avg).length();
-
+            cursor.x = fontRendererObj.trimStringToWidth(line, avg).length();
         }
         if(x >= 0) {
-            if(cursor.y == linesToRender.size() || (cursor.x + x >= 0)) {
-                cursor.x = Math.min(cursor.x + x, lines.get((int)cursor.y).length());
+            if(cursor.y == linesToRender.size() || (cursor.x + x <= line.length())) {
+                cursor.x = Math.min(cursor.x + x, line.length());
             } else {
                 cursor.set(0, cursor.y + 1);
+                line = lines.get((int)(cursor.y)).replaceAll("[\n\r]", "");
             }
         } else {
             if(cursor.y == 0 || (cursor.x + x >= 0)) {
                 cursor.x = Math.max(0, cursor.x + x);
             } else {
-                cursor.set(lines.get((int)(cursor.y - 1)).length() - 1, cursor.y - 1);
-                String s = lines.get((int)(cursor.y));
-                int w = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x+1) ));
-                cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), w).length();
+                line = lines.get((int)(cursor.y - 1)).replaceAll("[\n\r]", "");
+                cursor.set(line.length(), cursor.y - 1);
             }
         }
         if(cursor.y - renderCursor.y > linesToRender.size()) {
@@ -123,15 +123,20 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         } else if (cursor.y < renderCursor.y) {
             renderCursor.y = Math.max(0, renderCursor.y - 4);
         }
-        String line = lines.get((int)cursor.y);
         String lineToRender = linesToRender.get((int)cursor.y);
         if(cursor.x <= renderCursor.x) {
-            renderCursor.x = Math.max(renderCursor.x - 4, 0);
+            renderCursor.x = Math.max(cursor.x - 4, 0);
         } else if (cursor.x > renderCursor.x + lineToRender.length() &&
                 fontRendererObj.getStringWidth(line.substring((int) renderCursor.x)) > getSize().x
         ) {
-            renderCursor.x = Math.max(0, Math.min(line.length(), renderCursor.x + 4));
+            StringBuilder sb = new StringBuilder(line.substring((int)renderCursor.x,
+                    Math.min(line.length(), (int)(cursor.x + 4))));
+            int asd = (int)(cursor.x + 4) - fontRendererObj.trimStringToWidth(
+                    sb.reverse().toString(),
+                    (int) (getSize().x / textScale.x)).length();
+            renderCursor.x = Math.max(0, Math.min(line.length(),asd));
         }
+        textWasUpdated();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -141,39 +146,63 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             return false;
         }
         Vector2f offset = new Vector2f(0,0);
+        String line = lines.get((int)cursor.y);
+        int k = 0;
         switch(par2) {
             case Keyboard.KEY_BACK:
-                //offset.set(0,-1);
+                offset.set(cursor.x-1,0);
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = (int)cursor.x-1; (i >= renderCursor.x) && !(line.charAt(i) == ' ' ||
+                            line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(i--,0));
+                }
+                for(int i = 0; i < cursor.y; k += lines.get(i++).length());
+                text = this.text.substring(0, k + (int) (offset.x)) + this.text.substring( k + (int) cursor.x);
+                moveCursor(offset.x-cursor.x, 0);
+                break;
+            case Keyboard.KEY_DELETE:
+                offset.set(cursor.x+1,0);
+                if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
+                    for (int i = (int) cursor.x; i < line.length() && !(line.charAt(i) == ' ' ||
+                            line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(++i,0));
+                }
+                for(int i = 0; i < cursor.y; k += lines.get(i++).length());
+                text = this.text.substring(0, k + (int) (cursor.x)) + this.text.substring( k + (int) offset.x);
+                moveCursor(1, 0);
+                moveCursor(-1, 0);
                 break;
 
             case Keyboard.KEY_ESCAPE:
-            case Keyboard.KEY_RETURN:
                 selected = false;
                 break;
             case Keyboard.KEY_RIGHT:
                 offset.set(cursor.x+1,0);
                 if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-                    String line = lines.get((int)cursor.y);
-                    int l = (int)(renderCursor.x + line.length());
-                    for (int i = (int) cursor.x; i < l && !(line.charAt(i) == ' ' ||
+                    for (int i = (int) cursor.x; i < line.length() && !(line.charAt(i) == ' ' ||
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(++i,0));
                 }
-                moveCursor(new Vector2f(offset.x-cursor.x, 0));
+                moveCursor(offset.x-cursor.x, 0);
                 break;
             case Keyboard.KEY_LEFT:
                 offset.set(cursor.x-1,0);
                 if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-                    String line = lines.get((int)cursor.y);
                     for (int i = (int)cursor.x-1; (i >= renderCursor.x) && !(line.charAt(i) == ' ' ||
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(i--,0));
                 }
-                moveCursor(new Vector2f(offset.x-cursor.x, 0));
+                moveCursor(offset.x-cursor.x, 0);
                 break;
             case Keyboard.KEY_UP:
-                moveCursor(new Vector2f(0, -1));
+                moveCursor(0, -1);
                 break;
             case Keyboard.KEY_DOWN:
-                moveCursor(new Vector2f(0, 1));
+                moveCursor(0, 1);
+                break;
+            default:
+                if (par1 > 31 || par2 == Keyboard.KEY_RETURN) {
+                    k = 0;
+                    for(int i = 0; i < cursor.y; k += lines.get(i++).length());
+                    text = this.text.substring(0, k + (int) (cursor.x)) + par1 + this.text.substring( k + (int) cursor.x);
+                    moveCursor(+1,0);
+                }
                 break;
         }
         return true;
