@@ -190,7 +190,12 @@ public class Collection extends DefaultGuiObject implements
         }
         for(Object object :  objects) {
             if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).render();
+                try {
+                    ((EnhancedGuiScreen.Renderable) object).render();
+                } catch (Exception e) {
+                    System.out.println("[DEBUG] Caught an exception during rendering. Stacktrace: ");
+                    e.printStackTrace();
+                }
             }
         }
     }
