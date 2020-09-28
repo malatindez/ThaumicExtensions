@@ -91,50 +91,58 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     }
     protected void moveCursor(float x, float y) {
         Vector2f cursorBuf = new Vector2f(cursor);
-        if(y > 0) {
-            cursor.y = Math.min(cursor.y + y, lines.size()-1);
+        if (y > 0) {
+            cursor.y = Math.min(cursor.y + y, lines.size() - 1);
         } else {
             cursor.y = Math.max(0, cursor.y + y);
         }
-        String line = lines.get((int)(cursor.y)).replaceAll("[\n\r]", "");
-        if(y != 0) {
-            int a = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int)cursor.x + 1) ));
-            int b = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int)cursor.x) ));
-            int avg = (a+b)/2;
+        String line = lines.get((int) (cursor.y)).replaceAll("[\n\r]", "");
+        if (y != 0) {
+            int a = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int) cursor.x + 1)));
+            int b = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int) cursor.x)));
+            int avg = (a + b) / 2;
             cursor.x = fontRendererObj.trimStringToWidth(line, avg).length();
         }
-        if(x >= 0) {
-            if(cursor.y == linesToRender.size() || (cursor.x + x <= line.length())) {
+        if (x >= 0) {
+            if (cursor.y == lines.size() - 1 || (cursor.x + x <= line.length())) {
                 cursor.x = Math.min(cursor.x + x, line.length());
             } else {
                 cursor.set(0, cursor.y + 1);
-                line = lines.get((int)(cursor.y)).replaceAll("[\n\r]", "");
+                line = lines.get((int) (cursor.y)).replaceAll("[\n\r]", "");
             }
         } else {
-            if(cursor.y == 0 || (cursor.x + x >= 0)) {
+            if (cursor.y == 0 || (cursor.x + x >= 0)) {
                 cursor.x = Math.max(0, cursor.x + x);
             } else {
-                line = lines.get((int)(cursor.y - 1)).replaceAll("[\n\r]", "");
+                line = lines.get((int) (cursor.y - 1)).replaceAll("[\n\r]", "");
                 cursor.set(line.length(), cursor.y - 1);
             }
         }
-        if(cursor.y - renderCursor.y > linesToRender.size()) {
-            renderCursor.y = Math.max(0, Math.min(renderCursor.y + 4, lines.size() - 1));
+        if (cursor.y - renderCursor.y >= linesToRender.size()) {
+            renderCursor.y = Math.max(0, Math.min(4 - linesToRender.size() + cursor.y, lines.size()));
         } else if (cursor.y < renderCursor.y) {
-            renderCursor.y = Math.max(0, renderCursor.y - 4);
+            renderCursor.y = Math.max(0, Math.min(renderCursor.y - 4, cursor.y));
         }
-        String lineToRender = linesToRender.get((int)cursor.y);
-        if(cursor.x <= renderCursor.x) {
+        if (cursor.x <= renderCursor.x) {
             renderCursor.x = Math.max(cursor.x - 4, 0);
-        } else if (cursor.x > renderCursor.x + lineToRender.length() &&
-                fontRendererObj.getStringWidth(line.substring((int) renderCursor.x)) > getSize().x
-        ) {
-            StringBuilder sb = new StringBuilder(line.substring((int)renderCursor.x,
-                    Math.min(line.length(), (int)(cursor.x + 4))));
-            int asd = (int)(cursor.x + 4) - fontRendererObj.trimStringToWidth(
-                    sb.reverse().toString(),
-                    (int) (getSize().x / textScale.x)).length();
-            renderCursor.x = Math.max(0, Math.min(line.length(),asd));
+        } else {
+
+            String lineToRender = "";
+            if((int)cursor.y - (int)renderCursor.y < linesToRender.size()) {
+                lineToRender = linesToRender.get((int)cursor.y - (int)renderCursor.y);
+            } else {
+                lineToRender = lines.get((int)cursor.y);
+            }
+            if (cursor.x > renderCursor.x + lineToRender.length() &&
+                    fontRendererObj.getStringWidth(line.substring((int) renderCursor.x)) > getSize().x
+            ) {
+                StringBuilder sb = new StringBuilder(line.substring((int) renderCursor.x,
+                        Math.min(line.length(), (int) (cursor.x + 4))));
+                int asd = (int) (cursor.x + 4) - fontRendererObj.trimStringToWidth(
+                        sb.reverse().toString(),
+                        (int) (getSize().x / textScale.x)).length();
+                renderCursor.x = Math.max(0, Math.min(line.length(), asd));
+            }
         }
         textWasUpdated();
     }
@@ -156,8 +164,10 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(i--,0));
                 }
                 for(int i = 0; i < cursor.y; k += lines.get(i++).length());
-                text = this.text.substring(0, k + (int) (offset.x)) + this.text.substring( k + (int) cursor.x);
-                moveCursor(offset.x-cursor.x, 0);
+                if(k + (int) (offset.x) > 0 && k + (int) cursor.x < text.length()) {
+                    text = text.substring(0, k + (int) (offset.x)) + text.substring(k + (int) cursor.x);
+                    moveCursor(offset.x-cursor.x, 0);
+                }
                 break;
             case Keyboard.KEY_DELETE:
                 offset.set(cursor.x+1,0);
@@ -166,9 +176,11 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(++i,0));
                 }
                 for(int i = 0; i < cursor.y; k += lines.get(i++).length());
-                text = this.text.substring(0, k + (int) (cursor.x)) + this.text.substring( k + (int) offset.x);
-                moveCursor(1, 0);
-                moveCursor(-1, 0);
+                if(k + (int) (cursor.x) > 0 && k + (int) offset.x < text.length()) {
+                    text = this.text.substring(0, k + (int) (cursor.x)) + this.text.substring(k + (int) offset.x);
+                    moveCursor(1, 0);
+                    moveCursor(-1, 0);
+                }
                 break;
 
             case Keyboard.KEY_ESCAPE:
@@ -196,25 +208,47 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             case Keyboard.KEY_DOWN:
                 moveCursor(0, 1);
                 break;
+            case Keyboard.KEY_PRIOR: // pgup
+                moveCursor(0,-linesToRender.size());
+                break;
+            case Keyboard.KEY_NEXT: // pgdn
+                moveCursor(0,linesToRender.size());
+                break;
+            case Keyboard.KEY_RETURN:
+                k = 0;
+                for(int i = 0; i < cursor.y; k += lines.get(i++).length());
+                text = this.text.substring(0, k + (int) (cursor.x)) + "\n" + this.text.substring( k + (int) cursor.x);
+                textWasUpdated();
+                moveCursor(+1,0);
+                break;
             default:
-                if (par1 > 31 || par2 == Keyboard.KEY_RETURN) {
+                if (par1 > 31) {
                     k = 0;
                     for(int i = 0; i < cursor.y; k += lines.get(i++).length());
                     text = this.text.substring(0, k + (int) (cursor.x)) + par1 + this.text.substring( k + (int) cursor.x);
+                    textWasUpdated();
                     moveCursor(+1,0);
                 }
                 break;
         }
         return true;
     }
-
+    @Override
+    public void resolutionUpdated(Vector2f newResolution) {
+        super.resolutionUpdated(newResolution);
+        moveCursor(0,0);
+    }
     @Override
     public void render() {
         super.render();
         Vector2f position = getCurrentPosition();
         Vector2f scale = getScale();
         if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
-            String str = this.linesToRender.get((int)(cursor.y - renderCursor.y));
+            String str = "";
+            if ((int) (cursor.y - renderCursor.y) < 0 || (int) (cursor.y - renderCursor.y) >= linesToRender.size()) {
+                moveCursor(0, 0);
+            }
+            str = this.linesToRender.get((int)(cursor.y - renderCursor.y));
             GL11.glPushMatrix();
             int a = (int) Math.min(Math.max(0, cursor.x - renderCursor.x), str.length());
             float xCoord = this.fontRendererObj.getStringWidth(str.substring(0, a)) * textScale.x - 0.25f;
