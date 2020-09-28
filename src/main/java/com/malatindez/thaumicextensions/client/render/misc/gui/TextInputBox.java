@@ -31,7 +31,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided()) {
+        if(hided() || button != 0) {
             return false;
         }
         Vector4f borders =  getBorders();
@@ -90,9 +90,9 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     protected void moveCursor(float x, float y) {
         Vector2f cursorBuf = new Vector2f(cursor);
         if(y > 0) {
-            cursor.set(cursor.x, Math.min(cursor.y + y, lines.size()-1));
+            cursor.y = Math.min(cursor.y + y, lines.size()-1);
         } else {
-            cursor.set(cursor.x, Math.max(0, cursor.y + y));
+            cursor.y = Math.max(0, cursor.y + y);
         }
         if(y != 0) {
             String s = lines.get((int)(cursorBuf.y));
@@ -104,19 +104,33 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         }
         if(x >= 0) {
             if(cursor.y == linesToRender.size() || (cursor.x + x >= 0)) {
-                cursor.set(Math.min(cursor.x + x, lines.get((int)cursor.y).length()), cursor.y);
+                cursor.x = Math.min(cursor.x + x, lines.get((int)cursor.y).length());
             } else {
                 cursor.set(0, cursor.y + 1);
             }
         } else {
             if(cursor.y == 0 || (cursor.x + x >= 0)) {
-                cursor.set(Math.max(0, cursor.x + x), cursor.y);
+                cursor.x = Math.max(0, cursor.x + x);
             } else {
                 cursor.set(lines.get((int)(cursor.y - 1)).length() - 1, cursor.y - 1);
                 String s = lines.get((int)(cursor.y));
                 int w = fontRendererObj.getStringWidth(s.substring(0, Math.min(s.length(), (int)cursor.x+1) ));
                 cursor.x = fontRendererObj.trimStringToWidth(lines.get((int)(cursor.y)), w).length();
             }
+        }
+        if(cursor.y - renderCursor.y > linesToRender.size()) {
+            renderCursor.y = Math.max(0, Math.min(renderCursor.y + 4, lines.size() - 1));
+        } else if (cursor.y < renderCursor.y) {
+            renderCursor.y = Math.max(0, renderCursor.y - 4);
+        }
+        String line = lines.get((int)cursor.y);
+        String lineToRender = linesToRender.get((int)cursor.y);
+        if(cursor.x <= renderCursor.x) {
+            renderCursor.x = Math.max(renderCursor.x - 4, 0);
+        } else if (cursor.x > renderCursor.x + lineToRender.length() &&
+                fontRendererObj.getStringWidth(line.substring((int) renderCursor.x)) > getSize().x
+        ) {
+            renderCursor.x = Math.max(0, Math.min(line.length(), renderCursor.x + 4));
         }
     }
 
