@@ -11,13 +11,11 @@ import java.util.Comparator;
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
-    protected final ArrayList<Object> objects = new ArrayList<Object>();
+    protected final ArrayList<DefaultGuiObject> objects = new ArrayList<DefaultGuiObject>();
     protected Collection parent = null;
 
-    private int getObjectZLevel(Object obj) {
-        if (obj instanceof DefaultGuiObject) {
-            return ((DefaultGuiObject) obj).getZLevel();
-        }
+    private int getObjectZLevel(DefaultGuiObject obj) {
+        obj.getZLevel();
         return 0;
     }
 
@@ -35,9 +33,9 @@ public class Collection extends DefaultGuiObject implements
         return false;
     }
 
-    private class ObjectComparator implements Comparator<Object> {
+    private class ObjectComparator implements Comparator<DefaultGuiObject> {
         @Override
-        public int compare(Object x, Object y) {
+        public int compare(DefaultGuiObject x, DefaultGuiObject y) {
             if(x == null) {
                 return -1;
             } else if (y == null) {
@@ -49,6 +47,7 @@ public class Collection extends DefaultGuiObject implements
     private ObjectComparator objectComparator;
     protected void sortObjects() {
         Collections.sort(objects, objectComparator);
+        Collections.reverse(objects);
     }
     public void removeObjects(ArrayList<Object> objects) {
         this.objects.remove(objects);
@@ -57,17 +56,14 @@ public class Collection extends DefaultGuiObject implements
         objects.remove(object);
     }
     @SuppressWarnings("UnusedReturnValue")
-    public Object addObject(Object object) {
+    public Object addObject(DefaultGuiObject object) {
         if(!(object instanceof DefaultGuiObject)) {
             return null;
         }
-        ((DefaultGuiObject) object).updateParentBorders(getBorders());
-        ((DefaultGuiObject) object).resolutionUpdated(this.currentResolution);
+        object.updateParentBorders(getBorders());
+        object.resolutionUpdated(this.currentResolution);
         objects.add(object); sortObjects();
         return object;
-    }
-    public void addObjects(ArrayList<Object> objects) {
-        this.objects.addAll(objects); sortObjects();
     }
     /*
     public Collection(String name, Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
@@ -97,6 +93,16 @@ public class Collection extends DefaultGuiObject implements
         for(Object object : objects) {
             ((DefaultGuiObject)object).postInit();
         }
+    }
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        for(DefaultGuiObject object : objects) {
+            a.put(object.getName(), object.generateJSONObject().get(object.getName()));
+        }
+        return returnValue;
     }
 
     public Collection(String name, Object parent, JSONObject parameters) {
@@ -145,10 +151,8 @@ public class Collection extends DefaultGuiObject implements
         if(objects == null) {
             return;
         }
-        for(Object object : objects) {
-            if(object instanceof DefaultGuiObject) {
-                ((DefaultGuiObject) object).updateParentBorders(getBorders());
-            }
+        for(DefaultGuiObject object : objects) {
+            object.updateParentBorders(getBorders());
         }
     }
 
@@ -158,7 +162,7 @@ public class Collection extends DefaultGuiObject implements
         if(hided()) {
             return false;
         }
-        for(Object object : objects) {
+        for(DefaultGuiObject object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 if(((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)) {
                     return true;
@@ -173,7 +177,8 @@ public class Collection extends DefaultGuiObject implements
         if(hided()) {
             return false;
         }
-        for(Object object : objects) {
+        for(DefaultGuiObject
+                object : objects) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
                 if(((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)) {
                     return true;
@@ -188,14 +193,12 @@ public class Collection extends DefaultGuiObject implements
         if(hided()) {
             return;
         }
-        for(Object object :  objects) {
-            if (object instanceof EnhancedGuiScreen.Renderable) {
-                try {
-                    ((EnhancedGuiScreen.Renderable) object).render();
-                } catch (Exception e) {
-                    System.out.println("[DEBUG] Caught an exception during rendering. Stacktrace: ");
-                    e.printStackTrace();
-                }
+        for(int i = objects.size() - 1; i >= 0; i--) {
+            try {
+                objects.get(i).render();
+            } catch (Exception e) {
+                System.out.println("[DEBUG] Caught an exception during rendering. Stacktrace: ");
+                e.printStackTrace();
             }
         }
     }
@@ -205,11 +208,9 @@ public class Collection extends DefaultGuiObject implements
     @Override
     public void resolutionUpdated(Vector2f newResolution) {
         super.resolutionUpdated(newResolution);
-        for(Object object :  objects) {
-            if (object instanceof EnhancedGuiScreen.Renderable) {
-                ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(newResolution);
-            }
-            else if (object instanceof EnhancedGuiScreen.Clickable) {
+        for(DefaultGuiObject object :  objects) {
+            ((EnhancedGuiScreen.Renderable) object).resolutionUpdated(newResolution);
+            if (object instanceof EnhancedGuiScreen.Clickable) {
                 ((EnhancedGuiScreen.Clickable) object).resolutionUpdated(newResolution);
             }
         }
