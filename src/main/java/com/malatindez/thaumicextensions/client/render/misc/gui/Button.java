@@ -5,33 +5,14 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
+import java.lang.reflect.Method;
+
 public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
-    protected Object icon;
+    protected DefaultGuiObject icon;
+    protected DefaultGuiObject hovered_icon;
     protected final MethodObjectPair clicked;
     protected final MethodObjectPair hovered;
     protected int id;
-
-   /*
-     * Button constructor
-     * @param icon buttons icon which should be rendered, icon type should be DefaultGuiObject
-     * @param obj object where a method is located
-     * @param method Method, which will be called when the button is clicked.
-     *               Shouldn't be returning any value. Should have 2 parameters:
-     *                   * Param Object which will be set with this class
-     *                   * Param int id, special number which you can add in constructor to identify caller
-     */
-   /* public Button(String name, Object icon, Vector2f coordinates,
-                  Object obj, Method method, int id, int zLevel, ResolutionRescaleType type,
-                  ArrayList<EnhancedGuiScreen.Bind> binds) {
-        super(name, coordinates,new Vector2f(1.0f, 1.0f),((DefaultGuiObject)icon).getSize(), zLevel, type);
-        this.icon = icon;
-        this.obj = obj;
-        this.method = method;
-        this.binds = binds;
-        this.zLevel = zLevel;
-        this.id = id;
-        updateVectors();
-    }*/
 
     @Override
     public void preInit(String name, Object parent, JSONObject parameters) {
@@ -42,11 +23,33 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         }
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
         this.icon = EnhancedGuiScreen.createObject(name, this, icon);
+        try {
+            JSONObject hovered_icon = (JSONObject) parameters.get(parameters.get("hovered_icon"));
+            this.hovered_icon = EnhancedGuiScreen.createObject(name, this, hovered_icon);
+        } catch (Exception ignored) {
+
+        }
     }
 
     @Override
     public void postInit() {
         ((DefaultGuiObject)icon).postInit();
+    }
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("id", (long)id);
+        a.put("icon", this.icon.getName());
+        putMethod(a, "clicked", clicked);
+        a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
+        if(hovered_icon != null) {
+            a.put("hovered_icon", this.hovered_icon.getName());
+            a.put(hovered_icon.getName(), hovered_icon.generateJSONObject().get(hovered_icon.getName()));
+            putMethod(a, "hovered", hovered);
+        }
+        return returnValue;
     }
 
     public Button(String name, Object parent, JSONObject parameters) {
@@ -59,7 +62,11 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
     @Override
     public void render() {
         if(!hided()) {
-            ((DefaultGuiObject) icon).render();
+            if (hovered_icon != null && isHovered) {
+                ((DefaultGuiObject) hovered_icon).render();
+            } else {
+                ((DefaultGuiObject) icon).render();
+            }
         }
     }
 
@@ -69,7 +76,11 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
-        return ((DefaultGuiObject)icon).getMethodDown(objectName, name, parameterTypes);
+        MethodObjectPair retValue = ((DefaultGuiObject)icon).getMethodDown(objectName, name, parameterTypes);
+        if(retValue != null || hovered_icon == null) {
+            return retValue;
+        }
+        return ((DefaultGuiObject)hovered_icon).getMethodDown(objectName, name, parameterTypes);
     }
 
     @Override
@@ -77,14 +88,21 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         if(objectName.equals(this.getName())) {
             return this;
         }
-        return ((DefaultGuiObject)icon).getObjectDown(objectName);
+        Object retValue =  ((DefaultGuiObject)icon).getObjectDown(objectName);
+        if(retValue != null || hovered_icon == null) {
+            return retValue;
+        }
+        return ((DefaultGuiObject)hovered_icon).getObjectDown(objectName);
     }
 
     @Override
     protected void VectorsWereUpdated() {
         ((DefaultGuiObject) icon).updateParentBorders(getBorders());
+        if (hovered_icon != null) {
+            ((DefaultGuiObject) hovered_icon).updateParentBorders(getBorders());
+        }
     }
-
+    boolean isHovered = false;
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         if(hided()) {
@@ -97,11 +115,13 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
                         temp.y < currentMousePosition.y &&
                         temp.w > currentMousePosition.y
         ) {
+            isHovered = true;
             try {
                 hovered.method.invoke(hovered.object,this, id);
-                return true;
             } catch (Exception ignored) {}
+            return true;
         }
+        isHovered = false;
         return false;
     }
 
@@ -121,8 +141,9 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
             } catch (Exception ignored) {
                 return false;
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
