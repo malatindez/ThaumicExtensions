@@ -2,10 +2,12 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
+import scala.util.parsing.json.JSON;
 
 @SuppressWarnings("rawtypes")
 public class Rect extends DefaultGuiObject {
@@ -39,6 +41,19 @@ public class Rect extends DefaultGuiObject {
     @Override
     public void postInit() {
 
+    }
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        JSONObject Colors = new JSONObject();
+        Colors.put("topLeft", VecToJson(colors.topLeft));
+        Colors.put("topRight", VecToJson(colors.topRight));
+        Colors.put("bottomLeft", VecToJson(colors.bottomLeft));
+        Colors.put("bottomRight", VecToJson(colors.bottomRight));
+        a.put("colors", Colors);
+        return returnValue;
     }
 
     public static class VertexColors {
