@@ -53,7 +53,7 @@
           },
           "top_bar": {
             "type": "Rect",
-            "zLevel": -1,
+            "zLevel": 0,
             "coordinates": [0,0],
             "scale": [1, 1],
             "size": [200, 20],
@@ -68,7 +68,7 @@
           "textbox": {
             "type": "TextInputBox",
             "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus.\n Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo,\n eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis.\n Morbi elementum maximus nulla, venenatis tincidunt eros semper quis.\n Aenean consectetur in neque mollis maximus.\n Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan.\n In sollicitudin risus ac nisl porta, quis interdum libero convallis.\nPhasellus posuere ornare mauris nec congue.\nNam accumsan porta odio, id molestie felis tempus eu.\nPhasellus vitae erat vel dolor ullamcorper porttitor.\nCurabitur tincidunt viverra purus, eget vulputate eros egestas vitae.\nFusce varius blandit velit, ut lobortis elit tincidunt nec.",
-            "zLevel": 0,
+            "zLevel": 1,
             "coordinates": [0,20],
             "scale": [1,1],
             "textScale": [1,1],
@@ -84,7 +84,7 @@
             "color": [0.3,1,1,0.3],
             "dropShadow": true,
             "coordinates": [75,75],
-            "zLevel":10,
+            "zLevel":2,
             "scale": [1,1],
             "size_scale_type": "none"
           },
@@ -99,6 +99,7 @@
             "zLevel": 10,
             "size_scale_type": "none",
             "icon": "abcdef",
+            "hovered_icon": "abcdef2",
             "abcdef": {
               "type": "Icon",
               "coordinates": [0,0],
@@ -106,6 +107,16 @@
               "mapping_resource_domain": "thaumicextensions",
               "mapping_resource_path": "texture_mappings/gui_research.json",
               "mapping_icon_name": "defaultResearch",
+              "zLevel": 0,
+              "size_scale_type": "none"
+            },
+            "abcdef2": {
+              "type": "Icon",
+              "coordinates": [0,0],
+              "scale": [1,1],
+              "mapping_resource_domain": "thaumicextensions",
+              "mapping_resource_path": "texture_mappings/gui_research.json",
+              "mapping_icon_name": "hiddenResearch",
               "zLevel": 0,
               "size_scale_type": "none"
             }
