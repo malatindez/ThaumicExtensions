@@ -19,9 +19,17 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
             cursorColor = new Vector4f(1,1,1,1);
         }
     }
-
     boolean selected = false;
     int cursor = 0;
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("cursorColor", VecToJson(cursorColor));
+        return returnValue;
+    }
+
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         return false;
