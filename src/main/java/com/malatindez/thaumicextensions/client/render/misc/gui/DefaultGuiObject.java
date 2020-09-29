@@ -1,6 +1,5 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
-import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
@@ -9,21 +8,29 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
+@SuppressWarnings("unchecked")
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
+    private final JSONObject startupParameters;
+
+    private final String name;
+
+    private final Object parent;
+
     private final Vector2f coordinates;
     private final Vector2f scale;
     private final Vector2f size;
-    private final Vector2f parentCoordinates = new Vector2f(0,0);
-    private final Vector4f parentBorders = new Vector4f(0,0,0,0);
-    private final String name;
-    protected final Vector2f currentResolution = new Vector2f(427, 240);
-    public static final Vector2f defaultResolution = new Vector2f(427, 240);
     private final Vector4f borders;
     protected int zLevel;
+
+    protected final Vector2f currentResolution = new Vector2f(427, 240);
+    public static final Vector2f defaultResolution = new Vector2f(427, 240);
+
+    private final Vector2f parentCoordinates = new Vector2f(0,0);
+    private final Vector4f parentBorders = new Vector4f(0,0,0,0);
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
-    private final Object parent;
 
     private boolean hide = false;
+
     public void hide() {
         hide = true;
     }
@@ -43,6 +50,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
 
     }
+
     @SuppressWarnings({"UnusedReturnValue", "rawtypes"})
     protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
         try {
@@ -80,58 +88,99 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public abstract Object getObjectDown(String objectName);
 
-    public static long Vector4fToColor(Vector4f vec) {
-        return Long.parseLong(
-        Integer.toHexString((int)(vec.w*255.0f)) +
-        Integer.toHexString((int)(vec.x*255.0f)) +
-        Integer.toHexString((int)(vec.y*255.0f)) +
-        Integer.toHexString((int)(vec.z*255.0f)), 16);
-    }
-    public static Vector2f Json2Vec(Object array) {
-        return new Vector2f(
-                Float.parseFloat(((JSONArray)array).get(0).toString()),
-                Float.parseFloat(((JSONArray)array).get(1).toString()));
-    }
-    public static Vector3f Json3Vec(Object array) {
-        return new Vector3f(
-                Float.parseFloat(((JSONArray)array).get(0).toString()),
-                Float.parseFloat(((JSONArray)array).get(1).toString()),
-                Float.parseFloat(((JSONArray)array).get(2).toString()));
-    }
-    public static Vector4f Json4Vec(Object array) {
-        return new Vector4f(
-                Float.parseFloat(((JSONArray)array).get(0).toString()),
-                Float.parseFloat(((JSONArray)array).get(1).toString()),
-                Float.parseFloat(((JSONArray)array).get(2).toString()),
-                Float.parseFloat(((JSONArray)array).get(3).toString()));
-    }
-    public static JSONArray VecToJson(Vector2f vec) {
-        JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
-        return ja;
-    }
-    public static JSONArray VecToJson(Vector3f vec) {
-        JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
-        ja.add((long) vec.z);
-        return ja;
-    }
-    public static JSONArray VecToJson(Vector4f vec) {
-        JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
-        ja.add((long) vec.z);
-        ja.add((long) vec.w);
-        return ja;
-    }
-    public static float JsonToFloat(Object object) {
-        return Float.parseFloat(object.toString());
-    }
     public Object getParent() {
         return parent;
     }
+
+    public void setCoordinates(float x, float y) {
+        this.coordinates.set(x, y);
+        updateVectors();
+    }
+    public void setCoordinates(Vector2f newCoordinates) {
+        setCoordinates(newCoordinates.x, newCoordinates.y);
+    }
+    public Vector2f getCoordinates() {
+        return new Vector2f(coordinates);
+    }
+
+    public void reScale(float x, float y) {
+        this.scale.set(x, y);
+        this.size.set(this.size.x * x, this.size.y * y);
+        updateVectors();
+    }
+    public void reScale(Vector2f scale) {
+        reScale(scale.x, scale.y);
+    }
+    public Vector2f getScale() {
+        return new Vector2f(scale);
+    }
+
+    public void setSize(float x, float y) {
+        this.size.set(x, y);
+        updateVectors();
+    }
+    public void setSize(Vector2f size) {
+        this.setSize(size.x, size.y);
+    }
+    public Vector2f getSize() {
+        return new Vector2f(size);
+    }
+
+    public Vector2f getParentCoordinates() {
+        return new Vector2f(parentCoordinates);
+    }
+    public Vector4f getParentBorders() {
+        return new Vector4f(parentBorders);
+    }
+    public String getName() {
+        return name;
+    }
+    public Vector4f getBorders() {
+        return new Vector4f(borders);
+    }
+    public Vector2f getCurrentPosition() {
+        return new Vector2f(currentObjectPosition);
+    }
+
+    enum ResolutionRescaleType {
+        NONE("none"),
+        SCALE_X("scale_x"),
+        SCALE_Y("scale_y"),
+        SCALE_SMOOTH_X("scale_smooth_x"),
+        SCALE_SMOOTH_Y("scale_smooth_y"),
+        SCALE_XY("scale_xy"),
+        SCALE_SMOOTH_XY("scale_smooth_xy");
+        private final String a;
+        public String toString() {
+            return a;
+        }
+        ResolutionRescaleType(String a) {
+            this.a = a;
+        }
+    }
+    private ResolutionRescaleType sizeRescaleType;
+    private ResolutionRescaleType coordinatesRescaleType;
+    public ResolutionRescaleType getSizeRescaleType() {
+        return sizeRescaleType;
+    }
+    public ResolutionRescaleType getCoordinatesRescaleType() {
+        return coordinatesRescaleType;
+    }
+    public void setSizeRescaleType(ResolutionRescaleType type) {
+        this.sizeRescaleType = type;
+    }
+    public void setCoordinatesRescaleType(ResolutionRescaleType type) {
+        this.coordinatesRescaleType = type;
+    }
+
+    public abstract void preInit(String name, Object parent, JSONObject parameters);
+    // postInit is called after entire gui is loaded
+    public abstract void postInit();
+
+    JSONObject getStartupParameters() {
+        return startupParameters;
+    }
+
     // this function will be called when vectors were updated
     protected abstract void VectorsWereUpdated();
     protected void updateVectors() {
@@ -175,92 +224,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return flag;
     }
-    public Vector2f getCoordinates() {
-        return new Vector2f(coordinates);
-    }
-    public Vector2f getParentCoordinates() {
-        return new Vector2f(parentCoordinates);
-    }
-    public Vector4f getParentBorders() {
-        return new Vector4f(parentBorders);
-    }
-    public String getName() {return name;}
-    public void setCoordinates(float x, float y) {
-        this.coordinates.set(x, y);
-        updateVectors();
-    }
-    public void setCoordinates(Vector2f newCoordinates) {
-        setCoordinates(newCoordinates.x, newCoordinates.y);
-    }
-    public void reScale(float x, float y) {
-        this.scale.set(x, y);
-        this.size.set(this.size.x * x, this.size.y * y);
-        updateVectors();
-    }
-    public void reScale(Vector2f scale) {
-        reScale(scale.x, scale.y);
-    }
-    public void setSize(float x, float y) {
-        this.size.set(x, y);
-        updateVectors();
-    }
-    public void setSize(Vector2f size) {
-        this.setSize(size.x, size.y);
-    }
-
-    public Vector2f getScale() {
-        return new Vector2f(scale);
-    }
-
-    public Vector2f getSize() {
-        return new Vector2f(size);
-    }
-
-    public Vector4f getBorders() {
-        return new Vector4f(borders);
-    }
-
-    public Vector2f getCurrentPosition() {
-        return new Vector2f(currentObjectPosition);
-    }
-
-    enum ResolutionRescaleType {
-        NONE("none"),
-        SCALE_X("scale_x"),
-        SCALE_Y("scale_y"),
-        SCALE_SMOOTH_X("scale_smooth_x"),
-        SCALE_SMOOTH_Y("scale_smooth_y"),
-        SCALE_XY("scale_xy"),
-        SCALE_SMOOTH_XY("scale_smooth_xy");
-        private String a;
-        public String toString() {
-            return a;
-        }
-        ResolutionRescaleType(String a) {
-            this.a = a;
-        }
-    }
-    private ResolutionRescaleType sizeRescaleType;
-    private ResolutionRescaleType coordinatesRescaleType;
-    public ResolutionRescaleType getSizeRescaleType() {
-        return sizeRescaleType;
-    }
-    public ResolutionRescaleType getCoordinatesRescaleType() {
-        return coordinatesRescaleType;
-    }
-    public void setSizeRescaleType(ResolutionRescaleType type) {
-        this.sizeRescaleType = type;
-    }
-    public void setCoordinatesRescaleType(ResolutionRescaleType type) {
-        this.coordinatesRescaleType = type;
-    }
-    public abstract void preInit(String name, Object parent, JSONObject parameters);
-    // postInit is called after entire gui is loaded
-    public abstract void postInit();
-    private JSONObject startupParameters;
-    JSONObject getStartupParameters() {
-        return startupParameters;
-    }
 
     public Vector2f getDeltas(Vector2f newResolution, ResolutionRescaleType type) {
         Vector2f delta = new Vector2f(1,1);
@@ -289,19 +252,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return delta;
     }
 
-    public void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
-        if(pair == null || objRef == null) {
-            return;
-        }
-        JSONObject x = new JSONObject();
-        String objectName = "none";
-        if(pair.object instanceof DefaultGuiObject) {
-            objectName = ((DefaultGuiObject) pair.object).getName();
-        }
-        x.put("object_name", objectName);
-        x.put("method_name", pair.method.getName());
-        objRef.put(name, x);
-    }
     public JSONObject generateDefaultJSONObject() {
         JSONObject returnValue = new JSONObject();
         returnValue.put(getName(), new JSONObject());
@@ -320,6 +270,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         a.put("coordinates_scale_type", sizeRescaleType.toString());
         return returnValue;
     }
+
     public abstract JSONObject generateJSONObject();
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         preInit(name,parent,parameters);
@@ -388,6 +339,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         this.reScale(scale);
     }
+    @SuppressWarnings("rawtypes")
     MethodObjectPair getMethod(JSONObject parameters, String methodName, Class[] methodParameters) {
         if(parameters.containsKey(methodName)) {
             JSONObject obj = (JSONObject) parameters.get(methodName);
@@ -420,8 +372,72 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.parentCoordinates.set(parentBorders.x, parentBorders.y);
         this.parentBorders.set(parentBorders);  updateVectors();
     }
-    @SuppressWarnings("NullableProblems")
+
     public int compareTo(DefaultGuiObject o) {
         return this.getZLevel() - o.getZLevel();
+    }
+
+
+    public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
+        if(pair == null || objRef == null) {
+            return;
+        }
+        JSONObject x = new JSONObject();
+        String objectName = "none";
+        if(pair.object instanceof DefaultGuiObject) {
+            objectName = ((DefaultGuiObject) pair.object).getName();
+        }
+        x.put("object_name", objectName);
+        x.put("method_name", pair.method.getName());
+        objRef.put(name, x);
+    }
+    public static long Vector4fToColor(Vector4f vec) {
+        return Long.parseLong(
+                Integer.toHexString((int)(vec.w*255.0f)) +
+                        Integer.toHexString((int)(vec.x*255.0f)) +
+                        Integer.toHexString((int)(vec.y*255.0f)) +
+                        Integer.toHexString((int)(vec.z*255.0f)), 16);
+    }
+    public static Vector2f Json2Vec(Object array) {
+        return new Vector2f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()));
+    }
+    public static Vector3f Json3Vec(Object array) {
+        return new Vector3f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()),
+                Float.parseFloat(((JSONArray)array).get(2).toString()));
+    }
+    public static Vector4f Json4Vec(Object array) {
+        return new Vector4f(
+                Float.parseFloat(((JSONArray)array).get(0).toString()),
+                Float.parseFloat(((JSONArray)array).get(1).toString()),
+                Float.parseFloat(((JSONArray)array).get(2).toString()),
+                Float.parseFloat(((JSONArray)array).get(3).toString()));
+    }
+    public static JSONArray VecToJson(Vector2f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        return ja;
+    }
+    public static JSONArray VecToJson(Vector3f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        ja.add((long) vec.z);
+        return ja;
+    }
+    public static JSONArray VecToJson(Vector4f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        ja.add((long) vec.z);
+        ja.add((long) vec.w);
+        return ja;
+    }
+    public static float JsonToFloat(Object object) {
+        return Float.parseFloat(object.toString());
     }
 }
