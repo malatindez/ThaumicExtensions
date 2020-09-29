@@ -15,7 +15,6 @@ public class TextBox extends DefaultGuiObject {
     protected final Vector2f textScale;
     public final Vector4f color;
     public final boolean dropShadow;
-    protected boolean selected;
     @Override
     public void preInit(String name, Object parent, JSONObject parameters) {
 
@@ -25,6 +24,18 @@ public class TextBox extends DefaultGuiObject {
     public void postInit() {
 
     }
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("text", this.text);
+        a.put("color",VecToJson(color));
+        a.put("textScale",VecToJson(textScale));
+        a.put("dropShadow",dropShadow);
+        return returnValue;
+    }
+
     public void setText(String text) {
         this.text = text;
         textWasUpdated();
