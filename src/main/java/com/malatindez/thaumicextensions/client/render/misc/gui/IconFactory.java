@@ -26,13 +26,16 @@ public class IconFactory {
     public static class IconSample {
         public final ResourceLocation texture;
         public final Vector2f texFrom, texTo, textureSize;
-        protected IconSample(Vector2f texFrom, Vector2f iconSize, Vector2f textureSize, ResourceLocation texture) {
+        public final String iconName;
+        protected IconSample(String iconName, Vector2f texFrom, Vector2f iconSize, Vector2f textureSize, ResourceLocation texture) {
+            this.iconName = iconName;
             this.texFrom = new Vector2f(texFrom);
             this.textureSize = new Vector2f(textureSize);
             this.texTo       = Vector2f.add(texFrom, iconSize, null);
             this.texture = new ResourceLocation(texture.getResourceDomain(), texture.getResourcePath());
         }
         protected IconSample(IconSample obj) {
+            this.iconName    = obj.iconName;
             this.texture     = new ResourceLocation(obj.texture.getResourceDomain(), obj.texture.getResourcePath());
             this.texFrom     = new Vector2f(obj.texFrom);
             this.textureSize = new Vector2f(obj.textureSize);
@@ -80,6 +83,16 @@ public class IconFactory {
         @Override
         public void postInit() {
 
+        }
+
+        @Override
+        public JSONObject generateJSONObject() {
+            JSONObject returnValue = super.generateDefaultJSONObject();
+            JSONObject a = (JSONObject) returnValue.get(getName());
+            a.put("mapping_resource_domain", sample.texture.getResourceDomain());
+            a.put("mapping_resource_path", sample.texture.getResourcePath());
+            a.put("mapping_icon_name", sample.iconName);
+            return returnValue;
         }
 
         public Icon(String name, Object parent, JSONObject parameters) {
@@ -164,6 +177,7 @@ public class IconFactory {
                         !object.equals("textureSize")
                 ) {
                     parts.put((String)object, new IconSample(
+                            (String)object,
                             DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("texFrom")),
                             DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("iconSize")),
                             textureSize,
