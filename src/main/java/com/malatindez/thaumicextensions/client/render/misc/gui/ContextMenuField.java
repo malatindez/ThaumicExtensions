@@ -22,6 +22,16 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         (icon).postInit();
     }
 
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
+        putMethod(a, "rmbClicked", rmbClicked);
+        putMethod(a, "lmbClicked", lmbClicked);
+        return returnValue;
+    }
+
     public ContextMenuField(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
         lmbClicked = getMethod(parameters, "lmbClicked", new Class[] {Object.class});
