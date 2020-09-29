@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
@@ -8,7 +9,7 @@ import org.lwjgl.util.vector.Vector4f;
 
 import java.lang.reflect.Method;
 
-public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<Object> {
+public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
     private final Vector2f coordinates;
     private final Vector2f scale;
     private final Vector2f size;
@@ -104,6 +105,27 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 Float.parseFloat(((JSONArray)array).get(2).toString()),
                 Float.parseFloat(((JSONArray)array).get(3).toString()));
     }
+    public static JSONArray VecToJson(Vector2f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        return ja;
+    }
+    public static JSONArray VecToJson(Vector3f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        ja.add((long) vec.z);
+        return ja;
+    }
+    public static JSONArray VecToJson(Vector4f vec) {
+        JSONArray ja = new JSONArray();
+        ja.add((long) vec.x);
+        ja.add((long) vec.y);
+        ja.add((long) vec.z);
+        ja.add((long) vec.w);
+        return ja;
+    }
     public static float JsonToFloat(Object object) {
         return Float.parseFloat(object.toString());
     }
@@ -186,7 +208,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.setSize(size.x, size.y);
     }
 
-
     public Vector2f getScale() {
         return new Vector2f(scale);
     }
@@ -204,13 +225,20 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
     enum ResolutionRescaleType {
-        NONE,
-        SCALE_X,
-        SCALE_Y,
-        SCALE_SMOOTH_X,
-        SCALE_SMOOTH_Y,
-        SCALE_XY,
-        SCALE_SMOOTH_XY
+        NONE("none"),
+        SCALE_X("scale_x"),
+        SCALE_Y("scale_y"),
+        SCALE_SMOOTH_X("scale_smooth_x"),
+        SCALE_SMOOTH_Y("scale_smooth_y"),
+        SCALE_XY("scale_xy"),
+        SCALE_SMOOTH_XY("scale_smooth_xy");
+        private String a;
+        public String toString() {
+            return a;
+        }
+        ResolutionRescaleType(String a) {
+            this.a = a;
+        }
     }
     private ResolutionRescaleType sizeRescaleType;
     private ResolutionRescaleType coordinatesRescaleType;
@@ -229,8 +257,73 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded
     public abstract void postInit();
+    private JSONObject startupParameters;
+    JSONObject getStartupParameters() {
+        return startupParameters;
+    }
+
+    public Vector2f getDeltas(Vector2f newResolution, ResolutionRescaleType type) {
+        Vector2f delta = new Vector2f(1,1);
+        switch (type) {
+            case SCALE_X:
+                delta.x = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_Y:
+                delta.y = newResolution.y / currentResolution.y;
+                break;
+            case SCALE_SMOOTH_X:
+                delta.x = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+            case SCALE_SMOOTH_Y:
+                delta.y = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+            case SCALE_XY:
+                delta.y = newResolution.y / currentResolution.y;
+                delta.x = newResolution.x / currentResolution.x;
+                break;
+            case SCALE_SMOOTH_XY:
+                delta.x = delta.y =
+                        (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
+                break;
+        }
+        return delta;
+    }
+
+    public void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
+        if(pair == null || objRef == null) {
+            return;
+        }
+        JSONObject x = new JSONObject();
+        String objectName = "none";
+        if(pair.object instanceof DefaultGuiObject) {
+            objectName = ((DefaultGuiObject) pair.object).getName();
+        }
+        x.put("object_name", objectName);
+        x.put("method_name", pair.method.getName());
+        objRef.put(name, x);
+    }
+    public JSONObject generateDefaultJSONObject() {
+        JSONObject returnValue = new JSONObject();
+        returnValue.put(getName(), new JSONObject());
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        Vector2f delta = getDeltas(defaultResolution, coordinatesRescaleType);
+        Vector2f coordinates = new Vector2f(this.coordinates.x * delta.x, this.coordinates.y * delta.y);
+        delta = getDeltas(defaultResolution, sizeRescaleType);
+        Vector2f scale = new Vector2f(this.scale.x * delta.x, this.scale.y * delta.y);
+        Vector2f size = new Vector2f(this.size.x * delta.x, this.size.y * delta.y);
+        a.put("coordinates", VecToJson(coordinates));
+        a.put("scale", VecToJson(scale));
+        a.put("size", VecToJson(size));
+        a.put("zLevel", (long)zLevel);
+        a.put("hided", hide);
+        a.put("size_scale_type", sizeRescaleType.toString());
+        a.put("coordinates_scale_type", sizeRescaleType.toString());
+        return returnValue;
+    }
+    public abstract JSONObject generateJSONObject();
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         preInit(name,parent,parameters);
+        startupParameters = parameters;
         this.name = name;
         this.parent = parent;
         this.coordinates = new Vector2f(0, 0);
@@ -255,7 +348,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(parameters.containsKey("hided")) {
             hide = (Boolean)parameters.get("hided");
         }
-        sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
+        sizeRescaleType = ResolutionRescaleType.NONE;
         if(parameters.containsKey("size_scale_type")) {
             String scale_type = (String)parameters.get("size_scale_type");
             if (scale_type.equals("none")) {
@@ -274,7 +367,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
             }
         }
-        coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
+        coordinatesRescaleType = ResolutionRescaleType.NONE;
         if(parameters.containsKey("coordinates_scale_type")) {
             String scale_type = (String)parameters.get("coordinates_scale_type");
             if (scale_type.equals("none")) {
@@ -312,57 +405,13 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     @Override
     public void resolutionUpdated(Vector2f newResolution) {
 
-        float deltaX = 1, deltaY = 1;
-        switch (coordinatesRescaleType) {
-            case SCALE_X:
-                deltaX = newResolution.x / currentResolution.x;
-                break;
-            case SCALE_Y:
-                deltaY = newResolution.y / currentResolution.y;
-                break;
-            case SCALE_SMOOTH_X:
-                deltaX = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-            case SCALE_SMOOTH_Y:
-                deltaY = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-            case SCALE_XY:
-                deltaY = newResolution.y / currentResolution.y;
-                deltaX = newResolution.x / currentResolution.x;
-                break;
-            case SCALE_SMOOTH_XY:
-                deltaX = deltaY =
-                        (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-        }
+        Vector2f delta = getDeltas(newResolution, coordinatesRescaleType);
         setCoordinates(
-                this.coordinates.x * deltaX,
-                this.coordinates.y * deltaY
+                this.coordinates.x * delta.x,
+                this.coordinates.y * delta.y
         );
-        deltaX = 1; deltaY = 1;
-        switch (sizeRescaleType) {
-            case SCALE_X:
-                deltaX = newResolution.x / currentResolution.x;
-                break;
-            case SCALE_Y:
-                deltaY = newResolution.y / currentResolution.y;
-                break;
-            case SCALE_SMOOTH_X:
-                deltaX = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-            case SCALE_SMOOTH_Y:
-                deltaY = (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-            case SCALE_XY:
-                deltaY = newResolution.y / currentResolution.y;
-                deltaX = newResolution.x / currentResolution.x;
-                break;
-            case SCALE_SMOOTH_XY:
-                deltaX = deltaY =
-                        (float) Math.sqrt(newResolution.x / currentResolution.x * newResolution.y / currentResolution.y);
-                break;
-        }
-        reScale(deltaX, deltaY);
+        delta = getDeltas(newResolution, sizeRescaleType);
+        reScale(delta.x, delta.y);
         currentResolution.set(newResolution);
         checkBorders();
     }
@@ -372,10 +421,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.parentBorders.set(parentBorders);  updateVectors();
     }
     @SuppressWarnings("NullableProblems")
-    public int compareTo(Object o) {
-        if (o instanceof DefaultGuiObject) {
-            return this.getZLevel() - ((DefaultGuiObject) o).getZLevel();
-        }
-        return this.getZLevel();
+    public int compareTo(DefaultGuiObject o) {
+        return this.getZLevel() - o.getZLevel();
     }
 }
