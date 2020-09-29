@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 public class TextLine extends DefaultGuiObject {
@@ -11,6 +12,7 @@ public class TextLine extends DefaultGuiObject {
     protected String textLine;
     protected int renderCursor = 0;
     public Vector4f color;
+    protected Vector2f textScale;
     public boolean dropShadow;
     protected boolean cutLine = true;
     Minecraft mc;
@@ -23,6 +25,11 @@ public class TextLine extends DefaultGuiObject {
         } else {
             color = new Vector4f(1,1,1,1);
         }
+        if(parameters.containsKey("textScale")) {
+            textScale = Json2Vec(parameters.get("textScale"));
+        } else {
+            textScale = new Vector2f(1,1);
+        }
         if(parameters.containsKey("dropShadow")) {
             dropShadow = (Boolean)parameters.get("dropShadow");
         } else {
@@ -33,6 +40,17 @@ public class TextLine extends DefaultGuiObject {
 
     @Override
     public void postInit() {
+    }
+
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("text", this.textLine);
+        a.put("color",VecToJson(color));
+        a.put("textScale",VecToJson(textScale));
+        a.put("dropShadow",dropShadow);
+        return returnValue;
     }
 
     public TextLine(String name, Object parent, JSONObject parameters) {
@@ -66,7 +84,7 @@ public class TextLine extends DefaultGuiObject {
 
     protected String lineToRender;
     void textLineWasUpdated() {
-        int maxSize = (int) getSize().x;
+        int maxSize = (int) (getSize().x / textScale.x);
         lineToRender = fontRendererObj.trimStringToWidth(textLine.substring(renderCursor), maxSize);
         if(lineToRender.length() != 0 && cutLine && !textLine.endsWith(lineToRender)) {
             String substring = lineToRender.substring(0,lineToRender.length() - 1);
@@ -91,7 +109,7 @@ public class TextLine extends DefaultGuiObject {
         }
         GL11.glPushMatrix();
         GL11.glTranslatef(getCurrentPosition().x, getCurrentPosition().y, 0);
-        GL11.glScalef(getScale().x, getScale().y, 1);
+        GL11.glScalef(textScale.x, textScale.y, 1);
         this.fontRendererObj.drawString(lineToRender, 0, 0,
                 (int) Vector4fToColor(color),
                 dropShadow);
