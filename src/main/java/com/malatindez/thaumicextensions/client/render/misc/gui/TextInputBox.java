@@ -25,6 +25,13 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     Vector2f cursor = new Vector2f(0,0);
 
     @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("cursorColor", VecToJson(cursorColor));
+        return returnValue;
+    }
+    @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         return false;
     }
