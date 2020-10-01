@@ -13,7 +13,6 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 
-@SuppressWarnings("Convert2Diamond")
 public abstract class TileEntitySpecialRenderer extends net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer {
     // Here's some rules of texture formatting:
     // texture XXX.png will be bound to YYY in .obj if it exists.

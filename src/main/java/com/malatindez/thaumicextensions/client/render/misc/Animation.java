@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Math.sin;
-@SuppressWarnings({"unused", "Convert2Diamond"})
+@SuppressWarnings({"unused"})
 @SideOnly(Side.CLIENT)
 public class Animation {
     @SuppressWarnings("unused")

@@ -9,7 +9,6 @@ import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 import org.json.simple.JSONObject;
 
-import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -22,7 +21,6 @@ import java.util.HashMap;
  * TextureMapping.get("arrow").render(x,y)
  * You should bind gui texture before calling render functions
  */
-@SuppressWarnings("Convert2Diamond")
 public class IconFactory {
     public static class IconSample {
         public final ResourceLocation texture;
@@ -90,6 +88,7 @@ public class IconFactory {
 
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public JSONObject generateJSONObject() {
             JSONObject returnValue = super.generateDefaultJSONObject();

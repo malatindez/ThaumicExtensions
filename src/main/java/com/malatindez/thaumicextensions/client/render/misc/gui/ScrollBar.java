@@ -15,6 +15,7 @@ public class ScrollBar extends DefaultGuiObject {
         super(name, parent, parameters);
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
         return null;

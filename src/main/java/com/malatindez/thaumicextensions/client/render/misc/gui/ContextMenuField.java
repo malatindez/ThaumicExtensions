@@ -22,6 +22,7 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         (icon).postInit();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();

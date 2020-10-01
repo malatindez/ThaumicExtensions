@@ -5,8 +5,6 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
-import java.lang.reflect.Method;
-
 public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
     protected DefaultGuiObject icon;
     protected DefaultGuiObject hovered_icon;
@@ -33,9 +31,10 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
 
     @Override
     public void postInit() {
-        ((DefaultGuiObject)icon).postInit();
+        icon.postInit();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();
@@ -54,7 +53,7 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
 
     public Button(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
-        this.setSize(((DefaultGuiObject)icon).getSize());
+        this.setSize(icon.getSize());
         clicked = getMethod(parameters, "clicked", new Class[] {Object.class, int.class});
         hovered = getMethod(parameters, "hovered", new Class[] {Object.class, int.class});
     }
@@ -63,9 +62,9 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
     public void render() {
         if(!hided()) {
             if (hovered_icon != null && isHovered) {
-                ((DefaultGuiObject) hovered_icon).render();
+                hovered_icon.render();
             } else {
-                ((DefaultGuiObject) icon).render();
+                icon.render();
             }
         }
     }
@@ -76,11 +75,11 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
-        MethodObjectPair retValue = ((DefaultGuiObject)icon).getMethodDown(objectName, name, parameterTypes);
+        MethodObjectPair retValue = icon.getMethodDown(objectName, name, parameterTypes);
         if(retValue != null || hovered_icon == null) {
             return retValue;
         }
-        return ((DefaultGuiObject)hovered_icon).getMethodDown(objectName, name, parameterTypes);
+        return hovered_icon.getMethodDown(objectName, name, parameterTypes);
     }
 
     @Override
@@ -88,18 +87,18 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         if(objectName.equals(this.getName())) {
             return this;
         }
-        Object retValue =  ((DefaultGuiObject)icon).getObjectDown(objectName);
+        Object retValue =  icon.getObjectDown(objectName);
         if(retValue != null || hovered_icon == null) {
             return retValue;
         }
-        return ((DefaultGuiObject)hovered_icon).getObjectDown(objectName);
+        return hovered_icon.getObjectDown(objectName);
     }
 
     @Override
     protected void VectorsWereUpdated() {
-        ((DefaultGuiObject) icon).updateParentBorders(getBorders());
+        icon.updateParentBorders(getBorders());
         if (hovered_icon != null) {
-            ((DefaultGuiObject) hovered_icon).updateParentBorders(getBorders());
+            hovered_icon.updateParentBorders(getBorders());
         }
     }
     boolean isHovered = false;

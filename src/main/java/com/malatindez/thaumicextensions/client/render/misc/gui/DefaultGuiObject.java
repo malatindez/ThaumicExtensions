@@ -424,23 +424,23 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public static JSONArray VecToJson(Vector2f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((float) vec.x);
-        ja.add((float) vec.y);
+        ja.add(vec.x);
+        ja.add(vec.y);
         return ja;
     }
     public static JSONArray VecToJson(Vector3f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((float) vec.x);
-        ja.add((float) vec.y);
-        ja.add((float) vec.z);
+        ja.add(vec.x);
+        ja.add(vec.y);
+        ja.add(vec.z);
         return ja;
     }
     public static JSONArray VecToJson(Vector4f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((float) vec.x);
-        ja.add((float) vec.y);
-        ja.add((float) vec.z);
-        ja.add((float) vec.w);
+        ja.add(vec.x);
+        ja.add(vec.y);
+        ja.add(vec.z);
+        ja.add(vec.w);
         return ja;
     }
     public static float JsonToFloat(Object object) {

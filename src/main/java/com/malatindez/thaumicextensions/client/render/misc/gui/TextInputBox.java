@@ -24,6 +24,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     boolean selected = false;
     Vector2f cursor = new Vector2f(0,0);
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateJSONObject();
@@ -59,7 +60,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         }
         return selected;
     }
-    ArrayList<String> lines = new ArrayList<String>();
+    final ArrayList<String> lines = new ArrayList<String>();
     private final Vector2f cursorBuf = new Vector2f(0,0);
     @Override
     protected void textWasUpdated() {
@@ -134,7 +135,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             renderCursor.x = Math.max(cursor.x - 4, 0);
         } else {
 
-            String lineToRender = "";
+            String lineToRender;
             if((int)cursor.y - (int)renderCursor.y < linesToRender.size()) {
                 lineToRender = linesToRender.get((int)cursor.y - (int)renderCursor.y);
             } else {
@@ -251,7 +252,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         Vector2f position = getCurrentPosition();
         Vector2f scale = getScale();
         if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
-            String str = "";
+            String str;
             if ((int) (cursor.y - renderCursor.y) < 0 || (int) (cursor.y - renderCursor.y) >= linesToRender.size()) {
                 moveCursor(0, 0);
             }

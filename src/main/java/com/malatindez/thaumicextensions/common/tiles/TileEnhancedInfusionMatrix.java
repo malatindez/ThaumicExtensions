@@ -27,7 +27,6 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.wands.IWandable;
 
 
-@SuppressWarnings("Convert2Diamond")
 public class TileEnhancedInfusionMatrix extends TileThaumcraft implements IWandable, IAspectContainer {
     @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
     private final ArrayList<ChunkCoordinates> pedestals = new ArrayList<ChunkCoordinates>();

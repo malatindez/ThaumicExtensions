@@ -42,6 +42,7 @@ public class TextLine extends DefaultGuiObject {
     public void postInit() {
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();

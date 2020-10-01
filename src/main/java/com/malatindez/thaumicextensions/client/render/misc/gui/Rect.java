@@ -2,12 +2,10 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.util.parsing.json.JSON;
 
 @SuppressWarnings("rawtypes")
 public class Rect extends DefaultGuiObject {
@@ -43,6 +41,7 @@ public class Rect extends DefaultGuiObject {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();

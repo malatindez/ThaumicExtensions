@@ -22,6 +22,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
     boolean selected = false;
     int cursor = 0;
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateJSONObject();

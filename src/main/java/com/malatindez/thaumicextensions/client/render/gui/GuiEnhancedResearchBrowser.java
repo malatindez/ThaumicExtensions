@@ -42,7 +42,7 @@ import thaumcraft.common.lib.network.playerdata.PacketPlayerCompleteToServer;
 import thaumcraft.common.lib.research.ResearchManager;
 import thaumcraft.common.lib.utils.InventoryUtils;
 
-@SuppressWarnings({"ConstantConditions", "Convert2Diamond"})
+@SuppressWarnings({"ConstantConditions"})
 @SideOnly(Side.CLIENT)
 public class GuiEnhancedResearchBrowser extends GuiScreen {
     protected final Vector2f mousePos = new Vector2f();

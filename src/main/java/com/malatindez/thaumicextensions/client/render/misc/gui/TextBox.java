@@ -25,6 +25,7 @@ public class TextBox extends DefaultGuiObject {
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();
@@ -68,7 +69,7 @@ public class TextBox extends DefaultGuiObject {
         textWasUpdated();
     }
 
-    protected ArrayList<String> linesToRender = new ArrayList<String>();
+    protected final ArrayList<String> linesToRender = new ArrayList<String>();
     protected Vector2f previousSize = new Vector2f(0,0);
     protected String previousText;
     protected void textWasUpdated() {

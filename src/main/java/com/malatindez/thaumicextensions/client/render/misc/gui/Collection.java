@@ -15,8 +15,7 @@ public class Collection extends DefaultGuiObject implements
     protected Collection parent = null;
 
     private int getObjectZLevel(DefaultGuiObject obj) {
-        obj.getZLevel();
-        return 0;
+        return obj.getZLevel();
     }
 
     @Override
@@ -49,15 +48,9 @@ public class Collection extends DefaultGuiObject implements
         Collections.sort(objects, objectComparator);
         Collections.reverse(objects);
     }
-    public void removeObjects(ArrayList<Object> objects) {
-        this.objects.remove(objects);
-    }
-    public void removeObject(Object object) {
-        objects.remove(object);
-    }
     @SuppressWarnings("UnusedReturnValue")
     public Object addObject(DefaultGuiObject object) {
-        if(!(object instanceof DefaultGuiObject)) {
+        if(object == null) {
             return null;
         }
         object.updateParentBorders(getBorders());
@@ -95,6 +88,7 @@ public class Collection extends DefaultGuiObject implements
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();

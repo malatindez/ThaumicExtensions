@@ -32,6 +32,7 @@ public class Drag extends Collection {
         super(name, parent, parameters);
         objectToFocusOnName = (String)parameters.get("drag_focus");
     }
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateJSONObject();
@@ -47,7 +48,7 @@ public class Drag extends Collection {
         super.postInit();
         JSONObject parameters = this.getStartupParameters();
         this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
-        if(parameters.containsKey("currently_dragging") && parent instanceof DefaultGuiObject) {
+        if(parameters.containsKey("currently_dragging")) {
             JSONObject obj = (JSONObject) parameters.get("currently_dragging");
             currentlyDragging = this.getMethodUp(
                     (String) obj.get("object_name"),
@@ -56,7 +57,7 @@ public class Drag extends Collection {
         } else {
             currentlyDragging = null;
         }
-        if(parameters.containsKey("dragging_end") && parent instanceof DefaultGuiObject) {
+        if(parameters.containsKey("dragging_end")) {
             JSONObject obj = (JSONObject) parameters.get("dragging_end");
             dragEnd = this.getMethodUp(
                     (String) obj.get("object_name"),
