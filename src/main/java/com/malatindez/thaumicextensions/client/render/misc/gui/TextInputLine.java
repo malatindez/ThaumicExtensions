@@ -24,7 +24,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
 
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("cursorColor", VecToJson(cursorColor));
         return returnValue;
