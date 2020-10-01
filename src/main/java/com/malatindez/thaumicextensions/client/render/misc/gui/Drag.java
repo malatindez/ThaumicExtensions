@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 
 public class Drag extends Collection {
-    protected final MethodObjectPair currentlyDragging;
-    protected final MethodObjectPair dragEnd;
+    protected MethodObjectPair currentlyDragging;
+    protected MethodObjectPair dragEnd;
 
     protected Vector2f previousMousePos = null;
     protected DefaultGuiObject objectToFocusOn;
@@ -30,6 +30,23 @@ public class Drag extends Collection {
     private final String objectToFocusOnName;
     public Drag(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
+        objectToFocusOnName = (String)parameters.get("drag_focus");
+    }
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        putMethod(a, "currently_dragging", currentlyDragging);
+        putMethod(a, "dragging_end", dragEnd);
+        a.put("drag_focus", objectToFocusOn.getName());
+        return returnValue;
+    }
+
+    @Override
+    public void postInit() {
+        super.postInit();
+        JSONObject parameters = this.getStartupParameters();
+        this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
         if(parameters.containsKey("currently_dragging") && parent instanceof DefaultGuiObject) {
             JSONObject obj = (JSONObject) parameters.get("currently_dragging");
             currentlyDragging = this.getMethodUp(
@@ -48,11 +65,6 @@ public class Drag extends Collection {
         } else {
             dragEnd = null;
         }
-        objectToFocusOnName = (String)parameters.get("drag_focus");
-    }
-    @Override
-    public void postInit() {
-        this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
     }
     private void CurrentlyDragging() {
         if (currentlyDragging != null && dragEnd != null) {
