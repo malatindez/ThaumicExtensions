@@ -22,10 +22,10 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
             id = 0;
         }
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
-        this.icon = EnhancedGuiScreen.createObject(name, this, icon);
+        this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
         try {
             JSONObject hovered_icon = (JSONObject) parameters.get(parameters.get("hovered_icon"));
-            this.hovered_icon = EnhancedGuiScreen.createObject(name, this, hovered_icon);
+            this.hovered_icon = EnhancedGuiScreen.createObject((String) parameters.get("hovered_icon"), this, hovered_icon);
         } catch (Exception ignored) {
 
         }
@@ -43,11 +43,11 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         a.put("id", (long)id);
         a.put("icon", this.icon.getName());
         putMethod(a, "clicked", clicked);
+        putMethod(a, "hovered", hovered);
         a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
         if(hovered_icon != null) {
             a.put("hovered_icon", this.hovered_icon.getName());
             a.put(hovered_icon.getName(), hovered_icon.generateJSONObject().get(hovered_icon.getName()));
-            putMethod(a, "hovered", hovered);
         }
         return returnValue;
     }
