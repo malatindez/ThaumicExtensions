@@ -261,6 +261,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         delta = getDeltas(defaultResolution, sizeRescaleType);
         Vector2f scale = new Vector2f(this.scale.x * delta.x, this.scale.y * delta.y);
         Vector2f size = new Vector2f(this.size.x * delta.x, this.size.y * delta.y);
+        for(String part : EnhancedGuiScreen.parts.keySet()) {
+            if(this.getClass().getName().equals(EnhancedGuiScreen.parts.get(part).getName())) {
+                a.put("type", part);
+                break;
+            }
+        }
         a.put("coordinates", VecToJson(coordinates));
         a.put("scale", VecToJson(scale));
         a.put("size", VecToJson(size));
@@ -418,23 +424,23 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public static JSONArray VecToJson(Vector2f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
+        ja.add((float) vec.x);
+        ja.add((float) vec.y);
         return ja;
     }
     public static JSONArray VecToJson(Vector3f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
-        ja.add((long) vec.z);
+        ja.add((float) vec.x);
+        ja.add((float) vec.y);
+        ja.add((float) vec.z);
         return ja;
     }
     public static JSONArray VecToJson(Vector4f vec) {
         JSONArray ja = new JSONArray();
-        ja.add((long) vec.x);
-        ja.add((long) vec.y);
-        ja.add((long) vec.z);
-        ja.add((long) vec.w);
+        ja.add((float) vec.x);
+        ja.add((float) vec.y);
+        ja.add((float) vec.z);
+        ja.add((float) vec.w);
         return ja;
     }
     public static float JsonToFloat(Object object) {
