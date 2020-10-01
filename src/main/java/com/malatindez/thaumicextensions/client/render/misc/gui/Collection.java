@@ -99,9 +99,11 @@ public class Collection extends DefaultGuiObject implements
     public JSONObject generateJSONObject() {
         JSONObject returnValue = super.generateDefaultJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
+        JSONObject b = new JSONObject();
         for(DefaultGuiObject object : objects) {
-            a.put(object.getName(), object.generateJSONObject().get(object.getName()));
+            b.put(object.getName(), object.generateJSONObject().get(object.getName()));
         }
+        a.put("elements", b);
         return returnValue;
     }
 
