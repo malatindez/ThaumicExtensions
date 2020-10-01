@@ -180,6 +180,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         if(Mouse.isButtonDown(2))                   flags |= Updatable.Flags.MMB.getType();
         gui.Update(flags);
         gui.render();
+        this.gui.generateJSONObject();
     }
     protected void mouseClicked(int mx, int my, int button) {
         gui.mouseClicked(new Vector2f(mx,my), button);
