@@ -9,6 +9,7 @@ import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 import org.json.simple.JSONObject;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,18 +26,22 @@ import java.util.HashMap;
 public class IconFactory {
     public static class IconSample {
         public final ResourceLocation texture;
+        public final ResourceLocation mapping;
         public final Vector2f texFrom, texTo, textureSize;
         public final String iconName;
-        protected IconSample(String iconName, Vector2f texFrom, Vector2f iconSize, Vector2f textureSize, ResourceLocation texture) {
+        protected IconSample(String iconName, Vector2f texFrom, Vector2f iconSize, Vector2f textureSize,
+                             ResourceLocation texture, ResourceLocation mapping) {
             this.iconName = iconName;
             this.texFrom = new Vector2f(texFrom);
             this.textureSize = new Vector2f(textureSize);
             this.texTo       = Vector2f.add(texFrom, iconSize, null);
             this.texture = new ResourceLocation(texture.getResourceDomain(), texture.getResourcePath());
+            this.mapping = new ResourceLocation(mapping.getResourceDomain(), mapping.getResourcePath());
         }
         protected IconSample(IconSample obj) {
             this.iconName    = obj.iconName;
             this.texture     = new ResourceLocation(obj.texture.getResourceDomain(), obj.texture.getResourcePath());
+            this.mapping     = new ResourceLocation(obj.mapping.getResourceDomain(), obj.mapping.getResourcePath());
             this.texFrom     = new Vector2f(obj.texFrom);
             this.textureSize = new Vector2f(obj.textureSize);
             this.texTo       = new Vector2f(obj.texTo);
@@ -89,8 +94,8 @@ public class IconFactory {
         public JSONObject generateJSONObject() {
             JSONObject returnValue = super.generateDefaultJSONObject();
             JSONObject a = (JSONObject) returnValue.get(getName());
-            a.put("mapping_resource_domain", sample.texture.getResourceDomain());
-            a.put("mapping_resource_path", sample.texture.getResourcePath());
+            a.put("mapping_resource_domain", sample.mapping.getResourceDomain());
+            a.put("mapping_resource_path", sample.mapping.getResourcePath());
             a.put("mapping_icon_name", sample.iconName);
             return returnValue;
         }
@@ -181,7 +186,8 @@ public class IconFactory {
                             DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("texFrom")),
                             DefaultGuiObject.Json2Vec(((JSONObject) jsonObject.get(object)).get("iconSize")),
                             textureSize,
-                            texture
+                            texture,
+                            json_file
                     ));
                 }
             }
