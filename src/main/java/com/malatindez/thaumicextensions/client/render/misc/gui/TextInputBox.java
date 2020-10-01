@@ -26,7 +26,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
 
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("cursorColor", VecToJson(cursorColor));
         return returnValue;
