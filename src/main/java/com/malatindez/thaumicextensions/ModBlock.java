@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+
 import java.util.Random;
 
 public class ModBlock extends Block {
