@@ -10,15 +10,12 @@ import org.lwjgl.util.vector.Vector4f;
 import java.util.ArrayList;
 
 public class TextBox extends DefaultGuiObject {
-    protected final FontRenderer fontRendererObj;
+    protected FontRenderer fontRendererObj;
     protected String text;
-    protected final Vector2f textScale;
-    public final Vector4f color;
-    public final boolean dropShadow;
-    @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
+    protected Vector2f textScale;
+    public Vector4f color;
+    public boolean dropShadow;
 
-    }
 
     @Override
     public void postInit() {
@@ -28,13 +25,32 @@ public class TextBox extends DefaultGuiObject {
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("text", this.text);
         a.put("color",VecToJson(color));
         a.put("textScale",VecToJson(textScale));
         a.put("dropShadow",dropShadow);
         return returnValue;
+    }
+
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
+        text = (String)parameters.get("text");
+        color = Json4Vec(parameters.get("color"));
+        if(parameters.containsKey("textScale")) {
+            textScale = Json2Vec(parameters.get("textScale"));
+        } else {
+            textScale = new Vector2f(1,1);
+        }
+        if(parameters.containsKey("dropShadow")) {
+            dropShadow = (Boolean)parameters.get("dropShadow");
+        } else {
+            dropShadow = false;
+        }
+        textWasUpdated();
     }
 
     public void setText(String text) {
@@ -53,20 +69,6 @@ public class TextBox extends DefaultGuiObject {
     }
     public TextBox(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
-        fontRendererObj = Minecraft.getMinecraft().fontRenderer;
-        text = (String)parameters.get("text");
-        color = Json4Vec(parameters.get("color"));
-        if(parameters.containsKey("textScale")) {
-            textScale = Json2Vec(parameters.get("textScale"));
-        } else {
-            textScale = new Vector2f(1,1);
-        }
-        if(parameters.containsKey("dropShadow")) {
-            dropShadow = (Boolean)parameters.get("dropShadow");
-        } else {
-            dropShadow = false;
-        }
-        textWasUpdated();
     }
 
     protected final ArrayList<String> linesToRender = new ArrayList<String>();
@@ -147,7 +149,6 @@ public class TextBox extends DefaultGuiObject {
         }
     }
 
-
     @SuppressWarnings("rawtypes")
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
@@ -175,6 +176,3 @@ public class TextBox extends DefaultGuiObject {
         return 0;
     }
 }
-/*
-
-             */
