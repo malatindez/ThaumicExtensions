@@ -8,14 +8,9 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         EnhancedGuiScreen.Updatable,
         EnhancedGuiScreen.Inputable {
     public DefaultGuiObject icon;
-    protected final MethodObjectPair rmbClicked;
-    protected final MethodObjectPair lmbClicked;
+    protected MethodObjectPair rmbClicked;
+    protected MethodObjectPair lmbClicked;
 
-    @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
-        JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
-        this.icon = EnhancedGuiScreen.createObject(name, this, icon);
-    }
 
     @Override
     public void postInit() {
@@ -25,7 +20,7 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
         putMethod(a, "rmbClicked", rmbClicked);
@@ -33,15 +28,25 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         return returnValue;
     }
 
-    public ContextMenuField(String name, Object parent, JSONObject parameters) {
-        super(name, parent, parameters);
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+
+        JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
+        this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
+
         lmbClicked = getMethod(parameters, "lmbClicked", new Class[] {Object.class});
         rmbClicked = getMethod(parameters, "rmbClicked", new Class[] {Object.class, Vector2f.class});
+
+    }
+
+    public ContextMenuField(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
     }
 
     @Override
     public void render() {
-        if(!hided()) {
+        if(!hided() && icon != null) {
             icon.render();
         }
     }
@@ -52,7 +57,10 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
-        return icon.getMethodDown(objectName, name, parameterTypes);
+        if(icon != null) {
+            return icon.getMethodDown(objectName, name, parameterTypes);
+        }
+        return null;
     }
 
     @Override
@@ -60,12 +68,17 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         if(objectName.equals(this.getName())) {
             return this;
         }
-        return icon.getObjectDown(objectName);
+        if(icon != null) {
+            return icon.getObjectDown(objectName);
+        }
+        return null;
     }
 
     @Override
     protected void VectorsWereUpdated() {
-        icon.updateParentBorders(getBorders());
+        if(icon != null) {
+            icon.updateParentBorders(getBorders());
+        }
     }
 
     @Override
