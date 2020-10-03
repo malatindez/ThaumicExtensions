@@ -10,17 +10,14 @@ import org.lwjgl.util.vector.Vector4f;
 public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickable,
         EnhancedGuiScreen.Inputable {
 
-    public final Vector4f cursorColor;
-    public TextInputLine(String name, Object parent, JSONObject parameters) {
-        super(name, parent, parameters);
-        if(parameters.containsKey("cursorColor")) {
-            cursorColor = Json4Vec(parameters.get("cursorColor"));
-        } else {
-            cursorColor = new Vector4f(1,1,1,1);
-        }
-    }
+    public Vector4f cursorColor;
     boolean selected = false;
     int cursor = 0;
+
+    public TextInputLine(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -29,6 +26,16 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("cursorColor", VecToJson(cursorColor));
         return returnValue;
+    }
+
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        if(parameters.containsKey("cursorColor")) {
+            cursorColor = Json4Vec(parameters.get("cursorColor"));
+        } else {
+            cursorColor = new Vector4f(1,1,1,1);
+        }
     }
 
     @Override
