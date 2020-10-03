@@ -5,6 +5,7 @@ import net.minecraft.client.gui.FontRenderer;
 import org.json.simple.JSONObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 public class TextLine extends DefaultGuiObject {
@@ -16,8 +17,26 @@ public class TextLine extends DefaultGuiObject {
     public boolean dropShadow;
     protected boolean cutLine = true;
     Minecraft mc;
+
     @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
+    public void postInit() {
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject generateJSONObject() {
+        JSONObject returnValue = super.generateJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("text", this.textLine);
+        a.put("color",VecToJson(color));
+        a.put("textScale",VecToJson(textScale));
+        a.put("dropShadow",dropShadow);
+        return returnValue;
+    }
+
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
         fontRendererObj = Minecraft.getMinecraft().fontRenderer;
         textLine = (String)parameters.get("text");
         if(parameters.containsKey("color")) {
@@ -36,22 +55,6 @@ public class TextLine extends DefaultGuiObject {
             dropShadow = false;
         }
         mc = Minecraft.getMinecraft();
-    }
-
-    @Override
-    public void postInit() {
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
-        JSONObject a = (JSONObject) returnValue.get(getName());
-        a.put("text", this.textLine);
-        a.put("color",VecToJson(color));
-        a.put("textScale",VecToJson(textScale));
-        a.put("dropShadow",dropShadow);
-        return returnValue;
     }
 
     public TextLine(String name, Object parent, JSONObject parameters) {
