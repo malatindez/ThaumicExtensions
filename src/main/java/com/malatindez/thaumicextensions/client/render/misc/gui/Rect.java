@@ -10,6 +10,8 @@ import org.lwjgl.util.vector.Vector4f;
 @SuppressWarnings("rawtypes")
 public class Rect extends DefaultGuiObject {
 
+    public VertexColors colors;
+
     @Override
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
         if(this.getName().equals(objectName)) {
@@ -31,10 +33,6 @@ public class Rect extends DefaultGuiObject {
 
     }
 
-    @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
-
-    }
 
     @Override
     public void postInit() {
@@ -44,7 +42,7 @@ public class Rect extends DefaultGuiObject {
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         JSONObject Colors = new JSONObject();
         Colors.put("topLeft", VecToJson(colors.topLeft));
@@ -55,6 +53,17 @@ public class Rect extends DefaultGuiObject {
         return returnValue;
     }
 
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        JSONObject colors = (JSONObject) parameters.get("colors");
+        this.colors = new VertexColors(
+                Json4Vec(colors.get("topLeft")),
+                Json4Vec(colors.get("topRight")),
+                Json4Vec(colors.get("bottomLeft")),
+                Json4Vec(colors.get("bottomRight"))
+        );
+    }
     public static class VertexColors {
         final Vector4f topLeft;
         final Vector4f topRight;
@@ -67,7 +76,6 @@ public class Rect extends DefaultGuiObject {
             this.bottomRight    = new Vector4f(bottomRight);
         }
     }
-    public final VertexColors colors;
     /*public Rect(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
                 ResolutionRescaleType type) {
         super(name, coordinates, scale, size, zLevel, type);
@@ -75,13 +83,6 @@ public class Rect extends DefaultGuiObject {
     }*/
     public Rect(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
-        JSONObject colors = (JSONObject) parameters.get("colors");
-        this.colors = new VertexColors(
-                Json4Vec(colors.get("topLeft")),
-                Json4Vec(colors.get("topRight")),
-                Json4Vec(colors.get("bottomLeft")),
-                Json4Vec(colors.get("bottomRight"))
-        );
     }
     public static void renderGradientRect(Vector4f borders, VertexColors colors, int zLevel) {
         GL11.glDisable(GL11.GL_TEXTURE_2D);
