@@ -14,12 +14,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
     private final String name;
 
-    private final Object parent;
+    private Object parent;
 
-    private final Vector2f coordinates;
-    private final Vector2f scale;
-    private final Vector2f size;
-    private final Vector4f borders;
+    private Vector2f coordinates;
+    private Vector2f scale;
+    private Vector2f size;
+    private Vector4f borders;
     protected int zLevel;
 
     protected final Vector2f currentResolution = new Vector2f(427, 240);
@@ -173,7 +173,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.coordinatesRescaleType = type;
     }
 
-    public abstract void preInit(String name, Object parent, JSONObject parameters);
     // postInit is called after entire gui is loaded
     public abstract void postInit();
 
@@ -252,7 +251,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return delta;
     }
 
-    public JSONObject generateDefaultJSONObject() {
+    public JSONObject generateJSONObject() {
         JSONObject returnValue = new JSONObject();
         returnValue.put(getName(), new JSONObject());
         JSONObject a = (JSONObject) returnValue.get(getName());
@@ -276,13 +275,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         a.put("coordinates_scale_type", sizeRescaleType.toString());
         return returnValue;
     }
-
-    public abstract JSONObject generateJSONObject();
-    public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
-        preInit(name,parent,parameters);
-        startupParameters = parameters;
-        this.name = name;
-        this.parent = parent;
+    public void loadFromJSONObject(JSONObject parameters) {
         this.coordinates = new Vector2f(0, 0);
         if(parameters.containsKey("coordinates")) {
             this.coordinates.set(Json2Vec(parameters.get("coordinates")));
@@ -345,6 +338,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         this.reScale(scale);
     }
+    public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
+        this.name = name;
+        this.parent = parent;
+        startupParameters = parameters;
+        loadFromJSONObject(parameters);
+    }
     @SuppressWarnings("rawtypes")
     MethodObjectPair getMethod(JSONObject parameters, String methodName, Class[] methodParameters) {
         if(parameters.containsKey(methodName)) {
@@ -382,7 +381,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public int compareTo(DefaultGuiObject o) {
         return this.getZLevel() - o.getZLevel();
     }
-
 
     public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
         if(pair == null || objRef == null) {
