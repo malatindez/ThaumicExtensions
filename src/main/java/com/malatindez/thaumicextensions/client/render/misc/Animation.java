@@ -139,7 +139,6 @@ public class Animation {
                     rotationAroundCenter.speedY == 0 ? 1 : 0 +
                     rotationAroundCenter.speedZ == 0 ? 1 : 0
             );
-
             matrix.translate(new Vector3f(
                     rotationAroundCenter.speedZ == 0 ? 0 : (radius),
                     rotationAroundCenter.speed  == 0 ? 0 : (radius),
