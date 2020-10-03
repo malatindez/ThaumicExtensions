@@ -47,30 +47,6 @@ public class IconFactory {
         }
     }
     public static class Icon extends DefaultGuiObject {
-        /*
-         * IconFactory.Part constructor
-         * @param coordinates Default coordinates to render at
-         * @param texFrom Coordinates of top left icons corner on the texture
-         * @param iconSize The size of an icon (bottom right corner is texFrom + iconSize)
-         * @param textureSize The size of the texture
-         * @param scale The scale of an icon (1.0f, 1.0f is a default scale)
-        protected Icon(Vector2f coordinates, Vector2f texFrom,
-                    Vector2f iconSize,    Vector2f textureSize,
-                    Vector2f scale, int zLevel, ResolutionRescaleType type, ResourceLocation texture) {
-            super("none", coordinates,scale,iconSize, zLevel, type);
-            this.texFrom     = new Vector2f(texFrom);
-            this.textureSize = new Vector2f(textureSize);
-            this.texTo       = Vector2f.add(texFrom, iconSize, null);
-            this.texture = new ResourceLocation(texture.getResourceDomain(), texture.getResourcePath());
-        }
-
-        public Icon(Icon icon, String name, Vector2f coordinates, Vector2f scale, int zLevel, ResolutionRescaleType type) {
-            super(name, coordinates, scale, icon.getSize(), zLevel, type);
-            this.texFrom     = new Vector2f(icon.texFrom);
-            this.textureSize = new Vector2f(icon.textureSize);
-            this.texTo       = new Vector2f(icon.texTo);
-            this.texture = new ResourceLocation(icon.texture.getResourceDomain(), icon.texture.getResourcePath());
-        }*/
         protected IconSample sample;
 
 
