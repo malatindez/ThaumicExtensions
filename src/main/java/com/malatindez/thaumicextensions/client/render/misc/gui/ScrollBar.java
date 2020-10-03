@@ -31,10 +31,7 @@ public class ScrollBar extends DefaultGuiObject {
 
     }
 
-    @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
 
-    }
     protected DefaultGuiObject objectToScroll;
     @Override
     public void postInit() {
@@ -50,7 +47,7 @@ public class ScrollBar extends DefaultGuiObject {
 
     @Override
     public JSONObject generateJSONObject() {
-        return super.generateDefaultJSONObject();
+        return super.generateJSONObject();
     }
 
     @Override
