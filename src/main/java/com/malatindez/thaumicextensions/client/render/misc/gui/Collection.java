@@ -11,7 +11,7 @@ import java.util.Comparator;
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
-    protected final ArrayList<DefaultGuiObject> objects = new ArrayList<DefaultGuiObject>();
+    protected ArrayList<DefaultGuiObject> objects;
     protected Collection parent = null;
 
     private int getObjectZLevel(DefaultGuiObject obj) {
@@ -58,28 +58,7 @@ public class Collection extends DefaultGuiObject implements
         objects.add(object); sortObjects();
         return object;
     }
-    /*
-    public Collection(String name, Vector2f coordinates, Vector2f size, int zLevel, ResolutionRescaleType type)  {
-        super(name, coordinates,new Vector2f(1.0f,1.0f),size,zLevel, type);
-    }
 
-    public Collection(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel,
-                      ResolutionRescaleType type)  {
-        super(name, coordinates,scale,size,zLevel, type);
-    }
-    // if you've created another collection with this constructor than you should use only one of them
-    // Be careful! This constructor deletes objects from another collection.
-    public Collection(Collection collection) {
-        super(collection.getName(), collection.getCoordinates(), collection.getScale(),
-                collection.getSize(), collection.zLevel, collection.getType());
-        this.addObjects(collection.objects);
-        collection.objects.clear();
-    }*/
-
-    @Override
-    public void preInit(String name, Object parent, JSONObject parameters) {
-
-    }
 
     @Override
     public void postInit() {
@@ -91,7 +70,7 @@ public class Collection extends DefaultGuiObject implements
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
-        JSONObject returnValue = super.generateDefaultJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         JSONObject b = new JSONObject();
         for(DefaultGuiObject object : objects) {
@@ -101,15 +80,19 @@ public class Collection extends DefaultGuiObject implements
         return returnValue;
     }
 
-    public Collection(String name, Object parent, JSONObject parameters) {
-        super(name, parent, parameters);
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        objects  = new ArrayList<DefaultGuiObject>();
         if(parameters.containsKey("elements")) {
             JSONObject elements = (JSONObject)parameters.get("elements");
             for(Object key : elements.keySet()) {
                 this.addObject(EnhancedGuiScreen.createObject((String)key,this, (JSONObject) elements.get(key)));
             }
         }
-
+    }
+    public Collection(String name, Object parent, JSONObject parameters) {
+        super(name, parent, parameters);
     }
     @SuppressWarnings("rawtypes")
     @Override
