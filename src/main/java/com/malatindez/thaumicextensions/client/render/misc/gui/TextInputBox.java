@@ -12,14 +12,10 @@ import java.util.ArrayList;
 public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable,
         EnhancedGuiScreen.Inputable {
     Vector4f cursorColor;
+
     public Vector2f renderCursor = new Vector2f(0,0);
     public TextInputBox(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
-        if(parameters.containsKey("cursorColor")) {
-            cursorColor = Json4Vec(parameters.get("cursorColor"));
-        } else {
-            cursorColor = new Vector4f(1,1,1,1);
-        }
     }
     boolean selected = false;
     Vector2f cursor = new Vector2f(0,0);
@@ -32,6 +28,17 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         a.put("cursorColor", VecToJson(cursorColor));
         return returnValue;
     }
+
+    @Override
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        if(parameters.containsKey("cursorColor")) {
+            cursorColor = Json4Vec(parameters.get("cursorColor"));
+        } else {
+            cursorColor = new Vector4f(1,1,1,1);
+        }
+    }
+
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
         return false;
