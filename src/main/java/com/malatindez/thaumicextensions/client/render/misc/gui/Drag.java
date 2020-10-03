@@ -27,11 +27,12 @@ public class Drag extends Collection {
         this.dragEnd = dragEnd;
     }
      */
-    private final String objectToFocusOnName;
+    private String objectToFocusOnName;
+
     public Drag(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
-        objectToFocusOnName = (String)parameters.get("drag_focus");
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
@@ -39,15 +40,16 @@ public class Drag extends Collection {
         JSONObject a = (JSONObject) returnValue.get(getName());
         putMethod(a, "currently_dragging", currentlyDragging);
         putMethod(a, "dragging_end", dragEnd);
-        a.put("drag_focus", objectToFocusOn.getName());
+        if(objectToFocusOn != null) {
+            a.put("drag_focus", objectToFocusOn.getName());
+        }
         return returnValue;
     }
 
     @Override
-    public void postInit() {
-        super.postInit();
-        JSONObject parameters = this.getStartupParameters();
-        this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
+    public void loadFromJSONObject(JSONObject parameters) {
+        super.loadFromJSONObject(parameters);
+        objectToFocusOnName = (String)parameters.get("drag_focus");
         if(parameters.containsKey("currently_dragging")) {
             JSONObject obj = (JSONObject) parameters.get("currently_dragging");
             currentlyDragging = this.getMethodUp(
@@ -67,6 +69,11 @@ public class Drag extends Collection {
             dragEnd = null;
         }
     }
+    @Override
+    public void postInit() {
+        super.postInit();
+        this.objectToFocusOn = (DefaultGuiObject) this.getObjectUp(objectToFocusOnName);
+    }
     private void CurrentlyDragging() {
         if (currentlyDragging != null && dragEnd != null) {
             try {
@@ -76,8 +83,7 @@ public class Drag extends Collection {
         }
     }
     private void DraggingEnd() {
-        //noinspection ConstantConditions
-        if (dragEnd != null && dragEnd != null) {
+        if (dragEnd != null) {
             try {
                 dragEnd.method.invoke(dragEnd.object, getCurrentPosition());
             } catch (Exception ignored) {
