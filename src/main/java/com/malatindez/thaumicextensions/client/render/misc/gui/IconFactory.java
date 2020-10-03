@@ -73,15 +73,6 @@ public class IconFactory {
         }*/
         protected IconSample sample;
 
-        @Override
-        public void preInit(String name, Object parent, JSONObject parameters) {
-                sample = IconFactory.getFactory(
-                    new ResourceLocation(
-                            (String)parameters.get("mapping_resource_domain"),
-                            (String)parameters.get("mapping_resource_path")
-                    )
-            ).getIconSample((String)parameters.get("mapping_icon_name"));
-        }
 
         @Override
         public void postInit() {
@@ -91,7 +82,7 @@ public class IconFactory {
         @SuppressWarnings("unchecked")
         @Override
         public JSONObject generateJSONObject() {
-            JSONObject returnValue = super.generateDefaultJSONObject();
+            JSONObject returnValue = super.generateJSONObject();
             JSONObject a = (JSONObject) returnValue.get(getName());
             a.put("mapping_resource_domain", sample.mapping.getResourceDomain());
             a.put("mapping_resource_path", sample.mapping.getResourcePath());
@@ -99,10 +90,21 @@ public class IconFactory {
             return returnValue;
         }
 
-        public Icon(String name, Object parent, JSONObject parameters) {
-            super(name,parent,parameters);
+        @Override
+        public void loadFromJSONObject(JSONObject parameters) {
+            super.loadFromJSONObject(parameters);
+            sample = IconFactory.getFactory(
+                    new ResourceLocation(
+                            (String)parameters.get("mapping_resource_domain"),
+                            (String)parameters.get("mapping_resource_path")
+                    )
+            ).getIconSample((String)parameters.get("mapping_icon_name"));
             setSize(Vector2f.sub(sample.texTo, sample.texFrom,null));
             reScale(getScale());
+        }
+
+        public Icon(String name, Object parent, JSONObject parameters) {
+            super(name,parent,parameters);
         }
         @SuppressWarnings("rawtypes")
         @Override
