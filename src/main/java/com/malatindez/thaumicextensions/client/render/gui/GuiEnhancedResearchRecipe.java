@@ -47,11 +47,11 @@ public class GuiEnhancedResearchRecipe extends EnhancedGuiScreen {
   //  }
         this.gui = collection;
     }
-    public void defaultResearchClicked(Object obj, int id) {
-        ((DefaultGuiObject)obj).setCoordinates(
-                Vector2f.add(((DefaultGuiObject) obj).getCoordinates(),
+    public void defaultResearchClicked(DefaultGuiObject obj, int id) {
+        obj.setCoordinates(
+                Vector2f.add(obj.getCoordinates(),
                         new Vector2f(1,1), null)
         );
-        ((DefaultGuiObject)obj).checkBorders();
+        obj.checkBorders();
     }
 }
