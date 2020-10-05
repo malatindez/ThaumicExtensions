@@ -122,6 +122,100 @@
             }
           }
         }
+      },
+      "scrollbar)": {
+        "type": "ScrollBar",
+        "zLevel": 10,
+        "coordinates": [0,200],
+        "size": [10,200],
+        "size_scale_type": "scale_y",
+        "objectToScroll": "textbox",
+        "scroll_icon": "scrollIcon",
+        "scrolling_collection": "scrollbar_a",
+        "scrollbar_a": {
+          "type": "Collection",
+          "size_scale_type": "scale_y",
+          "elements": {
+            "scrollIcon": {
+              "type": "Drag",
+              "size": [10,20],
+              "size_scale_type": "scale_y",
+              "zLevel": 1,
+              "drag_focus": "scrollIcon_background",
+              "elements": {
+                "scrollIcon_background": {
+                  "type": "Rect",
+                  "size": [10,20],
+                  "size_scale_type": "scale_y",
+                  "zLevel": 1,
+                  "colors": {
+                    "topLeft":     [0,1,1,0.25],
+                    "topRight":    [1,1,0,0.5],
+                    "bottomLeft":  [1,0,1,0.5],
+                    "bottomRight": [1,1,1,0.25]
+                  }
+                }
+              }
+            },
+            "scrollbar)_background": {
+              "type": "Rect",
+              "size_scale_type": "scale_y",
+              "colors": {
+                "topLeft":     [0.3,0.3,0.3,0.5],
+                "topRight":    [0.3,0.3,0.3,0.5],
+                "bottomLeft":  [0.3,0.3,0.3,0.5],
+                "bottomRight": [0.3,0.3,0.3,0.5]
+              }
+            }
+          }
+        }
+      },
+      "scrollbar)2": {
+        "type": "ScrollBar",
+        "zLevel": 10,
+        "coordinates": [200,0],
+        "size": [200,10],
+        "size_scale_type": "scale_x",
+        "objectToScroll": "textbox",
+        "scroll_icon": "scrollIcon2",
+        "scrolling_collection": "scrollbar_a2",
+        "scrollbar_a2": {
+          "type": "Collection",
+          "size_scale_type": "scale_x",
+          "elements": {
+            "scrollIcon2": {
+              "type": "Drag",
+              "size": [20,10],
+              "size_scale_type": "scale_x",
+              "zLevel": 1,
+              "drag_focus": "scrollIcon_background2",
+              "elements": {
+                "scrollIcon_background2": {
+                  "type": "Rect",
+                  "size": [20,10],
+                  "size_scale_type": "scale_x",
+                  "zLevel": 1,
+                  "colors": {
+                    "topLeft":     [0,1,1,0.25],
+                    "topRight":    [1,1,0,0.5],
+                    "bottomLeft":  [1,0,1,0.5],
+                    "bottomRight": [1,1,1,0.25]
+                  }
+                }
+              }
+            },
+            "scrollbar)_background2": {
+              "type": "Rect",
+              "size_scale_type": "scale_x",
+              "colors": {
+                "topLeft":     [0.3,0.3,0.3,0.5],
+                "topRight":    [0.3,0.3,0.3,0.5],
+                "bottomLeft":  [0.3,0.3,0.3,0.5],
+                "bottomRight": [0.3,0.3,0.3,0.5]
+              }
+            }
+          }
+        }
       }
     }
   }
