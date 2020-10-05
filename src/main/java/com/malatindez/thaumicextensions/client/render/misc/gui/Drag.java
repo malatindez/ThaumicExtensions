@@ -16,9 +16,9 @@ public class Drag extends Collection {
      * Drag constructor
      * @param obj object which has currentlyDragged and dragEnd methods.
      *            This parameter can be null.
-     * @param currentlyDragging object method which has to have a Vector2f parameter which means current position.
+     * @param currentlyDragging object method which has to have a Vector2F parameter which means current position.
      *                         This parameter can be null.
-     * @param dragEnd object method which has to have a Vector2f parameter which means current position.
+     * @param dragEnd object method which has to have a Vector2F parameter which means current position.
      *                This parameter can be null.
     public Drag(Collection collection, Object obj, Method currentlyDragging, Method dragEnd) {
         super(collection);
