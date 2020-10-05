@@ -38,8 +38,8 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
     @Override
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);
-        clicked = getMethod(parameters, "clicked", new Class[] {Object.class, int.class});
-        hovered = getMethod(parameters, "hovered", new Class[] {Object.class, int.class});
+        clicked = getMethod(parameters, "clicked", new Class[] {DefaultGuiObject.class, int.class});
+        hovered = getMethod(parameters, "hovered", new Class[] {DefaultGuiObject.class, int.class});
 
         if(parameters.containsKey("id")) {
             id = (int)JsonToFloat(parameters.get("id"));
@@ -78,6 +78,9 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
     public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
+        }
+        if(icon == null) {
+            return null;
         }
         MethodObjectPair retValue = icon.getMethodDown(objectName, name, parameterTypes);
         if(retValue != null || hovered_icon == null) {
