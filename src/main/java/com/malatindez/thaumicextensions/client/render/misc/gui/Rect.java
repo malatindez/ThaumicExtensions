@@ -76,11 +76,6 @@ public class Rect extends DefaultGuiObject {
             this.bottomRight    = new Vector4f(bottomRight);
         }
     }
-    /*public Rect(String name, Vector2f coordinates, Vector2f scale, Vector2f size, int zLevel, VertexColors colors,
-                ResolutionRescaleType type) {
-        super(name, coordinates, scale, size, zLevel, type);
-        this.colors = colors;
-    }*/
     public Rect(String name, Object parent, JSONObject parameters) {
         super(name,parent,parameters);
     }
