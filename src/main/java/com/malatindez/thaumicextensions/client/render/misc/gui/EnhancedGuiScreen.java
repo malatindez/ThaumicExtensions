@@ -189,6 +189,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
     public static final HashMap<String, Class> parts = new HashMap<String, Class>(){{
         put("Collection", Collection.class);
         put("ContextMenuField", ContextMenuField.class);
+        put("ScrollBar", ScrollBar.class);
         put("Button", Button.class);
         put("Drag", Drag.class);
         put("Icon", IconFactory.Icon.class);
@@ -199,6 +200,9 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         put("TextInputLine", TextInputLine.class);
         // type name and class instance which will be constructed
     }};
+    public static final void addPart(Class c) {
+        parts.put(c.getSimpleName(), c);
+    }
     public static DefaultGuiObject createObject(String name, Object parent, JSONObject object) {
         if(object.containsKey("type")) {
             String type = (String)object.get("type");
