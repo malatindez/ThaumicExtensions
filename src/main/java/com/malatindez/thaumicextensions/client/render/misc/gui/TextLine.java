@@ -88,17 +88,19 @@ public class TextLine extends DefaultGuiObject {
 
     protected String lineToRender;
     void textLineWasUpdated() {
-        int maxSize = (int) (getSize().x / textScale.x);
-        lineToRender = fontRendererObj.trimStringToWidth(textLine.substring(renderCursor), maxSize);
-        if(lineToRender.length() != 0 && cutLine && !textLine.endsWith(lineToRender)) {
-            String substring = lineToRender.substring(0,lineToRender.length() - 1);
-            int threeDotsSize = fontRendererObj.getStringWidth("...");
-            while (substring.length() != 0) {
-                if (fontRendererObj.getStringWidth(substring) + threeDotsSize < maxSize) {
-                    lineToRender = substring + "...";
-                    break;
+        if(lineToRender != null) {
+            int maxSize = (int) (getSize().x / textScale.x);
+            lineToRender = fontRendererObj.trimStringToWidth(textLine.substring(renderCursor), maxSize);
+            if (lineToRender.length() != 0 && cutLine && !textLine.endsWith(lineToRender)) {
+                String substring = lineToRender.substring(0, lineToRender.length() - 1);
+                int threeDotsSize = fontRendererObj.getStringWidth("...");
+                while (substring.length() != 0) {
+                    if (fontRendererObj.getStringWidth(substring) + threeDotsSize < maxSize) {
+                        lineToRender = substring + "...";
+                        break;
+                    }
+                    substring = substring.substring(0, substring.length() - 1);
                 }
-                substring = substring.substring(0,substring.length() - 1);
             }
         }
     }
