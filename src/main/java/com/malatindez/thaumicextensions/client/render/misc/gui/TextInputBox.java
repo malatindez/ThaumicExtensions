@@ -10,7 +10,7 @@ import org.lwjgl.util.vector.Vector4f;
 import java.util.ArrayList;
 
 public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable,
-        EnhancedGuiScreen.Inputable {
+        EnhancedGuiScreen.Inputable, ScrollBar.Scrollable {
     Vector4f cursorColor;
 
     public Vector2f renderCursor = new Vector2f(0,0);
@@ -69,10 +69,11 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     }
     final ArrayList<String> lines = new ArrayList<String>();
     private final Vector2f cursorBuf = new Vector2f(0,0);
+    int longest_line = 0;
     @Override
     protected void textWasUpdated() {
         if (lines != null && (!cursorBuf.equals(renderCursor) || previousSize != getSize()  || !text.equals(previousText))) {
-            String buf = previousText = text;
+            String buf = previousText = text; longest_line = 0;
             cursorBuf.set(renderCursor);
             lines.clear();
             previousSize = getSize();
@@ -85,6 +86,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                 }
                 String b = buf.substring(0, a);
                 buf = buf.substring(a);
+                longest_line = Math.max(b.length(), longest_line);
                 lines.add(b);
             }
             int height = 0;
@@ -258,11 +260,8 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         super.render();
         Vector2f position = getCurrentPosition();
         Vector2f scale = getScale();
-        if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
+        if(selected && (Minecraft.getSystemTime() % 1000 < 500) && ((int) (cursor.y - renderCursor.y) >= 0 && (int) (cursor.y - renderCursor.y) < linesToRender.size())) {
             String str;
-            if ((int) (cursor.y - renderCursor.y) < 0 || (int) (cursor.y - renderCursor.y) >= linesToRender.size()) {
-                moveCursor(0, 0);
-            }
             str = this.linesToRender.get((int)(cursor.y - renderCursor.y));
             GL11.glPushMatrix();
             int a = (int) Math.min(Math.max(0, cursor.x - renderCursor.x), str.length());
@@ -277,6 +276,28 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             ), cursorColor, getZLevel());
             GL11.glPopMatrix();
         }
+    }
+
+    @Override
+    public void setOffsetX(float offset) {
+        renderCursor.x = offset * longest_line;
+        textWasUpdated();
+    }
+
+    @Override
+    public void setOffsetY(float offset) {
+        renderCursor.y = offset * lines.size();
+        textWasUpdated();
+    }
+
+    @Override
+    public float getScaleX() {
+        return 1;
+    }
+
+    @Override
+    public float getScaleY() {
+        return 1;
     }
 }
 
