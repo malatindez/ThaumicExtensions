@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 
 @SuppressWarnings("unchecked")
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
-    private final JSONObject startupParameters;
+    private JSONObject startupParameters;
 
     private final String name;
 
@@ -276,6 +276,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return returnValue;
     }
     public void loadFromJSONObject(JSONObject parameters) {
+        startupParameters = parameters;
         this.coordinates = new Vector2f(0, 0);
         if(parameters.containsKey("coordinates")) {
             this.coordinates.set(Json2Vec(parameters.get("coordinates")));
@@ -341,7 +342,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         this.name = name;
         this.parent = parent;
-        startupParameters = parameters;
         loadFromJSONObject(parameters);
     }
     @SuppressWarnings("rawtypes")
