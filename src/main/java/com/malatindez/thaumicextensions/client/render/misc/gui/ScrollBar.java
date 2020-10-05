@@ -23,7 +23,7 @@ public class ScrollBar extends DefaultGuiObject implements
         float getScaleY();
     }
     Vector2f prevCoordinates = new Vector2f(0, 0);
-    float scaleX, scaleY;
+    float scaleX = 1, scaleY = 1;
     @Override
     public void Update(int flags) {
         if(scrolling_collection instanceof EnhancedGuiScreen.Updatable) {
@@ -89,7 +89,10 @@ public class ScrollBar extends DefaultGuiObject implements
         if(objectName.equals(this.getName())) {
             return this;
         }
-        return scrolling_collection.getObjectDown(objectName);
+        if(scrolling_collection != null) {
+            return scrolling_collection.getObjectDown(objectName);
+        }
+        return null;
     }
 
     @Override
@@ -99,6 +102,14 @@ public class ScrollBar extends DefaultGuiObject implements
         }
     }
 
+
+    @Override
+    public void resolutionUpdated(Vector2f newResolution) {
+        super.resolutionUpdated(newResolution);
+        if(scrolling_collection != null) {
+            this.scrolling_collection.resolutionUpdated(newResolution);
+        }
+    }
     @Override
     public void postInit() {
         Object x = this.getObjectUp((String) getStartupParameters().get("objectToScroll"));
@@ -110,6 +121,10 @@ public class ScrollBar extends DefaultGuiObject implements
             System.out.println(getStartupParameters().toJSONString().replace(",","\n,"));
         }
 
+        this.scrolling_collection.postInit();
+
+        String a = (String) getStartupParameters().get("scroll_icon");
+        scroll_icon = (DefaultGuiObject) this.getObjectDown(a);
     }
 
     void scrollUp(DefaultGuiObject object, int id) {
@@ -129,13 +144,12 @@ public class ScrollBar extends DefaultGuiObject implements
         super.loadFromJSONObject(parameters);
         String name = (String) parameters.get("scrolling_collection");
         this.scrolling_collection = EnhancedGuiScreen.createObject(name, this, (JSONObject) parameters.get(name));
-
-        String a = (String) getStartupParameters().get("scroll_icon");
-        scroll_icon = (DefaultGuiObject) this.getObjectDown(a);
     }
 
     @Override
     public void render() {
-
+        if(scrolling_collection != null) {
+            scrolling_collection.render();
+        }
     }
 }
