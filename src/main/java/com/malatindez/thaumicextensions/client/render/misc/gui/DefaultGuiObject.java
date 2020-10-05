@@ -291,6 +291,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.size = new Vector2f(0, 0);
         if(parameters.containsKey("size")) {
             this.size.set(Json2Vec(parameters.get("size")));
+        } else if(parent instanceof DefaultGuiObject) {
+            this.size.set(((DefaultGuiObject) parent).getSize());
         }
         zLevel = 0;
         if(parameters.containsKey("zLevel")) {
@@ -299,7 +301,11 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(parameters.containsKey("hided")) {
             hide = (Boolean)parameters.get("hided");
         }
-        sizeRescaleType = ResolutionRescaleType.NONE;
+        if(parent instanceof DefaultGuiObject) {
+            sizeRescaleType = ((DefaultGuiObject) parent).sizeRescaleType;
+        } else {
+            sizeRescaleType = ResolutionRescaleType.NONE;
+        }
         if(parameters.containsKey("size_scale_type")) {
             String scale_type = (String)parameters.get("size_scale_type");
             if (scale_type.equals("none")) {
@@ -318,7 +324,11 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
             }
         }
-        coordinatesRescaleType = ResolutionRescaleType.NONE;
+        if(parent instanceof DefaultGuiObject) {
+            coordinatesRescaleType = ((DefaultGuiObject) parent).coordinatesRescaleType;
+        } else {
+            coordinatesRescaleType = ResolutionRescaleType.NONE;
+        }
         if(parameters.containsKey("coordinates_scale_type")) {
             String scale_type = (String)parameters.get("coordinates_scale_type");
             if (scale_type.equals("none")) {
