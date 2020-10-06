@@ -7,15 +7,9 @@ import org.lwjgl.util.vector.Vector4f;
 public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScreen.Clickable,
         EnhancedGuiScreen.Updatable,
         EnhancedGuiScreen.Inputable {
-    public DefaultGuiObject icon;
     protected MethodObjectPair rmbClicked;
     protected MethodObjectPair lmbClicked;
-
-
-    @Override
-    public void postInit() {
-        (icon).postInit();
-    }
+    public DefaultGuiObject icon;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -34,7 +28,7 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
 
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
         this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
-
+        this.addObject(this.icon);
         lmbClicked = getMethod(parameters, "lmbClicked", new Class[] {Object.class});
         rmbClicked = getMethod(parameters, "rmbClicked", new Class[] {Object.class, Vector2f.class});
 
@@ -44,52 +38,10 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         super(name, parent, parameters);
     }
 
-    @Override
-    public void render() {
-        if(!hided() && icon != null) {
-            icon.render();
-        }
-    }
-
-    @SuppressWarnings("rawtypes")
-    @Override
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName.equals(this.getName())) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        if(icon != null) {
-            return icon.getMethodDown(objectName, name, parameterTypes);
-        }
-        return null;
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        if(objectName.equals(this.getName())) {
-            return this;
-        }
-        if(icon != null) {
-            return icon.getObjectDown(objectName);
-        }
-        return null;
-    }
-
-    @Override
-    protected void VectorsWereUpdated() {
-        if(icon != null) {
-            icon.updateParentBorders(getBorders());
-        }
-    }
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
-        if(hided()) {
-            return false;
-        }
-        if(icon instanceof EnhancedGuiScreen.Clickable) {
-            return ((EnhancedGuiScreen.Clickable) icon).mouseHandler(currentMousePosition);
-        }
-        return false;
+        return mouseHandlerDescendants(currentMousePosition);
     }
 
     @Override
@@ -97,11 +49,11 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
         if(hided()) {
             return false;
         }
-        if(icon instanceof EnhancedGuiScreen.Clickable) {
-            if(((EnhancedGuiScreen.Clickable) icon).mouseClicked(currentMousePosition, button)) {
-                return true;
-            }
-            Vector4f temp = ((EnhancedGuiScreen.Clickable) icon).getBorders();
+        if(mouseClickedDescendants(currentMousePosition, button)) {
+            return true;
+        }
+        if(icon instanceof EnhancedGuiScreen.Clickable && !icon.hided()) {
+            Vector4f temp = icon.getBorders();
             if (temp.x < currentMousePosition.x &&
                     temp.z > currentMousePosition.x &&
                     temp.y < currentMousePosition.y &&
@@ -133,19 +85,11 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
 
     @Override
     public void Update(int flags) {
-        if(icon instanceof EnhancedGuiScreen.Updatable) {
-            ((EnhancedGuiScreen.Updatable) icon).Update(flags);
-        }
+        updateDescendants(flags);
     }
 
     @Override
     public boolean keyTyped(char par1, int par2) {
-        if(hided()) {
-            return false;
-        }
-        if(icon instanceof EnhancedGuiScreen.Inputable) {
-            return ((EnhancedGuiScreen.Inputable) icon).keyTyped(par1, par2);
-        }
-        return false;
+        return keyTypedDescendants(par1, par2);
     }
 }
