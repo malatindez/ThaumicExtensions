@@ -114,11 +114,6 @@ public class Drag extends Collection {
     }
 
     @Override
-    public void resolutionUpdated(Vector2f newResolution) {
-        super.resolutionUpdated(newResolution);
-
-    }
-    @Override
     public void Update(int flags) {
         /*
           If LMB not pressed -> dragging event ends
