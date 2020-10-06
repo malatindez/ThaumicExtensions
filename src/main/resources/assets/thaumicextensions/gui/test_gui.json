@@ -45,10 +45,10 @@
             "size": [200, 200],
             "size_scale_type": "scale_smooth_xy",
             "colors": {
-              "topLeft":     [0,1,1,0.3],
-              "topRight":    [0,1,1,0.3],
-              "bottomLeft":  [0,1,1,0.3],
-              "bottomRight": [0,1,1,0.3]
+              "topLeft":     [0.3,0.3,0.3,0.3],
+              "topRight":    [0.3,0.3,0.3,0.3],
+              "bottomLeft":  [0.3,0.3,0.3,0.3],
+              "bottomRight": [0.3,0.3,0.3,0.3]
             }
           },
           "top_bar": {
@@ -72,7 +72,7 @@
             "coordinates": [0,20],
             "scale": [1,1],
             "textScale": [1,1],
-            "color": [1,0.3,1,0.5],
+            "color": [1,1,1,0.5],
             "size": [200, 180],
             "size_scale_type": "scale_smooth_xy",
             "coordinates_scale_type": "scale_smooth_x",
