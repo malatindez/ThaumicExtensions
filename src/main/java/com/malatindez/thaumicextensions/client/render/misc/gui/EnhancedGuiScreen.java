@@ -74,13 +74,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         }
     }
     public interface Clickable {
-        /**
-         * This function should return the top left and the bottom right corners of an object in Vector4f.
-         * Where (x1;y1) are the coordinates of top left corner
-         * Where (x2;y2) are the coordinates of bottom right corner
-         * @return Vector4f(x1,y1,x2,y2)
-         */
-        Vector4f getBorders();
 
         /**
          * mouse handler function.
@@ -97,20 +90,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
          * Otherwise, we should work with Clickable object below this.
          */
         boolean mouseClicked(Vector2f currentMousePosition, int button);
-
-        /**
-         * Default resolution is 1024 x 768
-         * This function is called when resolution was updated.
-         * This can be used to update the coordinates and/or scale of the object
-         * @param newResolution new resolution(1920.0f, 1080.0f for example)
-         */
-        void resolutionUpdated(Vector2f newResolution);
-
-        /**
-         * Returns Z level of an object which used to handle the mouse
-         * @return Z level
-         */
-        int getZLevel();
     }
     public interface Renderable {
         /**
