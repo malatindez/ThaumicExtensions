@@ -88,7 +88,7 @@ public class TextLine extends DefaultGuiObject {
 
     protected String lineToRender;
     void textLineWasUpdated() {
-        if(lineToRender != null) {
+        if(textLine != null) {
             int maxSize = (int) (getSize().x / textScale.x);
             lineToRender = fontRendererObj.trimStringToWidth(textLine.substring(renderCursor), maxSize);
             if (lineToRender.length() != 0 && cutLine && !textLine.endsWith(lineToRender)) {
