@@ -10,7 +10,7 @@ public class ScrollBar extends DefaultGuiObject implements
         EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Clickable {
     protected Scrollable objectToScroll; // that's a reference
     protected DefaultGuiObject scroll_icon; // that's a reference
-    protected DefaultGuiObject scrolling_collection; // this is a descendant
+    protected DefaultGuiObject scrolling_collection; // this is a reference to a descendant
 
     public interface Scrollable{
         // offset ∈ [0, 1]
@@ -26,9 +26,6 @@ public class ScrollBar extends DefaultGuiObject implements
     float scaleX = 1, scaleY = 1;
     @Override
     public void Update(int flags) {
-        if(scrolling_collection instanceof EnhancedGuiScreen.Updatable) {
-            ((EnhancedGuiScreen.Updatable) scrolling_collection).Update(flags);
-        }
         if(objectToScroll == null) {
             return;
         }
@@ -52,64 +49,23 @@ public class ScrollBar extends DefaultGuiObject implements
             scroll_icon.reScale(1, objectToScroll.getScaleY() / scaleY);
             scaleY = objectToScroll.getScaleY();
         }
+        super.updateDescendants(flags);
     }
 
     @Override
     public boolean mouseHandler(Vector2f currentMousePosition) {
-        if(scrolling_collection instanceof EnhancedGuiScreen.Clickable)
-            return ((EnhancedGuiScreen.Clickable) scrolling_collection).mouseHandler(currentMousePosition);
-        return false;
+        return super.mouseHandlerDescendants(currentMousePosition);
     }
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(scrolling_collection instanceof EnhancedGuiScreen.Clickable)
-            return ((EnhancedGuiScreen.Clickable) scrolling_collection).mouseClicked(currentMousePosition, button);
-        return false;
+        return super.mouseClickedDescendants(currentMousePosition, button);
     }
 
     public ScrollBar(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName.equals(this.getName())) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        if(scrolling_collection == null) {
-            return null;
-        }
-        return scrolling_collection.getMethodDown(objectName, name, parameterTypes);
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        if(objectName.equals(this.getName())) {
-            return this;
-        }
-        if(scrolling_collection != null) {
-            return scrolling_collection.getObjectDown(objectName);
-        }
-        return null;
-    }
-
-    @Override
-    protected void VectorsWereUpdated() {
-        if(scrolling_collection != null) {
-            scrolling_collection.updateParentBorders(getBorders());
-        }
-    }
-
-
-    @Override
-    public void resolutionUpdated(Vector2f newResolution) {
-        super.resolutionUpdated(newResolution);
-        if(scrolling_collection != null) {
-            this.scrolling_collection.resolutionUpdated(newResolution);
-        }
-    }
     @Override
     public void postInit() {
         Object x = this.getObjectUp((String) getStartupParameters().get("objectToScroll"));
@@ -121,10 +77,10 @@ public class ScrollBar extends DefaultGuiObject implements
             System.out.println(getStartupParameters().toJSONString().replace(",","\n,"));
         }
 
-        this.scrolling_collection.postInit();
-
         String a = (String) getStartupParameters().get("scroll_icon");
         scroll_icon = (DefaultGuiObject) this.getObjectDown(a);
+
+        super.postInit();
     }
 
     void scrollUp(DefaultGuiObject object, int id) {
@@ -144,12 +100,6 @@ public class ScrollBar extends DefaultGuiObject implements
         super.loadFromJSONObject(parameters);
         String name = (String) parameters.get("scrolling_collection");
         this.scrolling_collection = EnhancedGuiScreen.createObject(name, this, (JSONObject) parameters.get(name));
-    }
-
-    @Override
-    public void render() {
-        if(scrolling_collection != null) {
-            scrolling_collection.render();
-        }
+        this.addObject(scrolling_collection);
     }
 }
