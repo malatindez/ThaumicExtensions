@@ -48,6 +48,7 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         try {
             JSONObject hovered_icon = (JSONObject) parameters.get(parameters.get("hovered_icon"));
             this.hovered_icon = EnhancedGuiScreen.createObject((String) parameters.get("hovered_icon"), this, hovered_icon);
+            this.hovered_icon.hide();
             this.descendants.add(this.hovered_icon);
         } catch (Exception ignored) { }
 
@@ -60,9 +61,9 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
 
     boolean isHovered = false;
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
+    public void mouseHandler(Vector2f currentMousePosition) {
         if(hided()) {
-            return false;
+            return;
         }
         Vector4f temp = getBorders();
         if(
@@ -79,14 +80,14 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
                 icon.hide();
                 hovered_icon.show();
             }
-            return true;
+            return;
         }
         isHovered = false;
-        if(this.hovered_icon != null) {
+        if(this.hovered_icon != null && (icon.hided() || !hovered_icon.hided())) {
             icon.show();
             hovered_icon.hide();
         }
-        return false;
+        return;
     }
 
     @Override
