@@ -65,7 +65,10 @@ public class TextLine extends DefaultGuiObject {
     public String getTextLine() {
         return textLine;
     }
-
+    public void setRenderCursor(int renderCursor) {
+        this.renderCursor = Math.min(textLine.length(), renderCursor);
+        textLineWasUpdated();
+    }
     protected String lineToRender;
     void textLineWasUpdated() {
         if(textLine != null) {
