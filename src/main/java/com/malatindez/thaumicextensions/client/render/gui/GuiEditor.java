@@ -1,57 +1,14 @@
 package com.malatindez.thaumicextensions.client.render.gui;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
-import com.malatindez.thaumicextensions.client.render.misc.gui.Collection;
-import com.malatindez.thaumicextensions.client.render.misc.gui.ContextMenuField;
-import com.malatindez.thaumicextensions.client.render.misc.gui.DefaultGuiObject;
-import com.malatindez.thaumicextensions.client.render.misc.gui.EnhancedGuiScreen;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiBrowser;
+import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
-class GuiBrowser extends DefaultGuiObject implements EnhancedGuiScreen.Clickable {
-
-    public GuiBrowser(String name, Object parent, JSONObject parameters) {
-        super(name, parent, parameters);
-    }
-
-    @Override
-    public DefaultGuiObject.MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        return null;
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        return null;
-    }
-
-    @Override
-    public void postInit() {
-
-    }
-
-    @Override
-    protected void VectorsWereUpdated() {
-
-    }
-
-    @Override
-    public void render() {
-
-    }
-
-    @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        return false;
-    }
-}
 
 public class GuiEditor extends EnhancedGuiScreen {
     public void initGui() {}
@@ -78,7 +35,9 @@ public class GuiEditor extends EnhancedGuiScreen {
     }
     static Collection collection = null;
     public GuiEditor() {
+
         //if(collection == null) {
+            EnhancedGuiScreen.addPart(GuiBrowser.class);
             collection = EnhancedGuiScreen.loadFromFile(this,
                     new ResourceLocation(ThaumicExtensions.MODID, "gui/gui_editor.json"));
         //}
