@@ -54,8 +54,8 @@ public class ScrollBar extends DefaultGuiObject implements
     }
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return super.mouseHandlerDescendants(currentMousePosition);
+    public void mouseHandler(Vector2f currentMousePosition) {
+        super.mouseHandlerDescendants(currentMousePosition);
     }
 
     @Override

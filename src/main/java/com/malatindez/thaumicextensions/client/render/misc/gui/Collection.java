@@ -50,8 +50,8 @@ public class Collection extends DefaultGuiObject implements
     @SuppressWarnings("rawtypes")
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return mouseHandlerDescendants(currentMousePosition);
+    public void mouseHandler(Vector2f currentMousePosition) {
+        mouseHandlerDescendants(currentMousePosition);
     }
 
     @Override

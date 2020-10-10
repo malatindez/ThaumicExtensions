@@ -40,8 +40,8 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
 
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return mouseHandlerDescendants(currentMousePosition);
+    public void mouseHandler(Vector2f currentMousePosition) {
+        mouseHandlerDescendants(currentMousePosition);
     }
 
     @Override

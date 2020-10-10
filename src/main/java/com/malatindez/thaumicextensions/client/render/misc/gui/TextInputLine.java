@@ -39,8 +39,8 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
     }
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return false;
+    public void mouseHandler(Vector2f currentMousePosition) {
+
     }
 
     @Override
@@ -158,12 +158,12 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
         if(selected && (Minecraft.getSystemTime() % 1000 < 500)) {
             GL11.glPushMatrix();
             int a = Math.min(Math.max(0, cursor - renderCursor), lineToRender.length());
-            float xCoord = this.fontRendererObj.getStringWidth(lineToRender.substring(0, a)) * scale.x - 0.25f;
+            float xCoord = this.fontRendererObj.getStringWidth(lineToRender.substring(0, a)) * textScale.x - 0.25f;
             Rect.renderSolidRect(new Vector4f(
                     position.x + xCoord,
                     position.y,
                     position.x + xCoord + 0.75f,
-                    position.y + fontRendererObj.FONT_HEIGHT * scale.y
+                    position.y + fontRendererObj.FONT_HEIGHT * textScale.y
             ), cursorColor, getZLevel());
             GL11.glPopMatrix();
         }

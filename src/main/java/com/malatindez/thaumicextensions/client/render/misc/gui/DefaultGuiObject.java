@@ -99,9 +99,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         for(DefaultGuiObject object : descendants) {
             if (object instanceof EnhancedGuiScreen.Clickable) {
-                if(((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition)) {
-                    return true;
-                }
+                ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition);
             }
         }
         return false;

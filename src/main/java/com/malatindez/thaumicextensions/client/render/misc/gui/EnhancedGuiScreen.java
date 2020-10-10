@@ -81,7 +81,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
          * @return boolean, if true that means that mouse was handled
          * Otherwise, we should work with Clickable object below this.
          */
-        boolean mouseHandler(Vector2f currentMousePosition);
+        void mouseHandler(Vector2f currentMousePosition);
 
         /**
          * mouse click handler function.

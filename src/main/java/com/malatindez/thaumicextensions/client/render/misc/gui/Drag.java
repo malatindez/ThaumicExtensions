@@ -92,9 +92,9 @@ public class Drag extends Collection {
     }
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
+    public void mouseHandler(Vector2f currentMousePosition) {
         if(hided()) {
-            return false;
+            return;
         }
         if(currently_dragging) {
             if (previousMousePos == null) {
@@ -110,7 +110,7 @@ public class Drag extends Collection {
             }
             CurrentlyDragging();
         }
-        return super.mouseHandler(currentMousePosition);
+        super.mouseHandler(currentMousePosition);
     }
 
     @Override

@@ -40,8 +40,8 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     }
 
     @Override
-    public boolean mouseHandler(Vector2f currentMousePosition) {
-        return false;
+    public void mouseHandler(Vector2f currentMousePosition) {
+
     }
 
     @Override
@@ -290,14 +290,5 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         textWasUpdated();
     }
 
-    @Override
-    public float getScaleX() {
-        return 1;
-    }
-
-    @Override
-    public float getScaleY() {
-        return 1;
-    }
 }
 
