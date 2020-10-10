@@ -43,6 +43,7 @@ public class Collection extends DefaultGuiObject implements
             }
         }
     }
+
     public Collection(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
