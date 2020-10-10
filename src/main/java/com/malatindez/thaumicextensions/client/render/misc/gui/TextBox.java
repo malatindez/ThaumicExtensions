@@ -17,11 +17,6 @@ public class TextBox extends DefaultGuiObject {
     public boolean dropShadow;
 
 
-    @Override
-    public void postInit() {
-
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
@@ -149,30 +144,8 @@ public class TextBox extends DefaultGuiObject {
         }
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName.equals(this.getName())) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        return null;
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        if(objectName.equals(this.getName())) {
-            return this;
-        }
-        return null;
-    }
-
     @Override
     protected void VectorsWereUpdated() {
         textWasUpdated();
-    }
-
-    @Override
-    public int getZLevel() {
-        return 0;
     }
 }
