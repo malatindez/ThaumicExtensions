@@ -12,33 +12,6 @@ public class Rect extends DefaultGuiObject {
 
     public VertexColors colors;
 
-    @Override
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(this.getName().equals(objectName)) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        return null;
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        if(this.getName().equals(objectName)) {
-            return this;
-        }
-        return null;
-    }
-
-    @Override
-    protected void VectorsWereUpdated() {
-
-    }
-
-
-    @Override
-    public void postInit() {
-
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
