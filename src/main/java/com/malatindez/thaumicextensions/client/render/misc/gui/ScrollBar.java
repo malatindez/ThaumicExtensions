@@ -9,7 +9,7 @@ import scala.util.hashing.Hashing;
 public class ScrollBar extends DefaultGuiObject implements
         EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Clickable {
     protected Scrollable objectToScroll; // that's a reference
-    protected DefaultGuiObject scroll_icon; // that's a reference
+    protected Drag scroll_icon; // that's a reference to a Drag object
     protected DefaultGuiObject scrolling_collection; // this is a reference to a descendant
 
     public interface Scrollable{
@@ -17,10 +17,6 @@ public class ScrollBar extends DefaultGuiObject implements
         void setOffsetX(float offset);
         // offset ∈ [0, 1]
         void setOffsetY(float offset);
-        // scale of bar which belongs to range (0, 1]
-        // and means size of bar
-        float getScaleX();
-        float getScaleY();
     }
 
     Vector2f prevCoordinates = new Vector2f(0, 0);
@@ -28,6 +24,7 @@ public class ScrollBar extends DefaultGuiObject implements
     @Override
     public void Update(int flags) {
         if(objectToScroll == null) {
+            super.updateDescendants(flags);
             return;
         }
         Vector2f a = scroll_icon.getCoordinates();
@@ -41,14 +38,6 @@ public class ScrollBar extends DefaultGuiObject implements
                 objectToScroll.setOffsetY(a.y / (b.w - b.y));
             }
             prevCoordinates = a;
-        }
-        if(objectToScroll.getScaleX() != scaleX) {
-            scroll_icon.reScale(objectToScroll.getScaleX() / scaleX, 1);
-            scaleX = objectToScroll.getScaleX();
-        }
-        if(objectToScroll.getScaleY() != scaleY) {
-            scroll_icon.reScale(1, objectToScroll.getScaleY() / scaleY);
-            scaleY = objectToScroll.getScaleY();
         }
         super.updateDescendants(flags);
     }
@@ -79,7 +68,7 @@ public class ScrollBar extends DefaultGuiObject implements
         }
 
         String a = (String) getStartupParameters().get("scroll_icon");
-        scroll_icon = (DefaultGuiObject) this.getObjectDown(a);
+        scroll_icon = (Drag) this.getObjectDown(a);
 
         super.postInit();
     }
