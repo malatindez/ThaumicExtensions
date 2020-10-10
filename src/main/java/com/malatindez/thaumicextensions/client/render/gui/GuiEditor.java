@@ -9,6 +9,8 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
+import java.util.HashMap;
+
 
 public class GuiEditor extends EnhancedGuiScreen {
     public void initGui() {}
@@ -28,6 +30,23 @@ public class GuiEditor extends EnhancedGuiScreen {
                 super.keyTyped(par1, par2);
             }
         }
+    }
+    public static final HashMap<String, Class> editor_parts = new HashMap<String, Class>(){{
+        put("Collection", Collection.class);
+        put("ContextMenuField", ContextMenuField.class);
+        put("ScrollBar", ScrollBar.class);
+        put("Button", Button.class);
+        put("Drag", Drag.class);
+        put("Icon", IconFactory.Icon.class);
+        put("Rect", Rect.class);
+        put("TextBox", TextBox.class);
+        put("TextLine", TextLine.class);
+        put("TextInputBox", TextInputBox.class);
+        put("TextInputLine", TextInputLine.class);
+        // type name and class instance which will be constructed
+    }};
+    public static final void addEditorPart(Class c) {
+        parts.put(c.getSimpleName(), c);
     }
 
     public void onGuiClosed() {
