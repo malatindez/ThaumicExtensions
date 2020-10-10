@@ -15,7 +15,7 @@ import java.util.Comparator;
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
     private JSONObject startupParameters;
 
-    private final String name;
+    private String name;
 
     private Object parent;
 
@@ -36,6 +36,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
     protected ArrayList<DefaultGuiObject> descendants;
 
+    public ArrayList<DefaultGuiObject> getDescendants() {
+        return descendants;
+    }
+
     private class ObjectComparator implements Comparator<DefaultGuiObject> {
         @Override
         public int compare(DefaultGuiObject x, DefaultGuiObject y) {
@@ -50,6 +54,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
     private ObjectComparator objectComparator;
 
+    // Used to change name while editing gui
+    protected void setName(String name) {
+        this.name = name;
+    }
     protected void sortObjects() {
         Collections.sort(descendants, objectComparator);
         Collections.reverse(descendants);
