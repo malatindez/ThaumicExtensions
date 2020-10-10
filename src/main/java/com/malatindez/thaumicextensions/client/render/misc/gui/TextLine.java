@@ -18,10 +18,6 @@ public class TextLine extends DefaultGuiObject {
     protected boolean cutLine = true;
     Minecraft mc;
 
-    @Override
-    public void postInit() {
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
@@ -61,22 +57,6 @@ public class TextLine extends DefaultGuiObject {
         super(name, parent, parameters);
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName.equals(this.getName())) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        return null;
-    }
-
-    @Override
-    public Object getObjectDown(String objectName) {
-        if(objectName.equals(this.getName())) {
-            return this;
-        }
-        return null;
-    }
 
     public void setTextLine(String line) {
         this.textLine = line;
