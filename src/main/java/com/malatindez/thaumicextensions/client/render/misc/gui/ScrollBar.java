@@ -22,6 +22,7 @@ public class ScrollBar extends DefaultGuiObject implements
         float getScaleX();
         float getScaleY();
     }
+
     Vector2f prevCoordinates = new Vector2f(0, 0);
     float scaleX = 1, scaleY = 1;
     @Override
