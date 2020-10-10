@@ -2,26 +2,145 @@
   "gui_editor": {
     "type": "Collection",
     "size": [427, 240],
-    "scale_type": "scale_xy",
+    "size_scale_type": "scale_xy",
     "elements": {
       "right_wing": {
         "type": "Collection",
-        "size": [87, 240],
-        "scale_type": "scale_y",
+        "size": [77, 240],
+        "coordinates": [350,0],
+        "size_scale_type": "scale_xy",
+        "coordinates_scale_type": "scale_xy",
         "elements": {
+          "gui_editor_browser": {
+            "type": "GuiBrowser",
+            "size": [77, 160],
+            "size_scale_type": "scale_xy",
+            "elements": {
+              "gui_editor_browser_background": {
+                "type": "Rect",
+                "size": [77,150],
+                "zLevel": -1,
+                "colors": {
+                  "topLeft":     [0.3,0.3,0.3,0.5],
+                  "topRight":    [0.3,0.3,0.3,0.5],
+                  "bottomLeft":  [0.3,0.3,0.3,0.5],
+                  "bottomRight": [0.3,0.3,0.3,0.5]
+                }
+              },
+              "gui_editor_browser_scrollbar_x": {
+                "type": "ScrollBar",
+                "zLevel": 1,
+                "coordinates": [0,150],
+                "coordinates_scale_type": "scale_xy",
+                "size": [67, 10],
+                "size_scale_type": "scale_x",
+                "objectToScroll": "gui_editor_browser",
+                "scroll_icon": "gui_editor_browser_scrollbarXIcon",
+                "scrolling_collection": "gui_editor_browser_scrollbar_x_col",
+                "gui_editor_browser_scrollbar_x_col": {
+                  "type": "Collection",
+                  "size_scale_type": "scale_x",
+                  "elements": {
+                    "gui_editor_browser_scrollbarXIcon": {
+                      "type": "Drag",
+                      "size_scale_type": "scale_x",
+                      "zLevel": 1,
+                      "size": [17, 10],
+                      "drag_focus": "gui_editor_browser_scrollXIcon_background",
+                      "elements": {
+                        "gui_editor_browser_scrollXIcon_background": {
+                          "type": "Rect",
+                          "size_scale_type": "scale_x",
+                          "zLevel": 1,
+                          "colors": {
+                            "topLeft":     [0.7,0.7,0.7,1],
+                            "topRight":    [0.7,0.7,0.7,1],
+                            "bottomLeft":  [0.7,0.7,0.7,1],
+                            "bottomRight": [0.7,0.7,0.7,1]
+                          }
+                        }
+                      }
+                    },
+                    "gui_editor_browser_scrollbarX_background": {
+                      "type": "Rect",
+                      "size_scale_type": "scale_x",
+                      "colors": {
+                        "topLeft":     [0.3,0.3,0.3,1],
+                        "topRight":    [0.3,0.3,0.3,1],
+                        "bottomLeft":  [0.3,0.3,0.3,1],
+                        "bottomRight": [0.3,0.3,0.3,1]
+                      }
+                    }
+                  }
+                }
+              },
+              "gui_editor_browser_scrollbar_y": {
+                "type": "ScrollBar",
+                "zLevel": 1,
+                "coordinates": [67,0],
+                "size": [10, 150],
+                "size_scale_type": "scale_y",
+                "coordinates_scale_type": "scale_xy",
+                "objectToScroll": "gui_editor_browser",
+                "scroll_icon": "gui_editor_browser_scrollbarYIcon",
+                "scrolling_collection": "gui_editor_browser_scrollbar_y_col",
+                "gui_editor_browser_scrollbar_y_col": {
+                  "type": "Collection",
+                  "size_scale_type": "scale_y",
+                  "elements": {
+                    "gui_editor_browser_scrollbarYIcon": {
+                      "type": "Drag",
+                      "size_scale_type": "scale_y",
+                      "zLevel": 1,
+                      "size": [10, 25],
+                      "drag_focus": "gui_editor_browser_scrollYIcon_background",
+                      "elements": {
+                        "gui_editor_browser_scrollYIcon_background": {
+                          "type": "Rect",
+                          "size_scale_type": "scale_y",
+                          "zLevel": 1,
+                          "colors": {
+                            "topLeft":     [0.7,0.7,0.7,1],
+                            "topRight":    [0.7,0.7,0.7,1],
+                            "bottomLeft":  [0.7,0.7,0.7,1],
+                            "bottomRight": [0.7,0.7,0.7,1]
+                          }
+                        }
+                      }
+                    },
+                    "gui_editor_browser_scrollbarY_background": {
+                      "type": "Rect",
+                      "size_scale_type": "scale_y",
+                      "colors": {
+                        "topLeft":     [0.3,0.3,0.3,1],
+                        "topRight":    [0.3,0.3,0.3,1],
+                        "bottomLeft":  [0.3,0.3,0.3,1],
+                        "bottomRight": [0.3,0.3,0.3,1]
+                      }
+                    }
+                  }
+                }
+              },
+              "gui_editor_browser_elements": {
+                "type": "Collection",
+                "size": [77, 100000],
+                "elements": {
 
+                }
+              }
+            }
+          }
         }
       },
       "gui": {
         "type": "Collection",
         "size": [350,240],
-        "scale_type": "scale_xy",
+        "size_scale_type": "scale_xy",
         "elements": {
-          "background": {
+          "gui_background": {
             "type": "Rect",
             "zLevel": -1,
             "size": [350,240],
-            "scale_type": "scale_xy",
             "colors": {
               "topLeft":     [0.7,0.7,0.7,0.5],
               "topRight":    [0.7,0.7,0.7,0.5],
@@ -32,7 +151,6 @@
           "mouseHandlingRect": {
             "zLevel": 1,
             "type": "ContextMenuField",
-            "scale_type": "scale_xy",
             "icon": "context_menu",
             "lmbClicked": {
               "object_name": "none",
@@ -45,13 +163,11 @@
             "context_menu": {
               "type": "Collection",
               "size": [61,80],
-              "scale_type": "scale_xy",
               "hided": true,
               "elements": {
                 "context_menu_background": {
                   "type": "Rect",
                   "size": [61,80],
-                  "scale_type": "scale_xy",
                   "colors": {
                     "topLeft":     [0.3,0.3,0.3,0.5],
                     "topRight":    [0.3,0.3,0.3,0.5],
@@ -59,7 +175,7 @@
                     "bottomRight": [0.3,0.3,0.3,0.5]
                   }
                 },
-                "textLine": {
+                "textInputLine": {
                   "type": "TextInputLine",
                   "text": "Lorem",
                   "color": [1,1,1,0.3],
@@ -68,15 +184,228 @@
                   "size": [61,10],
                   "zLevel":10,
                   "scale": [1,1],
-                  "scale_type": "scale_x"
+                  "size_scale_type": "scale_x"
                 }
               }
             }
           },
           "new_gui": {
             "type": "Collection",
+            "size": [350, 240],
+            "scale": [1, 1],
+            "coordinates": [0, 0],
+            "size_scale_type": "scale_xy",
             "elements": {
-
+              "main_background": {
+                "type": "Rect",
+                "zLevel": -1,
+                "coordinates": [0,0],
+                "scale": [1, 1],
+                "size_scale_type": "scale_xy",
+                "colors": {
+                  "topLeft": [1,1,1,0.6],
+                  "topRight": [1,1,1,0.6],
+                  "bottomLeft": [1,1,1,0.6],
+                  "bottomRight": [1,1,1,0.6]
+                }
+              },
+              "draggable_window": {
+                "type": "Drag",
+                "coordinates": [0,0],
+                "scale": [1,1],
+                "size": [200, 200],
+                "size_scale_type": "scale_smooth_xy",
+                "drag_focus": "top_bar",
+                "zLevel": 0,
+                "currently_dragging": {
+                  "object_name": "none",
+                  "method_name": "currently_dragging"
+                },
+                "dragging_end": {
+                  "object_name": "none",
+                  "method_name": "dragging_end"
+                },
+                "elements": {
+                  "draggable_window_background": {
+                    "type": "Rect",
+                    "zLevel": -1,
+                    "coordinates": [0,0],
+                    "scale": [1, 1],
+                    "size": [200, 200],
+                    "size_scale_type": "scale_smooth_xy",
+                    "colors": {
+                      "topLeft":     [0.3,0.3,0.3,0.3],
+                      "topRight":    [0.3,0.3,0.3,0.3],
+                      "bottomLeft":  [0.3,0.3,0.3,0.3],
+                      "bottomRight": [0.3,0.3,0.3,0.3]
+                    }
+                  },
+                  "top_bar": {
+                    "type": "Rect",
+                    "zLevel": 0,
+                    "coordinates": [0,0],
+                    "scale": [1, 1],
+                    "size": [200, 20],
+                    "size_scale_type": "scale_smooth_x",
+                    "colors": {
+                      "topLeft":     [0,0,0,0.5],
+                      "topRight":    [0,0,0,0.25],
+                      "bottomLeft":  [0,0,0,0.25],
+                      "bottomRight": [1,1,1,0.0]
+                    }
+                  },
+                  "text_box": {
+                    "type": "TextInputBox",
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus.\n Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo,\n eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis.\n Morbi elementum maximus nulla, venenatis tincidunt eros semper quis.\n Aenean consectetur in neque mollis maximus.\n Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan.\n In sollicitudin risus ac nisl porta, quis interdum libero convallis.\nPhasellus posuere ornare mauris nec congue.\nNam accumsan porta odio, id molestie felis tempus eu.\nPhasellus vitae erat vel dolor ullamcorper porttitor.\nCurabitur tincidunt viverra purus, eget vulputate eros egestas vitae.\nFusce varius blandit velit, ut lobortis elit tincidunt nec.",
+                    "zLevel": 1,
+                    "coordinates": [0,20],
+                    "scale": [1,1],
+                    "textScale": [1,1],
+                    "color": [1,1,1,0.5],
+                    "size": [200, 180],
+                    "size_scale_type": "scale_smooth_xy",
+                    "coordinates_scale_type": "scale_smooth_x",
+                    "dropShadow": true
+                  },
+                  "text_line": {
+                    "type": "TextLine",
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "color": [0.3,1,1,0.3],
+                    "dropShadow": true,
+                    "coordinates": [75,75],
+                    "zLevel":2,
+                    "scale": [1,1],
+                    "size_scale_type": "none"
+                  },
+                  "button": {
+                    "type": "Button",
+                    "coordinates": [100, 100],
+                    "clicked": {
+                      "object_name": "none",
+                      "method_name": "defaultResearchClicked"
+                    },
+                    "id": 0,
+                    "zLevel": 10,
+                    "size_scale_type": "none",
+                    "icon": "button_icon",
+                    "hovered_icon": "button_hovered_icon",
+                    "button_icon": {
+                      "type": "Icon",
+                      "coordinates": [0,0],
+                      "scale": [1,1],
+                      "mapping_resource_domain": "thaumicextensions",
+                      "mapping_resource_path": "texture_mappings/gui_research.json",
+                      "mapping_icon_name": "defaultResearch",
+                      "zLevel": 0,
+                      "size_scale_type": "none"
+                    },
+                    "button_hovered_icon": {
+                      "type": "Icon",
+                      "coordinates": [0,0],
+                      "scale": [1,1],
+                      "mapping_resource_domain": "thaumicextensions",
+                      "mapping_resource_path": "texture_mappings/gui_research.json",
+                      "mapping_icon_name": "hiddenResearch",
+                      "zLevel": 0,
+                      "size_scale_type": "none"
+                    }
+                  }
+                }
+              },
+              "scrollbar_y": {
+                "type": "ScrollBar",
+                "zLevel": 10,
+                "coordinates": [0,200],
+                "size": [10,200],
+                "size_scale_type": "scale_y",
+                "objectToScroll": "text_box",
+                "scroll_icon": "scrollbarYIcon",
+                "scrolling_collection": "scrollbar_y_col",
+                "scrollbar_y_col": {
+                  "type": "Collection",
+                  "size_scale_type": "scale_y",
+                  "elements": {
+                    "scrollbarYIcon": {
+                      "type": "Drag",
+                      "size": [10,20],
+                      "size_scale_type": "scale_y",
+                      "zLevel": 1,
+                      "drag_focus": "scrollYIcon_background",
+                      "elements": {
+                        "scrollYIcon_background": {
+                          "type": "Rect",
+                          "size": [10,20],
+                          "size_scale_type": "scale_y",
+                          "zLevel": 1,
+                          "colors": {
+                            "topLeft":     [0,1,1,0.25],
+                            "topRight":    [1,1,0,0.5],
+                            "bottomLeft":  [1,0,1,0.5],
+                            "bottomRight": [1,1,1,0.25]
+                          }
+                        }
+                      }
+                    },
+                    "scrollbarY_background": {
+                      "type": "Rect",
+                      "size_scale_type": "scale_y",
+                      "colors": {
+                        "topLeft":     [0.3,0.3,0.3,0.5],
+                        "topRight":    [0.3,0.3,0.3,0.5],
+                        "bottomLeft":  [0.3,0.3,0.3,0.5],
+                        "bottomRight": [0.3,0.3,0.3,0.5]
+                      }
+                    }
+                  }
+                }
+              },
+              "scrollbarX": {
+                "type": "ScrollBar",
+                "zLevel": 10,
+                "coordinates": [200,0],
+                "size": [200,10],
+                "size_scale_type": "scale_x",
+                "objectToScroll": "text_box",
+                "scroll_icon": "scrollbarXIcon",
+                "scrolling_collection": "scrollbar_x_col",
+                "scrollbar_x_col": {
+                  "type": "Collection",
+                  "size_scale_type": "scale_x",
+                  "elements": {
+                    "scrollbarXIcon": {
+                      "type": "Drag",
+                      "size": [20,10],
+                      "size_scale_type": "scale_x",
+                      "zLevel": 1,
+                      "drag_focus": "scrollXIcon_background",
+                      "elements": {
+                        "scrollXIcon_background": {
+                          "type": "Rect",
+                          "size": [20,10],
+                          "size_scale_type": "scale_x",
+                          "zLevel": 1,
+                          "colors": {
+                            "topLeft":     [0,1,1,0.25],
+                            "topRight":    [1,1,0,0.5],
+                            "bottomLeft":  [1,0,1,0.5],
+                            "bottomRight": [1,1,1,0.25]
+                          }
+                        }
+                      }
+                    },
+                    "scrollbarX_background": {
+                      "type": "Rect",
+                      "size_scale_type": "scale_x",
+                      "colors": {
+                        "topLeft":     [0.3,0.3,0.3,0.5],
+                        "topRight":    [0.3,0.3,0.3,0.5],
+                        "bottomLeft":  [0.3,0.3,0.3,0.5],
+                        "bottomRight": [0.3,0.3,0.3,0.5]
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
