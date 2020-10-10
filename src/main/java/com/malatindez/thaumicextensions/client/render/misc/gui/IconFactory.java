@@ -49,12 +49,6 @@ public class IconFactory {
     public static class Icon extends DefaultGuiObject {
         protected IconSample sample;
 
-
-        @Override
-        public void postInit() {
-
-        }
-
         @SuppressWarnings("unchecked")
         @Override
         public JSONObject generateJSONObject() {
@@ -82,22 +76,7 @@ public class IconFactory {
         public Icon(String name, Object parent, JSONObject parameters) {
             super(name,parent,parameters);
         }
-        @SuppressWarnings("rawtypes")
-        @Override
-        public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-            if(objectName.equals(this.getName())) {
-                getMethodFunc(objectName, name, parameterTypes);
-            }
-            return null;
-        }
 
-        @Override
-        public Object getObjectDown(String objectName) {
-            if(objectName.equals(this.getName())) {
-                return this;
-            }
-            return null;
-        }
         /**
          * Render an icon on default coordinates
          */
@@ -109,11 +88,6 @@ public class IconFactory {
             UtilsFX.bindTexture(sample.texture);
             UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
                     sample.texFrom, sample.texTo, getScale(), sample.textureSize, getZLevel());
-        }
-
-        @Override
-        protected void VectorsWereUpdated() {
-
         }
     }
     protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();
