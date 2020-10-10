@@ -12,7 +12,6 @@
 
         }
       },
-
       "gui": {
         "type": "Collection",
         "size": [350,240],
@@ -20,6 +19,7 @@
         "elements": {
           "background": {
             "type": "Rect",
+            "zLevel": -1,
             "size": [350,240],
             "scale_type": "scale_xy",
             "colors": {
@@ -30,8 +30,8 @@
             }
           },
           "mouseHandlingRect": {
+            "zLevel": 1,
             "type": "ContextMenuField",
-            "size": [350,240],
             "scale_type": "scale_xy",
             "icon": "context_menu",
             "lmbClicked": {
@@ -71,6 +71,12 @@
                   "scale_type": "scale_x"
                 }
               }
+            }
+          },
+          "new_gui": {
+            "type": "Collection",
+            "elements": {
+
             }
           }
         }
