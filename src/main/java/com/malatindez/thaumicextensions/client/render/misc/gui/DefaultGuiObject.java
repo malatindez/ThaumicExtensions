@@ -13,6 +13,44 @@ import java.util.Comparator;
 
 @SuppressWarnings("unchecked")
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
+    public static class MethodObjectPair {
+        public final Method method;
+        public final Object object;
+        public MethodObjectPair(Object object, Method method) {
+            this.method = method;
+            this.object = object;
+        }
+    }
+
+    enum ResolutionRescaleType {
+        NONE("none"),
+        SCALE_X("scale_x"),
+        SCALE_Y("scale_y"),
+        SCALE_SMOOTH_X("scale_smooth_x"),
+        SCALE_SMOOTH_Y("scale_smooth_y"),
+        SCALE_XY("scale_xy"),
+        SCALE_SMOOTH_XY("scale_smooth_xy");
+        private final String a;
+        public String toString() {
+            return a;
+        }
+        ResolutionRescaleType(String a) {
+            this.a = a;
+        }
+    }
+
+    private class ObjectComparator implements Comparator<DefaultGuiObject> {
+        @Override
+        public int compare(DefaultGuiObject x, DefaultGuiObject y) {
+            if(x == null) {
+                return -1;
+            } else if (y == null) {
+                return 1;
+            }
+            return x.getZLevel() - y.getZLevel();
+        }
+    }
+
     private JSONObject startupParameters;
 
     private String name;
@@ -32,6 +70,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private final Vector4f parentBorders = new Vector4f(0,0,0,0);
     private final Vector2f currentObjectPosition = new Vector2f(0,0);
 
+    private ResolutionRescaleType sizeRescaleType;
+    private ResolutionRescaleType coordinatesRescaleType;
+
     private boolean hide = false;
 
     protected ArrayList<DefaultGuiObject> descendants;
@@ -40,24 +81,95 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return descendants;
     }
 
-    private class ObjectComparator implements Comparator<DefaultGuiObject> {
-        @Override
-        public int compare(DefaultGuiObject x, DefaultGuiObject y) {
-            if(x == null) {
-                return -1;
-            } else if (y == null) {
-                return 1;
-            }
-            return x.getZLevel() - y.getZLevel();
-        }
-    }
-
     private ObjectComparator objectComparator;
 
-    // Used to change name while editing gui
+
+    public boolean hided() {
+        return hide;
+    }
+    public Object getParent() {
+        return parent;
+    }
+    public Vector2f getCoordinates() {
+        return new Vector2f(coordinates);
+    }
+    public Vector2f getScale() {
+        return new Vector2f(scale);
+    }
+    public Vector2f getSize() {
+        return new Vector2f(size);
+    }
+    public Vector2f getParentCoordinates() {
+        return new Vector2f(parentCoordinates);
+    }
+    public Vector4f getParentBorders() {
+        return new Vector4f(parentBorders);
+    }
+    public String getName() {
+        return name;
+    }
+    public Vector4f getBorders() {
+        return new Vector4f(borders);
+    }
+    public Vector2f getCurrentPosition() {
+        return new Vector2f(currentObjectPosition);
+    }
+    public ResolutionRescaleType getSizeRescaleType() {
+        return sizeRescaleType;
+    }
+    public ResolutionRescaleType getCoordinatesRescaleType() {
+        return coordinatesRescaleType;
+    }
+    public JSONObject getStartupParameters() {
+        return startupParameters;
+    }
+
+
+    // You shouldn't use this function. This function will have been used during gui editing.
+    // Otherwise, you can break GUI
     protected void setName(String name) {
         this.name = name;
     }
+
+
+    public void hide() {
+        hide = true;
+    }
+    public void show() {
+        hide = false;
+    }
+    public void setCoordinates(float x, float y) {
+        this.coordinates.set(x, y);
+        updateVectors();
+    }
+    public void setCoordinates(Vector2f newCoordinates) {
+        setCoordinates(newCoordinates.x, newCoordinates.y);
+    }
+    public void reScale(float x, float y) {
+        this.scale.set(x, y);
+        this.size.set(this.size.x * x, this.size.y * y);
+        updateVectors();
+    }
+    public void reScale(Vector2f scale) {
+        reScale(scale.x, scale.y);
+    }
+    public void setSize(float x, float y) {
+        this.size.set(x, y);
+        updateVectors();
+    }
+    public void setSize(Vector2f size) {
+        this.setSize(size.x, size.y);
+    }
+    public void setSizeRescaleType(ResolutionRescaleType type) {
+        this.sizeRescaleType = type;
+    }
+    public void setCoordinatesRescaleType(ResolutionRescaleType type) {
+        this.coordinatesRescaleType = type;
+    }
+
+
+
+
     protected void sortObjects() {
         Collections.sort(descendants, objectComparator);
         Collections.reverse(descendants);
@@ -74,6 +186,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return object;
     }
 
+
+
+
     protected boolean keyTypedDescendants(char par1, int par2) {
         if(hided()) {
             return false;
@@ -86,6 +201,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return false;
     }
+
     protected void updateDescendants(int flags) {
         for(Object object : descendants) {
             if (object instanceof EnhancedGuiScreen.Updatable) {
@@ -93,6 +209,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             }
         }
     }
+
     protected boolean mouseHandlerDescendants(Vector2f currentMousePosition) {
         if(hided()) {
             return false;
@@ -104,6 +221,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return false;
     }
+
     protected boolean mouseClickedDescendants(Vector2f currentMousePosition, int button)  {
         if(hided()) {
             return false;
@@ -119,171 +237,11 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return false;
     }
 
-    public void hide() {
-        hide = true;
-    }
-    public void show() {
-        hide = false;
-    }
-    public boolean hided() {
-        return hide;
-    }
 
-    public static class MethodObjectPair {
-        public final Method method;
-        public final Object object;
-        public MethodObjectPair(Object object, Method method) {
-            this.method = method;
-            this.object = object;
-        }
-    }
 
-    @SuppressWarnings({"UnusedReturnValue", "rawtypes"})
-    protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
-        try {
-            return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
-        } catch (NoSuchMethodException e) {
-            System.out.println("Method" + name + " wasn't found in " + objectName);
-            return null;
-        }
-    }
 
-    @SuppressWarnings("rawtypes")
-    protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
-        if(this.getName().equals(objectName)) {
-            return getMethodFunc(objectName, name, parameterTypes);
-        }
-        if(parent instanceof DefaultGuiObject) {
-            return ((DefaultGuiObject)parent).getMethodUp(objectName, name, parameterTypes);
-        } else {
-            try {
-                return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
-            } catch (Exception ignored) {}
-        }
-        return getMethodDown(objectName, name, parameterTypes);
-    }
-    @SuppressWarnings("rawtypes")
-    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
-        if(objectName.equals(this.getName())) {
-            getMethodFunc(objectName, name, parameterTypes);
-        }
-        MethodObjectPair retValue = null;
-        for(Object obj : descendants) {
-            if(retValue != null) {
-                return retValue;
-            }
-            retValue = ((DefaultGuiObject)obj).getMethodDown(objectName, name, parameterTypes);
-        }
-        return retValue;
-    }
 
-    protected Object getObjectUp(String objectName) {
-        if(this.getName().equals(objectName)) {
-            return this;
-        }
-        if(parent instanceof DefaultGuiObject) {
-            return ((DefaultGuiObject)parent).getObjectUp(objectName);
-        }
-        return getObjectDown(objectName);
-    }
-    public Object getObjectDown(String objectName) {
-        if(objectName.equals(this.getName())) {
-            return this;
-        }
-        Object retValue = null;
-        for(Object obj : descendants) {
-            if(retValue != null) {
-                return retValue;
-            }
-            retValue = ((DefaultGuiObject)obj).getObjectDown(objectName);
-        }
-        return retValue;
-    }
 
-    public Object getParent() {
-        return parent;
-    }
-
-    public void setCoordinates(float x, float y) {
-        this.coordinates.set(x, y);
-        updateVectors();
-    }
-    public void setCoordinates(Vector2f newCoordinates) {
-        setCoordinates(newCoordinates.x, newCoordinates.y);
-    }
-    public Vector2f getCoordinates() {
-        return new Vector2f(coordinates);
-    }
-
-    public void reScale(float x, float y) {
-        this.scale.set(x, y);
-        this.size.set(this.size.x * x, this.size.y * y);
-        updateVectors();
-    }
-    public void reScale(Vector2f scale) {
-        reScale(scale.x, scale.y);
-    }
-    public Vector2f getScale() {
-        return new Vector2f(scale);
-    }
-
-    public void setSize(float x, float y) {
-        this.size.set(x, y);
-        updateVectors();
-    }
-    public void setSize(Vector2f size) {
-        this.setSize(size.x, size.y);
-    }
-    public Vector2f getSize() {
-        return new Vector2f(size);
-    }
-
-    public Vector2f getParentCoordinates() {
-        return new Vector2f(parentCoordinates);
-    }
-    public Vector4f getParentBorders() {
-        return new Vector4f(parentBorders);
-    }
-    public String getName() {
-        return name;
-    }
-    public Vector4f getBorders() {
-        return new Vector4f(borders);
-    }
-    public Vector2f getCurrentPosition() {
-        return new Vector2f(currentObjectPosition);
-    }
-
-    enum ResolutionRescaleType {
-        NONE("none"),
-        SCALE_X("scale_x"),
-        SCALE_Y("scale_y"),
-        SCALE_SMOOTH_X("scale_smooth_x"),
-        SCALE_SMOOTH_Y("scale_smooth_y"),
-        SCALE_XY("scale_xy"),
-        SCALE_SMOOTH_XY("scale_smooth_xy");
-        private final String a;
-        public String toString() {
-            return a;
-        }
-        ResolutionRescaleType(String a) {
-            this.a = a;
-        }
-    }
-    private ResolutionRescaleType sizeRescaleType;
-    private ResolutionRescaleType coordinatesRescaleType;
-    public ResolutionRescaleType getSizeRescaleType() {
-        return sizeRescaleType;
-    }
-    public ResolutionRescaleType getCoordinatesRescaleType() {
-        return coordinatesRescaleType;
-    }
-    public void setSizeRescaleType(ResolutionRescaleType type) {
-        this.sizeRescaleType = type;
-    }
-    public void setCoordinatesRescaleType(ResolutionRescaleType type) {
-        this.coordinatesRescaleType = type;
-    }
 
     // postInit is called after entire gui is loaded
     public void postInit() {
@@ -292,9 +250,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
     }
 
-    JSONObject getStartupParameters() {
-        return startupParameters;
-    }
 
     // this function will be called when vectors were updated
     protected void VectorsWereUpdated() {
@@ -302,6 +257,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             object.updateParentBorders(getBorders());
         }
     }
+
+
     protected void updateVectors() {
         Vector2f.add(parentCoordinates, coordinates, currentObjectPosition);
         this.borders.set(
@@ -310,6 +267,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         );
         VectorsWereUpdated();
     }
+
+
     @SuppressWarnings("UnusedReturnValue")
     public boolean checkBorders() {
         if(!(parent instanceof DefaultGuiObject)) {
@@ -343,6 +302,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return flag;
     }
+
 
     public Vector2f getDeltas(Vector2f newResolution, ResolutionRescaleType type) {
         Vector2f delta = new Vector2f(1,1);
@@ -395,6 +355,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         a.put("coordinates_scale_type", sizeRescaleType.toString());
         return returnValue;
     }
+
     public void loadFromJSONObject(JSONObject parameters) {
         startupParameters = parameters;
         this.coordinates = new Vector2f(0, 0);
@@ -469,23 +430,17 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         this.reScale(scale);
     }
+
+
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         this.descendants = new ArrayList<DefaultGuiObject>();
         this.name = name;
         this.parent = parent;
         loadFromJSONObject(parameters);
     }
-    @SuppressWarnings("rawtypes")
-    MethodObjectPair getMethod(JSONObject parameters, String methodName, Class[] methodParameters) {
-        if(parameters.containsKey(methodName)) {
-            JSONObject obj = (JSONObject) parameters.get(methodName);
-            return this.getMethodUp(
-                    (String) obj.get("object_name"),
-                    (String) obj.get("method_name"),
-                    methodParameters);
-        }
-        return null;
-    }
+
+
+
     @Override
     public int getZLevel() {
         return zLevel;
@@ -505,6 +460,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             }
         }
     }
+
     @Override
     public void resolutionUpdated(Vector2f newResolution) {
         Vector2f delta = getDeltas(newResolution, coordinatesRescaleType);
@@ -520,15 +476,107 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             object.resolutionUpdated(newResolution);
         }
     }
+
     @Override
     public void updateParentBorders(Vector4f parentBorders) {
         this.parentCoordinates.set(parentBorders.x, parentBorders.y);
         this.parentBorders.set(parentBorders);  updateVectors();
     }
 
+
+
+
+    @SuppressWarnings("rawtypes")
+    MethodObjectPair getMethod(JSONObject parameters, String methodName, Class[] methodParameters) {
+        if(parameters.containsKey(methodName)) {
+            JSONObject obj = (JSONObject) parameters.get(methodName);
+            return this.getMethodUp(
+                    (String) obj.get("object_name"),
+                    (String) obj.get("method_name"),
+                    methodParameters);
+        }
+        return null;
+    }
+
+
+
+
+    @SuppressWarnings({"UnusedReturnValue", "rawtypes"})
+    protected MethodObjectPair getMethodFunc(String objectName, String name, Class[] parameterTypes) {
+        try {
+            return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
+        } catch (NoSuchMethodException e) {
+            System.out.println("Method" + name + " wasn't found in " + objectName);
+            return null;
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
+        if(this.getName().equals(objectName)) {
+            return getMethodFunc(objectName, name, parameterTypes);
+        }
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject)parent).getMethodUp(objectName, name, parameterTypes);
+        } else {
+            try {
+                return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
+            } catch (Exception ignored) {}
+        }
+        return getMethodDown(objectName, name, parameterTypes);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public MethodObjectPair getMethodDown(String objectName, String name, Class[] parameterTypes) {
+        if(objectName.equals(this.getName())) {
+            getMethodFunc(objectName, name, parameterTypes);
+        }
+        MethodObjectPair retValue = null;
+        for(Object obj : descendants) {
+            if(retValue != null) {
+                return retValue;
+            }
+            retValue = ((DefaultGuiObject)obj).getMethodDown(objectName, name, parameterTypes);
+        }
+        return retValue;
+    }
+
+
+
+
+    protected Object getObjectUp(String objectName) {
+        if(this.getName().equals(objectName)) {
+            return this;
+        }
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject)parent).getObjectUp(objectName);
+        }
+        return getObjectDown(objectName);
+    }
+
+    public Object getObjectDown(String objectName) {
+        if(objectName.equals(this.getName())) {
+            return this;
+        }
+        Object retValue = null;
+        for(Object obj : descendants) {
+            if(retValue != null) {
+                return retValue;
+            }
+            retValue = ((DefaultGuiObject)obj).getObjectDown(objectName);
+        }
+        return retValue;
+    }
+
+
+
+
     public int compareTo(DefaultGuiObject o) {
         return this.getZLevel() - o.getZLevel();
     }
+
+
+
 
     public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
         if(pair == null || objRef == null) {
