@@ -112,6 +112,18 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     public Vector4f getBorders() {
         return new Vector4f(borders);
     }
+    public Vector2f getTopLeftCorner() {
+        return new Vector2f(borders.x, borders.y);
+    }
+    public Vector2f getTopRightCorner() {
+        return new Vector2f(borders.z, borders.y);
+    }
+    public Vector2f getBottomLeftCorner() {
+        return new Vector2f(borders.x, borders.w);
+    }
+    public Vector2f getBottomRightCorner() {
+        return new Vector2f(borders.z, borders.w);
+    }
     public Vector2f getCurrentPosition() {
         return new Vector2f(currentObjectPosition);
     }
