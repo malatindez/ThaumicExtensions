@@ -39,31 +39,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
     }
 
-    enum FocusPoint {
-        TOP_LEFT(0, "top_left"),
-        TOP_RIGHT(1, "top_right"),
-        BOTTOM_LEFT(2, "bottom_left"),
-        BOTTOM_RIGHT(3, "bottom_right");
-        private final int value;
-        private final String a;
-        public int toInt() {return value;}
-        public Vector2f getPoint(Vector4f parentBorders) {
-            switch(this) {
-                case TOP_LEFT:
-                    return new Vector2f(parentBorders.x, parentBorders.y);
-                case TOP_RIGHT:
-                    return new Vector2f(parentBorders.z, parentBorders.y);
-                case BOTTOM_LEFT:
-                    return new Vector2f(parentBorders.x, parentBorders.w);
-            }
-            return new Vector2f(parentBorders.z, parentBorders.w);
-        }
-        public String toString() {
-            return a;
-        }
-        FocusPoint(int value, String a) {this.value = value; this.a = a; }
-    }
-
     private class ObjectComparator implements Comparator<DefaultGuiObject> {
         @Override
         public int compare(DefaultGuiObject x, DefaultGuiObject y) {
@@ -88,11 +63,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private Vector4f borders;
     protected int zLevel;
 
-    // this variable means a starting point.
-    // for example, if current focus is TopLeft then our currentCoordinates will be parentBorders.TOP_LEFT + coordinates
-    // if current focus is BottomLeft then our currentCoordinates will be parentBorders.BOTTOM_LEFT + coordinates
-    // etc.
-    FocusPoint focus;
 
     protected final Vector2f currentResolution = new Vector2f(427, 240);
     public static final Vector2f defaultResolution = new Vector2f(427, 240);
@@ -290,7 +260,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
 
     protected void updateVectors() {
-        Vector2f.add(focus.getPoint(parentBorders), coordinates, currentObjectPosition);
+        Vector2f.add(parentCoordinates, coordinates, currentObjectPosition);
         this.borders.set(
                 currentObjectPosition.x, currentObjectPosition.y,
                 currentObjectPosition.x + size.x, currentObjectPosition.y + size.y
@@ -383,7 +353,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         a.put("hided", hide);
         a.put("size_scale_type", sizeRescaleType.toString());
         a.put("coordinates_scale_type", sizeRescaleType.toString());
-        a.put("focus_point", focus.toString());
         return returnValue;
     }
 
@@ -416,21 +385,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
         if(parameters.containsKey("hided")) {
             hide = (Boolean)parameters.get("hided");
-        }
-
-        this.focus = FocusPoint.TOP_LEFT;
-
-        if(parameters.containsKey("focus_point")) {
-            String focus_point = (String)parameters.get("focus_point");
-            if (focus_point.equals("top_left")) {
-                focus = FocusPoint.TOP_LEFT;
-            } else if (focus_point.equals("top_right")) {
-                focus = FocusPoint.TOP_RIGHT;
-            } else if (focus_point.equals("bottom_left")) {
-                focus = FocusPoint.BOTTOM_LEFT;
-            } else if (focus_point.equals("bottom_right")) {
-                focus = FocusPoint.BOTTOM_RIGHT;
-            }
         }
 
         if(parent instanceof DefaultGuiObject) {
@@ -490,8 +444,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.parent = parent;
         loadFromJSONObject(parameters);
     }
-
-
 
     @Override
     public int getZLevel() {
