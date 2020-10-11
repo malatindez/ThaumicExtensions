@@ -77,10 +77,11 @@
               "gui_editor_browser_scrollbar_y": {
                 "type": "ScrollBar",
                 "zLevel": 1,
-                "coordinates": [67,0],
+                "coordinates": [-10,0],
                 "size": [10, 150],
+                "focus_point": "top_right",
                 "size_scale_type": "scale_y",
-                "coordinates_scale_type": "scale_xy",
+                "coordinates_scale_type": "none",
                 "objectToScroll": "gui_editor_browser",
                 "scroll_icon": "gui_editor_browser_scrollbarYIcon",
                 "scrolling_collection": "gui_editor_browser_scrollbar_y_col",
