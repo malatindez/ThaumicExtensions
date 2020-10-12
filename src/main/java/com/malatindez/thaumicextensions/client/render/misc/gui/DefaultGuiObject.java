@@ -55,6 +55,131 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
     }
 
+    enum FocalPoint {
+        TOP_LEFT("top_left"),
+        TOP_RIGHT("top_right"),
+        BOTTOM_LEFT("bottom_left"),
+        BOTTOM_RIGHT("bottom_right");
+        private final String a;
+        public Vector2f getPoint(DefaultGuiObject object) {
+            switch(this) {
+                case TOP_LEFT:
+                    return object.getTopLeftCorner();
+                case TOP_RIGHT:
+                    return object.getTopRightCorner();
+                case BOTTOM_LEFT:
+                    return object.getBottomLeftCorner();
+            }
+            return object.getBottomRightCorner();
+        }
+        public String toString() {
+            return a;
+        }
+        FocalPoint(String a) {this.a = a; }
+        public static FocalPoint fromString(String a) {
+            if(a.equals("top_right")) {
+                return TOP_RIGHT;
+            }
+            if(a.equals("bottom_left")) {
+                return BOTTOM_LEFT;
+            }
+            if(a.equals("bottom_right")) {
+                return BOTTOM_RIGHT;
+            }
+            return TOP_LEFT;
+        }
+        public Vector2f fromVector4f(Vector4f borders) {
+            if(this == TOP_LEFT) {
+                return new Vector2f(borders.x, borders.y);
+            }
+            if(this == TOP_RIGHT) {
+                return new Vector2f(borders.z, borders.y);
+            }
+            if(this == BOTTOM_LEFT) {
+                return new Vector2f(borders.x, borders.w);
+            }
+
+            return new Vector2f(borders.z, borders.w);
+        }
+    }
+
+    public static class LinkedPoint {
+        DefaultGuiObject linkedPointObject;
+        FocalPoint refPoint;
+        public LinkedPoint(DefaultGuiObject linkedPointObject, FocalPoint p) {
+            this.linkedPointObject = linkedPointObject;
+            this.refPoint = p;
+        }
+
+        /**
+         *
+         * @param reference to a main object
+         * @param object
+         */
+        public LinkedPoint(DefaultGuiObject reference, JSONObject object, FocalPoint defaultFocalPoint) {
+            linkedPointObject = (DefaultGuiObject) reference.getObjectUp((String) object.get("object"));
+            if(object.containsKey("focal_point")) {
+                refPoint = FocalPoint.fromString((String) object.get("focal_point"));
+            } else {
+                refPoint = defaultFocalPoint;
+            }
+        }
+        public Vector2f getPoint() {
+            return refPoint.getPoint(linkedPointObject);
+        }
+
+        public JSONObject toJson() {
+            JSONObject object = new JSONObject();
+            object.put("object", linkedPointObject.getName());
+            object.put("focal_point", refPoint.toString());
+            return object;
+        }
+    }
+
+    public static class LinkedPoints {
+        LinkedPoint a;
+        LinkedPoint b;
+        // mode = 0 -> a is topLeft corner, b is bottomRight
+        // mode = 1 -> a is topRight corner, b is bottomLeft
+        int mode = -1;
+        public LinkedPoints(DefaultGuiObject ref, JSONObject object) {
+            if(object.containsKey(FocalPoint.TOP_LEFT.toString()) && object.containsKey(FocalPoint.BOTTOM_RIGHT.toString())) {
+                mode = 0;
+                a = new LinkedPoint(ref,
+                        (JSONObject) object.get(FocalPoint.TOP_LEFT.toString()), FocalPoint.TOP_LEFT);
+                b = new LinkedPoint(ref,
+                        (JSONObject) object.get(FocalPoint.BOTTOM_RIGHT.toString()), FocalPoint.BOTTOM_RIGHT);
+            }
+            if(mode == -1) {
+                if(object.containsKey(FocalPoint.TOP_RIGHT.toString()) && object.containsKey(FocalPoint.BOTTOM_LEFT.toString())) {
+                    mode = 1;
+                    a = new LinkedPoint(ref,
+                            (JSONObject) object.get(FocalPoint.TOP_RIGHT.toString()), FocalPoint.TOP_RIGHT);
+                    b = new LinkedPoint(ref,
+                            (JSONObject) object.get(FocalPoint.BOTTOM_LEFT.toString()), FocalPoint.BOTTOM_LEFT);
+                }
+            }
+        }
+        public JSONObject toJson() {
+            JSONObject object = new JSONObject();
+            if(mode == 0) {
+                object.put(FocalPoint.TOP_LEFT.toString(), a.toJson());
+                object.put(FocalPoint.BOTTOM_RIGHT.toString(), a.toJson());
+            } else if(mode == 1) {
+                object.put(FocalPoint.TOP_RIGHT.toString(), a.toJson());
+                object.put(FocalPoint.BOTTOM_LEFT.toString(), a.toJson());
+            }
+
+            return object;
+        }
+        public Vector4f getBorders() {
+            if(mode == 0) {
+                return new Vector4f(a.getPoint().x, a.getPoint().y, b.getPoint().x, b.getPoint().y);
+            }
+            return new Vector4f(b.getPoint().x, a.getPoint().y, a.getPoint().x, b.getPoint().y);
+        }
+    }
+
     private class ObjectComparator implements Comparator<DefaultGuiObject> {
         @Override
         public int compare(DefaultGuiObject x, DefaultGuiObject y) {
@@ -79,6 +204,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private Vector4f borders;
     protected int zLevel;
 
+    LinkedPoints points = null;
 
     protected final Vector2f currentResolution = new Vector2f(427, 240);
     public static final Vector2f defaultResolution = new Vector2f(427, 240);
@@ -99,6 +225,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
     private ObjectComparator objectComparator;
+
+    FocalPoint focal_point;
 
 
     public boolean hided() {
@@ -154,7 +282,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
 
-    // You shouldn't use this function. This function will have been used during gui editing.
+    // You shouldn't use this function. This function will have been used only during gui editing.
     // Otherwise, you can break GUI
     protected void setName(String name) {
         this.name = name;
@@ -276,6 +404,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         for(DefaultGuiObject descendant : descendants) {
             descendant.postInit();
         }
+        if(getStartupParameters().containsKey("linked_points")) {
+            this.points = new LinkedPoints(this, (JSONObject) getStartupParameters().get("linked_points"));
+        }
     }
 
 
@@ -288,7 +419,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
 
     protected void updateVectors() {
-        Vector2f.add(parentCoordinates, coordinates, currentObjectPosition);
+        if(points != null && points.mode == 0) {
+            Vector2f.add(points.a.getPoint(), coordinates, currentObjectPosition);
+            Vector2f.sub(points.b.getPoint(), points.a.getPoint(), size);
+        }
+        else if (points != null && points.mode == 1) {
+            Vector2f.add(new Vector2f(points.b.getPoint().x, points.a.getPoint().y), coordinates, currentObjectPosition);
+            size.set(points.a.getPoint().x - points.b.getPoint().x, points.b.getPoint().y - points.a.getPoint().y);
+        } else {
+            Vector2f.add(focal_point.fromVector4f(parentBorders), coordinates, currentObjectPosition);
+        }
         this.borders.set(
                 currentObjectPosition.x, currentObjectPosition.y,
                 currentObjectPosition.x + size.x, currentObjectPosition.y + size.y
@@ -381,6 +521,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         a.put("hided", hide);
         a.put("size_scale_type", sizeRescaleType.toString());
         a.put("coordinates_scale_type", sizeRescaleType.toString());
+        a.put("focal_point", focal_point.toString());
+        if(points != null)
+            a.put("linked_points", points.toJson());
         return returnValue;
     }
 
@@ -425,6 +568,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             sizeRescaleType = ResolutionRescaleType.NONE;
         }
 
+
+
         if(parameters.containsKey("coordinates_scale_type")) {
             coordinatesRescaleType = ResolutionRescaleType.fromString((String)parameters.get("coordinates_scale_type"));
         } else if(parent instanceof DefaultGuiObject) {
@@ -433,6 +578,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             coordinatesRescaleType = ResolutionRescaleType.NONE;
         }
 
+        this.focal_point  = FocalPoint.TOP_LEFT;
+        if(parameters.containsKey("focal_point")) {
+            this.focal_point = FocalPoint.fromString((String) parameters.get("focal_point"));
+        }
 
         this.reScale(scale);
     }
