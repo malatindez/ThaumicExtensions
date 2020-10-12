@@ -37,6 +37,22 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         ResolutionRescaleType(String a) {
             this.a = a;
         }
+        public static ResolutionRescaleType fromString(String a) {
+            if(a.equals("scale_x")) {
+                return ResolutionRescaleType.SCALE_X;
+            } else if(a.equals("scale_y")) {
+                return ResolutionRescaleType.SCALE_Y;
+            } else if(a.equals("scale_smooth_x")) {
+                return ResolutionRescaleType.SCALE_SMOOTH_X;
+            } else if(a.equals("scale_smooth_y")) {
+                return ResolutionRescaleType.SCALE_SMOOTH_Y;
+            } else if(a.equals("scale_xy")) {
+                return ResolutionRescaleType.SCALE_XY;
+            } else if(a.equals("scale_smooth_xy")) {
+                return ResolutionRescaleType.SCALE_SMOOTH_XY;
+            }
+            return ResolutionRescaleType.NONE;
+        }
     }
 
     private class ObjectComparator implements Comparator<DefaultGuiObject> {
@@ -399,54 +415,25 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             hide = (Boolean)parameters.get("hided");
         }
 
-        if(parent instanceof DefaultGuiObject) {
+
+
+        if(parameters.containsKey("size_scale_type")) {
+            sizeRescaleType = ResolutionRescaleType.fromString((String)parameters.get("size_scale_type"));
+        } else if(parent instanceof DefaultGuiObject) {
             sizeRescaleType = ((DefaultGuiObject) parent).sizeRescaleType;
         } else {
             sizeRescaleType = ResolutionRescaleType.NONE;
         }
 
-        if(parameters.containsKey("size_scale_type")) {
-            String scale_type = (String)parameters.get("size_scale_type");
-            if (scale_type.equals("none")) {
-                sizeRescaleType = ResolutionRescaleType.NONE;
-            } else if(scale_type.equals("scale_x")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_X;
-            } else if(scale_type.equals("scale_y")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_Y;
-            }else if(scale_type.equals("scale_smooth_x")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_X;
-            } else if(scale_type.equals("scale_smooth_y")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_Y;
-            } else if(scale_type.equals("scale_xy")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_XY;
-            } else if(scale_type.equals("scale_smooth_xy")) {
-                sizeRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
-            }
-        }
-        if(parent instanceof DefaultGuiObject) {
+        if(parameters.containsKey("coordinates_scale_type")) {
+            coordinatesRescaleType = ResolutionRescaleType.fromString((String)parameters.get("coordinates_scale_type"));
+        } else if(parent instanceof DefaultGuiObject) {
             coordinatesRescaleType = ((DefaultGuiObject) parent).coordinatesRescaleType;
         } else {
             coordinatesRescaleType = ResolutionRescaleType.NONE;
         }
 
-        if(parameters.containsKey("coordinates_scale_type")) {
-            String scale_type = (String)parameters.get("coordinates_scale_type");
-            if (scale_type.equals("none")) {
-                coordinatesRescaleType = ResolutionRescaleType.NONE;
-            } else if(scale_type.equals("scale_x")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_X;
-            } else if(scale_type.equals("scale_y")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_Y;
-            }else if(scale_type.equals("scale_smooth_x")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_X;
-            } else if(scale_type.equals("scale_smooth_y")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_Y;
-            } else if(scale_type.equals("scale_xy")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_XY;
-            } else if(scale_type.equals("scale_smooth_xy")) {
-                coordinatesRescaleType = ResolutionRescaleType.SCALE_SMOOTH_XY;
-            }
-        }
+
         this.reScale(scale);
     }
 
