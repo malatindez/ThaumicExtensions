@@ -79,7 +79,7 @@
                 "zLevel": 1,
                 "coordinates": [-10,0],
                 "size": [10, 150],
-                "focus_point": "top_right",
+                "focal_point": "top_right",
                 "size_scale_type": "scale_y",
                 "coordinates_scale_type": "none",
                 "objectToScroll": "gui_editor_browser",
@@ -125,6 +125,15 @@
               "gui_editor_browser_elements": {
                 "type": "Collection",
                 "size": [77, 100000],
+                "linked_points": {
+                  "top_left": {
+                    "object": "gui_editor_browser"
+                  },
+                  "bottom_right": {
+                    "object": "gui_editor_browser_scrollbar_y",
+                    "focal_point": "bottom_left"
+                  }
+                },
                 "elements": {
 
                 }
