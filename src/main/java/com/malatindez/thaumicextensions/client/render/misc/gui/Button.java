@@ -44,15 +44,15 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
 
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
         this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
-        this.descendants.add(this.icon);
+        addObject(this.icon);
         try {
             JSONObject hovered_icon = (JSONObject) parameters.get(parameters.get("hovered_icon"));
             this.hovered_icon = EnhancedGuiScreen.createObject((String) parameters.get("hovered_icon"), this, hovered_icon);
             this.hovered_icon.hide();
-            this.descendants.add(this.hovered_icon);
+            addObject(this.hovered_icon);
         } catch (Exception ignored) { }
 
-        this.setSize(this.icon.getSize());
+        setSize(this.icon.getSize());
     }
 
     public Button(String name, Object parent, JSONObject parameters) {
@@ -87,7 +87,6 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
             icon.show();
             hovered_icon.hide();
         }
-        return;
     }
 
     @Override
