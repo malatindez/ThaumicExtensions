@@ -42,32 +42,32 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             "ICON_NAME": {
               "type": "Collection",
               "elements": {
-                "ICON_NAME_TEXT": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                "ICON_NAME_BACKGROUND": { "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
+                "text": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+                "background": { "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
               }},
             "HOVERED_ICON_NAME": {
               "type": "Collection",
               "elements": {
-                "HOVERED_ICON_NAME_TEXT": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                "HOVERED_ICON_NAME_BACKGROUND": { "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
+                "text": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+                "background": { "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
               }}
           }
      */
     String defaultButtonText =
-            "{ \"type\": \"Button\", \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"id\": 11, \"zLevel\": COORD_Y, \"size_scale_type\": \"scale_x\", \"coordinates_scale_type\": \"scale_x\",\n" +
+            "{ \"type\": \"Button\", \"check_borders\": false, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"id\": 11, \"zLevel\": COORD_Y, \"size_scale_type\": \"scale_x\", \"coordinates_scale_type\": \"scale_x\",\n" +
                     "        \"clicked\": { \"object_name\": \"OBJECT_NAME\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
-                    "        \"icon\": \"ICON_NAME\", \"hovered_icon\": \"HOVERED_ICON_NAME\",\n" +
-                    "        \"ICON_NAME\": {\n" +
+                    "        \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
+                    "        \"Icon\": {\n" +
                     "          \"type\": \"Collection\",\n" +
                     "          \"elements\": {\n" +
-                    "            \"ICON_NAME_TEXT\": { \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-                    "            \"ICON_NAME_BACKGROUND\": { \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
+                    "            \"text\": { \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+                    "            \"background\": { \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
                     "          }},\n" +
-                    "        \"HOVERED_ICON_NAME\": {\n" +
+                    "        \"hovered_Icon\": {\n" +
                     "          \"type\": \"Collection\",\n" +
                     "          \"elements\": {\n" +
-                    "            \"HOVERED_ICON_NAME_TEXT\": { \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-                    "            \"HOVERED_ICON_NAME_BACKGROUND\": { \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
+                    "            \"text\": { \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+                    "            \"background\": { \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
                     "          }}\n" +
                     "      }";
 
@@ -89,18 +89,14 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         String buttonJSON = defaultButtonText;
         String s = ""; for(int i = 0; i < currentOffsetX; i++, s += " ");
         buttonJSON = buttonJSON.replace(
-                "ICON_NAME",
-                o.object.getName() + "_BUTTON_ICON"
-        );
-        buttonJSON = buttonJSON.replace(
                 "ICON_TEXT",
                 s + o.object.getName() + " [" + o.object.getClass().getSimpleName() + "]"
         );
         maxXSize = Math.max(maxXSize, (s + o.object.getName() + " [" + o.object.getClass().getSimpleName() + "]").length());
         buttonJSON = buttonJSON.replace("COORD_Y", Integer.toString(currentOffsetY * 10));
         currentOffsetY++;
-        subElements.addObject(new Button(o.object.getName() + "_BUTTON",
-                this,
+        subElements.addObject(new Button(o.object.getName(),
+                subElements,
                 (JSONObject)JSONValue.parse(buttonJSON)
                 ));
         for(Tree descendant : o.descendants) {
@@ -151,9 +147,9 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
     }
     @Override
     public void postInit() {
-        gui_ref = getObjectUp("new_gui");
-        subElements = (Collection) getObjectDown("gui_editor_browser_elements");
-        background = (DefaultGuiObject) getObjectDown("gui_editor_browser_background");
+        gui_ref = getObjectUp("gui_editor.gui.new_gui");
+        subElements = (Collection) getObjectDown("elements_browser.elements");
+        background = (DefaultGuiObject) getObjectDown("elements_browser.background");
         super.postInit();
         updateTree(new Tree((DefaultGuiObject) gui_ref));
     }
