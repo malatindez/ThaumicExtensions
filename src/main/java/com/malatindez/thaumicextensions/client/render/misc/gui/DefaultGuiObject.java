@@ -204,6 +204,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private Vector4f borders;
     protected int zLevel;
 
+    private boolean checkBorders = true;
+
     LinkedPoints points = null;
 
     protected final Vector2f currentResolution = new Vector2f(427, 240);
@@ -218,7 +220,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
     private boolean hide = false;
 
-    protected ArrayList<DefaultGuiObject> descendants;
+    private ArrayList<DefaultGuiObject> descendants;
 
     public ArrayList<DefaultGuiObject> getDescendants() {
         return descendants;
@@ -541,6 +543,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(parameters.containsKey("scale")) {
             scale = Json2Vec(parameters.get("scale"));
         }
+        if(parameters.containsKey("check_borders")) {
+            checkBorders = (Boolean)(parameters.get("check_borders"));
+        }
 
         this.size = new Vector2f(0, 0);
         if(parameters.containsKey("size")) {
@@ -588,7 +593,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
         this.descendants = new ArrayList<DefaultGuiObject>();
-        this.name = name;
+        this.name = name.replace(" ", "").replace(".", "");
         this.parent = parent;
         loadFromJSONObject(parameters);
     }
@@ -623,7 +628,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         delta = getDeltas(newResolution, sizeRescaleType);
         reScale(delta.x, delta.y);
         currentResolution.set(newResolution);
-        checkBorders();
+        if(checkBorders)
+            checkBorders();
         for(DefaultGuiObject object : descendants) {
             object.resolutionUpdated(newResolution);
         }
@@ -664,18 +670,22 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
     @SuppressWarnings("rawtypes")
-    protected MethodObjectPair getMethodUp(String objectName, String name, Class[] parameterTypes) {
+    protected MethodObjectPair getMethodUp(String objectName, String methodName, Class[] parameterTypes) {
         if(this.getName().equals(objectName)) {
-            return getMethodFunc(objectName, name, parameterTypes);
+            return getMethodFunc(objectName, methodName, parameterTypes);
+        }
+        int a = objectName.indexOf('.');
+        if(a != -1 && a + 1 < objectName.length() && objectName.substring(0, a).equals(this.name)) {
+            return getMethodDown(objectName, methodName, parameterTypes);
         }
         if(parent instanceof DefaultGuiObject) {
-            return ((DefaultGuiObject)parent).getMethodUp(objectName, name, parameterTypes);
-        } else {
+            return ((DefaultGuiObject)parent).getMethodUp(objectName, methodName, parameterTypes);
+        } else if (methodName.equals(".")) {
             try {
-                return new MethodObjectPair(parent, parent.getClass().getMethod(name, parameterTypes));
+                return new MethodObjectPair(parent, parent.getClass().getMethod(methodName, parameterTypes));
             } catch (Exception ignored) {}
         }
-        return getMethodDown(objectName, name, parameterTypes);
+        return getMethodDown(objectName, methodName, parameterTypes);
     }
 
     @SuppressWarnings("rawtypes")
@@ -683,12 +693,17 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
+        int a = objectName.indexOf('.');
+        if(a == -1 || a + 1 > objectName.length() || !objectName.substring(0, a).equals(this.name)) {
+            return null;
+        }
+        String nextString = objectName.substring(a + 1);
         MethodObjectPair retValue = null;
         for(Object obj : descendants) {
             if(retValue != null) {
                 return retValue;
             }
-            retValue = ((DefaultGuiObject)obj).getMethodDown(objectName, name, parameterTypes);
+            retValue = ((DefaultGuiObject)obj).getMethodDown(nextString, name, parameterTypes);
         }
         return retValue;
     }
@@ -700,6 +715,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(this.getName().equals(objectName)) {
             return this;
         }
+        int a = objectName.indexOf('.');
+        if(a != -1 && a + 1 < objectName.length() && objectName.substring(0, a).equals(this.name)) {
+            return getObjectDown(objectName);
+        }
         if(parent instanceof DefaultGuiObject) {
             return ((DefaultGuiObject)parent).getObjectUp(objectName);
         }
@@ -710,12 +729,18 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(objectName.equals(this.getName())) {
             return this;
         }
+
+        int a = objectName.indexOf('.');
+        if(a == -1 || a + 1 > objectName.length() || !objectName.substring(0, a).equals(this.name)) {
+            return null;
+        }
+        String nextString = objectName.substring(a + 1);
         Object retValue = null;
         for(Object obj : descendants) {
             if(retValue != null) {
                 return retValue;
             }
-            retValue = ((DefaultGuiObject)obj).getObjectDown(objectName);
+            retValue = ((DefaultGuiObject)obj).getObjectDown(nextString);
         }
         return retValue;
     }
