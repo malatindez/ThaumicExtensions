@@ -179,10 +179,13 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         put("TextInputLine", TextInputLine.class);
         // type name and class instance which will be constructed
     }};
-    public static final void addPart(Class c) {
+    public static void addPart(Class c) {
         parts.put(c.getSimpleName(), c);
     }
     public static DefaultGuiObject createObject(String name, Object parent, JSONObject object) {
+        if(object == null) {
+            return null;
+        }
         if(object.containsKey("type")) {
             String type = (String)object.get("type");
             if (parts.containsKey(type)) {
