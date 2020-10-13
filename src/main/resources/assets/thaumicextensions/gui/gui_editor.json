@@ -11,12 +11,12 @@
         "size_scale_type": "scale_xy",
         "coordinates_scale_type": "scale_xy",
         "elements": {
-          "gui_editor_browser": {
+          "elements_browser": {
             "type": "GuiBrowser",
             "size": [77, 160],
             "size_scale_type": "scale_xy",
             "elements": {
-              "gui_editor_browser_background": {
+              "background": {
                 "type": "Rect",
                 "size": [77,150],
                 "zLevel": -1,
@@ -27,28 +27,28 @@
                   "bottomRight": [0.3,0.3,0.3,0.5]
                 }
               },
-              "gui_editor_browser_scrollbar_x": {
+              "scrollbar_x": {
                 "type": "ScrollBar",
                 "zLevel": 1,
                 "coordinates": [0,150],
                 "coordinates_scale_type": "scale_xy",
                 "size": [67, 10],
                 "size_scale_type": "scale_x",
-                "objectToScroll": "gui_editor_browser",
-                "scroll_icon": "gui_editor_browser_scrollbarXIcon",
-                "scrolling_collection": "gui_editor_browser_scrollbar_x_col",
-                "gui_editor_browser_scrollbar_x_col": {
+                "objectToScroll": "elements_browser",
+                "scroll_icon": "scrollbar_x.collection.icon",
+                "scrolling_collection": "collection",
+                "collection": {
                   "type": "Collection",
                   "size_scale_type": "scale_x",
                   "elements": {
-                    "gui_editor_browser_scrollbarXIcon": {
+                    "icon": {
                       "type": "Drag",
                       "size_scale_type": "scale_x",
                       "zLevel": 1,
                       "size": [17, 10],
-                      "drag_focus": "gui_editor_browser_scrollXIcon_background",
+                      "drag_focus": "icon.background",
                       "elements": {
-                        "gui_editor_browser_scrollXIcon_background": {
+                        "background": {
                           "type": "Rect",
                           "size_scale_type": "scale_x",
                           "zLevel": 1,
@@ -61,7 +61,7 @@
                         }
                       }
                     },
-                    "gui_editor_browser_scrollbarX_background": {
+                    "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_x",
                       "colors": {
@@ -74,7 +74,7 @@
                   }
                 }
               },
-              "gui_editor_browser_scrollbar_y": {
+              "scrollbar_y": {
                 "type": "ScrollBar",
                 "zLevel": 1,
                 "coordinates": [-10,0],
@@ -82,21 +82,21 @@
                 "focal_point": "top_right",
                 "size_scale_type": "scale_y",
                 "coordinates_scale_type": "none",
-                "objectToScroll": "gui_editor_browser",
-                "scroll_icon": "gui_editor_browser_scrollbarYIcon",
-                "scrolling_collection": "gui_editor_browser_scrollbar_y_col",
-                "gui_editor_browser_scrollbar_y_col": {
+                "objectToScroll": "elements_browser",
+                "scroll_icon": "scrollbar_y.collection.icon",
+                "scrolling_collection": "collection",
+                "collection": {
                   "type": "Collection",
                   "size_scale_type": "scale_y",
                   "elements": {
-                    "gui_editor_browser_scrollbarYIcon": {
+                    "icon": {
                       "type": "Drag",
                       "size_scale_type": "scale_y",
                       "zLevel": 1,
                       "size": [10, 25],
-                      "drag_focus": "gui_editor_browser_scrollYIcon_background",
+                      "drag_focus": "icon.background",
                       "elements": {
-                        "gui_editor_browser_scrollYIcon_background": {
+                        "background": {
                           "type": "Rect",
                           "size_scale_type": "scale_y",
                           "zLevel": 1,
@@ -109,7 +109,7 @@
                         }
                       }
                     },
-                    "gui_editor_browser_scrollbarY_background": {
+                    "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_y",
                       "colors": {
@@ -122,15 +122,15 @@
                   }
                 }
               },
-              "gui_editor_browser_elements": {
+              "elements": {
                 "type": "Collection",
                 "size": [77, 100000],
                 "linked_points": {
                   "top_left": {
-                    "object": "gui_editor_browser"
+                    "object": "elements_browser"
                   },
                   "bottom_right": {
-                    "object": "gui_editor_browser_scrollbar_y",
+                    "object": "elements_browser.scrollbar_y",
                     "focal_point": "bottom_left"
                   }
                 },
@@ -163,11 +163,11 @@
             "type": "ContextMenuField",
             "icon": "context_menu",
             "lmbClicked": {
-              "object_name": "none",
+              "object_name": ".",
               "method_name": "closeContextMenu"
             },
             "rmbClicked": {
-              "object_name": "none",
+              "object_name": ".",
               "method_name": "openContextMenu"
             },
             "context_menu": {
@@ -175,7 +175,7 @@
               "size": [61,80],
               "hided": true,
               "elements": {
-                "context_menu_background": {
+                "background": {
                   "type": "Rect",
                   "size": [61,80],
                   "colors": {
@@ -206,7 +206,7 @@
             "coordinates": [0, 0],
             "size_scale_type": "scale_xy",
             "elements": {
-              "main_background": {
+              "background": {
                 "type": "Rect",
                 "zLevel": -1,
                 "coordinates": [0,0],
@@ -225,7 +225,7 @@
                 "scale": [1,1],
                 "size": [200, 200],
                 "size_scale_type": "scale_smooth_xy",
-                "drag_focus": "top_bar",
+                "drag_focus": "draggable_window.top_bar",
                 "zLevel": 0,
                 "currently_dragging": {
                   "object_name": "none",
@@ -236,7 +236,7 @@
                   "method_name": "dragging_end"
                 },
                 "elements": {
-                  "draggable_window_background": {
+                  "background": {
                     "type": "Rect",
                     "zLevel": -1,
                     "coordinates": [0,0],
@@ -328,21 +328,21 @@
                 "coordinates": [0,200],
                 "size": [10,200],
                 "size_scale_type": "scale_y",
-                "objectToScroll": "text_box",
-                "scroll_icon": "scrollbarYIcon",
-                "scrolling_collection": "scrollbar_y_col",
-                "scrollbar_y_col": {
+                "objectToScroll": "new_gui.draggable_window.text_box",
+                "scroll_icon": "scrollbar_y.collection.icon",
+                "scrolling_collection": "collection",
+                "collection": {
                   "type": "Collection",
                   "size_scale_type": "scale_y",
                   "elements": {
-                    "scrollbarYIcon": {
+                    "icon": {
                       "type": "Drag",
                       "size": [10,20],
                       "size_scale_type": "scale_y",
                       "zLevel": 1,
-                      "drag_focus": "scrollYIcon_background",
+                      "drag_focus": "icon.background",
                       "elements": {
-                        "scrollYIcon_background": {
+                        "background": {
                           "type": "Rect",
                           "size": [10,20],
                           "size_scale_type": "scale_y",
@@ -356,7 +356,7 @@
                         }
                       }
                     },
-                    "scrollbarY_background": {
+                    "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_y",
                       "colors": {
@@ -369,27 +369,27 @@
                   }
                 }
               },
-              "scrollbarX": {
+              "scrollbar_x": {
                 "type": "ScrollBar",
                 "zLevel": 10,
                 "coordinates": [200,0],
                 "size": [200,10],
                 "size_scale_type": "scale_x",
-                "objectToScroll": "text_box",
-                "scroll_icon": "scrollbarXIcon",
-                "scrolling_collection": "scrollbar_x_col",
-                "scrollbar_x_col": {
+                "objectToScroll": "new_gui.draggable_window.text_box",
+                "scroll_icon": "scrollbar_x.collection.icon",
+                "scrolling_collection": "collection",
+                "collection": {
                   "type": "Collection",
                   "size_scale_type": "scale_x",
                   "elements": {
-                    "scrollbarXIcon": {
+                    "icon": {
                       "type": "Drag",
                       "size": [20,10],
                       "size_scale_type": "scale_x",
                       "zLevel": 1,
-                      "drag_focus": "scrollXIcon_background",
+                      "drag_focus": "icon.background",
                       "elements": {
-                        "scrollXIcon_background": {
+                        "background": {
                           "type": "Rect",
                           "size": [20,10],
                           "size_scale_type": "scale_x",
@@ -403,7 +403,7 @@
                         }
                       }
                     },
-                    "scrollbarX_background": {
+                    "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_x",
                       "colors": {
