@@ -205,6 +205,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     protected int zLevel;
 
     private boolean checkBorders = true;
+    protected boolean auto_scale_x;
+    protected boolean auto_scale_y;
 
     LinkedPoints points = null;
 
@@ -430,6 +432,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             size.set(points.a.getPoint().x - points.b.getPoint().x, points.b.getPoint().y - points.a.getPoint().y);
         } else {
             Vector2f.add(focal_point.fromVector4f(parentBorders), coordinates, currentObjectPosition);
+            if(auto_scale_x) {
+                size.x = parentBorders.z - currentObjectPosition.x;
+            }
+            if(auto_scale_y) {
+                size.y = parentBorders.w - currentObjectPosition.y;
+            }
         }
         this.borders.set(
                 currentObjectPosition.x, currentObjectPosition.y,
@@ -524,6 +532,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             a.put("zLevel", (long)zLevel);
         if(hide)
             a.put("hided", true);
+        if(points == null) {
+            if (auto_scale_x)
+                a.put("auto_scale_x", true);
+            if (auto_scale_y)
+                a.put("auto_scale_y", true);
+        }
         if(focal_point != FocalPoint.TOP_LEFT)
             a.put("focal_point", focal_point.toString());
         if(points != null)
@@ -570,12 +584,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             checkBorders = (Boolean)(parameters.get("check_borders"));
         }
 
-        this.size = new Vector2f(0, 0);
-        if(parameters.containsKey("size")) {
-            this.size.set(Json2Vec(parameters.get("size")));
-        } else if(parent instanceof DefaultGuiObject) {
-            this.size.set(((DefaultGuiObject) parent).getSize());
-        }
 
         zLevel = 0;
         if(parameters.containsKey("zLevel")) {
@@ -586,7 +594,18 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             hide = (Boolean)parameters.get("hided");
         }
 
+        if(parameters.containsKey("auto_scale_x")) {
+            auto_scale_x = (Boolean)parameters.get("auto_scale_x");
+        }
 
+        if(parameters.containsKey("auto_scale_y")) {
+            auto_scale_y = (Boolean) parameters.get("auto_scale_y");
+        }
+
+        this.focal_point  = FocalPoint.TOP_LEFT;
+        if(parameters.containsKey("focal_point")) {
+            this.focal_point = FocalPoint.fromString((String) parameters.get("focal_point"));
+        }
 
         if(parameters.containsKey("size_scale_type")) {
             sizeRescaleType = ResolutionRescaleType.fromString((String)parameters.get("size_scale_type"));
@@ -596,8 +615,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             sizeRescaleType = ResolutionRescaleType.NONE;
         }
 
-
-
         if(parameters.containsKey("coordinates_scale_type")) {
             coordinatesRescaleType = ResolutionRescaleType.fromString((String)parameters.get("coordinates_scale_type"));
         } else if(parent instanceof DefaultGuiObject) {
@@ -606,9 +623,11 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             coordinatesRescaleType = ResolutionRescaleType.NONE;
         }
 
-        this.focal_point  = FocalPoint.TOP_LEFT;
-        if(parameters.containsKey("focal_point")) {
-            this.focal_point = FocalPoint.fromString((String) parameters.get("focal_point"));
+        this.size = new Vector2f(0, 0);
+        if(parameters.containsKey("size")) {
+            this.size.set(Json2Vec(parameters.get("size")));
+        } else if(parent instanceof DefaultGuiObject) {
+            this.size.set(((DefaultGuiObject) parent).getSize());
         }
 
         this.reScale(scale);
