@@ -516,16 +516,39 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 break;
             }
         }
-        a.put("coordinates", VecToJson(coordinates));
-        a.put("scale", VecToJson(scale));
-        a.put("size", VecToJson(size));
-        a.put("zLevel", (long)zLevel);
-        a.put("hided", hide);
-        a.put("size_scale_type", sizeRescaleType.toString());
-        a.put("coordinates_scale_type", sizeRescaleType.toString());
-        a.put("focal_point", focal_point.toString());
+        if(coordinates.x != 0 || coordinates.y != 0)
+            a.put("coordinates", VecToJson(coordinates));
+        if(scale.x != 1 || scale.y != 1)
+            a.put("scale", VecToJson(scale));
+        if(zLevel != 0)
+            a.put("zLevel", (long)zLevel);
+        if(hide)
+            a.put("hided", true);
+        if(focal_point != FocalPoint.TOP_LEFT)
+            a.put("focal_point", focal_point.toString());
         if(points != null)
             a.put("linked_points", points.toJson());
+
+        if(parent instanceof DefaultGuiObject) {
+            if(!sizeRescaleType.equals(((DefaultGuiObject)parent).sizeRescaleType))
+                a.put("size_scale_type", sizeRescaleType.toString());
+
+            if(!coordinatesRescaleType.equals(((DefaultGuiObject)parent).coordinatesRescaleType))
+                a.put("coordinates_scale_type", coordinatesRescaleType.toString());
+
+            if(!this.size.equals(((DefaultGuiObject) parent).size))
+                a.put("size", VecToJson(size));
+        } else {
+            if(sizeRescaleType != ResolutionRescaleType.NONE)
+                a.put("size_scale_type", sizeRescaleType.toString());
+
+            if(coordinatesRescaleType != ResolutionRescaleType.NONE)
+                a.put("coordinates_scale_type", coordinatesRescaleType.toString());
+
+            if(size.x != 0 || size.y != 0) {
+                a.put("size", VecToJson(size));
+            }
+        }
         return returnValue;
     }
 
