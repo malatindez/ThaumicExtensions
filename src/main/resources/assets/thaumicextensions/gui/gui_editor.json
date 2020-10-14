@@ -32,7 +32,7 @@
                 "zLevel": 1,
                 "coordinates": [0,150],
                 "coordinates_scale_type": "scale_xy",
-                "size": [67, 10],
+                "size": [77, 10],
                 "size_scale_type": "scale_x",
                 "objectToScroll": "elements_browser",
                 "scroll_icon": "scrollbar_x.collection.icon",
