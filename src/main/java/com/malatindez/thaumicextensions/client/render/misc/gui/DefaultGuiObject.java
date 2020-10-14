@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
+import scala.tools.nsc.doc.model.Def;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -256,6 +257,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
     public String getName() {
         return name;
+    }
+    public String getGlobalName() {
+        if(parent instanceof DefaultGuiObject) {
+            return ((DefaultGuiObject) parent).getGlobalName() + "." + getName();
+        }
+        return getName();
     }
     public Vector4f getBorders() {
         return new Vector4f(borders);
