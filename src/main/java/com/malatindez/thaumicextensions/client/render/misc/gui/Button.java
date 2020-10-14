@@ -11,6 +11,7 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
     protected DefaultGuiObject hovered_icon;
     protected MethodObjectPair clicked;
     protected MethodObjectPair hovered;
+    protected MethodObjectPair hoveringStopped;
     protected int id;
 
 
@@ -35,6 +36,7 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         super.loadFromJSONObject(parameters);
         clicked = getMethod(parameters, "clicked", new Class[] {DefaultGuiObject.class, int.class});
         hovered = getMethod(parameters, "hovered", new Class[] {DefaultGuiObject.class, int.class});
+        hoveringStopped = getMethod(parameters, "hoveringStopped", new Class[] {DefaultGuiObject.class, int.class});
 
         if(parameters.containsKey("id")) {
             id = (int)JsonToFloat(parameters.get("id"));
@@ -86,6 +88,9 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         if(this.hovered_icon != null && (icon.hided() || !hovered_icon.hided())) {
             icon.show();
             hovered_icon.hide();
+            try {
+                hoveringStopped.method.invoke(hoveringStopped.object,this, id);
+            } catch (Exception ignored) {}
         }
     }
 
