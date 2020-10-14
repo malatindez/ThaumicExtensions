@@ -5,6 +5,7 @@
     "size_scale_type": "scale_xy",
     "elements": {
       "right_wing": {
+        "zLevel": 1,
         "type": "Collection",
         "size": [77, 240],
         "coordinates": [350,0],
@@ -13,12 +14,24 @@
         "elements": {
           "elements_browser": {
             "type": "GuiBrowser",
-            "size": [77, 160],
+            "size": [77, 120],
             "size_scale_type": "scale_xy",
             "elements": {
+              "hover_rect": {
+                "type": "Rect",
+                "size": [0,0],
+                "check_borders": false,
+                "zLevel": 1,
+                "colors": {
+                  "topLeft":     [0.8,0,0,0.4],
+                  "topRight":    [0.8,0,0,0.4],
+                  "bottomLeft":  [0.8,0,0,0.4],
+                  "bottomRight": [0.8,0,0,0.4]
+                }
+              },
               "background": {
                 "type": "Rect",
-                "size": [77,150],
+                "size": [77,110],
                 "zLevel": -1,
                 "colors": {
                   "topLeft":     [0.3,0.3,0.3,0.5],
@@ -30,7 +43,7 @@
               "scrollbar_x": {
                 "type": "ScrollBar",
                 "zLevel": 1,
-                "coordinates": [0,150],
+                "coordinates": [0,110],
                 "coordinates_scale_type": "scale_xy",
                 "size": [77, 10],
                 "size_scale_type": "scale_x",
@@ -78,7 +91,7 @@
                 "type": "ScrollBar",
                 "zLevel": 1,
                 "coordinates": [-10,0],
-                "size": [10, 150],
+                "size": [10, 110],
                 "focal_point": "top_right",
                 "size_scale_type": "scale_y",
                 "coordinates_scale_type": "none",
@@ -139,6 +152,15 @@
                 }
               }
             }
+          },
+          "elements_editor": {
+            "type": "GuiElementEditor",
+            "coordinates": [0,120],
+            "size": [77, 120],
+            "size_scale_type": "scale_xy",
+            "elements": {
+
+            }
           }
         }
       },
@@ -156,47 +178,6 @@
               "topRight":    [0.7,0.7,0.7,0.5],
               "bottomLeft":  [0.7,0.7,0.7,0.5],
               "bottomRight": [0.7,0.7,0.7,0.5]
-            }
-          },
-          "mouseHandlingRect": {
-            "zLevel": 1,
-            "type": "ContextMenuField",
-            "icon": "context_menu",
-            "lmbClicked": {
-              "object_name": ".",
-              "method_name": "closeContextMenu"
-            },
-            "rmbClicked": {
-              "object_name": ".",
-              "method_name": "openContextMenu"
-            },
-            "context_menu": {
-              "type": "Collection",
-              "size": [61,80],
-              "hided": true,
-              "elements": {
-                "background": {
-                  "type": "Rect",
-                  "size": [61,80],
-                  "colors": {
-                    "topLeft":     [0.3,0.3,0.3,0.5],
-                    "topRight":    [0.3,0.3,0.3,0.5],
-                    "bottomLeft":  [0.3,0.3,0.3,0.5],
-                    "bottomRight": [0.3,0.3,0.3,0.5]
-                  }
-                },
-                "textInputLine": {
-                  "type": "TextInputLine",
-                  "text": "Lorem",
-                  "color": [1,1,1,0.3],
-                  "dropShadow": true,
-                  "coordinates": [0,0],
-                  "size": [61,10],
-                  "zLevel":10,
-                  "scale": [1,1],
-                  "size_scale_type": "scale_x"
-                }
-              }
             }
           },
           "new_gui": {
@@ -280,9 +261,9 @@
                   "text_line": {
                     "type": "TextLine",
                     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "size": [100, 10],
                     "color": [0.3,1,1,0.3],
                     "dropShadow": true,
-                    "coordinates": [75,75],
                     "zLevel":2,
                     "scale": [1,1],
                     "size_scale_type": "none"
