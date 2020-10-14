@@ -1,5 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc;
 
+import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import net.minecraft.client.Minecraft;
 import org.json.simple.JSONObject;
@@ -35,32 +36,59 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             return 0;
         }
     }
-    String defaultButtonText =
-            "{ \"type\": \"Button\", \"auto_scale_x\": true, \"check_borders\": false, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"id\": COORD_Y, \"zLevel\": COORD_Y, \"size_scale_type\": \"scale_x\", \"coordinates_scale_type\": \"scale_x\",\n" +
-                    "        \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
-                    "        \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
-                    "        \"Icon\": {\n" +
-                    "          \"type\": \"Collection\", \"auto_scale_x\": true, \n" +
-                    "          \"elements\": {\n " +
-                    "            \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-                    "            \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
-                    "          }},\n" +
-                    "        \"hovered_Icon\": {\"auto_scale_x\": true, \n" +
-                    "          \"type\": \"Collection\",\n" +
-                    "          \"elements\": {\n" +
-                    "            \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-                    "            \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
-                    "          }}\n" +
-                    "      }";
+    /*           { "type": "Button",
+		   "auto_scale_x": true, "check_borders": false,
+		   "coordinates": [0, COORD_Y],
+		   "size": [67, 10], "id": COORD_Y, "zLevel": COORD_Y, "coordinates_scale_type": "scale_x",
+                           "clicked": { "object_name": "elements_browser", "method_name": "GuiBrowserElementClicked" },
+                           "hovered": { "object_name": "elements_browser", "method_name": "GuiBrowserElementHovered" },
+                           "icon": "Icon", "hovered_icon": "hovered_Icon",
+                           "Icon": {
+                             "type": "Collection", "auto_scale_x": true,
+                             "elements": {
+                               "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+                               "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
+                             }},
+                           "hovered_Icon": {"auto_scale_x": true,
+                             "type": "Collection",
+                             "elements": {
+                               "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+                               "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
+                             }}
+                         }
+                         */
+
+    String defaultButtonText = "{ \"type\": \"Button\",\n" +
+            "   \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\",\n" +
+            "   \"coordinates\": [0, COORD_Y],\n" +
+            "   \"size\": [67, 10], \"id\": COORD_Y, \"zLevel\": COORD_Y, \"coordinates_scale_type\": \"scale_x\",\n" +
+            "                           \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
+            "                           \"hovered\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHovered\" },\n" +
+            "                           \"hoveringStopped\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHoveringStopped\" },\n" +
+            "                           \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
+            "                           \"Icon\": {\n" +
+            "                             \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
+            "                             \"elements\": {\n" +
+            "                               \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "                               \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
+            "                             }},\n" +
+            "                           \"hovered_Icon\": {\"auto_scale_x\": true,\n" +
+            "                             \"type\": \"Collection\",\n" +
+            "                             \"elements\": {\n" +
+            "                               \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "                               \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
+            "                             }}\n" +
+            "                         }";
 
     public GuiBrowser(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
     Object gui_ref;
     long lastUpdate = 0;
-    public DefaultGuiObject selected = null; // reference
-    public Collection subElements = null; // reference to gui_editor_browser_elements
-    public DefaultGuiObject background = null; // reference to gui_editor_browser_background
+    public DefaultGuiObject selected = null; // reference to currently selected object
+    public Collection subElements = null; // reference to elements_browser.elements
+    public DefaultGuiObject background = null; // reference to elements_browser.background
+    public DefaultGuiObject hover_rect = null; // reference to elements_browser.hover_rect
     protected int selectedId = 0;
 
     Tree currentTree = null;
@@ -77,7 +105,7 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         maxXSize = Math.max(maxXSize, (s + o.object.getName() + " [" + o.object.getClass().getSimpleName() + "]").length());
         buttonJSON = buttonJSON.replace("COORD_Y", Integer.toString(currentOffsetY * 10));
         currentOffsetY++;
-        subElements.addObject(new Button(o.object.getName(),
+        subElements.addObject(new Button(o.object.getGlobalName().replace(".", "\n"),
                 subElements,
                 (JSONObject)JSONValue.parse(buttonJSON)
                 ));
@@ -130,11 +158,13 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
         }
     }
+
     @Override
     public void postInit() {
         gui_ref = getObjectUp("gui_editor.gui.new_gui");
         subElements = (Collection) getObjectDown("elements_browser.elements");
         background = (DefaultGuiObject) getObjectDown("elements_browser.background");
+        hover_rect = (DefaultGuiObject) getObjectDown("elements_browser.hover_rect");
         super.postInit();
         updateTree(new Tree((DefaultGuiObject) gui_ref));
         subElements.postInit();
@@ -145,7 +175,6 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         super.resolutionUpdated(newResolution);
         updateHideStates();
     }
-
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
@@ -166,5 +195,14 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
 
     public void GuiBrowserElementClicked(DefaultGuiObject buttonReference, int id) {
         selected = buttonReference; selectedId = id / 10;
+    }
+
+    public void GuiBrowserElementHovered(DefaultGuiObject buttonReference, int id) {
+        DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(buttonReference.getName().replace("\n","."));
+        hover_rect.setSize(object.getSize());
+        hover_rect.setCoordinates(Vector2f.sub(object.getCurrentPosition(), hover_rect.getParentCoordinates(), null));
+    }
+    public void GuiBrowserElementHoveringStopped(DefaultGuiObject buttonReference, int id) {
+        hover_rect.setSize(0,0);
     }
 }
