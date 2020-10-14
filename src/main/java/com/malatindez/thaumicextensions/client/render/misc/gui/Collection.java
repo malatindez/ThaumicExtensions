@@ -11,8 +11,6 @@ import java.util.Comparator;
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
-    protected Collection parent = null;
-
 
     @Override
     public boolean keyTyped(char par1, int par2) {

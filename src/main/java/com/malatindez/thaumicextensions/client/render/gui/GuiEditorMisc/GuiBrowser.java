@@ -35,27 +35,9 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             return 0;
         }
     }
-    /*
-    "button": { "type": "Button", "coordinates": [0, COORD_Y], "size": [67, 10], "id": 11, "zLevel": COORD_Y, "size_scale_type": "scale_x", "coordinates_scale_type": "scale_x",
-            "clicked": { "object_name": "OBJECT_NAME", "method_name": "GuiBrowserElementClicked" },
-            "icon": "ICON_NAME", "hovered_icon": "HOVERED_ICON_NAME",
-            "ICON_NAME": {
-              "type": "Collection",
-              "elements": {
-                "text": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                "background": { "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
-              }},
-            "HOVERED_ICON_NAME": {
-              "type": "Collection",
-              "elements": {
-                "text": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                "background": { "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
-              }}
-          }
-     */
     String defaultButtonText =
-            "{ \"type\": \"Button\", \"auto_scale_x\": true, \"check_borders\": false, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"id\": 11, \"zLevel\": COORD_Y, \"size_scale_type\": \"scale_x\", \"coordinates_scale_type\": \"scale_x\",\n" +
-                    "        \"clicked\": { \"object_name\": \"OBJECT_NAME\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
+            "{ \"type\": \"Button\", \"auto_scale_x\": true, \"check_borders\": false, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"id\": COORD_Y, \"zLevel\": COORD_Y, \"size_scale_type\": \"scale_x\", \"coordinates_scale_type\": \"scale_x\",\n" +
+                    "        \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
                     "        \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
                     "        \"Icon\": {\n" +
                     "          \"type\": \"Collection\", \"auto_scale_x\": true, \n" +
@@ -131,10 +113,12 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         if(subElements == null) {
             return;
         }
-        subElements.setCoordinates(0,
-                Math.min(0, -(-background.getSize().y +
-                        subElements.getDescendants().size() *
-                                subElements.getDescendants().get(0).getSize().y) * offsetY));
+        float a = Math.min(0, (background.getSize().y -
+                subElements.getDescendants().size() *
+                        subElements.getDescendants().get(0).getSize().y) * offsetY);
+        if(subElements.getCoordinates().y != a){
+            subElements.setCoordinates(0, a);
+        }
         for(DefaultGuiObject defaultGuiObject : subElements.getDescendants()) {
             if(defaultGuiObject.getCurrentPosition().y < - 1.0f / 24.0f * currentResolution.y
                     || defaultGuiObject.getCurrentPosition().y > background.getBorders().w) {
@@ -180,7 +164,7 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         updateHideStates();
     }
 
-    void GuiBrowserElementClicked(DefaultGuiObject buttonReference, int id) {
-        selected = buttonReference; selectedId = id;
+    public void GuiBrowserElementClicked(DefaultGuiObject buttonReference, int id) {
+        selected = buttonReference; selectedId = id / 10;
     }
 }

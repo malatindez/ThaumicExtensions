@@ -62,11 +62,11 @@ public class GuiEditor extends EnhancedGuiScreen {
         //}
         this.gui = collection;
     }
-    public void openContextMenu(Object object, Vector2f mousePosition) {
+    public void openContextMenu(DefaultGuiObject object, Vector2f mousePosition) {
         ((ContextMenuField)object).icon.show();
         ((ContextMenuField)object).icon.setCoordinates(mousePosition);
     }
-    public void closeContextMenu(Object object) {
+    public void closeContextMenu(DefaultGuiObject object) {
         ((ContextMenuField)object).icon.hide();
     }
 }

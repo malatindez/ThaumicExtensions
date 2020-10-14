@@ -25,13 +25,15 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
     @Override
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);
-
         JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
         this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
         this.addObject(this.icon);
-        lmbClicked = getMethod(parameters, "lmbClicked", new Class[] {Object.class});
-        rmbClicked = getMethod(parameters, "rmbClicked", new Class[] {Object.class, Vector2f.class});
-
+    }
+    @Override
+    public void postInit() {
+        JSONObject parameters = getStartupParameters();
+        lmbClicked = getMethod(parameters, "lmbClicked", new Class[] {DefaultGuiObject.class});
+        rmbClicked = getMethod(parameters, "rmbClicked", new Class[] {DefaultGuiObject.class, Vector2f.class});
     }
 
     public ContextMenuField(String name, Object parent, JSONObject parameters) {

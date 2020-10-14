@@ -33,9 +33,9 @@ public class ScrollBar extends DefaultGuiObject implements
             b.z -= scroll_icon.getSize().x;
             b.w -= scroll_icon.getSize().y;
             if ((a.x - prevCoordinates.x) != 0) {
-                objectToScroll.setOffsetX(a.x / (b.z - b.x));
+                objectToScroll.setOffsetX(Math.max(0, Math.min(1, a.x / (b.z - b.x))));
             } else if ((a.y - prevCoordinates.y) != 0) {
-                objectToScroll.setOffsetY(a.y / (b.w - b.y));
+                objectToScroll.setOffsetY(Math.max(0, Math.min(1, a.y / (b.w - b.y))));
             }
             prevCoordinates = a;
         }

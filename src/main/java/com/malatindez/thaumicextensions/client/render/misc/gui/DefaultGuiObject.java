@@ -341,13 +341,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(object == null) {
             return null;
         }
+        object.setParent(this);
         object.updateParentBorders(getBorders());
         object.resolutionUpdated(this.currentResolution);
         descendants.add(object); sortObjects();
         return object;
     }
 
-
+    private void setParent(DefaultGuiObject parent) {
+        this.parent = parent;
+    }
 
 
     protected boolean keyTypedDescendants(char par1, int par2) {
@@ -406,10 +409,14 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     // postInit is called after entire gui is loaded
     public void postInit() {
         for(DefaultGuiObject descendant : descendants) {
+            descendant.setParent(this);
+        }
+        for(DefaultGuiObject descendant : descendants) {
             descendant.postInit();
         }
         if(getStartupParameters().containsKey("linked_points")) {
             this.points = new LinkedPoints(this, (JSONObject) getStartupParameters().get("linked_points"));
+            updateVectors();
         }
     }
 
@@ -706,7 +713,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         try {
             return new MethodObjectPair(this, this.getClass().getMethod(name, parameterTypes));
         } catch (NoSuchMethodException e) {
-            System.out.println("Method" + name + " wasn't found in " + objectName);
+            System.out.println("Method " + name + " wasn't found in " + objectName);
             return null;
         }
     }
@@ -722,7 +729,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         if(parent instanceof DefaultGuiObject) {
             return ((DefaultGuiObject)parent).getMethodUp(objectName, methodName, parameterTypes);
-        } else if (methodName.equals(".")) {
+        } else if (objectName.equals(".")) {
             try {
                 return new MethodObjectPair(parent, parent.getClass().getMethod(methodName, parameterTypes));
             } catch (Exception ignored) {}
@@ -763,6 +770,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         if(parent instanceof DefaultGuiObject) {
             return ((DefaultGuiObject)parent).getObjectUp(objectName);
+        } else if(objectName.equals(".")) {
+            return parent;
         }
         return getObjectDown(objectName);
     }
