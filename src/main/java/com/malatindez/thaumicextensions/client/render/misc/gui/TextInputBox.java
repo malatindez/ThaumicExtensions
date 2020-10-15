@@ -282,25 +282,25 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     @Override
     public void setOffsetX(float offset) {
         renderCursor.x = (int)(offset * longest_line);
-        offsetX = renderCursor.x - offset;
+        offsetX = (offset * longest_line) - renderCursor.x;
         textWasUpdated();
     }
 
     @Override
     public void setOffsetY(float offset) {
         renderCursor.y = (int)(offset * lines.size());
-        offsetY = renderCursor.y - offset;
+        offsetY = (offset * lines.size()) - renderCursor.y;
         textWasUpdated();
     }
 
     @Override
     public float getOffsetX() {
-        return renderCursor.x + offsetX;
+        return Math.max(0, Math.min(1, (renderCursor.x + offsetX) / longest_line));
     }
 
     @Override
     public float getOffsetY() {
-        return renderCursor.y + offsetY;
+        return Math.max(0, Math.min(1, (renderCursor.y + offsetY) / lines.size()));
     }
 
 }
