@@ -78,6 +78,14 @@ public class IconFactory {
             super(name,parent,parameters);
         }
 
+        Vector2f current_scale = new Vector2f(0,0);
+        @Override
+        public void VectorsWereUpdated() {
+            Vector2f.sub(sample.texTo, sample.texFrom, current_scale);
+            Vector.div(getSize(), current_scale, current_scale);
+            Vector.mul(getScale(), current_scale, current_scale);
+        }
+
         /**
          * Render an icon on default coordinates
          */
@@ -89,7 +97,7 @@ public class IconFactory {
             UtilsFX.bindTexture(sample.texture);
             UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
                     sample.texFrom, sample.texTo,
-                    Vector.div(getSize(), Vector2f.sub(sample.texTo, sample.texFrom, null), null),
+                    current_scale,
                     sample.textureSize, getZLevel());
         }
     }
