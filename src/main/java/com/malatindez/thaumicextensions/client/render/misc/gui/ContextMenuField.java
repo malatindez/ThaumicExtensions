@@ -41,13 +41,13 @@ public class ContextMenuField extends Collection {
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided()) {
+        if(hidden()) {
             return false;
         }
         if(super.mouseClicked(currentMousePosition, button)) {
             return true;
         }
-        if(icon instanceof EnhancedGuiScreen.Clickable && !icon.hided()) {
+        if(icon instanceof EnhancedGuiScreen.Clickable && !icon.hidden()) {
             Vector4f temp = icon.getBorders();
             if (temp.x < currentMousePosition.x &&
                     temp.z > currentMousePosition.x &&

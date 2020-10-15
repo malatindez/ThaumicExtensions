@@ -92,7 +92,7 @@ public class TextLine extends DefaultGuiObject {
     }
     @Override
     public void render() {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         GL11.glPushMatrix();

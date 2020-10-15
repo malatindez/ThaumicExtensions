@@ -267,7 +267,7 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
 
     public void hideButtonClicked(DefaultGuiObject buttonReference, int id) {
         DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(((DefaultGuiObject)buttonReference.getParent()).getName().replace("\n","."));
-        if(object.hided()) {
+        if(object.hidden()) {
             object.show();
         } else {
             object.hide();

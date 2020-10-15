@@ -215,7 +215,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     FocalPoint focal_point;
 
 
-    public boolean hided() {
+    public boolean hidden() {
         return hide;
     }
     public Object getParent() {

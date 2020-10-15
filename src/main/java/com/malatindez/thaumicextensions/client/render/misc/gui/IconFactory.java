@@ -94,7 +94,7 @@ public class IconFactory {
          */
         @Override
         public void render() {
-            if(hided()) {
+            if(hidden()) {
                 return;
             }
             UtilsFX.bindTexture(sample.texture);

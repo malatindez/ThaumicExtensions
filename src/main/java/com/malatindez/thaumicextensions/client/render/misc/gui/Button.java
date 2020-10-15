@@ -78,7 +78,7 @@ public class Button extends Collection {
     boolean isHovered = false;
     @Override
     public void mouseHandler(Vector2f currentMousePosition) {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         Vector4f temp = getBorders();
@@ -101,7 +101,7 @@ public class Button extends Collection {
             return;
         }
         isHovered = false;
-        if(this.hovered_icon != null && (icon.hided() || !hovered_icon.hided())) {
+        if(this.hovered_icon != null && (icon.hidden() || !hovered_icon.hidden())) {
             if(!renderOver) {
                 icon.show();
             }
@@ -114,7 +114,7 @@ public class Button extends Collection {
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided()) {
+        if(hidden()) {
             return false;
         }
         Vector4f temp = getBorders();
@@ -124,7 +124,7 @@ public class Button extends Collection {
            temp.y < currentMousePosition.y &&
            temp.w > currentMousePosition.y) {
             if(switch_icon != null) {
-                if(switch_icon.hided()) {
+                if(switch_icon.hidden()) {
                     switch_icon.show();
                     icon.hide();
                 } else {

@@ -102,7 +102,7 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public void render() {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         for(int i = descendants.size() - 1; i >= 0; i--) {
@@ -124,7 +124,7 @@ public class Collection extends DefaultGuiObject implements
     }
     @Override
     public boolean keyTyped(char par1, int par2) {
-        if(hided()) {
+        if(hidden()) {
             return false;
         }
         for(Object object : descendants) {
@@ -139,7 +139,7 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public void mouseHandler(Vector2f currentMousePosition) {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         for(DefaultGuiObject object : descendants) {
@@ -151,7 +151,7 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public boolean mouseClicked( Vector2f currentMousePosition, int button) {
-        if(hided()) {
+        if(hidden()) {
             return false;
         }
         for(DefaultGuiObject

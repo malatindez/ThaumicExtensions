@@ -46,7 +46,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided() || button != 0) {
+        if(hidden() || button != 0) {
             return false;
         }
         Vector4f borders =  getBorders();
@@ -167,7 +167,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean keyTyped(char par1, int par2) {
-        if(hided() || !selected) {
+        if(hidden() || !selected) {
             return false;
         }
         Vector2f offset = new Vector2f(0,0);

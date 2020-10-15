@@ -93,7 +93,7 @@ public class Drag extends Collection {
 
     @Override
     public void mouseHandler(Vector2f currentMousePosition) {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         if(currently_dragging) {
@@ -132,7 +132,7 @@ public class Drag extends Collection {
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided()) {
+        if(hidden()) {
             return false;
         }
         if(objectToFocusOn != null) {

@@ -128,7 +128,7 @@ public class TextBox extends DefaultGuiObject {
     }
     @Override
     public void render() {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         int current_height = 0;

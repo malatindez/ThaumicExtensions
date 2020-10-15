@@ -45,7 +45,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
 
     @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        if(hided() || button != 0) {
+        if(hidden() || button != 0) {
             return false;
         }
         Vector4f borders =  getBorders();
@@ -88,7 +88,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean keyTyped(char par1, int par2) {
-        if(hided() || !selected) {
+        if(hidden() || !selected) {
             return false;
         }
         int offset;
@@ -149,7 +149,7 @@ public class TextInputLine extends TextLine implements EnhancedGuiScreen.Clickab
 
     @Override
     public void render() {
-        if(hided()) {
+        if(hidden()) {
             return;
         }
         super.render();
