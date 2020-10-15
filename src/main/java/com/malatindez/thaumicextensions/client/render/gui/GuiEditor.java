@@ -9,10 +9,18 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class GuiEditor extends EnhancedGuiScreen {
+    public interface Editable {
+        /**
+         * @return full json mapping with every element
+         */
+        String getFullJSON();
+    }
     public void initGui() {}
 
     protected void actionPerformed(GuiButton par1GuiButton) {
