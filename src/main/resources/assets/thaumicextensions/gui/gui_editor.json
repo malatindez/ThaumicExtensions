@@ -172,9 +172,6 @@
               "background": {
                 "type": "Rect",
                 "zLevel": -1,
-                "coordinates": [0,0],
-                "scale": [1, 1],
-                "size_scale_type": "scale_xy",
                 "colors": {
                   "topLeft": [1,1,1,0.6],
                   "topRight": [1,1,1,0.6],
@@ -254,6 +251,7 @@
                     "type": "Button",
                     "coordinates": [100, 100],
                     "size": [50,50],
+                    "render_over": false,
                     "clicked": {
                       "object_name": "none",
                       "method_name": "defaultResearchClicked"
@@ -373,6 +371,35 @@
                       }
                     }
 
+                }
+              },
+              "selector": {
+                "type": "Selector",
+                "size": [50, 10],
+                "size_scale_type": "scale_x",
+                "main_line": "selector.main_line",
+                "lines": [
+                  "none", "scale_x", "scale_y", "scale_xy", "scale_smooth_x", "scale_smooth_y", "scale_smooth_xy"
+                ],
+                "elements": {
+                  "background": {
+                    "type": "Rect",
+                    "zLevel": -1,
+                    "colors": {
+                      "topLeft": [0.3,0.3,0.3,1],
+                      "topRight": [0.3,0.3,0.3,1],
+                      "bottomLeft": [0.3,0.3,0.3,1],
+                      "bottomRight": [0.3,0.3,0.3,1]
+                    }
+                  },
+                  "main_line": {
+                    "type": "TextLine",
+                    "text": "",
+                    "size": [50, 10],
+                    "color": [1,1,1,1],
+                    "dropShadow": true,
+                    "size_scale_type": "none"
+                  }
                 }
               }
             }

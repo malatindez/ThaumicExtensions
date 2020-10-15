@@ -1,13 +1,10 @@
 package com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc;
 
-import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import net.minecraft.client.Minecraft;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
-import scala.tools.nsc.doc.model.Def;
-import scala.util.hashing.Hashing;
 
 import java.util.ArrayList;
 
@@ -93,25 +90,10 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
             "\"hide_button\": {\n" +
             " \"type\": \"Button\", \"coordinates\": [0, 0], \"size\": [10,10], \"id\": 0, \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
             " \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"hideButtonClicked\" },\n" +
-            " \"icon\": \"hide_button.button_icon\",\n" +
-            " \"hovered_icon\": \"hide_button.button_hovered_icon\",\n" +
+            " \"icon\": \"hide_button.shown\",\n" +
+            " \"switch_icon\": \"hide_button.hidden\",\n" +
+            " \"hovered_icon\": \"hide_button.hover_rect\",\n" +
             " \"elements\": {\n" +
-            "  \"button_icon\":{\n" +
-            "   \"type\": \"Collection\",\n" +
-            "   \"elements\": {\n" +
-            "     \"shown\": {\n" +
-            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
-            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
-            "     },\n" +
-            "     \"hidden\": {\n" +
-            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
-            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
-            "     }\n" +
-            "    }\n" +
-            "  },\n" +
-            "  \"button_hovered_icon\":{\n" +
-            "   \"type\": \"Collection\", \"zLevel\": 1,\n" +
-            "   \"elements\": {\n" +
             "     \"shown\": {\n" +
             "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
             "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
@@ -123,7 +105,7 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
             "  \t \"hover_rect\": {\n" +
             "  \t  \"type\": \"Rect\", \"size\": [10, 10], \"zLevel\": 2, \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.3], \"topRight\": [0.7,0.7,0.7,0.3], \"bottomLeft\": [0.7,0.7,0.7,0.3], \"bottomRight\": [0.7,0.7,0.7,0.3] }\n" +
             "     }\n" +
-            " }}}\n" +
+            " }\n" +
             "},\n" +
             "\"textline_button\": { \n" +
             "\"type\": \"Button\",\n" +
@@ -286,16 +268,8 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
     public void hideButtonClicked(DefaultGuiObject buttonReference, int id) {
         DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(((DefaultGuiObject)buttonReference.getParent()).getName().replace("\n","."));
         if(object.hided()) {
-            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(1).hide();
-            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(2).show();
-            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(0).hide();
-            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(1).show();
             object.show();
         } else {
-            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(1).show();
-            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(2).hide();
-            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(0).show();
-            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(1).hide();
             object.hide();
         }
     }

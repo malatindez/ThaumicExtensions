@@ -233,7 +233,6 @@
             "HOVERED_ICON_NAME_BACKGROUND": { "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
           }}
       }
-
     }
   }
 }
