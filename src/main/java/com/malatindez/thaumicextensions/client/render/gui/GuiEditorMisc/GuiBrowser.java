@@ -36,49 +36,111 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             return 0;
         }
     }
-    /*           { "type": "Button",
-		   "auto_scale_x": true, "check_borders": false,
-		   "coordinates": [0, COORD_Y],
-		   "size": [67, 10], "id": COORD_Y, "zLevel": COORD_Y, "coordinates_scale_type": "scale_x",
-                           "clicked": { "object_name": "elements_browser", "method_name": "GuiBrowserElementClicked" },
-                           "hovered": { "object_name": "elements_browser", "method_name": "GuiBrowserElementHovered" },
-                           "icon": "Icon", "hovered_icon": "hovered_Icon",
-                           "Icon": {
-                             "type": "Collection", "auto_scale_x": true,
-                             "elements": {
-                               "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                               "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
-                             }},
-                           "hovered_Icon": {"auto_scale_x": true,
-                             "type": "Collection",
-                             "elements": {
-                               "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-                               "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
-                             }}
-                         }
+    /* { "type": "Collection", "zLevel": COORD_Y, "coordinates": [0, COORD_Y], "size": [67, 10],
+"elements": {
+"hide_button": {
+ "type": "Button", "coordinates": [0, 0], "size": [10,10], "id": 0, "zLevel": 10, "size_scale_type": "none",
+ "clicked": { "object_name": "elements_browser", "method_name": "hideButtonClicked" },
+ "icon": "button_icon",
+ "hovered_icon": "button_hovered_icon",
+ "button_icon":{
+  "type": "Collection",
+   "shown": {
+    "type": "Icon", "size": [10,10], "zLevel": 0, "size_scale_type": "none",
+    "mapping_resource_domain": "thaumicextensions", "mapping_resource_path": "texture_mappings/icon_mappings.json", "mapping_icon_name": "shown"
+   },
+   "hidden": {
+    "type": "Icon", "size": [10,10], "zLevel": 0, "size_scale_type": "none", "hided": true
+    "mapping_resource_domain": "thaumicextensions", "mapping_resource_path": "texture_mappings/icon_mappings.json", "mapping_icon_name": "hidden"
+   }
+ },
+ "button_hovered_icon":{
+  "type": "Collection",
+   "shown": {
+    "type": "Icon", "size": [10,10], "zLevel": 0, "size_scale_type": "none",
+    "mapping_resource_domain": "thaumicextensions", "mapping_resource_path": "texture_mappings/icon_mappings.json", "mapping_icon_name": "shown"
+   },
+   "hidden": {
+    "type": "Icon", "size": [10,10], "zLevel": 0, "size_scale_type": "none", "hided": true
+    "mapping_resource_domain": "thaumicextensions", "mapping_resource_path": "texture_mappings/icon_mappings.json", "mapping_icon_name": "hidden"
+   }
+   "hover_rect": {
+	"type": "Rect", "size": [10, 10], "colors": { "topLeft": [0.5,0.5,0.5,0.3], "topRight": [0.5,0.5,0.5,0.3], "bottomLeft": [0.5,0.5,0.5,0.3], "bottomRight": [0.5,0.5,0.5,0.3] }
+   }}},
+"textline_button": {
+"type": "Button",
+ "zLevel": 1, "auto_scale_x": true, "check_borders": false, "size_scale_type":"scale_x", "size": [67, 10], "id": COORD_Y, "coordinates_scale_type": "scale_x",
+ "clicked": { "object_name": "elements_browser", "method_name": "GuiBrowserElementClicked" },
+ "hovered": { "object_name": "elements_browser", "method_name": "GuiBrowserElementHovered" },
+ "hoveringStopped": { "object_name": "elements_browser", "method_name": "GuiBrowserElementHoveringStopped" },
+ "icon": "Icon", "hovered_icon": "hovered_Icon",
+ "Icon": { "type": "Collection", "auto_scale_x": true,
+  "elements": {
+   "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+   "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
+   }},
+ "hovered_Icon": {"auto_scale_x": true, "type": "Collection",
+  "elements": {
+   "text": { "auto_scale_x": true, "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
+   "background": { "auto_scale_x": true, "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
+}}}
+}}
                          */
 
-    String defaultButtonText = "{ \"type\": \"Button\",\n" +
-            "   \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\",\n" +
-            "   \"coordinates\": [0, COORD_Y],\n" +
-            "   \"size\": [67, 10], \"id\": COORD_Y, \"zLevel\": COORD_Y, \"coordinates_scale_type\": \"scale_x\",\n" +
-            "                           \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
-            "                           \"hovered\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHovered\" },\n" +
-            "                           \"hoveringStopped\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHoveringStopped\" },\n" +
-            "                           \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
-            "                           \"Icon\": {\n" +
-            "                             \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
-            "                             \"elements\": {\n" +
-            "                               \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "                               \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
-            "                             }},\n" +
-            "                           \"hovered_Icon\": {\"auto_scale_x\": true,\n" +
-            "                             \"type\": \"Collection\",\n" +
-            "                             \"elements\": {\n" +
-            "                               \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "                               \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
-            "                             }}\n" +
-            "                         }";
+    String defaultButtonText = "{ \"type\": \"Collection\", \"zLevel\": COORD_Y, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\", \"size\": [67, 10], \"coordinates_scale_type\": \"scale_x\",\n" +
+            "\"elements\": {\n" +
+            "\"hide_button\": {\n" +
+            " \"type\": \"Button\", \"coordinates\": [0, 0], \"size\": [10,10], \"id\": 0, \"zLevel\": 10, \"size_scale_type\": \"none\",\n" +
+            " \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"hideButtonClicked\" },\n" +
+            " \"icon\": \"button_icon\",\n" +
+            " \"hovered_icon\": \"button_hovered_icon\",\n" +
+            " \"button_icon\":{\n" +
+            "  \"type\": \"Collection\",\n" +
+            "  \"elements\": {\n" +
+            "    \"shown\": {\n" +
+            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
+            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
+            "    },\n" +
+            "    \"hidden\": {\n" +
+            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
+            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            "    }\n" +
+            "   }\n" +
+            " },\n" +
+            " \"button_hovered_icon\":{\n" +
+            "  \"type\": \"Collection\", \"zLevel\": 1,\n" +
+            "  \"elements\": {\n" +
+            "    \"shown\": {\n" +
+            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
+            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
+            "    },\n" +
+            "    \"hidden\": {\n" +
+            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
+            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            "    },\n" +
+            "\t\"hover_rect\": {\n" +
+            "\t \"type\": \"Rect\", \"size\": [10, 10], \"zLevel\": 2, \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.3], \"topRight\": [0.7,0.7,0.7,0.3], \"bottomLeft\": [0.7,0.7,0.7,0.3], \"bottomRight\": [0.7,0.7,0.7,0.3] }\n" +
+            "    }\n" +
+            " }}\n" +
+            "},\n" +
+            "\"textline_button\": { \n" +
+            "\"type\": \"Button\",\n" +
+            " \"zLevel\": 1, \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\", \"size\": [57, 10], \"id\": COORD_Y, \"coordinates_scale_type\": \"none\", \"coordinates\": [10, 0],\n" +
+            " \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
+            " \"hovered\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHovered\" },\n" +
+            " \"hoveringStopped\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHoveringStopped\" },\n" +
+            " \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
+            " \"Icon\": { \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
+            "  \"elements\": {\n" +
+            "   \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "   \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
+            "   }},\n" +
+            " \"hovered_Icon\": {\"auto_scale_x\": true, \"type\": \"Collection\",\n" +
+            "  \"elements\": {\n" +
+            "   \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "   \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
+            "}}}\n" +
+            "}}";
 
     public GuiBrowser(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
@@ -95,7 +157,7 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
 
     private int currentOffsetY = 0;
     private int maxXSize = 0;
-    private void updateDescendants(Tree o, int currentOffsetX) {
+    private void updateDescendants(Tree o, int currentOffsetX, boolean hide_hide_button) {
         String buttonJSON = defaultButtonText;
         String s = ""; for(int i = 0; i < currentOffsetX; i++, s += " ");
         buttonJSON = buttonJSON.replace(
@@ -105,19 +167,23 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
         maxXSize = Math.max(maxXSize, (s + o.object.getName() + " [" + o.object.getClass().getSimpleName() + "]").length());
         buttonJSON = buttonJSON.replace("COORD_Y", Integer.toString(currentOffsetY * 10));
         currentOffsetY++;
-        subElements.addObject(new Button(o.object.getGlobalName().replace(".", "\n"),
+        Object obj = subElements.addObject(new Collection(o.object.getGlobalName().replace(".", "\n"),
                 subElements,
                 (JSONObject)JSONValue.parse(buttonJSON)
                 ));
+        hide_hide_button |= !(o.object.getParent() instanceof Collection);
+        if(hide_hide_button) {
+            ((DefaultGuiObject)obj).getDescendants().get(0).hide();
+        }
         for(Tree descendant : o.descendants) {
-            updateDescendants(descendant, currentOffsetX + 2);
+            updateDescendants(descendant, currentOffsetX + 2, hide_hide_button);
         }
     }
     private void updateTree(Tree o) {
         currentOffsetY = 0;
         currentTree = o;
         subElements.getDescendants().clear();
-        updateDescendants(o, 0);
+        updateDescendants(o, 0, false);
     }
 
     @Override
@@ -154,8 +220,8 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             } else {
                 defaultGuiObject.show();
             }
-            ((TextLine) defaultGuiObject.getDescendants().get(0).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
-            ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
+            ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(0).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
+            ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(1).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
         }
     }
 
@@ -198,11 +264,28 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
     }
 
     public void GuiBrowserElementHovered(DefaultGuiObject buttonReference, int id) {
-        DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(buttonReference.getName().replace("\n","."));
+        DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(((DefaultGuiObject)buttonReference.getParent()).getName().replace("\n","."));
         hover_rect.setSize(object.getSize());
         hover_rect.setCoordinates(Vector2f.sub(object.getCurrentPosition(), hover_rect.getParentCoordinates(), null));
     }
     public void GuiBrowserElementHoveringStopped(DefaultGuiObject buttonReference, int id) {
         hover_rect.setSize(0,0);
+    }
+
+    public void hideButtonClicked(DefaultGuiObject buttonReference, int id) {
+        DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(((DefaultGuiObject)buttonReference.getParent()).getName().replace("\n","."));
+        if(object.hided()) {
+            buttonReference.getDescendants().get(0).getDescendants().get(1).hide();
+            buttonReference.getDescendants().get(0).getDescendants().get(2).show();
+            buttonReference.getDescendants().get(1).getDescendants().get(0).hide();
+            buttonReference.getDescendants().get(1).getDescendants().get(1).show();
+            object.show();
+        } else {
+            buttonReference.getDescendants().get(0).getDescendants().get(1).show();
+            buttonReference.getDescendants().get(0).getDescendants().get(2).hide();
+            buttonReference.getDescendants().get(1).getDescendants().get(0).show();
+            buttonReference.getDescendants().get(1).getDescendants().get(1).hide();
+            object.hide();
+        }
     }
 }
