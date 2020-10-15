@@ -36,21 +36,22 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
             float textureSizeX, float textureSizeY, float zLevel)  {
         GL11.glPushMatrix();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        GL11.glTranslatef(x, (y + (texToY-texFromY)*scaleY), zLevel);
         GL11.glScalef(scaleX, scaleY, 1);
         float f = 1.0F / textureSizeX;
         float f1 = 1.0F / textureSizeY;
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV(x, (y + texToY-texFromY), zLevel,
+        tessellator.addVertexWithUV(0,0,0,
                 texFromX * f, (texFromY + texToY-texFromY) * f1);
 
-        tessellator.addVertexWithUV(x + texToX-texFromX, y + texToY-texFromY, zLevel,
+        tessellator.addVertexWithUV(texToX-texFromX, 0, 0,
                 (texFromX + texToX-texFromX) * f, (texFromY + texToY-texFromY) * f1);
 
-        tessellator.addVertexWithUV(x + texToX-texFromX, y, zLevel,
+        tessellator.addVertexWithUV(texToX-texFromX, texFromY-texToY, 0,
                 (texFromX + texToX-texFromX) * f, texFromY * f1);
 
-        tessellator.addVertexWithUV(x, y, zLevel,
+        tessellator.addVertexWithUV(0, texFromY-texToY, 0,
                 texFromX * f, texFromY * f1);
         tessellator.draw();
         GL11.glPopMatrix();
