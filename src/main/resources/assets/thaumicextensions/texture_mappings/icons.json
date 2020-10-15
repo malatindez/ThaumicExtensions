@@ -1,0 +1,1 @@
+{"resource_domain": "thaumicextensions", "resource_path": "textures/gui/icons", "size": [200, 200], "collapse": {"texFrom": [0, 0], "iconSize": [100, 100]}, "expand": {"texFrom": [0, 100], "iconSize": [100, 100]}, "hidden": {"texFrom": [100, 0], "iconSize": [100, 100]}, "shown": {"texFrom": [100, 100], "iconSize": [100, 100]}}
