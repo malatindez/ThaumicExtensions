@@ -4,16 +4,16 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.util.parsing.json.JSON;
 
 public class Button extends Collection {
-    protected DefaultGuiObject icon; // reference to an icon
+    protected DefaultGuiObject icon; // reference to a default icon
+    protected DefaultGuiObject switch_icon; // reference to a switch icon (when the button is clicked, this icon will be rendered)
     protected DefaultGuiObject hovered_icon; // reference to a hovered icon
     protected MethodObjectPair clicked;
     protected MethodObjectPair hovered;
     protected MethodObjectPair hoveringStopped;
     protected int id;
-
+    protected boolean renderOver;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -21,13 +21,16 @@ public class Button extends Collection {
         JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("id", (long)id);
+        a.put("renderOver", renderOver);
         a.put("icon", this.icon.getName());
         putMethod(a, "clicked", clicked);
         putMethod(a, "hovered", hovered);
         a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
         if(hovered_icon != null) {
             a.put("hovered_icon", this.hovered_icon.getName());
-            a.put(hovered_icon.getName(), hovered_icon.generateJSONObject().get(hovered_icon.getName()));
+        }
+        if(switch_icon != null) {
+            a.put("switch_icon", this.switch_icon.getName());
         }
         return returnValue;
     }
@@ -43,6 +46,12 @@ public class Button extends Collection {
         } else {
             id = 0;
         }
+        if(parameters.containsKey("render_over")) {
+            renderOver = (Boolean) parameters.get("render_over");
+        } else {
+            renderOver = true;
+        }
+
         icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("icon"));
         if(parameters.containsKey("hovered_icon")) {
             hovered_icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("hovered_icon"));
@@ -50,6 +59,14 @@ public class Button extends Collection {
                 hovered_icon.hide();
             } else {
                 System.out.println("[DEBUG] ERROR! hovered_icon wasn't found in " + getGlobalName());
+            }
+        }
+        if(parameters.containsKey("switch_icon")) {
+            switch_icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("switch_icon"));
+            if(switch_icon != null) {
+                switch_icon.hide();
+            } else {
+                System.out.println("[DEBUG] ERROR! switch_icon wasn't found in " + getGlobalName());
             }
         }
     }
@@ -76,14 +93,18 @@ public class Button extends Collection {
                 hovered.method.invoke(hovered.object,this, id);
             } catch (Exception ignored) {}
             if(this.hovered_icon != null) {
-                icon.hide();
+                if(!renderOver) {
+                    icon.hide();
+                }
                 hovered_icon.show();
             }
             return;
         }
         isHovered = false;
         if(this.hovered_icon != null && (icon.hided() || !hovered_icon.hided())) {
-            icon.show();
+            if(!renderOver) {
+                icon.show();
+            }
             hovered_icon.hide();
             try {
                 hoveringStopped.method.invoke(hoveringStopped.object,this, id);
@@ -102,6 +123,15 @@ public class Button extends Collection {
            temp.z > currentMousePosition.x &&
            temp.y < currentMousePosition.y &&
            temp.w > currentMousePosition.y) {
+            if(switch_icon != null) {
+                if(switch_icon.hided()) {
+                    switch_icon.show();
+                    icon.hide();
+                } else {
+                    switch_icon.hide();
+                    icon.show();
+                }
+            }
             try {
                 clicked.method.invoke(clicked.object,this, id);
                 return true;
