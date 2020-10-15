@@ -12,11 +12,21 @@ public class ScrollBar extends Collection {
     protected DefaultGuiObject scrolling_collection; // this is a reference to a descendant
 
     public interface Scrollable{
-        // offset ∈ [0, 1]
+        /**
+         * @param offset x offset which should ∈ [0, 1]
+         */
         void setOffsetX(float offset);
-        // offset ∈ [0, 1]
+        /**
+         * @param offset y offset which should ∈ [0, 1]
+         */
         void setOffsetY(float offset);
+        /**
+         * @return float x offset which ∈ [0, 1]
+         */
         float getOffsetX();
+        /**
+         * @return float y offset which ∈ [0, 1]
+         */
         float getOffsetY();
     }
 
@@ -44,8 +54,9 @@ public class ScrollBar extends Collection {
             }
             prevCoordinates = a;
         }
-        if(currentOffsetX != objectToScroll.getOffsetX()) {
+        if(currentOffsetX != objectToScroll.getOffsetX() || currentOffsetY != objectToScroll.getOffsetY()) {
             currentOffsetX = objectToScroll.getOffsetX();
+            currentOffsetY = objectToScroll.getOffsetY();
             Vector4f b = scroll_icon.getParentBorders();
             b.z -= scroll_icon.getSize().x;
             b.w -= scroll_icon.getSize().y;

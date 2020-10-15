@@ -160,7 +160,7 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
 
     private int currentOffsetY = 0;
     private int maxXSize = 0;
-    private void updateDescendants(Tree o, int currentOffsetX, boolean hide_hide_button) {
+    private void updateDescendants(Tree o, int currentOffsetX) {
         String buttonJSON = defaultButtonText;
         String s = ""; for(int i = 0; i < currentOffsetX; i++, s += " ");
         buttonJSON = buttonJSON.replace(
@@ -174,19 +174,18 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
                 subElements,
                 (JSONObject)JSONValue.parse(buttonJSON)
                 ));
-        hide_hide_button |= !(o.object.getParent() instanceof Collection);
-        if(hide_hide_button) {
-            ((Button)obj).getDescendants().get(0).hide();
+        if((o.object.getParent() instanceof Button)) {
+            ((Collection)obj).getDescendants().get(1).hide();
         }
         for(Tree descendant : o.descendants) {
-            updateDescendants(descendant, currentOffsetX + 2, hide_hide_button);
+            updateDescendants(descendant, currentOffsetX + 2);
         }
     }
     private void updateTree(Tree o) {
         currentOffsetY = 0;
         currentTree = o;
         subElements.getDescendants().clear();
-        updateDescendants(o, 0, false);
+        updateDescendants(o, 0);
     }
 
     @Override
