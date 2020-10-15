@@ -53,8 +53,6 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
             this.hovered_icon.hide();
             addObject(this.hovered_icon);
         } catch (Exception ignored) { }
-
-        setSize(this.icon.getSize());
     }
 
     public Button(String name, Object parent, JSONObject parameters) {
