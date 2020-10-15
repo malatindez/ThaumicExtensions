@@ -15,6 +15,18 @@ public class Button extends Collection {
     protected int id;
     protected boolean renderOver;
 
+    public void switchIcons() {
+        if(switch_icon != null) {
+            if(switch_icon.hidden()) {
+                switch_icon.show();
+                icon.hide();
+            } else {
+                switch_icon.hide();
+                icon.show();
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
@@ -123,15 +135,7 @@ public class Button extends Collection {
            temp.z > currentMousePosition.x &&
            temp.y < currentMousePosition.y &&
            temp.w > currentMousePosition.y) {
-            if(switch_icon != null) {
-                if(switch_icon.hidden()) {
-                    switch_icon.show();
-                    icon.hide();
-                } else {
-                    switch_icon.hide();
-                    icon.show();
-                }
-            }
+            switchIcons();
             try {
                 clicked.method.invoke(clicked.object,this, id);
                 return true;
