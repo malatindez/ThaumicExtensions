@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 
+import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONValue;
@@ -59,7 +60,6 @@ public class IconFactory {
             a.put("mapping_icon_name", sample.iconName);
             return returnValue;
         }
-
         @Override
         public void loadFromJSONObject(JSONObject parameters) {
             super.loadFromJSONObject(parameters);
@@ -69,7 +69,8 @@ public class IconFactory {
                             (String)parameters.get("mapping_resource_path")
                     )
             ).getIconSample((String)parameters.get("mapping_icon_name"));
-            setSize(Vector2f.sub(sample.texTo, sample.texFrom,null));
+            if(!parameters.containsKey("size"))
+                setSize(Vector2f.sub(sample.texTo, sample.texFrom,null));
             reScale(getScale());
         }
 
@@ -87,7 +88,9 @@ public class IconFactory {
             }
             UtilsFX.bindTexture(sample.texture);
             UtilsFX.drawCustomSizeModalRect(getCurrentPosition(),
-                    sample.texFrom, sample.texTo, getScale(), sample.textureSize, getZLevel());
+                    sample.texFrom, sample.texTo,
+                    Vector.div(getSize(), Vector2f.sub(sample.texTo, sample.texFrom, null), null),
+                    sample.textureSize, getZLevel());
         }
     }
     protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();
