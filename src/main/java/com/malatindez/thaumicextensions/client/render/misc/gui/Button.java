@@ -6,9 +6,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.util.parsing.json.JSON;
 
-public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable {
-    protected DefaultGuiObject icon;
-    protected DefaultGuiObject hovered_icon;
+public class Button extends Collection {
+    protected DefaultGuiObject icon; // reference to an icon
+    protected DefaultGuiObject hovered_icon; // reference to a hovered icon
     protected MethodObjectPair clicked;
     protected MethodObjectPair hovered;
     protected MethodObjectPair hoveringStopped;
@@ -43,16 +43,15 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         } else {
             id = 0;
         }
-
-        JSONObject icon = (JSONObject) parameters.get(parameters.get("icon"));
-        this.icon = EnhancedGuiScreen.createObject((String) parameters.get("icon"), this, icon);
-        addObject(this.icon);
-        try {
-            JSONObject hovered_icon = (JSONObject) parameters.get(parameters.get("hovered_icon"));
-            this.hovered_icon = EnhancedGuiScreen.createObject((String) parameters.get("hovered_icon"), this, hovered_icon);
-            this.hovered_icon.hide();
-            addObject(this.hovered_icon);
-        } catch (Exception ignored) { }
+        icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("icon"));
+        if(parameters.containsKey("hovered_icon")) {
+            hovered_icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("hovered_icon"));
+            if(hovered_icon != null) {
+                hovered_icon.hide();
+            } else {
+                System.out.println("[DEBUG] ERROR! hovered_icon wasn't found in " + getGlobalName());
+            }
+        }
     }
 
     public Button(String name, Object parent, JSONObject parameters) {
@@ -111,8 +110,4 @@ public class Button extends DefaultGuiObject implements EnhancedGuiScreen.Clicka
         return false;
     }
 
-    @Override
-    public void Update(int flags) {
-        this.updateDescendants(flags);
-    }
 }

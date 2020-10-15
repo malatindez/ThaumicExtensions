@@ -4,9 +4,7 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
-public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScreen.Clickable,
-        EnhancedGuiScreen.Updatable,
-        EnhancedGuiScreen.Inputable {
+public class ContextMenuField extends Collection {
     protected MethodObjectPair rmbClicked;
     protected MethodObjectPair lmbClicked;
     public DefaultGuiObject icon;
@@ -42,16 +40,11 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
 
 
     @Override
-    public void mouseHandler(Vector2f currentMousePosition) {
-        mouseHandlerDescendants(currentMousePosition);
-    }
-
-    @Override
     public boolean mouseClicked(Vector2f currentMousePosition, int button) {
         if(hided()) {
             return false;
         }
-        if(mouseClickedDescendants(currentMousePosition, button)) {
+        if(super.mouseClicked(currentMousePosition, button)) {
             return true;
         }
         if(icon instanceof EnhancedGuiScreen.Clickable && !icon.hided()) {
@@ -83,15 +76,5 @@ public class ContextMenuField extends DefaultGuiObject implements EnhancedGuiScr
             }
         }
         return false;
-    }
-
-    @Override
-    public void Update(int flags) {
-        updateDescendants(flags);
-    }
-
-    @Override
-    public boolean keyTyped(char par1, int par2) {
-        return keyTypedDescendants(par1, par2);
     }
 }

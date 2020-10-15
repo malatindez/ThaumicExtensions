@@ -11,10 +11,42 @@ import java.util.Comparator;
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 
+    private ArrayList<DefaultGuiObject> descendants;
 
-    @Override
-    public boolean keyTyped(char par1, int par2) {
-        return keyTypedDescendants(par1, par2);
+    public ArrayList<DefaultGuiObject> getDescendants() {
+        return descendants;
+    }
+
+    private class ObjectComparator implements Comparator<DefaultGuiObject> {
+        @Override
+        public int compare(DefaultGuiObject x, DefaultGuiObject y) {
+            if(x == null) {
+                return -1;
+            } else if (y == null) {
+                return 1;
+            }
+            return x.getZLevel() - y.getZLevel();
+        }
+    }
+
+    private ObjectComparator objectComparator;
+
+
+    protected void sortObjects() {
+        Collections.sort(descendants, objectComparator);
+        Collections.reverse(descendants);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public Object addObject(DefaultGuiObject object) {
+        if(object == null) {
+            return null;
+        }
+        object.setParent(this);
+        object.updateParentBorders(getBorders());
+        object.resolutionUpdated(this.currentResolution);
+        descendants.add(object); sortObjects();
+        return object;
     }
 
 
@@ -24,7 +56,7 @@ public class Collection extends DefaultGuiObject implements
         JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         JSONObject b = new JSONObject();
-        for(DefaultGuiObject object : getDescendants()) {
+        for(DefaultGuiObject object : descendants) {
             b.put(object.getName(), object.generateJSONObject().get(object.getName()));
         }
         a.put("elements", b);
@@ -33,6 +65,7 @@ public class Collection extends DefaultGuiObject implements
 
     @Override
     public void loadFromJSONObject(JSONObject parameters) {
+        this.descendants = new ArrayList<DefaultGuiObject>();
         super.loadFromJSONObject(parameters);
         if(parameters.containsKey("elements")) {
             JSONObject elements = (JSONObject)parameters.get("elements");
@@ -42,23 +75,102 @@ public class Collection extends DefaultGuiObject implements
         }
     }
 
+    @Override
+    protected void VectorsWereUpdated() {
+        for(DefaultGuiObject object : descendants) {
+            object.updateParentBorders(getBorders());
+        }
+    }
+
+
     public Collection(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
-    @SuppressWarnings("rawtypes")
+
+    @Override
+    public void postInit() {
+        for (DefaultGuiObject descendant : descendants) {
+            descendant.setParent(this);
+        }
+        for (DefaultGuiObject descendant : descendants) {
+            descendant.postInit();
+        }
+        super.postInit();
+    }
+
+
+
+    @Override
+    public void render() {
+        if(hided()) {
+            return;
+        }
+        for(int i = descendants.size() - 1; i >= 0; i--) {
+            try {
+                descendants.get(i).render();
+            } catch (Exception e) {
+                System.out.println("[DEBUG] Caught an exception during rendering. Stacktrace: ");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void resolutionUpdated(Vector2f newResolution) {
+        super.resolutionUpdated(newResolution);
+        for(DefaultGuiObject object : descendants) {
+            object.resolutionUpdated(newResolution);
+        }
+    }
+    @Override
+    public boolean keyTyped(char par1, int par2) {
+        if(hided()) {
+            return false;
+        }
+        for(Object object : descendants) {
+            if(object instanceof EnhancedGuiScreen.Inputable &&
+                    ((EnhancedGuiScreen.Inputable) object).keyTyped(par1, par2)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public void mouseHandler(Vector2f currentMousePosition) {
-        mouseHandlerDescendants(currentMousePosition);
+        if(hided()) {
+            return;
+        }
+        for(DefaultGuiObject object : descendants) {
+            if (object instanceof EnhancedGuiScreen.Clickable) {
+                ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition);
+            }
+        }
     }
 
     @Override
     public boolean mouseClicked( Vector2f currentMousePosition, int button) {
-        return mouseClickedDescendants(currentMousePosition, button);
+        if(hided()) {
+            return false;
+        }
+        for(DefaultGuiObject
+                object : descendants) {
+            if (object instanceof EnhancedGuiScreen.Clickable) {
+                if(((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public void Update(int flags) {
-        super.updateDescendants(flags);
+        for(Object object : descendants) {
+            if (object instanceof EnhancedGuiScreen.Updatable) {
+                ((EnhancedGuiScreen.Updatable) object).Update(flags);
+            }
+        }
     }
 }

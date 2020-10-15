@@ -6,10 +6,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 import scala.util.hashing.Hashing;
 
-public class ScrollBar extends DefaultGuiObject implements
-        EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Clickable {
-    protected Scrollable objectToScroll; // that's a reference
-    protected Drag scroll_icon; // that's a reference to a Drag object
+public class ScrollBar extends Collection {
+    protected Scrollable objectToScroll; // this is a reference to an object which should be scrolled
+    protected Drag scroll_icon; // this is a reference to a Drag object
     protected DefaultGuiObject scrolling_collection; // this is a reference to a descendant
 
     public interface Scrollable{
@@ -24,7 +23,7 @@ public class ScrollBar extends DefaultGuiObject implements
     @Override
     public void Update(int flags) {
         if(objectToScroll == null) {
-            super.updateDescendants(flags);
+            super.Update(flags);
             return;
         }
         Vector2f a = scroll_icon.getCoordinates();
@@ -40,16 +39,6 @@ public class ScrollBar extends DefaultGuiObject implements
             prevCoordinates = a;
         }
         super.updateDescendants(flags);
-    }
-
-    @Override
-    public void mouseHandler(Vector2f currentMousePosition) {
-        super.mouseHandlerDescendants(currentMousePosition);
-    }
-
-    @Override
-    public boolean mouseClicked(Vector2f currentMousePosition, int button) {
-        return super.mouseClickedDescendants(currentMousePosition, button);
     }
 
     public ScrollBar(String name, Object parent, JSONObject parameters) {
@@ -73,14 +62,6 @@ public class ScrollBar extends DefaultGuiObject implements
         super.postInit();
     }
 
-    void scrollUp(DefaultGuiObject object, int id) {
-
-    }
-
-    void scrollDown(DefaultGuiObject object, int id) {
-
-    }
-
     @Override
     public JSONObject generateJSONObject() {
         return super.generateJSONObject();
@@ -88,8 +69,5 @@ public class ScrollBar extends DefaultGuiObject implements
 
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);
-        String name = (String) parameters.get("scrolling_collection");
-        this.scrolling_collection = EnhancedGuiScreen.createObject(name, this, (JSONObject) parameters.get(name));
-        this.addObject(scrolling_collection);
     }
 }

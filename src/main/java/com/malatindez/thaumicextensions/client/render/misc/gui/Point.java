@@ -8,4 +8,9 @@ public class Point extends DefaultGuiObject {
         super(name, parent, parameters);
         setSize(0,0 );
     }
+
+    @Override
+    public void render() {
+
+    }
 }

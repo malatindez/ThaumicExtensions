@@ -181,17 +181,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
     }
 
-    private class ObjectComparator implements Comparator<DefaultGuiObject> {
-        @Override
-        public int compare(DefaultGuiObject x, DefaultGuiObject y) {
-            if(x == null) {
-                return -1;
-            } else if (y == null) {
-                return 1;
-            }
-            return x.getZLevel() - y.getZLevel();
-        }
-    }
 
     private JSONObject startupParameters;
 
@@ -222,14 +211,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     private ResolutionRescaleType coordinatesRescaleType;
 
     private boolean hide = false;
-
-    private ArrayList<DefaultGuiObject> descendants;
-
-    public ArrayList<DefaultGuiObject> getDescendants() {
-        return descendants;
-    }
-
-    private ObjectComparator objectComparator;
 
     FocalPoint focal_point;
 
@@ -335,92 +316,12 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         this.coordinatesRescaleType = type;
     }
 
-
-
-
-    protected void sortObjects() {
-        Collections.sort(descendants, objectComparator);
-        Collections.reverse(descendants);
-    }
-
-    @SuppressWarnings("UnusedReturnValue")
-    public Object addObject(DefaultGuiObject object) {
-        if(object == null) {
-            return null;
-        }
-        object.setParent(this);
-        object.updateParentBorders(getBorders());
-        object.resolutionUpdated(this.currentResolution);
-        descendants.add(object); sortObjects();
-        return object;
-    }
-
-    private void setParent(DefaultGuiObject parent) {
+    protected void setParent(DefaultGuiObject parent) {
         this.parent = parent;
     }
 
-
-    protected boolean keyTypedDescendants(char par1, int par2) {
-        if(hided()) {
-            return false;
-        }
-        for(Object object : descendants) {
-            if(object instanceof EnhancedGuiScreen.Inputable &&
-                    ((EnhancedGuiScreen.Inputable) object).keyTyped(par1, par2)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    protected void updateDescendants(int flags) {
-        for(Object object : descendants) {
-            if (object instanceof EnhancedGuiScreen.Updatable) {
-                ((EnhancedGuiScreen.Updatable) object).Update(flags);
-            }
-        }
-    }
-
-    protected boolean mouseHandlerDescendants(Vector2f currentMousePosition) {
-        if(hided()) {
-            return false;
-        }
-        for(DefaultGuiObject object : descendants) {
-            if (object instanceof EnhancedGuiScreen.Clickable) {
-                ((EnhancedGuiScreen.Clickable) object).mouseHandler(currentMousePosition);
-            }
-        }
-        return false;
-    }
-
-    protected boolean mouseClickedDescendants(Vector2f currentMousePosition, int button)  {
-        if(hided()) {
-            return false;
-        }
-        for(DefaultGuiObject
-                object : descendants) {
-            if (object instanceof EnhancedGuiScreen.Clickable) {
-                if(((EnhancedGuiScreen.Clickable) object).mouseClicked(currentMousePosition, button)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-
-
-
-
     // postInit is called after entire gui is loaded
     public void postInit() {
-        for(DefaultGuiObject descendant : descendants) {
-            descendant.setParent(this);
-        }
-        for(DefaultGuiObject descendant : descendants) {
-            descendant.postInit();
-        }
         if(getStartupParameters().containsKey("linked_points")) {
             this.points = new LinkedPoints(this, (JSONObject) getStartupParameters().get("linked_points"));
             updateVectors();
@@ -429,11 +330,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
 
     // this function will be called when vectors were updated
-    protected void VectorsWereUpdated() {
-        for(DefaultGuiObject object : descendants) {
-            object.updateParentBorders(getBorders());
-        }
-    }
+    void VectorsWereUpdated() { }
 
 
     protected void updateVectors() {
@@ -648,7 +545,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
     public DefaultGuiObject(String name, Object parent, JSONObject parameters) {
-        this.descendants = new ArrayList<DefaultGuiObject>();
         this.name = name.replace(" ", "").replace(".", "");
         this.parent = parent;
         loadFromJSONObject(parameters);
@@ -657,21 +553,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     @Override
     public int getZLevel() {
         return zLevel;
-    }
-
-    @Override
-    public void render() {
-        if(hided()) {
-            return;
-        }
-        for(int i = descendants.size() - 1; i >= 0; i--) {
-            try {
-                descendants.get(i).render();
-            } catch (Exception e) {
-                System.out.println("[DEBUG] Caught an exception during rendering. Stacktrace: ");
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
@@ -686,9 +567,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         currentResolution.set(newResolution);
         if(checkBorders)
             checkBorders();
-        for(DefaultGuiObject object : descendants) {
-            object.resolutionUpdated(newResolution);
-        }
     }
 
     @Override
@@ -749,13 +627,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         if(objectName.equals(this.getName())) {
             getMethodFunc(objectName, name, parameterTypes);
         }
+        if(!(this instanceof Collection)) {
+            return null;
+        }
         int a = objectName.indexOf('.');
         if(a == -1 || a + 1 > objectName.length() || !objectName.substring(0, a).equals(this.name)) {
             return null;
         }
         String nextString = objectName.substring(a + 1);
         MethodObjectPair retValue = null;
-        for(Object obj : descendants) {
+        for(Object obj : ((Collection)this).getDescendants()) {
             if(retValue != null) {
                 return retValue;
             }
@@ -770,6 +651,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     protected Object getObjectUp(String objectName) {
         if(this.getName().equals(objectName)) {
             return this;
+        }
+        if(!(this instanceof Collection)) {
+            return null;
         }
         int a = objectName.indexOf('.');
         if(a != -1 && a + 1 < objectName.length() && objectName.substring(0, a).equals(this.name)) {
@@ -794,7 +678,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         String nextString = objectName.substring(a + 1);
         Object retValue = null;
-        for(Object obj : descendants) {
+        for(Object obj : ((Collection)this).getDescendants()) {
             if(retValue != null) {
                 return retValue;
             }

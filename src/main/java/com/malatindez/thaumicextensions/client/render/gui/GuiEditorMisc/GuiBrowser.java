@@ -11,15 +11,16 @@ import scala.util.hashing.Hashing;
 
 import java.util.ArrayList;
 
-public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickable, ScrollBar.Scrollable,
-        EnhancedGuiScreen.Updatable {
+public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
     protected class Tree implements Comparable<Tree> {
         public DefaultGuiObject object;
         public ArrayList<Tree> descendants = new ArrayList<Tree>();
         Tree(DefaultGuiObject object) {
             this.object = object;
-            for(DefaultGuiObject descendant : object.getDescendants()) {
-                this.descendants.add(new Tree(descendant));
+            if(object instanceof Collection) {
+                for (DefaultGuiObject descendant : ((Collection)object).getDescendants()) {
+                    this.descendants.add(new Tree(descendant));
+                }
             }
         }
 
@@ -90,38 +91,39 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
     String defaultButtonText = "{ \"type\": \"Collection\", \"zLevel\": COORD_Y, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\", \"size\": [67, 10], \"coordinates_scale_type\": \"scale_x\",\n" +
             "\"elements\": {\n" +
             "\"hide_button\": {\n" +
-            " \"type\": \"Button\", \"coordinates\": [0, 0], \"size\": [10,10], \"id\": 0, \"zLevel\": 10, \"size_scale_type\": \"none\",\n" +
+            " \"type\": \"Button\", \"coordinates\": [0, 0], \"size\": [10,10], \"id\": 0, \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
             " \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"hideButtonClicked\" },\n" +
-            " \"icon\": \"button_icon\",\n" +
-            " \"hovered_icon\": \"button_hovered_icon\",\n" +
-            " \"button_icon\":{\n" +
-            "  \"type\": \"Collection\",\n" +
-            "  \"elements\": {\n" +
-            "    \"shown\": {\n" +
-            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
-            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
-            "    },\n" +
-            "    \"hidden\": {\n" +
-            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
-            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            " \"icon\": \"hide_button.button_icon\",\n" +
+            " \"hovered_icon\": \"hide_button.button_hovered_icon\",\n" +
+            " \"elements\": {\n" +
+            "  \"button_icon\":{\n" +
+            "   \"type\": \"Collection\",\n" +
+            "   \"elements\": {\n" +
+            "     \"shown\": {\n" +
+            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
+            "     },\n" +
+            "     \"hidden\": {\n" +
+            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            "     }\n" +
             "    }\n" +
-            "   }\n" +
-            " },\n" +
-            " \"button_hovered_icon\":{\n" +
-            "  \"type\": \"Collection\", \"zLevel\": 1,\n" +
-            "  \"elements\": {\n" +
-            "    \"shown\": {\n" +
-            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
-            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
-            "    },\n" +
-            "    \"hidden\": {\n" +
-            "     \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
-            "     \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
-            "    },\n" +
-            "\t\"hover_rect\": {\n" +
-            "\t \"type\": \"Rect\", \"size\": [10, 10], \"zLevel\": 2, \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.3], \"topRight\": [0.7,0.7,0.7,0.3], \"bottomLeft\": [0.7,0.7,0.7,0.3], \"bottomRight\": [0.7,0.7,0.7,0.3] }\n" +
-            "    }\n" +
-            " }}\n" +
+            "  },\n" +
+            "  \"button_hovered_icon\":{\n" +
+            "   \"type\": \"Collection\", \"zLevel\": 1,\n" +
+            "   \"elements\": {\n" +
+            "     \"shown\": {\n" +
+            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
+            "     },\n" +
+            "     \"hidden\": {\n" +
+            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            "     },\n" +
+            "  \t \"hover_rect\": {\n" +
+            "  \t  \"type\": \"Rect\", \"size\": [10, 10], \"zLevel\": 2, \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.3], \"topRight\": [0.7,0.7,0.7,0.3], \"bottomLeft\": [0.7,0.7,0.7,0.3], \"bottomRight\": [0.7,0.7,0.7,0.3] }\n" +
+            "     }\n" +
+            " }}}\n" +
             "},\n" +
             "\"textline_button\": { \n" +
             "\"type\": \"Button\",\n" +
@@ -129,17 +131,18 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             " \"clicked\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementClicked\" },\n" +
             " \"hovered\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHovered\" },\n" +
             " \"hoveringStopped\": { \"object_name\": \"elements_browser\", \"method_name\": \"GuiBrowserElementHoveringStopped\" },\n" +
-            " \"icon\": \"Icon\", \"hovered_icon\": \"hovered_Icon\",\n" +
-            " \"Icon\": { \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
-            "  \"elements\": {\n" +
-            "   \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "   \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
-            "   }},\n" +
-            " \"hovered_Icon\": {\"auto_scale_x\": true, \"type\": \"Collection\",\n" +
-            "  \"elements\": {\n" +
-            "   \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "   \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
-            "}}}\n" +
+            " \"icon\": \"textline_button.Icon\", \"hovered_icon\": \"textline_button.hovered_Icon\",\n" +
+            " \"elements\": {\n" +
+            "  \"Icon\": { \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
+            "   \"elements\": {\n" +
+            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "    \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
+            "    }},\n" +
+            "  \"hovered_Icon\": {\"auto_scale_x\": true, \"type\": \"Collection\",\n" +
+            "   \"elements\": {\n" +
+            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
+            "    \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
+            "}}}}\n" +
             "}}";
 
     public GuiBrowser(String name, Object parent, JSONObject parameters) {
@@ -173,7 +176,7 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
                 ));
         hide_hide_button |= !(o.object.getParent() instanceof Collection);
         if(hide_hide_button) {
-            ((DefaultGuiObject)obj).getDescendants().get(0).hide();
+            ((Button)obj).getDescendants().get(0).hide();
         }
         for(Tree descendant : o.descendants) {
             updateDescendants(descendant, currentOffsetX + 2, hide_hide_button);
@@ -220,8 +223,8 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
             } else {
                 defaultGuiObject.show();
             }
-            ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(0).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
-            ((TextLine) defaultGuiObject.getDescendants().get(1).getDescendants().get(1).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
+            ((TextLine)((Collection)((Collection)((Collection)defaultGuiObject).getDescendants().get(0)).getDescendants().get(0)).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
+            ((TextLine)((Collection)((Collection)((Collection)defaultGuiObject).getDescendants().get(0)).getDescendants().get(1)).getDescendants().get(0)).setRenderCursor((int) (maxXSize * offsetX));
         }
     }
 
@@ -275,16 +278,16 @@ public class GuiBrowser extends Collection implements EnhancedGuiScreen.Clickabl
     public void hideButtonClicked(DefaultGuiObject buttonReference, int id) {
         DefaultGuiObject object = (DefaultGuiObject) this.getObjectUp(((DefaultGuiObject)buttonReference.getParent()).getName().replace("\n","."));
         if(object.hided()) {
-            buttonReference.getDescendants().get(0).getDescendants().get(1).hide();
-            buttonReference.getDescendants().get(0).getDescendants().get(2).show();
-            buttonReference.getDescendants().get(1).getDescendants().get(0).hide();
-            buttonReference.getDescendants().get(1).getDescendants().get(1).show();
+            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(1).hide();
+            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(2).show();
+            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(0).hide();
+            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(1).show();
             object.show();
         } else {
-            buttonReference.getDescendants().get(0).getDescendants().get(1).show();
-            buttonReference.getDescendants().get(0).getDescendants().get(2).hide();
-            buttonReference.getDescendants().get(1).getDescendants().get(0).show();
-            buttonReference.getDescendants().get(1).getDescendants().get(1).hide();
+            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(1).show();
+            ((Collection)((Collection)buttonReference).getDescendants().get(0)).getDescendants().get(2).hide();
+            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(0).show();
+            ((Collection)((Collection)buttonReference).getDescendants().get(1)).getDescendants().get(1).hide();
             object.hide();
         }
     }
