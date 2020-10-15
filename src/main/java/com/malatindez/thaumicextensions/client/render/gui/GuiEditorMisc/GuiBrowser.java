@@ -262,6 +262,15 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
         updateHideStates();
     }
 
+    @Override
+    public float getOffsetX() {
+        return offsetX;
+    }
+    @Override
+    public float getOffsetY() {
+        return offsetY;
+    }
+
     public void GuiBrowserElementClicked(DefaultGuiObject buttonReference, int id) {
         selected = buttonReference; selectedId = id / 10;
     }

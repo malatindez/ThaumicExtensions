@@ -16,10 +16,14 @@ public class ScrollBar extends Collection {
         void setOffsetX(float offset);
         // offset ∈ [0, 1]
         void setOffsetY(float offset);
+        float getOffsetX();
+        float getOffsetY();
     }
 
     Vector2f prevCoordinates = new Vector2f(0, 0);
     float scaleX = 1, scaleY = 1;
+    float currentOffsetX = 0;
+    float currentOffsetY = 0;
     @Override
     public void Update(int flags) {
         if(objectToScroll == null) {
@@ -32,13 +36,23 @@ public class ScrollBar extends Collection {
             b.z -= scroll_icon.getSize().x;
             b.w -= scroll_icon.getSize().y;
             if ((a.x - prevCoordinates.x) != 0) {
-                objectToScroll.setOffsetX(Math.max(0, Math.min(1, a.x / (b.z - b.x))));
+                currentOffsetX = Math.max(0, Math.min(1, a.x / (b.z - b.x)));
+                objectToScroll.setOffsetX(currentOffsetX);
             } else if ((a.y - prevCoordinates.y) != 0) {
-                objectToScroll.setOffsetY(Math.max(0, Math.min(1, a.y / (b.w - b.y))));
+                currentOffsetY = Math.max(0, Math.min(1, a.y / (b.w - b.y)));
+                objectToScroll.setOffsetY(currentOffsetY);
             }
             prevCoordinates = a;
         }
-        super.updateDescendants(flags);
+        if(currentOffsetX != objectToScroll.getOffsetX()) {
+            currentOffsetX = objectToScroll.getOffsetX();
+            Vector4f b = scroll_icon.getParentBorders();
+            b.z -= scroll_icon.getSize().x;
+            b.w -= scroll_icon.getSize().y;
+            scroll_icon.setCoordinates(currentOffsetX * (b.z - b.x), currentOffsetY * (b.w - b.y));
+            prevCoordinates.set(scroll_icon.getCoordinates());
+        }
+        super.Update(flags);
     }
 
     public ScrollBar(String name, Object parent, JSONObject parameters) {

@@ -277,17 +277,30 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             GL11.glPopMatrix();
         }
     }
-
+    float offsetX = 0;
+    float offsetY = 0;
     @Override
     public void setOffsetX(float offset) {
         renderCursor.x = (int)(offset * longest_line);
+        offsetX = renderCursor.x - offset;
         textWasUpdated();
     }
 
     @Override
     public void setOffsetY(float offset) {
         renderCursor.y = (int)(offset * lines.size());
+        offsetY = renderCursor.y - offset;
         textWasUpdated();
+    }
+
+    @Override
+    public float getOffsetX() {
+        return renderCursor.x + offsetX;
+    }
+
+    @Override
+    public float getOffsetY() {
+        return renderCursor.y + offsetY;
     }
 
 }
