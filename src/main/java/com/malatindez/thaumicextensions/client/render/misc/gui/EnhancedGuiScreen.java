@@ -177,6 +177,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         put("TextLine", TextLine.class);
         put("TextInputBox", TextInputBox.class);
         put("TextInputLine", TextInputLine.class);
+        put("Selector", Selector.class);
         // type name and class instance which will be constructed
     }};
     public static void addPart(Class c) {
