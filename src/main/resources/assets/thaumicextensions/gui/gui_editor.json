@@ -34,10 +34,10 @@
                 "size": [77,110],
                 "zLevel": -1,
                 "colors": {
-                  "topLeft":     [0.3,0.3,0.3,0.5],
-                  "topRight":    [0.3,0.3,0.3,0.5],
-                  "bottomLeft":  [0.3,0.3,0.3,0.5],
-                  "bottomRight": [0.3,0.3,0.3,0.5]
+                  "topLeft":     [0.5,0.5,0.5,0.5],
+                  "topRight":    [0.5,0.5,0.5,0.5],
+                  "bottomLeft":  [0.5,0.5,0.5,0.5],
+                  "bottomRight": [0.5,0.5,0.5,0.5]
                 }
               },
               "scrollbar_x": {
@@ -154,12 +154,15 @@
             }
           },
           "elements_editor": {
-            "type": "GuiElementEditor",
+            "type": "Collection",
             "coordinates": [0,120],
             "size": [77, 120],
             "size_scale_type": "scale_xy",
             "elements": {
-
+              "editor": {
+                "type": "GuiElementEditor",
+                "size": [67,110]
+              }
             }
           }
         }
@@ -169,17 +172,6 @@
         "size": [350,240],
         "size_scale_type": "scale_xy",
         "elements": {
-          "gui_background": {
-            "type": "Rect",
-            "zLevel": -1,
-            "size": [350,240],
-            "colors": {
-              "topLeft":     [0.7,0.7,0.7,0.5],
-              "topRight":    [0.7,0.7,0.7,0.5],
-              "bottomLeft":  [0.7,0.7,0.7,0.5],
-              "bottomRight": [0.7,0.7,0.7,0.5]
-            }
-          },
           "new_gui": {
             "type": "Collection",
             "size": [350, 240],
@@ -271,6 +263,7 @@
                   "button": {
                     "type": "Button",
                     "coordinates": [100, 100],
+                    "size": [50,50],
                     "clicked": {
                       "object_name": "none",
                       "method_name": "defaultResearchClicked"
@@ -283,6 +276,7 @@
                     "button_icon": {
                       "type": "Icon",
                       "coordinates": [0,0],
+                      "size": [50,50],
                       "scale": [1,1],
                       "mapping_resource_domain": "thaumicextensions",
                       "mapping_resource_path": "texture_mappings/gui_research.json",
@@ -293,6 +287,7 @@
                     "button_hovered_icon": {
                       "type": "Icon",
                       "coordinates": [0,0],
+                      "size": [50,50],
                       "scale": [1,1],
                       "mapping_resource_domain": "thaumicextensions",
                       "mapping_resource_path": "texture_mappings/gui_research.json",
