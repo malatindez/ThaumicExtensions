@@ -395,10 +395,8 @@
                   "main_line": {
                     "type": "TextLine",
                     "text": "",
-                    "size": [50, 10],
                     "color": [1,1,1,1],
-                    "dropShadow": true,
-                    "size_scale_type": "none"
+                    "dropShadow": true
                   }
                 }
               }
