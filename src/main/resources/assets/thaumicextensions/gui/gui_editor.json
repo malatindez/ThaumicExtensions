@@ -48,13 +48,9 @@
                 "size": [77, 10],
                 "size_scale_type": "scale_x",
                 "objectToScroll": "elements_browser",
-                "scroll_icon": "scrollbar_x.collection.icon",
-                "scrolling_collection": "collection",
-                "collection": {
-                  "type": "Collection",
-                  "size_scale_type": "scale_x",
-                  "elements": {
-                    "icon": {
+                "scroll_icon": "scrollbar_x.icon",
+                "elements": {
+                  "icon": {
                       "type": "Drag",
                       "size_scale_type": "scale_x",
                       "zLevel": 1,
@@ -74,7 +70,7 @@
                         }
                       }
                     },
-                    "background": {
+                  "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_x",
                       "colors": {
@@ -84,7 +80,6 @@
                         "bottomRight": [0.3,0.3,0.3,1]
                       }
                     }
-                  }
                 }
               },
               "scrollbar_y": {
@@ -96,12 +91,8 @@
                 "size_scale_type": "scale_y",
                 "coordinates_scale_type": "none",
                 "objectToScroll": "elements_browser",
-                "scroll_icon": "scrollbar_y.collection.icon",
-                "scrolling_collection": "collection",
-                "collection": {
-                  "type": "Collection",
-                  "size_scale_type": "scale_y",
-                  "elements": {
+                "scroll_icon": "scrollbar_y.icon",
+                "elements": {
                     "icon": {
                       "type": "Drag",
                       "size_scale_type": "scale_y",
@@ -132,7 +123,6 @@
                         "bottomRight": [0.3,0.3,0.3,1]
                       }
                     }
-                  }
                 }
               },
               "elements": {
@@ -271,29 +261,31 @@
                     "id": 0,
                     "zLevel": 10,
                     "size_scale_type": "none",
-                    "icon": "button_icon",
-                    "hovered_icon": "button_hovered_icon",
-                    "button_icon": {
-                      "type": "Icon",
-                      "coordinates": [0,0],
-                      "size": [50,50],
-                      "scale": [1,1],
-                      "mapping_resource_domain": "thaumicextensions",
-                      "mapping_resource_path": "texture_mappings/gui_research.json",
-                      "mapping_icon_name": "defaultResearch",
-                      "zLevel": 0,
-                      "size_scale_type": "none"
-                    },
-                    "button_hovered_icon": {
-                      "type": "Icon",
-                      "coordinates": [0,0],
-                      "size": [50,50],
-                      "scale": [1,1],
-                      "mapping_resource_domain": "thaumicextensions",
-                      "mapping_resource_path": "texture_mappings/gui_research.json",
-                      "mapping_icon_name": "hiddenResearch",
-                      "zLevel": 0,
-                      "size_scale_type": "none"
+                    "icon": "button.icon",
+                    "hovered_icon": "button.hovered",
+                    "elements": {
+                      "icon": {
+                        "type": "Icon",
+                        "coordinates": [0,0],
+                        "size": [50,50],
+                        "scale": [1,1],
+                        "mapping_resource_domain": "thaumicextensions",
+                        "mapping_resource_path": "texture_mappings/gui_research.json",
+                        "mapping_icon_name": "defaultResearch",
+                        "zLevel": 0,
+                        "size_scale_type": "none"
+                      },
+                      "hovered": {
+                        "type": "Icon",
+                        "coordinates": [0,0],
+                        "size": [50,50],
+                        "scale": [1,1],
+                        "mapping_resource_domain": "thaumicextensions",
+                        "mapping_resource_path": "texture_mappings/gui_research.json",
+                        "mapping_icon_name": "hiddenResearch",
+                        "zLevel": 0,
+                        "size_scale_type": "none"
+                      }
                     }
                   }
                 }
@@ -305,13 +297,9 @@
                 "size": [10,200],
                 "size_scale_type": "scale_y",
                 "objectToScroll": "new_gui.draggable_window.text_box",
-                "scroll_icon": "scrollbar_y.collection.icon",
-                "scrolling_collection": "collection",
-                "collection": {
-                  "type": "Collection",
-                  "size_scale_type": "scale_y",
-                  "elements": {
-                    "icon": {
+                "scroll_icon": "scrollbar_y.icon",
+                "elements": {
+                  "icon": {
                       "type": "Drag",
                       "size": [10,20],
                       "size_scale_type": "scale_y",
@@ -332,7 +320,7 @@
                         }
                       }
                     },
-                    "background": {
+                  "background": {
                       "type": "Rect",
                       "size_scale_type": "scale_y",
                       "colors": {
@@ -342,7 +330,6 @@
                         "bottomRight": [0.3,0.3,0.3,0.5]
                       }
                     }
-                  }
                 }
               },
               "scrollbar_x": {
@@ -352,11 +339,7 @@
                 "size": [200,10],
                 "size_scale_type": "scale_x",
                 "objectToScroll": "new_gui.draggable_window.text_box",
-                "scroll_icon": "scrollbar_x.collection.icon",
-                "scrolling_collection": "collection",
-                "collection": {
-                  "type": "Collection",
-                  "size_scale_type": "scale_x",
+                "scroll_icon": "scrollbar_x.icon",
                   "elements": {
                     "icon": {
                       "type": "Drag",
@@ -389,7 +372,7 @@
                         "bottomRight": [0.3,0.3,0.3,0.5]
                       }
                     }
-                  }
+
                 }
               }
             }
