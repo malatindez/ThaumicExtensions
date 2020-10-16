@@ -8,7 +8,7 @@
         "zLevel": 1,
         "type": "Collection",
         "size": [77, 240],
-        "coordinates": [350,0],
+        "coordinates": [350, 0],
         "size_scale_type": "scale_xy",
         "coordinates_scale_type": "scale_xy",
         "elements": {
@@ -19,31 +19,31 @@
             "elements": {
               "hover_rect": {
                 "type": "Rect",
-                "size": [0,0],
+                "size": [0, 0],
                 "check_borders": false,
                 "zLevel": 1,
                 "colors": {
-                  "topLeft":     [0.8,0,0,0.4],
-                  "topRight":    [0.8,0,0,0.4],
-                  "bottomLeft":  [0.8,0,0,0.4],
-                  "bottomRight": [0.8,0,0,0.4]
+                  "topLeft": [0.8, 0, 0, 0.4],
+                  "topRight": [0.8, 0, 0, 0.4],
+                  "bottomLeft": [0.8, 0, 0, 0.4],
+                  "bottomRight": [0.8, 0, 0, 0.4]
                 }
               },
               "background": {
                 "type": "Rect",
-                "size": [77,110],
+                "size": [77, 110],
                 "zLevel": -1,
                 "colors": {
-                  "topLeft":     [0.5,0.5,0.5,0.5],
-                  "topRight":    [0.5,0.5,0.5,0.5],
-                  "bottomLeft":  [0.5,0.5,0.5,0.5],
-                  "bottomRight": [0.5,0.5,0.5,0.5]
+                  "topLeft": [0.5, 0.5, 0.5, 0.5],
+                  "topRight": [0.5, 0.5, 0.5, 0.5],
+                  "bottomLeft": [0.5, 0.5, 0.5, 0.5],
+                  "bottomRight": [0.5, 0.5, 0.5, 0.5]
                 }
               },
               "scrollbar_x": {
                 "type": "ScrollBar",
                 "zLevel": 1,
-                "coordinates": [0,110],
+                "coordinates": [0, 110],
                 "coordinates_scale_type": "scale_xy",
                 "size": [77, 10],
                 "size_scale_type": "scale_x",
@@ -51,41 +51,41 @@
                 "scroll_icon": "scrollbar_x.icon",
                 "elements": {
                   "icon": {
-                      "type": "Drag",
-                      "size_scale_type": "scale_x",
-                      "zLevel": 1,
-                      "size": [17, 10],
-                      "drag_focus": "icon.background",
-                      "elements": {
-                        "background": {
-                          "type": "Rect",
-                          "size_scale_type": "scale_x",
-                          "zLevel": 1,
-                          "colors": {
-                            "topLeft":     [0.7,0.7,0.7,1],
-                            "topRight":    [0.7,0.7,0.7,1],
-                            "bottomLeft":  [0.7,0.7,0.7,1],
-                            "bottomRight": [0.7,0.7,0.7,1]
-                          }
+                    "type": "Drag",
+                    "size_scale_type": "scale_x",
+                    "zLevel": 1,
+                    "size": [17, 10],
+                    "drag_focus": "icon.background",
+                    "elements": {
+                      "background": {
+                        "type": "Rect",
+                        "size_scale_type": "scale_x",
+                        "zLevel": 1,
+                        "colors": {
+                          "topLeft": [0.7, 0.7, 0.7, 1],
+                          "topRight": [0.7, 0.7, 0.7, 1],
+                          "bottomLeft": [0.7, 0.7, 0.7, 1],
+                          "bottomRight": [0.7, 0.7, 0.7, 1]
                         }
                       }
-                    },
-                  "background": {
-                      "type": "Rect",
-                      "size_scale_type": "scale_x",
-                      "colors": {
-                        "topLeft":     [0.3,0.3,0.3,1],
-                        "topRight":    [0.3,0.3,0.3,1],
-                        "bottomLeft":  [0.3,0.3,0.3,1],
-                        "bottomRight": [0.3,0.3,0.3,1]
-                      }
                     }
+                  },
+                  "background": {
+                    "type": "Rect",
+                    "size_scale_type": "scale_x",
+                    "colors": {
+                      "topLeft": [0.3, 0.3, 0.3, 1],
+                      "topRight": [0.3, 0.3, 0.3, 1],
+                      "bottomLeft": [0.3, 0.3, 0.3, 1],
+                      "bottomRight": [0.3, 0.3, 0.3, 1]
+                    }
+                  }
                 }
               },
               "scrollbar_y": {
                 "type": "ScrollBar",
                 "zLevel": 1,
-                "coordinates": [-10,0],
+                "coordinates": [-10, 0],
                 "size": [10, 110],
                 "focal_point": "top_right",
                 "size_scale_type": "scale_y",
@@ -93,36 +93,36 @@
                 "objectToScroll": "elements_browser",
                 "scroll_icon": "scrollbar_y.icon",
                 "elements": {
-                    "icon": {
-                      "type": "Drag",
-                      "size_scale_type": "scale_y",
-                      "zLevel": 1,
-                      "size": [10, 25],
-                      "drag_focus": "icon.background",
-                      "elements": {
-                        "background": {
-                          "type": "Rect",
-                          "size_scale_type": "scale_y",
-                          "zLevel": 1,
-                          "colors": {
-                            "topLeft":     [0.7,0.7,0.7,1],
-                            "topRight":    [0.7,0.7,0.7,1],
-                            "bottomLeft":  [0.7,0.7,0.7,1],
-                            "bottomRight": [0.7,0.7,0.7,1]
-                          }
+                  "icon": {
+                    "type": "Drag",
+                    "size_scale_type": "scale_y",
+                    "zLevel": 1,
+                    "size": [10, 25],
+                    "drag_focus": "icon.background",
+                    "elements": {
+                      "background": {
+                        "type": "Rect",
+                        "size_scale_type": "scale_y",
+                        "zLevel": 1,
+                        "colors": {
+                          "topLeft": [0.7, 0.7, 0.7, 1],
+                          "topRight": [0.7, 0.7, 0.7, 1],
+                          "bottomLeft": [0.7, 0.7, 0.7, 1],
+                          "bottomRight": [0.7, 0.7, 0.7, 1]
                         }
                       }
-                    },
-                    "background": {
-                      "type": "Rect",
-                      "size_scale_type": "scale_y",
-                      "colors": {
-                        "topLeft":     [0.3,0.3,0.3,1],
-                        "topRight":    [0.3,0.3,0.3,1],
-                        "bottomLeft":  [0.3,0.3,0.3,1],
-                        "bottomRight": [0.3,0.3,0.3,1]
-                      }
                     }
+                  },
+                  "background": {
+                    "type": "Rect",
+                    "size_scale_type": "scale_y",
+                    "colors": {
+                      "topLeft": [0.3, 0.3, 0.3, 1],
+                      "topRight": [0.3, 0.3, 0.3, 1],
+                      "bottomLeft": [0.3, 0.3, 0.3, 1],
+                      "bottomRight": [0.3, 0.3, 0.3, 1]
+                    }
+                  }
                 }
               },
               "elements": {
@@ -145,13 +145,13 @@
           },
           "elements_editor": {
             "type": "Collection",
-            "coordinates": [0,120],
+            "coordinates": [0, 120],
             "size": [77, 120],
             "size_scale_type": "scale_xy",
             "elements": {
               "editor": {
                 "type": "GuiElementEditor",
-                "size": [67,110]
+                "size": [67, 110]
               }
             }
           }
@@ -159,7 +159,7 @@
       },
       "gui": {
         "type": "Collection",
-        "size": [350,240],
+        "size": [350, 240],
         "size_scale_type": "scale_xy",
         "elements": {
           "new_gui": {
@@ -173,16 +173,16 @@
                 "type": "Rect",
                 "zLevel": -1,
                 "colors": {
-                  "topLeft": [1,1,1,0.6],
-                  "topRight": [1,1,1,0.6],
-                  "bottomLeft": [1,1,1,0.6],
-                  "bottomRight": [1,1,1,0.6]
+                  "topLeft": [1, 1, 1, 0.6],
+                  "topRight": [1, 1, 1, 0.6],
+                  "bottomLeft": [1, 1, 1, 0.6],
+                  "bottomRight": [1, 1, 1, 0.6]
                 }
               },
               "draggable_window": {
                 "type": "Drag",
-                "coordinates": [0,0],
-                "scale": [1,1],
+                "coordinates": [0, 0],
+                "scale": [1, 1],
                 "size": [200, 200],
                 "size_scale_type": "scale_smooth_xy",
                 "drag_focus": "draggable_window.top_bar",
@@ -199,39 +199,39 @@
                   "background": {
                     "type": "Rect",
                     "zLevel": -1,
-                    "coordinates": [0,0],
+                    "coordinates": [0, 0],
                     "scale": [1, 1],
                     "size": [200, 200],
                     "size_scale_type": "scale_smooth_xy",
                     "colors": {
-                      "topLeft":     [0.3,0.3,0.3,0.3],
-                      "topRight":    [0.3,0.3,0.3,0.3],
-                      "bottomLeft":  [0.3,0.3,0.3,0.3],
-                      "bottomRight": [0.3,0.3,0.3,0.3]
+                      "topLeft": [0.3, 0.3, 0.3, 0.3],
+                      "topRight": [0.3, 0.3, 0.3, 0.3],
+                      "bottomLeft": [0.3, 0.3, 0.3, 0.3],
+                      "bottomRight": [0.3, 0.3, 0.3, 0.3]
                     }
                   },
                   "top_bar": {
                     "type": "Rect",
                     "zLevel": 0,
-                    "coordinates": [0,0],
+                    "coordinates": [0, 0],
                     "scale": [1, 1],
                     "size": [200, 20],
                     "size_scale_type": "scale_smooth_x",
                     "colors": {
-                      "topLeft":     [0,0,0,0.5],
-                      "topRight":    [0,0,0,0.25],
-                      "bottomLeft":  [0,0,0,0.25],
-                      "bottomRight": [1,1,1,0.0]
+                      "topLeft": [0, 0, 0, 0.5],
+                      "topRight": [0, 0, 0, 0.25],
+                      "bottomLeft": [0, 0, 0, 0.25],
+                      "bottomRight": [1, 1, 1, 0.0]
                     }
                   },
                   "text_box": {
                     "type": "TextInputBox",
-                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus.\n Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo,\n eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis.\n Morbi elementum maximus nulla, venenatis tincidunt eros semper quis.\n Aenean consectetur in neque mollis maximus.\n Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan.\n In sollicitudin risus ac nisl porta, quis interdum libero convallis.\nPhasellus posuere ornare mauris nec congue.\nNam accumsan porta odio, id molestie felis tempus eu.\nPhasellus vitae erat vel dolor ullamcorper porttitor.\nCurabitur tincidunt viverra purus, eget vulputate eros egestas vitae.\nFusce varius blandit velit, ut lobortis elit tincidunt nec.",
+                    "text": "Loremipsumdolorsitamet,consecteturadipiscingelit.\nDonecvitaetinciduntnisl.\nInatenimatipsummolestievehiculavitaevitaemetus.\nCurabiturnislsem,lobortisneceratin,consequatporttitorlacus.\nCurabiturvitaemetusinelitegestasfinibusvitaeegetlacus.\nCurabitursollicitudin,maurissedmolestiemollis,nislfelismalesuadajusto,\neulaoreetquamjustositamettortor.Proinfinibusrisusquisturpisvolutpatiaculis.\nMorbielementummaximusnulla,venenatistincidunterossemperquis.\nAeneanconsecteturinnequemollismaximus.\nSuspendisseeleifendipsumacjustomattis,hendreritscelerisqueorciaccumsan.\nInsollicitudinrisusacnislporta,quisinterdumliberoconvallis.\nPhasellusposuereornaremaurisneccongue.\nNamaccumsanportaodio,idmolestiefelistempuseu.\nPhasellusvitaeeratveldolorullamcorperporttitor.\nCurabiturtinciduntviverrapurus,egetvulputateerosegestasvitae.\nFuscevariusblanditvelit,utlobortiselittinciduntnec.",
                     "zLevel": 1,
-                    "coordinates": [0,20],
-                    "scale": [1,1],
-                    "textScale": [1,1],
-                    "color": [1,1,1,0.5],
+                    "coordinates": [0, 20],
+                    "scale": [1, 1],
+                    "textScale": [1, 1],
+                    "color": [1, 1, 1, 0.5],
                     "size": [200, 180],
                     "size_scale_type": "scale_smooth_xy",
                     "coordinates_scale_type": "scale_smooth_x",
@@ -239,18 +239,18 @@
                   },
                   "text_line": {
                     "type": "TextLine",
-                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                    "text": "Loremipsumdolorsitamet,consecteturadipiscingelit.",
                     "size": [100, 10],
-                    "color": [0.3,1,1,0.3],
+                    "color": [0.3, 1, 1, 0.3],
                     "dropShadow": true,
-                    "zLevel":2,
-                    "scale": [1,1],
+                    "zLevel": 2,
+                    "scale": [1, 1],
                     "size_scale_type": "none"
                   },
                   "button": {
                     "type": "Button",
                     "coordinates": [100, 100],
-                    "size": [50,50],
+                    "size": [50, 50],
                     "render_over": false,
                     "clicked": {
                       "object_name": "none",
@@ -264,9 +264,9 @@
                     "elements": {
                       "icon": {
                         "type": "Icon",
-                        "coordinates": [0,0],
-                        "size": [50,50],
-                        "scale": [1,1],
+                        "coordinates": [0, 0],
+                        "size": [50, 50],
+                        "scale": [1, 1],
                         "mapping_resource_domain": "thaumicextensions",
                         "mapping_resource_path": "texture_mappings/gui_research.json",
                         "mapping_icon_name": "defaultResearch",
@@ -275,9 +275,9 @@
                       },
                       "hovered": {
                         "type": "Icon",
-                        "coordinates": [0,0],
-                        "size": [50,50],
-                        "scale": [1,1],
+                        "coordinates": [0, 0],
+                        "size": [50, 50],
+                        "scale": [1, 1],
                         "mapping_resource_domain": "thaumicextensions",
                         "mapping_resource_path": "texture_mappings/gui_research.json",
                         "mapping_icon_name": "hiddenResearch",
@@ -291,86 +291,85 @@
               "scrollbar_y": {
                 "type": "ScrollBar",
                 "zLevel": 10,
-                "coordinates": [0,200],
-                "size": [10,200],
+                "coordinates": [0, 200],
+                "size": [10, 200],
                 "size_scale_type": "scale_y",
                 "objectToScroll": "new_gui.draggable_window.text_box",
                 "scroll_icon": "scrollbar_y.icon",
                 "elements": {
                   "icon": {
-                      "type": "Drag",
-                      "size": [10,20],
-                      "size_scale_type": "scale_y",
-                      "zLevel": 1,
-                      "drag_focus": "icon.background",
-                      "elements": {
-                        "background": {
-                          "type": "Rect",
-                          "size": [10,20],
-                          "size_scale_type": "scale_y",
-                          "zLevel": 1,
-                          "colors": {
-                            "topLeft":     [0,1,1,0.25],
-                            "topRight":    [1,1,0,0.5],
-                            "bottomLeft":  [1,0,1,0.5],
-                            "bottomRight": [1,1,1,0.25]
-                          }
+                    "type": "Drag",
+                    "size": [10, 20],
+                    "size_scale_type": "scale_y",
+                    "zLevel": 1,
+                    "drag_focus": "icon.background",
+                    "elements": {
+                      "background": {
+                        "type": "Rect",
+                        "size": [10, 20],
+                        "size_scale_type": "scale_y",
+                        "zLevel": 1,
+                        "colors": {
+                          "topLeft": [0, 1, 1, 0.25],
+                          "topRight": [1, 1, 0, 0.5],
+                          "bottomLeft": [1, 0, 1, 0.5],
+                          "bottomRight": [1, 1, 1, 0.25]
                         }
                       }
-                    },
-                  "background": {
-                      "type": "Rect",
-                      "size_scale_type": "scale_y",
-                      "colors": {
-                        "topLeft":     [0.3,0.3,0.3,0.5],
-                        "topRight":    [0.3,0.3,0.3,0.5],
-                        "bottomLeft":  [0.3,0.3,0.3,0.5],
-                        "bottomRight": [0.3,0.3,0.3,0.5]
-                      }
                     }
+                  },
+                  "background": {
+                    "type": "Rect",
+                    "size_scale_type": "scale_y",
+                    "colors": {
+                      "topLeft": [0.3, 0.3, 0.3, 0.5],
+                      "topRight": [0.3, 0.3, 0.3, 0.5],
+                      "bottomLeft": [0.3, 0.3, 0.3, 0.5],
+                      "bottomRight": [0.3, 0.3, 0.3, 0.5]
+                    }
+                  }
                 }
               },
               "scrollbar_x": {
                 "type": "ScrollBar",
                 "zLevel": 10,
-                "coordinates": [200,0],
-                "size": [200,10],
+                "coordinates": [200, 0],
+                "size": [200, 10],
                 "size_scale_type": "scale_x",
                 "objectToScroll": "new_gui.draggable_window.text_box",
                 "scroll_icon": "scrollbar_x.icon",
-                  "elements": {
-                    "icon": {
-                      "type": "Drag",
-                      "size": [20,10],
-                      "size_scale_type": "scale_x",
-                      "zLevel": 1,
-                      "drag_focus": "icon.background",
-                      "elements": {
-                        "background": {
-                          "type": "Rect",
-                          "size": [20,10],
-                          "size_scale_type": "scale_x",
-                          "zLevel": 1,
-                          "colors": {
-                            "topLeft":     [0,1,1,0.25],
-                            "topRight":    [1,1,0,0.5],
-                            "bottomLeft":  [1,0,1,0.5],
-                            "bottomRight": [1,1,1,0.25]
-                          }
+                "elements": {
+                  "icon": {
+                    "type": "Drag",
+                    "size": [20, 10],
+                    "size_scale_type": "scale_x",
+                    "zLevel": 1,
+                    "drag_focus": "icon.background",
+                    "elements": {
+                      "background": {
+                        "type": "Rect",
+                        "size": [20, 10],
+                        "size_scale_type": "scale_x",
+                        "zLevel": 1,
+                        "colors": {
+                          "topLeft": [0, 1, 1, 0.25],
+                          "topRight": [1, 1, 0, 0.5],
+                          "bottomLeft": [1, 0, 1, 0.5],
+                          "bottomRight": [1, 1, 1, 0.25]
                         }
                       }
-                    },
-                    "background": {
-                      "type": "Rect",
-                      "size_scale_type": "scale_x",
-                      "colors": {
-                        "topLeft":     [0.3,0.3,0.3,0.5],
-                        "topRight":    [0.3,0.3,0.3,0.5],
-                        "bottomLeft":  [0.3,0.3,0.3,0.5],
-                        "bottomRight": [0.3,0.3,0.3,0.5]
-                      }
                     }
-
+                  },
+                  "background": {
+                    "type": "Rect",
+                    "size_scale_type": "scale_x",
+                    "colors": {
+                      "topLeft": [0.3, 0.3, 0.3, 0.5],
+                      "topRight": [0.3, 0.3, 0.3, 0.5],
+                      "bottomLeft": [0.3, 0.3, 0.3, 0.5],
+                      "bottomRight": [0.3, 0.3, 0.3, 0.5]
+                    }
+                  }
                 }
               },
               "selector": {
@@ -378,24 +377,22 @@
                 "size": [50, 10],
                 "size_scale_type": "scale_x",
                 "main_line": "selector.main_line",
-                "lines": [
-                  "none", "scale_x", "scale_y", "scale_xy", "scale_smooth_x", "scale_smooth_y", "scale_smooth_xy"
-                ],
+                "lines": ["none", "scale_x", "scale_y", "scale_xy", "scale_smooth_x", "scale_smooth_y", "scale_smooth_xy"],
                 "elements": {
                   "background": {
                     "type": "Rect",
                     "zLevel": -1,
                     "colors": {
-                      "topLeft": [0.3,0.3,0.3,1],
-                      "topRight": [0.3,0.3,0.3,1],
-                      "bottomLeft": [0.3,0.3,0.3,1],
-                      "bottomRight": [0.3,0.3,0.3,1]
+                      "topLeft": [0.3, 0.3, 0.3, 1],
+                      "topRight": [0.3, 0.3, 0.3, 1],
+                      "bottomLeft": [0.3, 0.3, 0.3, 1],
+                      "bottomRight": [0.3, 0.3, 0.3, 1]
                     }
                   },
                   "main_line": {
                     "type": "TextLine",
                     "text": "",
-                    "color": [1,1,1,1],
+                    "color": [1, 1, 1, 1],
                     "dropShadow": true
                   }
                 }
