@@ -96,11 +96,11 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
             " \"elements\": {\n" +
             "     \"shown\": {\n" +
             "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
-            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"shown\"\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icons.json\", \"mapping_icon_name\": \"shown\"\n" +
             "     },\n" +
             "     \"hidden\": {\n" +
-            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true\n" +
-            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icon_mapping.json\", \"mapping_icon_name\": \"hidden\"\n" +
+            "      \"type\": \"Icon\", \"size\": [10,10], \"zLevel\": 1, \"size_scale_type\": \"none\", \"hided\": true,\n" +
+            "      \"mapping_resource_domain\": \"thaumicextensions\", \"mapping_resource_path\": \"texture_mappings/icons.json\", \"mapping_icon_name\": \"hidden\"\n" +
             "     },\n" +
             "  \t \"hover_rect\": {\n" +
             "  \t  \"type\": \"Rect\", \"size\": [10, 10], \"zLevel\": 2, \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.3], \"topRight\": [0.7,0.7,0.7,0.3], \"bottomLeft\": [0.7,0.7,0.7,0.3], \"bottomRight\": [0.7,0.7,0.7,0.3] }\n" +
