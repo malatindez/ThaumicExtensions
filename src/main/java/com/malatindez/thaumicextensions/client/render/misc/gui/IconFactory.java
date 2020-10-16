@@ -139,7 +139,7 @@ public class IconFactory {
                 (String)jsonObject.get("resource_domain"),
                 (String)jsonObject.get("resource_path"));
 
-        Vector2f textureSize = DefaultGuiObject.Json2Vec(jsonObject.get("textureSize"));
+        Vector2f textureSize = DefaultGuiObject.Json2Vec(jsonObject.get("size"));
         for (Object object : jsonObject.keySet()) {
             if (object instanceof String) {
                 if (!object.equals("resource_domain") &&

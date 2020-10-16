@@ -1,7 +1,7 @@
 {
 	"resource_domain": "thaumicextensions",
 	"resource_path": "textures/gui/gui_research.png",
-	"textureSize": [256,256],
+	"size": [256,256],
 	
 	"defaultResearch": {
 		"texFrom": [0,230],
