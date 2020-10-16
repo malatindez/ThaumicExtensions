@@ -41,7 +41,7 @@ output_file = Image.new("RGBA", size)
 
 
 for i in range(len(positions)):
-    s = "Putting {} in final image, {}/{}".format(names[i].replace(".png","").replace(".jpg",""), i, len(names))
+    s = "Putting {} in final image, {}/{}".format(names[i].replace(".png","").replace(".jpg",""), i + 1, len(names))
     s += " " * (84 - len(s))
     print(s, end="\r")
     output_file.paste(images[i], positions[i])
