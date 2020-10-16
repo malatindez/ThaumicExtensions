@@ -6,7 +6,7 @@ if len(sys.argv) >= 2:
 else:
     filename = input("enter path to file(or file name)")
 string = open(filename, "r").read()
-string = string.replace("\n", "").replace(" ", "")
+string = string.replace("\n", "").replace(" ", "").replace("\t","")
 square_brackets_flag = 0
 quotation_flag = False
 i = 0
