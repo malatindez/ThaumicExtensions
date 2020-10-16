@@ -1,4 +1,5 @@
 from os import listdir
+from os import system
 from os.path import isfile, join
 from PIL import Image
 import rpack
@@ -61,4 +62,5 @@ for i in range(len(names)):
     d[names[i].replace(".png","").replace(".jpg","")] = f
 print("Saving the json file...")
 open(filename + ".json", 'w').write(json.dumps(d))
-print
+print("Formatting json file: ")
+system("python json_formatter.py {}".format(filename + ".json"))
