@@ -180,6 +180,7 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
         put("Selector", Selector.class);
         // type name and class instance which will be constructed
     }};
+    @SuppressWarnings("rawtypes")
     public static void addPart(Class c) {
         parts.put(c.getSimpleName(), c);
     }
@@ -235,7 +236,6 @@ public abstract class EnhancedGuiScreen extends GuiScreen {
             main = obj; break;
         }
         Collection a = (Collection) createObject((String)main, parent, (JSONObject) jsonObject.get(main));
-        //noinspection ConstantConditions
         a.postInit();
         return a;
     }

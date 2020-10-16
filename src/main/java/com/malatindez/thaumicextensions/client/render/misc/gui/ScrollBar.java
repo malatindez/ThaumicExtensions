@@ -1,10 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
-import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.util.hashing.Hashing;
 
 public class ScrollBar extends Collection {
     protected Scrollable objectToScroll; // this is a reference to an object which should be scrolled

@@ -17,7 +17,7 @@ public class Collection extends DefaultGuiObject implements
         return descendants;
     }
 
-    private class ObjectComparator implements Comparator<DefaultGuiObject> {
+    private static class ObjectComparator implements Comparator<DefaultGuiObject> {
         @Override
         public int compare(DefaultGuiObject x, DefaultGuiObject y) {
             if(x == null) {

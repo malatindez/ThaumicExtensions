@@ -5,12 +5,8 @@ import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
-import scala.tools.nsc.doc.model.Def;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 @SuppressWarnings("unchecked")
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
@@ -105,8 +101,8 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     }
 
     public static class LinkedPoint {
-        DefaultGuiObject linkedPointObject;
-        FocalPoint refPoint;
+        final DefaultGuiObject linkedPointObject;
+        final FocalPoint refPoint;
         public LinkedPoint(DefaultGuiObject linkedPointObject, FocalPoint p) {
             this.linkedPointObject = linkedPointObject;
             this.refPoint = p;

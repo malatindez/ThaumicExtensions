@@ -13,12 +13,12 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         EnhancedGuiScreen.Inputable, ScrollBar.Scrollable {
     Vector4f cursorColor;
 
-    public Vector2f renderCursor = new Vector2f(0,0);
+    public final Vector2f renderCursor = new Vector2f(0,0);
     public TextInputBox(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
     boolean selected = false;
-    Vector2f cursor = new Vector2f(0,0);
+    final Vector2f cursor = new Vector2f(0,0);
 
     @SuppressWarnings("unchecked")
     @Override

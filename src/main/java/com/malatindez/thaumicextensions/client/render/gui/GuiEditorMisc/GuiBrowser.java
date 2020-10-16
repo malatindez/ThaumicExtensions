@@ -9,9 +9,9 @@ import org.lwjgl.util.vector.Vector2f;
 import java.util.ArrayList;
 
 public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
-    protected class Tree implements Comparable<Tree> {
-        public DefaultGuiObject object;
-        public ArrayList<Tree> descendants = new ArrayList<Tree>();
+    protected static class Tree implements Comparable<Tree> {
+        public final DefaultGuiObject object;
+        public final ArrayList<Tree> descendants = new ArrayList<Tree>();
         Tree(DefaultGuiObject object) {
             this.object = object;
             if(object instanceof Collection) {
@@ -85,7 +85,7 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
 }}
                          */
 
-    String defaultButtonText = "{ \"type\": \"Collection\", \"zLevel\": COORD_Y, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\", \"size\": [67, 10], \"coordinates_scale_type\": \"scale_x\",\n" +
+    final String defaultButtonText = "{ \"type\": \"Collection\", \"zLevel\": COORD_Y, \"coordinates\": [0, COORD_Y], \"size\": [67, 10], \"auto_scale_x\": true, \"check_borders\": false, \"size_scale_type\":\"scale_x\", \"size\": [67, 10], \"coordinates_scale_type\": \"scale_x\",\n" +
             "\"elements\": {\n" +
             "\"hide_button\": {\n" +
             " \"type\": \"Button\", \"coordinates\": [0, 0], \"size\": [10,10], \"id\": 0, \"zLevel\": 0, \"size_scale_type\": \"none\",\n" +
@@ -144,7 +144,9 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
     private int maxXSize = 0;
     private void updateDescendants(Tree o, int currentOffsetX) {
         String buttonJSON = defaultButtonText;
-        String s = ""; for(int i = 0; i < currentOffsetX; i++, s += " ");
+        String s = "";
+        //noinspection StatementWithEmptyBody
+        for(int i = 0; i < currentOffsetX; i++, s += " ");
         buttonJSON = buttonJSON.replace(
                 "ICON_TEXT",
                 s + o.object.getName() + " [" + o.object.getClass().getSimpleName() + "]"

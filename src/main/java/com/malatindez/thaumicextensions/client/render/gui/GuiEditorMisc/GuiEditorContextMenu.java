@@ -1,8 +1,6 @@
 package com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc;
 
 import com.malatindez.thaumicextensions.client.render.misc.gui.Collection;
-import com.malatindez.thaumicextensions.client.render.misc.gui.DefaultGuiObject;
-import com.malatindez.thaumicextensions.client.render.misc.gui.EnhancedGuiScreen;
 import com.malatindez.thaumicextensions.client.render.misc.gui.ScrollBar;
 import org.json.simple.JSONObject;
 

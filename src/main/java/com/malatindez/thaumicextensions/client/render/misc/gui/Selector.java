@@ -6,6 +6,7 @@ public class Selector extends Collection {
     public Selector(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);
     }
+
     @Override
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);

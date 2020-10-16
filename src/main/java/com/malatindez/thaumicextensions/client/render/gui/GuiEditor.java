@@ -5,13 +5,10 @@ import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiBrows
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
-import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
 public class GuiEditor extends EnhancedGuiScreen {
@@ -39,6 +36,7 @@ public class GuiEditor extends EnhancedGuiScreen {
             }
         }
     }
+    @SuppressWarnings("rawtypes")
     public static final HashMap<String, Class> editor_parts = new HashMap<String, Class>(){{
         put("Collection", Collection.class);
         put("ContextMenuField", ContextMenuField.class);
@@ -53,7 +51,8 @@ public class GuiEditor extends EnhancedGuiScreen {
         put("TextInputLine", TextInputLine.class);
         // type name and class instance which will be constructed
     }};
-    public static final void addEditorPart(Class c) {
+    @SuppressWarnings("rawtypes")
+    public static void addEditorPart(Class c) {
         parts.put(c.getSimpleName(), c);
     }
 
