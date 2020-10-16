@@ -93,7 +93,15 @@ public class Collection extends DefaultGuiObject implements
             descendant.setParent(this);
         }
         for (DefaultGuiObject descendant : descendants) {
-            descendant.postInit();
+            try {
+                descendant.postInit();
+            } catch (Exception e) {
+                System.out.println("Catched an exception in " + descendant.getGlobalName());
+                System.out.println("Removing this object.");
+                System.out.println("Stack trace:");
+                e.printStackTrace();
+                descendants.remove(descendant);
+            }
         }
         super.postInit();
     }
