@@ -115,6 +115,9 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
          */
         public LinkedPoint(DefaultGuiObject reference, JSONObject object, FocalPoint defaultFocalPoint) {
             linkedPointObject = (DefaultGuiObject) reference.getObjectUp((String) object.get("object"));
+            if(linkedPointObject == null) {
+                throw new NullPointerException(object.get("object") + " wasn't found");
+            }
             if(object.containsKey("focal_point")) {
                 refPoint = FocalPoint.fromString((String) object.get("focal_point"));
             } else {
@@ -315,9 +318,10 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     protected void setParent(DefaultGuiObject parent) {
         this.parent = parent;
     }
-
+    private boolean postInited = false;
     // postInit is called after entire gui is loaded
     public void postInit() {
+        postInited = true;
         if(getStartupParameters().containsKey("linked_points")) {
             this.points = new LinkedPoints(this, (JSONObject) getStartupParameters().get("linked_points"));
             updateVectors();
@@ -647,9 +651,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
     protected Object getObjectUp(String objectName) {
         if(this.getName().equals(objectName)) {
             return this;
-        }
-        if(!(this instanceof Collection)) {
-            return null;
         }
         int a = objectName.indexOf('.');
         if(a != -1 && a + 1 < objectName.length() && objectName.substring(0, a).equals(this.name)) {

@@ -34,10 +34,14 @@ public class Button extends Collection {
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("id", (long)id);
         a.put("renderOver", renderOver);
-        a.put("icon", this.icon.getName());
+        if(icon != null) {
+            a.put("icon", this.icon.getName());
+        }
         putMethod(a, "clicked", clicked);
         putMethod(a, "hovered", hovered);
-        a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
+        if(icon != null) {
+            a.put(icon.getName(), icon.generateJSONObject().get(icon.getName()));
+        }
         if(hovered_icon != null) {
             a.put("hovered_icon", this.hovered_icon.getName());
         }
@@ -64,7 +68,12 @@ public class Button extends Collection {
             renderOver = true;
         }
 
-        icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("icon"));
+        if(parameters.containsKey("icon")) {
+            icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("icon"));
+            if(icon == null) {
+                System.out.println("[DEBUG] ERROR! icon wasn't found in " + getGlobalName());
+            }
+        }
         if(parameters.containsKey("hovered_icon")) {
             hovered_icon = (DefaultGuiObject) this.getObjectUp((String) parameters.get("hovered_icon"));
             if(hovered_icon != null) {
@@ -105,7 +114,7 @@ public class Button extends Collection {
                 hovered.method.invoke(hovered.object,this, id);
             } catch (Exception ignored) {}
             if(this.hovered_icon != null) {
-                if(!renderOver) {
+                if(!renderOver && this.icon != null) {
                     icon.hide();
                 }
                 hovered_icon.show();
@@ -113,7 +122,7 @@ public class Button extends Collection {
             return;
         }
         isHovered = false;
-        if(this.hovered_icon != null && (icon.hidden() || !hovered_icon.hidden())) {
+        if(this.hovered_icon != null && this.icon != null && (icon.hidden() || !hovered_icon.hidden())) {
             if(!renderOver) {
                 icon.show();
             }

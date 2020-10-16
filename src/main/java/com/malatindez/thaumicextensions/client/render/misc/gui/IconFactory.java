@@ -144,7 +144,7 @@ public class IconFactory {
             if (object instanceof String) {
                 if (!object.equals("resource_domain") &&
                         !object.equals("resource_path") &&
-                        !object.equals("textureSize")
+                        !object.equals("size")
                 ) {
                     parts.put((String)object, new IconSample(
                             (String)object,
