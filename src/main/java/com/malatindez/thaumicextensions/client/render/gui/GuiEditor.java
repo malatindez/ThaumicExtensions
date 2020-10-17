@@ -14,9 +14,14 @@ import java.util.HashMap;
 public class GuiEditor extends EnhancedGuiScreen {
     public interface Editable {
         /**
-         * @return full json mapping with every element
+         * @return full JSON mapping with every element
          */
         String getFullJSON();
+        /**
+         *
+         * @return default JSON with already preset elements
+         */
+        String getDefaultJSON();
     }
     public void initGui() {}
 
