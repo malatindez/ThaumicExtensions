@@ -27,11 +27,11 @@ while i < len(string):
             elif string[i] == ",":
                 string = string[:i+1] + "\n"  + (" " * offset) + string[i+1:]
             elif string[i] == "{":
-                offset += 1
+                offset += 2
                 string = string[:i+1] + "\n" + (" " * offset) + string[i+1:]
                 i += offset
             elif string[i] == "}":
-                offset -= 1
+                offset -= 2
                 string = string[:i] + "\n" + (" " * offset)  + string[i:]
                 i += offset + 1
         elif string[i] == ",":
