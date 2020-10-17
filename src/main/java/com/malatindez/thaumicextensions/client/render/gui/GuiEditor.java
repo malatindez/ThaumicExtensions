@@ -5,6 +5,7 @@ import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiBrows
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
+import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import thaumcraft.client.gui.GuiResearchBrowser;
 
@@ -14,14 +15,15 @@ import java.util.HashMap;
 public class GuiEditor extends EnhancedGuiScreen {
     public interface Editable {
         /**
+         * Should return "name": {"type": "Type", coordinates: [1,1], etc. } JSONObject
          * @return full JSON mapping with every element
          */
-        String getFullJSON();
+        JSONObject getFullJSON();
         /**
-         *
+         * should return {"type": "Type", coordinates: [1,1], etc. } JSONObject
          * @return default JSON with already preset elements
          */
-        String getTemplateJSON();
+        JSONObject getTemplateJSON();
     }
     public void initGui() {}
 
