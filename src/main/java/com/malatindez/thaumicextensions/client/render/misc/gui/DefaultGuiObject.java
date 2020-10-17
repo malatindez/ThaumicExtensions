@@ -128,10 +128,16 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
             return refPoint.getPoint(linkedPointObject);
         }
 
-        public JSONObject toJson() {
+        public JSONObject toJSON() {
             JSONObject object = new JSONObject();
             object.put("object", linkedPointObject.getName());
             object.put("focal_point", refPoint.toString());
+            return object;
+        }
+        public static JSONObject getDefaultJSON() {
+            JSONObject object = new JSONObject();
+            object.put("object",  ".");
+            object.put("focal_point", "none");
             return object;
         }
     }
@@ -160,16 +166,22 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 }
             }
         }
-        public JSONObject toJson() {
+        public JSONObject toJSON() {
             JSONObject object = new JSONObject();
             if(mode == 0) {
-                object.put(FocalPoint.TOP_LEFT.toString(), a.toJson());
-                object.put(FocalPoint.BOTTOM_RIGHT.toString(), a.toJson());
+                object.put(FocalPoint.TOP_LEFT.toString(), a.toJSON());
+                object.put(FocalPoint.BOTTOM_RIGHT.toString(), a.toJSON());
             } else if(mode == 1) {
-                object.put(FocalPoint.TOP_RIGHT.toString(), a.toJson());
-                object.put(FocalPoint.BOTTOM_LEFT.toString(), a.toJson());
+                object.put(FocalPoint.TOP_RIGHT.toString(), a.toJSON());
+                object.put(FocalPoint.BOTTOM_LEFT.toString(), a.toJSON());
             }
 
+            return object;
+        }
+        public static JSONObject getDefaultJSON() {
+            JSONObject object = new JSONObject();
+            object.put(FocalPoint.TOP_LEFT.toString(), LinkedPoint.getDefaultJSON());
+            object.put(FocalPoint.BOTTOM_RIGHT.toString(), LinkedPoint.getDefaultJSON());
             return object;
         }
         public Vector4f getBorders() {
@@ -328,7 +340,6 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
     }
 
-
     // this function will be called when vectors were updated
     void VectorsWereUpdated() { }
 
@@ -420,7 +431,7 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         return delta;
     }
 
-    public JSONObject generateJSONObject() {
+    private JSONObject getJSON(boolean hideDefaultVariables) {
         JSONObject returnValue = new JSONObject();
         returnValue.put(getName(), new JSONObject());
         JSONObject a = (JSONObject) returnValue.get(getName());
@@ -435,46 +446,70 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
                 break;
             }
         }
-        if(coordinates.x != 0 || coordinates.y != 0)
-            a.put("coordinates", VecToJson(coordinates));
-        if(scale.x != 1 || scale.y != 1)
-            a.put("scale", VecToJson(scale));
-        if(zLevel != 0)
-            a.put("zLevel", (long)zLevel);
-        if(hide)
-            a.put("hided", true);
-        if(points == null) {
-            if (auto_scale_x)
-                a.put("auto_scale_x", true);
-            if (auto_scale_y)
-                a.put("auto_scale_y", true);
-        }
-        if(focal_point != FocalPoint.TOP_LEFT)
-            a.put("focal_point", focal_point.toString());
-        if(points != null)
-            a.put("linked_points", points.toJson());
-
-        if(parent instanceof DefaultGuiObject) {
-            if(!sizeRescaleType.equals(((DefaultGuiObject)parent).sizeRescaleType))
-                a.put("size_scale_type", sizeRescaleType.toString());
-
-            if(!coordinatesRescaleType.equals(((DefaultGuiObject)parent).coordinatesRescaleType))
-                a.put("coordinates_scale_type", coordinatesRescaleType.toString());
-
-            if(!this.size.equals(((DefaultGuiObject) parent).size))
-                a.put("size", VecToJson(size));
-        } else {
-            if(sizeRescaleType != ResolutionRescaleType.NONE)
-                a.put("size_scale_type", sizeRescaleType.toString());
-
-            if(coordinatesRescaleType != ResolutionRescaleType.NONE)
-                a.put("coordinates_scale_type", coordinatesRescaleType.toString());
-
-            if(size.x != 0 || size.y != 0) {
-                a.put("size", VecToJson(size));
+        if(hideDefaultVariables) {
+            if (coordinates.x != 0 || coordinates.y != 0)
+                a.put("coordinates", VecToJson(coordinates));
+            if (scale.x != 1 || scale.y != 1)
+                a.put("scale", VecToJson(scale));
+            if (zLevel != 0)
+                a.put("zLevel", (long) zLevel);
+            if (hide)
+                a.put("hided", true);
+            if (points == null) {
+                if (auto_scale_x)
+                    a.put("auto_scale_x", auto_scale_x);
+                if (auto_scale_y)
+                    a.put("auto_scale_y", auto_scale_y);
             }
+            if (focal_point != FocalPoint.TOP_LEFT)
+                a.put("focal_point", focal_point.toString());
+            if (points != null)
+                a.put("linked_points", points.toJSON());
+
+            if (parent instanceof DefaultGuiObject) {
+                if (!sizeRescaleType.equals(((DefaultGuiObject) parent).sizeRescaleType))
+                    a.put("size_scale_type", sizeRescaleType.toString());
+
+                if (!coordinatesRescaleType.equals(((DefaultGuiObject) parent).coordinatesRescaleType))
+                    a.put("coordinates_scale_type", coordinatesRescaleType.toString());
+
+                if (!this.size.equals(((DefaultGuiObject) parent).size))
+                    a.put("size", VecToJson(size));
+            } else {
+                if (sizeRescaleType != ResolutionRescaleType.NONE)
+                    a.put("size_scale_type", sizeRescaleType.toString());
+
+                if (coordinatesRescaleType != ResolutionRescaleType.NONE)
+                    a.put("coordinates_scale_type", coordinatesRescaleType.toString());
+
+                if (size.x != 0 || size.y != 0) {
+                    a.put("size", VecToJson(size));
+                }
+            }
+        } else {
+            a.put("coordinates", VecToJson(coordinates));
+            a.put("scale", VecToJson(scale));
+            a.put("zLevel", (long) zLevel);
+            a.put("hided", true);
+            a.put("auto_scale_x", auto_scale_x);
+            a.put("auto_scale_y", auto_scale_y);
+            a.put("focal_point", focal_point.toString());
+            if (points != null)
+                a.put("linked_points", points.toJSON());
+            else a.put("linked_points", LinkedPoints.getDefaultJSON());
+            a.put("size_scale_type", sizeRescaleType.toString());
+            a.put("coordinates_scale_type", coordinatesRescaleType.toString());
+            a.put("size", VecToJson(size));
         }
         return returnValue;
+    }
+
+    protected JSONObject getFullDefaultJSON() {
+        return this.getJSON(false);
+    }
+
+    public JSONObject generateJSONObject() {
+        return this.getJSON(true);
     }
 
     public void loadFromJSONObject(JSONObject parameters) {
