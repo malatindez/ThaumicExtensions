@@ -5,6 +5,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,5 +80,28 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
         matrix.store(dest);
         dest.position(0);
         return dest;
+    }
+
+    public static String loadFromFile(ResourceLocation file) {
+        InputStream x;
+        try {
+            x = Minecraft.getMinecraft().getResourceManager().getResource(file).getInputStream();
+        } catch (Exception e) {
+            System.out.println("Exception caught! Wrong ResourceFile in loadFromFile.");
+            System.out.println(file);
+            e.printStackTrace();
+            return null;
+        }
+        InputStreamReader isReader = new InputStreamReader(x);
+        BufferedReader reader = new BufferedReader(isReader);
+        StringBuilder sb = new StringBuilder();
+        String str;
+        try {
+            while ((str = reader.readLine()) != null) {
+                sb.append(str);
+            }
+        } catch (Exception ignored) { }
+        str = sb.toString();
+        return str;
     }
 }

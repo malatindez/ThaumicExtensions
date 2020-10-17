@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 import org.json.simple.JSONObject;
+import sun.plugin.com.Utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -116,28 +117,7 @@ public class IconFactory {
      * @param json_file json_file to work with
      */
     public IconFactory(ResourceLocation json_file) {
-        InputStream x;
-        try {
-            x = Minecraft.getMinecraft().getResourceManager().getResource(json_file).getInputStream();
-        } catch (Exception e) {
-            System.out.println("Exception caught! Wrong ResourceFile for IconFactory.");
-            System.out.println(json_file);
-            e.printStackTrace();
-            this.texture = new ResourceLocation(ThaumicExtensions.MODID, "asd");
-            return;
-        }
-        InputStreamReader isReader = new InputStreamReader(x);
-        //Creating a BufferedReader object
-        BufferedReader reader = new BufferedReader(isReader);
-        StringBuilder sb = new StringBuilder();
-        String str;
-        try {
-            while ((str = reader.readLine()) != null) {
-                sb.append(str);
-            }
-        } catch (Exception ignored) { }
-        str = sb.toString();
-        JSONObject jsonObject = (JSONObject) JSONValue.parse(str);
+        JSONObject jsonObject = (JSONObject) JSONValue.parse(UtilsFX.loadFromFile(json_file));
 
         this.texture = new ResourceLocation(
                 (String)jsonObject.get("resource_domain"),
