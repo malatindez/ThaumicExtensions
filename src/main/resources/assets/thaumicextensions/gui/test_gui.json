@@ -9,21 +9,21 @@
       "main_background": {
         "type": "Rect",
         "zLevel": -1,
-        "coordinates": [0,0],
+        "coordinates": [0, 0],
         "scale": [1, 1],
         "size": [427, 240],
         "size_scale_type": "scale_xy",
         "colors": {
-          "topLeft": [1,1,1,0.6],
-          "topRight": [1,1,1,0.6],
-          "bottomLeft": [1,1,1,0.6],
-          "bottomRight": [1,1,1,0.6]
+          "topLeft": [1, 1, 1, 0.6],
+          "topRight": [1, 1, 1, 0.6],
+          "bottomLeft": [1, 1, 1, 0.6],
+          "bottomRight": [1, 1, 1, 0.6]
         }
       },
       "draggable_thing": {
         "type": "Drag",
-        "coordinates": [0,0],
-        "scale": [1,1],
+        "coordinates": [0, 0],
+        "scale": [1, 1],
         "size": [200, 200],
         "size_scale_type": "scale_smooth_xy",
         "drag_focus": "top_bar",
@@ -40,39 +40,39 @@
           "draggable_thing_background": {
             "type": "Rect",
             "zLevel": -1,
-            "coordinates": [0,0],
+            "coordinates": [0, 0],
             "scale": [1, 1],
             "size": [200, 200],
             "size_scale_type": "scale_smooth_xy",
             "colors": {
-              "topLeft":     [0.3,0.3,0.3,0.3],
-              "topRight":    [0.3,0.3,0.3,0.3],
-              "bottomLeft":  [0.3,0.3,0.3,0.3],
-              "bottomRight": [0.3,0.3,0.3,0.3]
+              "topLeft": [0.3, 0.3, 0.3, 0.3],
+              "topRight": [0.3, 0.3, 0.3, 0.3],
+              "bottomLeft": [0.3, 0.3, 0.3, 0.3],
+              "bottomRight": [0.3, 0.3, 0.3, 0.3]
             }
           },
           "top_bar": {
             "type": "Rect",
             "zLevel": 0,
-            "coordinates": [0,0],
+            "coordinates": [0, 0],
             "scale": [1, 1],
             "size": [200, 20],
             "size_scale_type": "scale_smooth_x",
             "colors": {
-              "topLeft":     [0,0,0,0.5],
-              "topRight":    [0,0,0,0.25],
-              "bottomLeft":  [0,0,0,0.25],
-              "bottomRight": [1,1,1,0.0]
+              "topLeft": [0, 0, 0, 0.5],
+              "topRight": [0, 0, 0, 0.25],
+              "bottomLeft": [0, 0, 0, 0.25],
+              "bottomRight": [1, 1, 1, 0.0]
             }
           },
           "textbox": {
             "type": "TextInputBox",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nDonec vitae tincidunt nisl.\nIn at enim at ipsum molestie vehicula vitae vitae metus.\nCurabitur nisl sem, lobortis nec erat in, consequat porttitor lacus.\nCurabitur vitae metus in elit egestas finibus vitae eget lacus.\n Curabitur sollicitudin, mauris sed molestie mollis, nisl felis malesuada justo,\n eu laoreet quam justo sit amet tortor. Proin finibus risus quis turpis volutpat iaculis.\n Morbi elementum maximus nulla, venenatis tincidunt eros semper quis.\n Aenean consectetur in neque mollis maximus.\n Suspendisse eleifend ipsum ac justo mattis, hendrerit scelerisque orci accumsan.\n In sollicitudin risus ac nisl porta, quis interdum libero convallis.\nPhasellus posuere ornare mauris nec congue.\nNam accumsan porta odio, id molestie felis tempus eu.\nPhasellus vitae erat vel dolor ullamcorper porttitor.\nCurabitur tincidunt viverra purus, eget vulputate eros egestas vitae.\nFusce varius blandit velit, ut lobortis elit tincidunt nec.",
+            "text": "Loremipsumdolorsitamet,consecteturadipiscingelit.\nDonecvitaetinciduntnisl.\nInatenimatipsummolestievehiculavitaevitaemetus.\nCurabiturnislsem,lobortisneceratin,consequatporttitorlacus.\nCurabiturvitaemetusinelitegestasfinibusvitaeegetlacus.\nCurabitursollicitudin,maurissedmolestiemollis,nislfelismalesuadajusto,\neulaoreetquamjustositamettortor.Proinfinibusrisusquisturpisvolutpatiaculis.\nMorbielementummaximusnulla,venenatistincidunterossemperquis.\nAeneanconsecteturinnequemollismaximus.\nSuspendisseeleifendipsumacjustomattis,hendreritscelerisqueorciaccumsan.\nInsollicitudinrisusacnislporta,quisinterdumliberoconvallis.\nPhasellusposuereornaremaurisneccongue.\nNamaccumsanportaodio,idmolestiefelistempuseu.\nPhasellusvitaeeratveldolorullamcorperporttitor.\nCurabiturtinciduntviverrapurus,egetvulputateerosegestasvitae.\nFuscevariusblanditvelit,utlobortiselittinciduntnec.",
             "zLevel": 1,
-            "coordinates": [0,20],
-            "scale": [1,1],
-            "textScale": [1,1],
-            "color": [1,1,1,0.5],
+            "coordinates": [0, 20],
+            "scale": [1, 1],
+            "textScale": [1, 1],
+            "color": [1, 1, 1, 0.5],
             "size": [200, 180],
             "size_scale_type": "scale_smooth_xy",
             "coordinates_scale_type": "scale_smooth_x",
@@ -80,12 +80,12 @@
           },
           "textline": {
             "type": "TextLine",
-            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "color": [0.3,1,1,0.3],
+            "text": "Loremipsumdolorsitamet,consecteturadipiscingelit.",
+            "color": [0.3, 1, 1, 0.3],
             "dropShadow": true,
-            "coordinates": [75,75],
-            "zLevel":2,
-            "scale": [1,1],
+            "coordinates": [75, 75],
+            "zLevel": 2,
+            "scale": [1, 1],
             "size_scale_type": "none"
           },
           "button_1": {
@@ -102,8 +102,8 @@
             "hovered_icon": "abcdef2",
             "abcdef": {
               "type": "Icon",
-              "coordinates": [0,0],
-              "scale": [1,1],
+              "coordinates": [0, 0],
+              "scale": [1, 1],
               "mapping_resource_domain": "thaumicextensions",
               "mapping_resource_path": "texture_mappings/gui_research.json",
               "mapping_icon_name": "defaultResearch",
@@ -112,8 +112,8 @@
             },
             "abcdef2": {
               "type": "Icon",
-              "coordinates": [0,0],
-              "scale": [1,1],
+              "coordinates": [0, 0],
+              "scale": [1, 1],
               "mapping_resource_domain": "thaumicextensions",
               "mapping_resource_path": "texture_mappings/gui_research.json",
               "mapping_icon_name": "hiddenResearch",
@@ -126,8 +126,8 @@
       "scrollbar)": {
         "type": "ScrollBar",
         "zLevel": 10,
-        "coordinates": [0,200],
-        "size": [10,200],
+        "coordinates": [0, 200],
+        "size": [10, 200],
         "size_scale_type": "scale_y",
         "objectToScroll": "textbox",
         "scroll_icon": "scrollIcon",
@@ -138,21 +138,21 @@
           "elements": {
             "scrollIcon": {
               "type": "Drag",
-              "size": [10,20],
+              "size": [10, 20],
               "size_scale_type": "scale_y",
               "zLevel": 1,
               "drag_focus": "scrollIcon_background",
               "elements": {
                 "scrollIcon_background": {
                   "type": "Rect",
-                  "size": [10,20],
+                  "size": [10, 20],
                   "size_scale_type": "scale_y",
                   "zLevel": 1,
                   "colors": {
-                    "topLeft":     [0,1,1,0.25],
-                    "topRight":    [1,1,0,0.5],
-                    "bottomLeft":  [1,0,1,0.5],
-                    "bottomRight": [1,1,1,0.25]
+                    "topLeft": [0, 1, 1, 0.25],
+                    "topRight": [1, 1, 0, 0.5],
+                    "bottomLeft": [1, 0, 1, 0.5],
+                    "bottomRight": [1, 1, 1, 0.25]
                   }
                 }
               }
@@ -161,10 +161,10 @@
               "type": "Rect",
               "size_scale_type": "scale_y",
               "colors": {
-                "topLeft":     [0.3,0.3,0.3,0.5],
-                "topRight":    [0.3,0.3,0.3,0.5],
-                "bottomLeft":  [0.3,0.3,0.3,0.5],
-                "bottomRight": [0.3,0.3,0.3,0.5]
+                "topLeft": [0.3, 0.3, 0.3, 0.5],
+                "topRight": [0.3, 0.3, 0.3, 0.5],
+                "bottomLeft": [0.3, 0.3, 0.3, 0.5],
+                "bottomRight": [0.3, 0.3, 0.3, 0.5]
               }
             }
           }
@@ -173,8 +173,8 @@
       "scrollbar)2": {
         "type": "ScrollBar",
         "zLevel": 10,
-        "coordinates": [200,0],
-        "size": [200,10],
+        "coordinates": [200, 0],
+        "size": [200, 10],
         "size_scale_type": "scale_x",
         "objectToScroll": "textbox",
         "scroll_icon": "scrollIcon2",
@@ -185,21 +185,21 @@
           "elements": {
             "scrollIcon2": {
               "type": "Drag",
-              "size": [20,10],
+              "size": [20, 10],
               "size_scale_type": "scale_x",
               "zLevel": 1,
               "drag_focus": "scrollIcon_background2",
               "elements": {
                 "scrollIcon_background2": {
                   "type": "Rect",
-                  "size": [20,10],
+                  "size": [20, 10],
                   "size_scale_type": "scale_x",
                   "zLevel": 1,
                   "colors": {
-                    "topLeft":     [0,1,1,0.25],
-                    "topRight":    [1,1,0,0.5],
-                    "bottomLeft":  [1,0,1,0.5],
-                    "bottomRight": [1,1,1,0.25]
+                    "topLeft": [0, 1, 1, 0.25],
+                    "topRight": [1, 1, 0, 0.5],
+                    "bottomLeft": [1, 0, 1, 0.5],
+                    "bottomRight": [1, 1, 1, 0.25]
                   }
                 }
               }
@@ -208,30 +208,68 @@
               "type": "Rect",
               "size_scale_type": "scale_x",
               "colors": {
-                "topLeft":     [0.3,0.3,0.3,0.5],
-                "topRight":    [0.3,0.3,0.3,0.5],
-                "bottomLeft":  [0.3,0.3,0.3,0.5],
-                "bottomRight": [0.3,0.3,0.3,0.5]
+                "topLeft": [0.3, 0.3, 0.3, 0.5],
+                "topRight": [0.3, 0.3, 0.3, 0.5],
+                "bottomLeft": [0.3, 0.3, 0.3, 0.5],
+                "bottomRight": [0.3, 0.3, 0.3, 0.5]
               }
             }
           }
         }
       },
-      "button": { "type": "Button", "coordinates": [0, 0], "size": [87, 10], "id": 11, "zLevel": 10, "size_scale_type": "scale_x",
-        "clicked": { "object_name": "OBJECT_NAME", "method_name": "GuiBrowserElementClicked" },
-        "icon": "ICON_NAME", "hovered_icon": "HOVERED_ICON_NAME",
+      "button": {
+        "type": "Button",
+        "coordinates": [0, 0],
+        "size": [87, 10],
+        "id": 11,
+        "zLevel": 10,
+        "size_scale_type": "scale_x",
+        "clicked": {
+          "object_name": "OBJECT_NAME",
+          "method_name": "GuiBrowserElementClicked"
+        },
+        "icon": "ICON_NAME",
+        "hovered_icon": "HOVERED_ICON_NAME",
         "ICON_NAME": {
           "type": "Collection",
           "elements": {
-            "ICON_NAME_TEXT": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-            "ICON_NAME_BACKGROUND": { "type": "Rect", "colors": { "topLeft": [0.3,0.3,0.3,0.5], "topRight": [0.3,0.3,0.3,0.5], "bottomLeft": [0.3,0.3,0.3,0.5], "bottomRight": [0.3,0.3,0.3,0.5] }}
-          }},
+            "ICON_NAME_TEXT": {
+              "zLevel": 1,
+              "type": "TextLine",
+              "text": "ICON_TEXT",
+              "dropShadow": true
+            },
+            "ICON_NAME_BACKGROUND": {
+              "type": "Rect",
+              "colors": {
+                "topLeft": [0.3, 0.3, 0.3, 0.5],
+                "topRight": [0.3, 0.3, 0.3, 0.5],
+                "bottomLeft": [0.3, 0.3, 0.3, 0.5],
+                "bottomRight": [0.3, 0.3, 0.3, 0.5]
+              }
+            }
+          }
+        },
         "HOVERED_ICON_NAME": {
           "type": "Collection",
           "elements": {
-            "HOVERED_ICON_NAME_TEXT": { "zLevel": 1, "type": "TextLine", "text": "ICON_TEXT", "dropShadow": true },
-            "HOVERED_ICON_NAME_BACKGROUND": { "type": "Rect", "colors": { "topLeft": [0.7,0.7,0.7,0.6], "topRight": [0.7,0.7,0.7,0.6], "bottomLeft": [0.7,0.7,0.7,0.6], "bottomRight": [0.7,0.7,0.7,0.6] }}
-          }}
+            "HOVERED_ICON_NAME_TEXT": {
+              "zLevel": 1,
+              "type": "TextLine",
+              "text": "ICON_TEXT",
+              "dropShadow": true
+            },
+            "HOVERED_ICON_NAME_BACKGROUND": {
+              "type": "Rect",
+              "colors": {
+                "topLeft": [0.7, 0.7, 0.7, 0.6],
+                "topRight": [0.7, 0.7, 0.7, 0.6],
+                "bottomLeft": [0.7, 0.7, 0.7, 0.6],
+                "bottomRight": [0.7, 0.7, 0.7, 0.6]
+              }
+            }
+          }
+        }
       }
     }
   }
