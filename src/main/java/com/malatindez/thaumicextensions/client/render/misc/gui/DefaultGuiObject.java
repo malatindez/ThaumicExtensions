@@ -732,19 +732,25 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
 
 
 
-
-    public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
-        if(pair == null || objRef == null) {
+    public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair, boolean checkIfNull) {
+        if(checkIfNull && (pair == null || objRef == null)) {
             return;
         }
         JSONObject x = new JSONObject();
-        String objectName = "none";
-        if(pair.object instanceof DefaultGuiObject) {
+        String objectName = ".";
+        if(pair != null && pair.object instanceof DefaultGuiObject) {
             objectName = ((DefaultGuiObject) pair.object).getName();
         }
         x.put("object_name", objectName);
-        x.put("method_name", pair.method.getName());
+        if(pair != null && pair.method != null) {
+            x.put("method_name", pair.method.getName());
+        } else {
+            x.put("method_name", ".");
+        }
         objRef.put(name, x);
+    }
+    public static void putMethod(JSONObject objRef, String name, MethodObjectPair pair) {
+        putMethod(objRef,name,pair,true);
     }
     public static long Vector4fToColor(Vector4f vec) {
         return Long.parseLong(
