@@ -2,8 +2,11 @@ package com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc;
 
 import com.malatindez.thaumicextensions.client.render.misc.gui.Collection;
 import com.malatindez.thaumicextensions.client.render.misc.gui.ScrollBar;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 
+@SideOnly(Side.CLIENT)
 public class GuiEditorContextMenu extends Collection implements ScrollBar.Scrollable {
     public GuiEditorContextMenu(String name, Object parent, JSONObject parameters) {
         super(name, parent, parameters);

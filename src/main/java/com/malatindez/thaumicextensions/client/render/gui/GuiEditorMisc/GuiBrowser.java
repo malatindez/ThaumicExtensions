@@ -1,6 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc;
 
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -8,6 +10,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
 
+@SideOnly(Side.CLIENT)
 public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
     protected static class Tree implements Comparable<Tree> {
         public final DefaultGuiObject object;

@@ -1,9 +1,12 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
+@SideOnly(Side.CLIENT)
 public class ScrollBar extends Collection {
     protected Scrollable objectToScroll; // this is a reference to an object which should be scrolled
     protected Drag scroll_icon; // this is a reference to a Drag object

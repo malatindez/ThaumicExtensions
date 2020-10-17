@@ -1,6 +1,8 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+@SideOnly(Side.CLIENT)
 public class Collection extends DefaultGuiObject implements
         EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
 

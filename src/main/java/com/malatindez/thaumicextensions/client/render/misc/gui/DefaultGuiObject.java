@@ -1,5 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
@@ -9,6 +11,7 @@ import org.lwjgl.util.vector.Vector4f;
 import java.lang.reflect.Method;
 
 @SuppressWarnings("unchecked")
+@SideOnly(Side.CLIENT)
 public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, Comparable<DefaultGuiObject> {
     public static class MethodObjectPair {
         public final Method method;

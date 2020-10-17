@@ -1,9 +1,12 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
+@SideOnly(Side.CLIENT)
 public class ContextMenuField extends Collection {
     protected MethodObjectPair rmbClicked;
     protected MethodObjectPair lmbClicked;

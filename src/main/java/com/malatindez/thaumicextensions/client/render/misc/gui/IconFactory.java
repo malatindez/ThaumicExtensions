@@ -4,6 +4,8 @@ import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 
 import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONValue;
@@ -22,6 +24,7 @@ import java.util.HashMap;
  * TextureMapping.get("arrow").render(x,y)
  * You should bind gui texture before calling render functions
  */
+@SideOnly(Side.CLIENT)
 public class IconFactory {
     public static class IconSample {
         public final ResourceLocation texture;
@@ -47,6 +50,7 @@ public class IconFactory {
 
         }
     }
+    @SideOnly(Side.CLIENT)
     public static class Icon extends DefaultGuiObject {
         protected IconSample sample;
 

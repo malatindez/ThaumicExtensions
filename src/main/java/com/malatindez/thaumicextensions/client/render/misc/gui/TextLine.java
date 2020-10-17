@@ -1,5 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import org.json.simple.JSONObject;
@@ -7,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
+@SideOnly(Side.CLIENT)
 public class TextLine extends DefaultGuiObject {
     protected FontRenderer fontRendererObj;
     protected String textLine;

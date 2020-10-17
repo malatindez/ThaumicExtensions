@@ -2,6 +2,8 @@ package com.malatindez.thaumicextensions.client.render.misc;
 
 import com.malatindez.thaumicextensions.client.lib.Transformation;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.model.IModelCustom;
@@ -13,6 +15,7 @@ import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 
+@SideOnly(Side.CLIENT)
 public abstract class TileEntitySpecialRenderer extends net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer {
     // Here's some rules of texture formatting:
     // texture XXX.png will be bound to YYY in .obj if it exists.

@@ -1,5 +1,7 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +19,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 
 @SuppressWarnings({"EmptyMethod", "unchecked"})
+@SideOnly(Side.CLIENT)
 public abstract class EnhancedGuiScreen extends GuiScreen {
     static class Bind {
         protected int key;

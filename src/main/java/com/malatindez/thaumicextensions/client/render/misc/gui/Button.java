@@ -1,11 +1,15 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
-public class Button extends Collection {
+@SideOnly(Side.CLIENT)
+public class Button extends Collection implements GuiEditor.Editable {
     protected DefaultGuiObject icon; // reference to a default icon
     protected DefaultGuiObject switch_icon; // reference to a switch icon (when the button is clicked, this icon will be rendered)
     protected DefaultGuiObject hovered_icon; // reference to a hovered icon
@@ -153,4 +157,13 @@ public class Button extends Collection {
         return false;
     }
 
+    @Override
+    public JSONObject getFullJSON() {
+        return null;
+    }
+
+    @Override
+    public JSONObject getTemplateJSON() {
+        return null;
+    }
 }

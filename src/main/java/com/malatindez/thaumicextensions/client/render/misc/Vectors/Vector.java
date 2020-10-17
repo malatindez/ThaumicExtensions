@@ -1,10 +1,13 @@
 package com.malatindez.thaumicextensions.client.render.misc.Vectors;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 
 @SuppressWarnings("UnusedReturnValue")
+@SideOnly(Side.CLIENT)
 public final class Vector {
     public static Vector3f mul(Vector3f left, Vector3f right, Vector3f dest) {
         if(dest == null) {

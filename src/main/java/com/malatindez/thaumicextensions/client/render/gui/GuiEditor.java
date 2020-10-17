@@ -3,6 +3,8 @@ package com.malatindez.thaumicextensions.client.render.gui;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiBrowser;
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
@@ -12,6 +14,7 @@ import thaumcraft.client.gui.GuiResearchBrowser;
 import java.util.HashMap;
 
 
+@SideOnly(Side.CLIENT)
 public class GuiEditor extends EnhancedGuiScreen {
     public interface Editable {
         /**

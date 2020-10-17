@@ -1,9 +1,12 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import org.json.simple.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
 
+@SideOnly(Side.CLIENT)
 public class Drag extends Collection {
     protected MethodObjectPair currentlyDragging;
     protected MethodObjectPair dragEnd;
