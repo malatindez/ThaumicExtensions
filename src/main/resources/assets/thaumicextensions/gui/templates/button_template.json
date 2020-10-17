@@ -1,0 +1,40 @@
+{
+  "type": "Button",
+  "focal_point": "top_right",
+  "coordinates": [-25, 0],
+  "size": [25, 25],
+  "icon": "THIS_NAME.expand",
+  "switch_icon": "THIS_NAME.collapse",
+  "hovered_icon": "THIS_NAME.hover_rect",
+  "check_borders": false,
+  "elements": {
+    "expand": {
+      "type": "Icon",
+      "size": [25, 25],
+      "zLevel": 0,
+      "mapping_resource_domain": "thaumicextensions",
+      "mapping_resource_path": "texture_mappings/icons.json",
+      "mapping_icon_name": "expand"
+    },
+    "collapse": {
+      "type": "Icon",
+      "size": [25, 25],
+      "zLevel": 1,
+      "hided": true,
+      "mapping_resource_domain": "thaumicextensions",
+      "mapping_resource_path": "texture_mappings/icons.json",
+      "mapping_icon_name": "collapse"
+    },
+    "hover_rect": {
+      "type": "Rect",
+      "size": [25, 25],
+      "zLevel": 2,
+      "colors": {
+        "topLeft": [0.7, 0.7, 0.7, 0.3],
+        "topRight": [0.7, 0.7, 0.7, 0.3],
+        "bottomLeft": [0.7, 0.7, 0.7, 0.3],
+        "bottomRight": [0.7, 0.7, 0.7, 0.3]
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "TextLine",
+  "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "size": [100, 10],
+  "color": [0.3, 1, 1, 0.3],
+  "dropShadow": true
+}

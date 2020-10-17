@@ -1,0 +1,8 @@
+{
+  "type": "Icon",
+  "size": [25, 25],
+  "zLevel": 0,
+  "mapping_resource_domain": "thaumicextensions",
+  "mapping_resource_path": "texture_mappings/icons.json",
+  "mapping_icon_name": "default_icon"
+}

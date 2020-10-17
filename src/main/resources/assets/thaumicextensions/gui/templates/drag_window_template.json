@@ -1,0 +1,36 @@
+{
+  "type": "Drag",
+  "size": [200, 200],
+  "size_scale_type": "scale_smooth_xy",
+  "drag_focus": "THIS_NAME.top_bar",
+  "elements": {
+    "background": {
+      "type": "Rect",
+      "zLevel": -1,
+      "coordinates": [0, 0],
+      "scale": [1, 1],
+      "size": [200, 200],
+      "size_scale_type": "scale_smooth_xy",
+      "colors": {
+        "topLeft": [0.3, 0.3, 0.3, 0.3],
+        "topRight": [0.3, 0.3, 0.3, 0.3],
+        "bottomLeft": [0.3, 0.3, 0.3, 0.3],
+        "bottomRight": [0.3, 0.3, 0.3, 0.3]
+      }
+    },
+    "top_bar": {
+      "type": "Rect",
+      "zLevel": 0,
+      "coordinates": [0, 0],
+      "scale": [1, 1],
+      "size": [200, 20],
+      "size_scale_type": "scale_smooth_x",
+      "colors": {
+        "topLeft": [0, 0, 0, 0.5],
+        "topRight": [0, 0, 0, 0.25],
+        "bottomLeft": [0, 0, 0, 0.25],
+        "bottomRight": [1, 1, 1, 0.0]
+      }
+    }
+  }
+}
