@@ -21,7 +21,7 @@ else:
 if not folder.endswith("\\"):
     folder += "\\"
     
-names = [f.lower() for f in listdir(folder) if isfile(join(folder, f)) and (f.lower().endswith(".png") or f.lower().endswith(".jpg"))]
+names = [f for f in listdir(folder) if isfile(join(folder, f)) and (f.endswith(".png") or f.endswith(".jpg"))]
 
 images = []
 for i in range(len(names)):
