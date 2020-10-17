@@ -6,7 +6,9 @@ if len(sys.argv) >= 2:
 else:
     filename = input("enter path to file(or file name)")
 string = open(filename, "r").read()
-string = string.replace("\n", "").replace(" ", "").replace("\t","")
+string = string.replace("\n", "").replace("\t","")
+k = string.find('"')
+string = string[:k].replace(" ", "") + string[k:]
 square_brackets_flag = 0
 quotation_flag = False
 i = 0
@@ -16,6 +18,9 @@ while i < len(string):
     if string[i] == '"':
         if(string[i-1] != '\\'):
             quotation_flag = not quotation_flag
+            if not quotation_flag:
+                k = string.find('"', i + 1)
+                string =  string[:i + 1] + string[i + 1:k].replace(" ", "") + string[k:]
     elif not quotation_flag:
         if string[i] == '[':
             square_brackets_flag += 1
