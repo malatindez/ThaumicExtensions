@@ -139,7 +139,7 @@ public class Button extends Collection {
             return false;
         }
         Vector4f temp = getBorders();
-        if(button == 0 && clicked != null &&
+        if(button == 0 &&
            temp.x < currentMousePosition.x &&
            temp.z > currentMousePosition.x &&
            temp.y < currentMousePosition.y &&
