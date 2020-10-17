@@ -1,0 +1,77 @@
+{
+  "type": "Selector",
+  "size": [150, 10],
+  "zLevel": 100,
+  "size_scale_type": "none",
+  "main_line": "THIS_NAME.main_line",
+  "lines": ["a", "b"],
+  "elements": {
+    "background": {
+      "type": "Rect",
+      "zLevel": -1,
+      "size": [100, 10],
+      "colors": {
+        "topLeft": [0.3, 0.3, 0.3, 1],
+        "topRight": [0.3, 0.3, 0.3, 1],
+        "bottomLeft": [0.3, 0.3, 0.3, 1],
+        "bottomRight": [0.3, 0.3, 0.3, 1]
+      }
+    },
+    "main_line": {
+      "type": "TextInputLine",
+      "linked_points": {
+        "top_left": {
+          "object": "selector"
+        },
+        "bottom_right": {
+          "object": "THIS_NAME.button",
+          "focal_point": "bottom_left"
+        }
+      },
+      "text": "",
+      "color": [1, 1, 1, 1],
+      "dropShadow": true
+    },
+    "button": {
+      "type": "Button",
+      "zLevel": 1,
+      "focal_point": "top_right",
+      "coordinates": [-10, 0],
+      "size": [10, 10],
+      "icon": "button.expand",
+      "switch_icon": "button.collapse",
+      "hovered_icon": "button.hover_rect",
+      "check_borders": false,
+      "elements": {
+        "expand": {
+          "type": "Icon",
+          "size": [10, 10],
+          "zLevel": 0,
+          "mapping_resource_domain": "thaumicextensions",
+          "mapping_resource_path": "texture_mappings/icons.json",
+          "mapping_icon_name": "expand"
+        },
+        "collapse": {
+          "type": "Icon",
+          "size": [10, 10],
+          "zLevel": 1,
+          "hided": true,
+          "mapping_resource_domain": "thaumicextensions",
+          "mapping_resource_path": "texture_mappings/icons.json",
+          "mapping_icon_name": "collapse"
+        },
+        "hover_rect": {
+          "type": "Rect",
+          "size": [10, 10],
+          "zLevel": 2,
+          "colors": {
+            "topLeft": [0.7, 0.7, 0.7, 0.3],
+            "topRight": [0.7, 0.7, 0.7, 0.3],
+            "bottomLeft": [0.7, 0.7, 0.7, 0.3],
+            "bottomRight": [0.7, 0.7, 0.7, 0.3]
+          }
+        }
+      }
+    }
+  }
+}
