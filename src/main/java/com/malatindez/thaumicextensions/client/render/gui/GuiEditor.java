@@ -21,7 +21,7 @@ public class GuiEditor extends EnhancedGuiScreen {
          *
          * @return default JSON with already preset elements
          */
-        String getDefaultJSON();
+        String getTemplateJSON();
     }
     public void initGui() {}
 
