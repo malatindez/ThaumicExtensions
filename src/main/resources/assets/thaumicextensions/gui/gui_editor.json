@@ -188,11 +188,11 @@
                 "drag_focus": "draggable_window.top_bar",
                 "zLevel": 0,
                 "currently_dragging": {
-                  "object_name": "none",
+                  "object_name": ".",
                   "method_name": "currently_dragging"
                 },
                 "dragging_end": {
-                  "object_name": "none",
+                  "object_name": ".",
                   "method_name": "dragging_end"
                 },
                 "elements": {
