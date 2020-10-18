@@ -90,7 +90,7 @@ public class UtilsFX extends thaumcraft.client.lib.UtilsFX {
             System.out.println("Exception caught! Wrong ResourceFile in loadFromFile.");
             System.out.println(file);
             e.printStackTrace();
-            return null;
+            return "";
         }
         InputStreamReader isReader = new InputStreamReader(x);
         BufferedReader reader = new BufferedReader(isReader);
