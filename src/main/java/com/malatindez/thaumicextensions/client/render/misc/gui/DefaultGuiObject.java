@@ -259,6 +259,13 @@ public abstract class DefaultGuiObject implements EnhancedGuiScreen.Renderable, 
         }
         return getName();
     }
+    // Returns domain name up to this object(object.a.b.c.this)
+    public String getDomainName(DefaultGuiObject object) {
+        if(parent instanceof DefaultGuiObject && this != object) {
+            return ((DefaultGuiObject) parent).getGlobalName() + "." + getName();
+        }
+        return getName();
+    }
     public Vector4f getBorders() {
         return new Vector4f(borders);
     }
