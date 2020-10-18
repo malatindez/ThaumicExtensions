@@ -32,6 +32,15 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
         return returnValue;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = super.getFullJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("cursorColor", VecToJson(cursorColor));
+        return returnValue;
+    }
+
     @Override
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);

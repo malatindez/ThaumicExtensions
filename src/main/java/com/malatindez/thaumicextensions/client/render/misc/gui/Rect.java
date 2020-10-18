@@ -1,16 +1,20 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 @SideOnly(Side.CLIENT)
-public class Rect extends DefaultGuiObject {
+public class Rect extends DefaultGuiObject implements GuiEditor.Editable {
 
     public VertexColors colors;
 
@@ -39,6 +43,28 @@ public class Rect extends DefaultGuiObject {
                 Json4Vec(colors.get("bottomRight"))
         );
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = super.getFullDefaultJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        JSONObject Colors = new JSONObject();
+        Colors.put("topLeft", VecToJson(colors.topLeft));
+        Colors.put("topRight", VecToJson(colors.topRight));
+        Colors.put("bottomLeft", VecToJson(colors.bottomLeft));
+        Colors.put("bottomRight", VecToJson(colors.bottomRight));
+        a.put("colors", Colors);
+        return returnValue;
+    }
+
+    private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/rect_template.json");
+    @Override
+    public JSONObject getTemplateJSON() {
+        String s = UtilsFX.loadFromFile(templateLocation);
+        return (JSONObject) JSONValue.parse(s);
+    }
+
     public static class VertexColors {
         final Vector4f topLeft;
         final Vector4f topRight;

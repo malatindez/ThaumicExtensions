@@ -3,6 +3,7 @@ package com.malatindez.thaumicextensions.client.render.misc.gui;
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.lib.UtilsFX;
 
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import com.malatindez.thaumicextensions.client.render.misc.Vectors.Vector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,7 +53,7 @@ public class IconFactory {
         }
     }
     @SideOnly(Side.CLIENT)
-    public static class Icon extends DefaultGuiObject {
+    public static class Icon extends DefaultGuiObject implements GuiEditor.Editable {
         protected IconSample sample;
 
         @SuppressWarnings("unchecked")
@@ -107,6 +108,24 @@ public class IconFactory {
                     sample.texFrom, sample.texTo,
                     current_scale,
                     sample.textureSize, getZLevel());
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public JSONObject getFullJSON() {
+            JSONObject returnValue = super.getFullDefaultJSON();
+            JSONObject a = (JSONObject) returnValue.get(getName());
+            a.put("mapping_resource_domain", sample.mapping.getResourceDomain());
+            a.put("mapping_resource_path", sample.mapping.getResourcePath());
+            a.put("mapping_icon_name", sample.iconName);
+            return returnValue;
+        }
+
+        private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/icon_template.json");
+        @Override
+        public JSONObject getTemplateJSON() {
+            String s = UtilsFX.loadFromFile(templateLocation);
+            return (JSONObject) JSONValue.parse(s);
         }
     }
     protected final HashMap<String, IconSample> parts = new HashMap<String, IconSample>();

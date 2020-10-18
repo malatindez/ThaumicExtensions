@@ -1,13 +1,17 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
 
 @SideOnly(Side.CLIENT)
-public class ScrollBar extends Collection {
+public class ScrollBar extends Collection implements GuiEditor.Editable {
     protected Scrollable objectToScroll; // this is a reference to an object which should be scrolled
     protected Drag scroll_icon; // this is a reference to a Drag object
     protected DefaultGuiObject scrolling_collection; // this is a reference to a descendant
@@ -88,12 +92,34 @@ public class ScrollBar extends Collection {
         super.postInit();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public JSONObject generateJSONObject() {
-        return super.generateJSONObject();
+        JSONObject returnValue = super.generateJSONObject();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("objectToScroll", ((DefaultGuiObject)objectToScroll).getDomainName(this));
+        a.put("scroll_icon", scroll_icon.getDomainName(this));
+        return returnValue;
     }
 
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = super.getFullDefaultJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("objectToScroll", ((DefaultGuiObject)objectToScroll).getDomainName(this));
+        a.put("scroll_icon", scroll_icon.getDomainName(this));
+        return returnValue;
+    }
+
+    private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/scrollbar_x_template.json");
+    @Override
+    public JSONObject getTemplateJSON() {
+        String s = UtilsFX.loadFromFile(templateLocation);
+        return (JSONObject) JSONValue.parse(s);
     }
 }

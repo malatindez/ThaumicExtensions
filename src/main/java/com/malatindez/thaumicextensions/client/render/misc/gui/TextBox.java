@@ -1,10 +1,14 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
+import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector4f;
@@ -12,7 +16,7 @@ import org.lwjgl.util.vector.Vector4f;
 import java.util.ArrayList;
 
 @SideOnly(Side.CLIENT)
-public class TextBox extends DefaultGuiObject {
+public class TextBox extends DefaultGuiObject implements GuiEditor.Editable {
     protected FontRenderer fontRendererObj;
     protected String text;
     protected Vector2f textScale;
@@ -49,6 +53,25 @@ public class TextBox extends DefaultGuiObject {
             dropShadow = false;
         }
         textWasUpdated();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = super.getFullDefaultJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        a.put("text", this.text);
+        a.put("color",VecToJson(color));
+        a.put("textScale",VecToJson(textScale));
+        a.put("dropShadow",dropShadow);
+        return returnValue;
+    }
+
+    private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/text_box_template.json");
+    @Override
+    public JSONObject getTemplateJSON() {
+        String s = UtilsFX.loadFromFile(templateLocation);
+        return (JSONObject) JSONValue.parse(s);
     }
 
     public void setText(String text) {

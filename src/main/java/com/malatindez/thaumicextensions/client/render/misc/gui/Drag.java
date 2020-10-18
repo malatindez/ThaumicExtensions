@@ -1,13 +1,17 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
+import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 
 @SideOnly(Side.CLIENT)
-public class Drag extends Collection {
+public class Drag extends Collection implements GuiEditor.Editable {
     protected MethodObjectPair currentlyDragging;
     protected MethodObjectPair dragEnd;
 
@@ -44,7 +48,7 @@ public class Drag extends Collection {
         putMethod(a, "currently_dragging", currentlyDragging);
         putMethod(a, "dragging_end", dragEnd);
         if(objectToFocusOn != null) {
-            a.put("drag_focus", objectToFocusOn.getName());
+            a.put("drag_focus", objectToFocusOn.getDomainName(this));
         }
         return returnValue;
     }
@@ -56,6 +60,29 @@ public class Drag extends Collection {
         currentlyDragging = getMethod(parameters, "currently_dragging", new Class[] {Object.class, int.class});
         dragEnd = getMethod(parameters, "dragging_end", new Class[] {Object.class, int.class});
     }
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = super.getFullJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+
+        if(objectToFocusOn != null) {
+            a.put("drag_focus", objectToFocusOn.getDomainName(this));
+        } else {
+            a.put("drag_focus", ".");
+        }
+        putMethod(a, "currently_dragging", currentlyDragging, false);
+        putMethod(a, "dragging_end", dragEnd, false);
+        return returnValue;
+    }
+
+    private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/drag_window_template.json");
+    @Override
+    public JSONObject getTemplateJSON() {
+        String s = UtilsFX.loadFromFile(templateLocation);
+        return (JSONObject) JSONValue.parse(s);
+    }
+
     @Override
     public void postInit() {
         super.postInit();

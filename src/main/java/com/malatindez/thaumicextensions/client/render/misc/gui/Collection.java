@@ -1,9 +1,13 @@
 package com.malatindez.thaumicextensions.client.render.misc.gui;
 
 
+import com.malatindez.thaumicextensions.client.lib.UtilsFX;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.ResourceLocation;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ import java.util.Comparator;
 
 @SideOnly(Side.CLIENT)
 public class Collection extends DefaultGuiObject implements
-        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable {
+        EnhancedGuiScreen.Clickable, EnhancedGuiScreen.Updatable, EnhancedGuiScreen.Inputable, GuiEditor.Editable {
 
     private ArrayList<DefaultGuiObject> descendants;
 
@@ -76,6 +80,26 @@ public class Collection extends DefaultGuiObject implements
                 this.addObject(EnhancedGuiScreen.createObject((String)key,this, (JSONObject) elements.get(key)));
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public JSONObject getFullJSON() {
+        JSONObject returnValue = getFullDefaultJSON();
+        JSONObject a = (JSONObject) returnValue.get(getName());
+        JSONObject b = new JSONObject();
+        for(DefaultGuiObject object : descendants) {
+            b.put(object.getName(), object.generateJSONObject().get(object.getName()));
+        }
+        a.put("elements", b);
+        return returnValue;
+    }
+
+    private static final ResourceLocation templateLocation = new ResourceLocation("thaumicextensions", "gui/templates/collection_template.json");
+    @Override
+    public JSONObject getTemplateJSON() {
+        String s = UtilsFX.loadFromFile(templateLocation);
+        return (JSONObject) JSONValue.parse(s);
     }
 
     @Override
