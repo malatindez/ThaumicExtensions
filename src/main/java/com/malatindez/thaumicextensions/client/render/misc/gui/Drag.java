@@ -53,24 +53,8 @@ public class Drag extends Collection {
     public void loadFromJSONObject(JSONObject parameters) {
         super.loadFromJSONObject(parameters);
         objectToFocusOnName = (String)parameters.get("drag_focus");
-        if(parameters.containsKey("currently_dragging")) {
-            JSONObject obj = (JSONObject) parameters.get("currently_dragging");
-            currentlyDragging = this.getMethodUp(
-                    (String) obj.get("object_name"),
-                    (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class});
-        } else {
-            currentlyDragging = null;
-        }
-        if(parameters.containsKey("dragging_end")) {
-            JSONObject obj = (JSONObject) parameters.get("dragging_end");
-            dragEnd = this.getMethodUp(
-                    (String) obj.get("object_name"),
-                    (String) obj.get("method_name"),
-                    new Class[] {Object.class, int.class});
-        } else {
-            dragEnd = null;
-        }
+        currentlyDragging = getMethod(parameters, "currently_dragging", new Class[] {Object.class, int.class});
+        dragEnd = getMethod(parameters, "dragging_end", new Class[] {Object.class, int.class});
     }
     @Override
     public void postInit() {
