@@ -2,6 +2,8 @@ package com.malatindez.thaumicextensions.client.render.gui;
 
 import com.malatindez.thaumicextensions.ThaumicExtensions;
 import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiBrowser;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiEditorContextMenu;
+import com.malatindez.thaumicextensions.client.render.gui.GuiEditorMisc.GuiElementEditor;
 import com.malatindez.thaumicextensions.client.render.misc.gui.*;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -46,36 +48,19 @@ public class GuiEditor extends EnhancedGuiScreen {
             }
         }
     }
-    @SuppressWarnings("rawtypes")
-    public static final HashMap<String, Class> editor_parts = new HashMap<String, Class>(){{
-        put("Collection", Collection.class);
-        put("ContextMenuField", ContextMenuField.class);
-        put("ScrollBar", ScrollBar.class);
-        put("Button", Button.class);
-        put("Drag", Drag.class);
-        put("Icon", IconFactory.Icon.class);
-        put("Rect", Rect.class);
-        put("TextBox", TextBox.class);
-        put("TextLine", TextLine.class);
-        put("TextInputBox", TextInputBox.class);
-        put("TextInputLine", TextInputLine.class);
-        // type name and class instance which will be constructed
-    }};
-    @SuppressWarnings("rawtypes")
-    public static void addEditorPart(Class c) {
-        parts.put(c.getSimpleName(), c);
-    }
-
     public void onGuiClosed() {
         super.onGuiClosed();
     }
     static Collection collection = null;
     public GuiEditor() {
 
-        //if(collection == null) {
+        if(collection == null) {
             EnhancedGuiScreen.addPart(GuiBrowser.class);
-            collection = EnhancedGuiScreen.loadFromFile(this,
-                    new ResourceLocation(ThaumicExtensions.MODID, "gui/gui_editor.json"));
+            EnhancedGuiScreen.addPart(GuiEditorContextMenu.class);
+            EnhancedGuiScreen.addPart(GuiElementEditor.class);
+        }
+        collection = EnhancedGuiScreen.loadFromFile(this,
+                new ResourceLocation(ThaumicExtensions.MODID, "gui/gui_editor.json"));
         //}
         this.gui = collection;
     }
