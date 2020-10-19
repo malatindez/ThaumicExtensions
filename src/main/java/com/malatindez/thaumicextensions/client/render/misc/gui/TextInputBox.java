@@ -116,15 +116,13 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                 }
                 height += fontRendererObj.FONT_HEIGHT;
             }
+            if(lines.size() == 0) {
+                lines.add("");
+            }
         }
     }
     protected void moveCursor(float x, float y) {
-        Vector2f cursorBuf = new Vector2f(cursor);
-        if (y > 0) {
-            cursor.y = Math.min(cursor.y + y, lines.size() - 1);
-        } else {
-            cursor.y = Math.max(0, cursor.y + y);
-        }
+        cursor.y = Math.min(lines.size() - 1, Math.max(0, cursor.y + y));
         String line = lines.get((int) (cursor.y)).replaceAll("[\n\r]", "");
         if (y != 0) {
             int a = fontRendererObj.getStringWidth(line.substring(0, Math.min(line.length(), (int) cursor.x + 1)));
@@ -189,7 +187,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             case Keyboard.KEY_BACK:
                 offset.set(cursor.x-1,0);
                 if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-                    for (int i = (int)cursor.x-1; (i >= renderCursor.x) && !(line.charAt(i) == ' ' ||
+                    for (int i = (int)cursor.x-1; (i > renderCursor.x) && !(line.charAt(i) == ' ' ||
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(i--,0));
                 }
                 for(int i = 0; i < cursor.y; k += lines.get(i++).length());
@@ -201,7 +199,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
             case Keyboard.KEY_DELETE:
                 offset.set(cursor.x+1,0);
                 if(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) {
-                    for (int i = (int) cursor.x; i < line.length() && !(line.charAt(i) == ' ' ||
+                    for (int i = (int) cursor.x; i < line.length()-1 && !(line.charAt(i) == ' ' ||
                             line.charAt(i) == '\n' || line.charAt(i) == '\r'); offset.set(++i,0));
                 }
                 for(int i = 0; i < cursor.y; k += lines.get(i++).length());

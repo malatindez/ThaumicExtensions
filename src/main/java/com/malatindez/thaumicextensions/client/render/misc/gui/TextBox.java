@@ -30,7 +30,9 @@ public class TextBox extends DefaultGuiObject implements GuiEditor.Editable {
         JSONObject returnValue = super.generateJSONObject();
         JSONObject a = (JSONObject) returnValue.get(getName());
         a.put("text", this.text);
-        a.put("color",VecToJson(color));
+        if(!(color.x == 1 && color.y == 1 && color.z == 1 && color.w == 1)) {
+            a.put("color", VecToJson(color));
+        }
         a.put("textScale",VecToJson(textScale));
         a.put("dropShadow",dropShadow);
         return returnValue;
@@ -41,7 +43,14 @@ public class TextBox extends DefaultGuiObject implements GuiEditor.Editable {
         super.loadFromJSONObject(parameters);
         fontRendererObj = Minecraft.getMinecraft().fontRenderer;
         text = (String)parameters.get("text");
-        color = Json4Vec(parameters.get("color"));
+        if(text == null) {
+            text = "";
+        }
+        if(parameters.containsKey("color")) {
+            color = Json4Vec(parameters.get("color"));
+        } else {
+            color = new Vector4f(1,1,1,1);
+        }
         if(parameters.containsKey("textScale")) {
             textScale = Json2Vec(parameters.get("textScale"));
         } else {
