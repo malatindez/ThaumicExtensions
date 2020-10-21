@@ -377,13 +377,14 @@
                 "size": [150, 10],
                 "zLevel": 100,
                 "size_scale_type": "none",
-                "main_line": "selector.main_line",
+                "coordinates_scale_type": "none",
+                "target_line": "selector.target_line",
                 "lines": ["none", "scale_x", "scale_y", "scale_xy", "scale_smooth_x", "scale_smooth_y", "scale_smooth_xy"],
                 "elements": {
                   "background": {
                     "type": "Rect",
                     "zLevel": -1,
-                    "size": [100, 10],
+                    "size": [150, 10],
                     "colors": {
                       "topLeft": [0.3, 0.3, 0.3, 1],
                       "topRight": [0.3, 0.3, 0.3, 1],
@@ -391,7 +392,7 @@
                       "bottomRight": [0.3, 0.3, 0.3, 1]
                     }
                   },
-                  "main_line": {
+                  "target_line": {
                     "type": "TextInputLine",
                     "linked_points": {
                       "top_left": {

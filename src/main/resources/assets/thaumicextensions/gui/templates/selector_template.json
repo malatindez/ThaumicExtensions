@@ -3,8 +3,8 @@
   "size": [150, 10],
   "zLevel": 100,
   "size_scale_type": "none",
-  "main_line": "THIS_NAME.main_line",
-  "lines": ["a", "b"],
+  "target_line": "THIS_NAME.target_line",
+  "lines": [],
   "elements": {
     "background": {
       "type": "Rect",
@@ -17,11 +17,11 @@
         "bottomRight": [0.3, 0.3, 0.3, 1]
       }
     },
-    "main_line": {
+    "target_line": {
       "type": "TextInputLine",
       "linked_points": {
         "top_left": {
-          "object": "selector"
+          "object": "THIS_NAME"
         },
         "bottom_right": {
           "object": "THIS_NAME.button",
