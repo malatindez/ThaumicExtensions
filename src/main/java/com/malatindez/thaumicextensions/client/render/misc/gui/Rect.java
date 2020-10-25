@@ -89,13 +89,13 @@ public class Rect extends DefaultGuiObject implements GuiEditor.Editable {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
         tessellator.setColorRGBA_F(colors.topRight.x, colors.topRight.y, colors.topRight.z, colors.topRight.w);
-        tessellator.addVertex(borders.z, borders.y, zLevel);
+        tessellator.addVertex(borders.z, borders.y, 0);
         tessellator.setColorRGBA_F(colors.topLeft.x, colors.topLeft.y, colors.topLeft.z, colors.topLeft.w);
-        tessellator.addVertex(borders.x, borders.y, zLevel);
+        tessellator.addVertex(borders.x, borders.y, 0);
         tessellator.setColorRGBA_F(colors.bottomLeft.x, colors.bottomLeft.y, colors.bottomLeft.z, colors.bottomLeft.w);
-        tessellator.addVertex(borders.x, borders.w, zLevel);
+        tessellator.addVertex(borders.x, borders.w, 0);
         tessellator.setColorRGBA_F(colors.bottomRight.x, colors.bottomRight.y, colors.bottomRight.z, colors.bottomRight.w);
-        tessellator.addVertex(borders.z, borders.w, zLevel);
+        tessellator.addVertex(borders.z, borders.w, 0);
         tessellator.draw();
         GL11.glShadeModel(GL11.GL_FLAT);
         GL11.glDisable(GL11.GL_BLEND);
