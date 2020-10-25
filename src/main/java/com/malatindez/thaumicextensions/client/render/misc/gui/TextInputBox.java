@@ -66,7 +66,7 @@ public class TextInputBox extends TextBox implements EnhancedGuiScreen.Clickable
                 currentMousePosition.y > borders.y &&
                 currentMousePosition.x < borders.z &&
                 currentMousePosition.y < borders.w;
-        if(selected) {
+        if(selected && linesToRender.size() > 0) {
             float y = (currentMousePosition.y - getCurrentPosition().y) / fontRendererObj.FONT_HEIGHT / textScale.y;
             y = Math.min(y, linesToRender.size()-1);
             String str = linesToRender.get((int)y);
