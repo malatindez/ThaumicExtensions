@@ -120,13 +120,11 @@ public class GuiBrowser extends Collection implements ScrollBar.Scrollable {
             " \"elements\": {\n" +
             "  \"Icon\": { \"type\": \"Collection\", \"auto_scale_x\": true,\n" +
             "   \"elements\": {\n" +
-            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "    \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.3,0.3,0.3,0.5], \"topRight\": [0.3,0.3,0.3,0.5], \"bottomLeft\": [0.3,0.3,0.3,0.5], \"bottomRight\": [0.3,0.3,0.3,0.5] }}\n" +
+            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true }\n" +
             "    }},\n" +
             "  \"hovered_Icon\": {\"auto_scale_x\": true, \"type\": \"Collection\",\n" +
             "   \"elements\": {\n" +
-            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true },\n" +
-            "    \"background\": { \"auto_scale_x\": true, \"type\": \"Rect\", \"colors\": { \"topLeft\": [0.7,0.7,0.7,0.6], \"topRight\": [0.7,0.7,0.7,0.6], \"bottomLeft\": [0.7,0.7,0.7,0.6], \"bottomRight\": [0.7,0.7,0.7,0.6] }}\n" +
+            "    \"text\": { \"auto_scale_x\": true, \"zLevel\": 1, \"type\": \"TextLine\", \"text\": \"ICON_TEXT\", \"dropShadow\": true }\n" +
             "}}}}\n" +
             "}}";
 
