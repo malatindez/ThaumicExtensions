@@ -9,7 +9,7 @@
     "background": {
       "type": "Rect",
       "zLevel": -1,
-      "size": [100, 10],
+      "size": [150, 10],
       "colors": {
         "topLeft": [0.3, 0.3, 0.3, 1],
         "topRight": [0.3, 0.3, 0.3, 1],
@@ -18,7 +18,7 @@
       }
     },
     "target_line": {
-      "type": "TextInputLine",
+      "type": "TextLine",
       "linked_points": {
         "top_left": {
           "object": "THIS_NAME"
@@ -38,6 +38,10 @@
       "focal_point": "top_right",
       "coordinates": [-10, 0],
       "size": [10, 10],
+      "clicked": {
+        "object_name": "THIS_NAME",
+        "method_name": "ecClicked"
+      },
       "icon": "button.expand",
       "switch_icon": "button.collapse",
       "hovered_icon": "button.hover_rect",

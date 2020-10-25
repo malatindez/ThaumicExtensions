@@ -393,7 +393,7 @@
                     }
                   },
                   "target_line": {
-                    "type": "TextInputLine",
+                    "type": "TextLine",
                     "linked_points": {
                       "top_left": {
                         "object": "selector"
@@ -417,6 +417,10 @@
                     "switch_icon": "button.collapse",
                     "hovered_icon": "button.hover_rect",
                     "check_borders": false,
+                    "clicked": {
+                      "object_name": "selector",
+                      "method_name": "ecClicked"
+                    },
                     "elements": {
                       "expand": {
                         "type": "Icon",
